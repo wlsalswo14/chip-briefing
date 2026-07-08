@@ -1,0 +1,21 @@
+{
+  "updated_at": "2026-07-08T09:00:47+09:00",
+  "items": [
+    {
+      "date": "2026-07-08",
+      "generated_at": "2026-07-08T09:00:47+09:00",
+      "file": "archive/2026-07-08.json",
+      "article_count": 17,
+      "job_count": 0,
+      "top_headline": "[삼성 반도체 점검]삼성전자, HBM4로 종합반도체 실효성 가늠 : 네이버 블로그 - Naver Blog"
+    },
+    {
+      "date": "2026-07-06",
+      "generated_at": "2026-07-06T11:18:46+09:00",
+      "file": "archive/2026-07-06.json",
+      "article_count": 36,
+      "job_count": 24,
+      "top_headline": "[Expert POV] From AI semiconductors to AI services: How the ecosystem is evolving"
+    }
+  ]
+}

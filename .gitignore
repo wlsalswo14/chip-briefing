@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Project specific
+logs/
+*.log
+api키.txt
+허깅페이스 토큰.txt
+*.lnk
+*.url
+*.pdf
+*.png
+*.jpg
+*.zip
+*.txt

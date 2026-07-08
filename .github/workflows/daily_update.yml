@@ -1,0 +1,54 @@
+name: Daily Chip Briefing Update
+
+on:
+  schedule:
+    # Runs at 23:00 UTC (08:00 KST) every day
+    - cron: '0 23 * * *'
+  workflow_dispatch: # Allows manual trigger from GitHub Actions tab
+
+permissions:
+  contents: write # Required to push commits back to the repo
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Run collector
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          CHIP_BRIEFING_LLM_MAX_ITEMS: "36"
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
+          NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
+          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
+          REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
+        run: |
+          python collect_news.py
+
+      - name: Send Telegram Archive
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          python send_telegram_archive.py
+
+      - name: Commit and Push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add articles.json index.html archive/
+          if ! git diff --cached --quiet; then
+            git commit -m "Auto-update briefing: $(date -u +'%Y-%m-%d %H:%M:%S') UTC"
+            git push
+          else
+            echo "No changes to commit"
+          fi

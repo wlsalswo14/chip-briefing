@@ -1,0 +1,156 @@
+{
+  "version": 1,
+  "updated_at": "2026-07-06T09:45:00+09:00",
+  "source_groups": [
+    {
+      "group": "korean_search",
+      "sources": [
+        {
+          "name": "Naver News Search",
+          "type": "api",
+          "endpoint": "https://openapi.naver.com/v1/search/news.json",
+          "requires_env": ["NAVER_CLIENT_ID", "NAVER_CLIENT_SECRET"],
+          "trust_default": "medium",
+          "category_default": "news",
+          "notes": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url."
+        },
+        {
+          "name": "Naver Blog Search",
+          "type": "api",
+          "endpoint": "https://openapi.naver.com/v1/search/blog.json",
+          "requires_env": ["NAVER_CLIENT_ID", "NAVER_CLIENT_SECRET"],
+          "trust_default": "low",
+          "category_default": "analysis",
+          "notes": "Useful for Korean commentary. Treat as lower trust unless author is known."
+        }
+      ]
+    },
+    {
+      "group": "official",
+      "sources": [
+        {"name": "Samsung Newsroom", "type": "html_or_rss", "url": "https://news.samsung.com/global/", "trust_default": "high"},
+        {"name": "SK hynix Newsroom", "type": "html_or_rss", "url": "https://news.skhynix.com/", "trust_default": "high"},
+        {"name": "TSMC Press Center", "type": "html", "url": "https://pr.tsmc.com/english/news", "trust_default": "high"},
+        {"name": "ASML News", "type": "html", "url": "https://www.asml.com/news", "trust_default": "high"},
+        {"name": "NVIDIA Newsroom", "type": "html_or_rss", "url": "https://nvidianews.nvidia.com/news", "trust_default": "high"},
+        {"name": "NVIDIA Developer Blog", "type": "rss_or_html", "url": "https://developer.nvidia.com/blog/", "trust_default": "high"},
+        {"name": "AMD Newsroom", "type": "html_or_rss", "url": "https://www.amd.com/en/newsroom.html", "trust_default": "high"},
+        {"name": "Intel Newsroom", "type": "html_or_rss", "url": "https://www.intel.com/content/www/us/en/newsroom/home.html", "trust_default": "high"},
+        {"name": "Micron Newsroom", "type": "html_or_rss", "url": "https://www.micron.com/about/news-and-events", "trust_default": "high"},
+        {"name": "SEMI", "type": "html_or_rss", "url": "https://www.semi.org/en/news-resources", "trust_default": "high"},
+        {"name": "SIA", "type": "html_or_rss", "url": "https://www.semiconductors.org/news/", "trust_default": "high"}
+      ]
+    },
+    {
+      "group": "specialized_media",
+      "sources": [
+        {"name": "Semiconductor Engineering", "type": "rss_or_html", "url": "https://semiengineering.com/", "trust_default": "medium"},
+        {"name": "Semiconductor Today", "type": "rss", "url": "https://www.semiconductor-today.com/rss.shtml", "trust_default": "medium"},
+        {"name": "SemiWiki", "type": "rss_or_html", "url": "https://semiwiki.com/", "trust_default": "medium"},
+        {"name": "EE Times", "type": "rss_or_html", "url": "https://www.eetimes.com/", "trust_default": "medium"},
+        {"name": "ServeTheHome", "type": "rss_or_html", "url": "https://www.servethehome.com/", "trust_default": "medium"},
+        {"name": "IEEE Spectrum", "type": "rss_or_html", "url": "https://spectrum.ieee.org/", "trust_default": "medium"},
+        {"name": "The Elec", "type": "rss_or_html", "url": "https://www.thelec.net/", "trust_default": "medium"},
+        {"name": "DIGITIMES", "type": "rss_or_html", "url": "https://www.digitimes.com/", "trust_default": "medium"},
+        {"name": "SemiAnalysis", "type": "rss_or_newsletter", "url": "https://www.semianalysis.com/", "trust_default": "medium"},
+        {"name": "Fabricated Knowledge", "type": "rss_or_newsletter", "url": "https://www.fabricatedknowledge.com/", "trust_default": "medium"}
+      ]
+    },
+    {
+      "group": "social_community",
+      "sources": [
+        {
+          "name": "X Recent Search",
+          "type": "api",
+          "endpoint": "https://api.x.com/2/tweets/search/recent",
+          "requires_env": ["X_BEARER_TOKEN"],
+          "trust_default": "low",
+          "category_default": "rumor",
+          "notes": "Official recent search covers last 7 days. Store tweet URL and author; do not scrape logged-in pages."
+        },
+        {
+          "name": "Reddit",
+          "type": "api",
+          "url": "https://www.reddit.com/",
+          "requires_env": ["REDDIT_CLIENT_ID", "REDDIT_CLIENT_SECRET", "REDDIT_USER_AGENT"],
+          "trust_default": "low",
+          "category_default": "community",
+          "notes": "Use API/PRAW for subreddits and search. Link back to original threads."
+        },
+        {
+          "name": "Hacker News Algolia",
+          "type": "api",
+          "endpoint": "https://hn.algolia.com/api/v1/search_by_date",
+          "trust_default": "low",
+          "category_default": "community",
+          "notes": "Good for design, EDA, architecture discussions."
+        }
+      ]
+    }
+  ],
+  "queries": {
+    "ko": [
+      "반도체 HBM",
+      "HBM4 HBM4E",
+      "반도체 패키징 CoWoS",
+      "EUV High NA",
+      "2나노 공정 GAA",
+      "AI 반도체 ASIC NPU",
+      "삼성전자 파운드리",
+      "SK하이닉스 HBM",
+      "TSMC 패키징",
+      "ASML EUV"
+    ],
+    "en": [
+      "HBM OR HBM4 OR HBM4E",
+      "CoWoS OR advanced packaging OR hybrid bonding",
+      "High NA EUV OR GAA OR nanosheet OR 2nm",
+      "AI accelerator OR ASIC OR GPU OR NPU",
+      "EDA OR chiplet OR interconnect",
+      "TSMC OR Samsung Foundry OR SK hynix OR ASML OR Micron"
+    ]
+  },
+  "sector_keywords": {
+    "설계": ["ASIC", "GPU", "NPU", "TPU", "RISC-V", "Arm", "EDA", "IP", "chiplet architecture", "interconnect", "NoC"],
+    "공정": ["EUV", "High NA", "GAA", "nanosheet", "2nm", "3nm", "yield", "lithography", "etch", "deposition", "metrology"],
+    "소자": ["DRAM", "NAND", "HBM", "MRAM", "ReRAM", "CXL memory", "transistor", "cell", "leakage", "retention"],
+    "패키징": ["CoWoS", "2.5D", "3D packaging", "interposer", "hybrid bonding", "bump", "substrate", "chiplet", "advanced packaging"]
+  },
+  "job_sources": [
+    {
+      "company": "Lightmatter",
+      "name": "Lightmatter Careers",
+      "provider": "greenhouse",
+      "board": "lightmatter",
+      "url": "https://boards.greenhouse.io/lightmatter"
+    },
+    {
+      "company": "Tenstorrent",
+      "name": "Tenstorrent Careers",
+      "provider": "greenhouse",
+      "board": "tenstorrent",
+      "url": "https://boards.greenhouse.io/tenstorrent"
+    },
+    {
+      "company": "Cerebras",
+      "name": "Cerebras Careers",
+      "provider": "ashby",
+      "board": "cerebras",
+      "url": "https://jobs.ashbyhq.com/cerebras"
+    },
+    {
+      "company": "Etched",
+      "name": "Etched Careers",
+      "provider": "ashby",
+      "board": "etched",
+      "url": "https://jobs.ashbyhq.com/etched"
+    },
+    {
+      "company": "d-Matrix",
+      "name": "d-Matrix Careers",
+      "provider": "ashby",
+      "board": "d-matrix",
+      "url": "https://jobs.ashbyhq.com/d-matrix"
+    }
+  ]
+}
