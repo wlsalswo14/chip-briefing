@@ -1,13 +1,13 @@
 {
-  "updated_at": "2026-07-08T09:00:47+09:00",
+  "updated_at": "2026-07-08T09:46:09+09:00",
   "items": [
     {
       "date": "2026-07-08",
-      "generated_at": "2026-07-08T09:00:47+09:00",
+      "generated_at": "2026-07-08T09:46:09+09:00",
       "file": "archive/2026-07-08.json",
-      "article_count": 17,
+      "article_count": 18,
       "job_count": 0,
-      "top_headline": "[삼성 반도체 점검]삼성전자, HBM4로 종합반도체 실효성 가늠 : 네이버 블로그 - Naver Blog"
+      "top_headline": "From HBM to eSSD: How SK hynix is charting the future of full-stack memory"
     },
     {
       "date": "2026-07-06",

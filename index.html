@@ -333,7 +333,7 @@
 <script id="inline-data" type="application/json">
 {
   "schema_version": 4,
-  "generated_at": "2026-07-08T09:00:47+09:00",
+  "generated_at": "2026-07-08T09:46:09+09:00",
   "briefing_title": "칩 브리핑",
   "sectors": [
     "설계",
@@ -343,11 +343,12 @@
   ],
   "collector": {
     "name": "collect_news.py",
-    "source_count": 17,
+    "source_count": 18,
     "job_count": 0,
     "notes": "Metadata/link collection only; article full text is not stored. LLM summaries are generated transiently when configured.",
     "summary_methods": [
-      "llm"
+      "llm",
+      "snippet"
     ],
     "summary_model": "google/gemma-4-26B-A4B-it",
     "logs": [
@@ -359,25 +360,29 @@
       "rss skip: AMD Newsroom https://www.amd.com/en/newsroom.html/rss (HTTPError)",
       "rss skip: AMD Newsroom https://www.amd.com/en/newsroom.html/rss.xml (HTTPError)",
       "rss skip: AMD Newsroom https://www.amd.com/en/newsroom.html/feed.xml (HTTPError)",
-      "rss skip: Intel Newsroom https://www.intel.com/content/www/us/en/newsroom/rss.xml (URLError)",
-      "rss skip: Intel Newsroom https://www.intel.com/content/www/us/en/newsroom/home.html/feed/ (URLError)",
-      "rss skip: Intel Newsroom https://www.intel.com/content/www/us/en/newsroom/home.html/rss (URLError)",
-      "rss skip: Intel Newsroom https://www.intel.com/content/www/us/en/newsroom/home.html/rss.xml (URLError)",
-      "rss skip: Intel Newsroom https://www.intel.com/content/www/us/en/newsroom/home.html/feed.xml (URLError)",
+      "rss skip: Intel Newsroom https://www.intel.com/content/www/us/en/newsroom/rss.xml (HTTPError)",
+      "rss skip: Intel Newsroom https://www.intel.com/content/www/us/en/newsroom/home.html/feed/ (HTTPError)",
+      "rss skip: Intel Newsroom https://www.intel.com/content/www/us/en/newsroom/home.html/rss (HTTPError)",
+      "rss skip: Intel Newsroom https://www.intel.com/content/www/us/en/newsroom/home.html/rss.xml (HTTPError)",
+      "rss skip: Intel Newsroom https://www.intel.com/content/www/us/en/newsroom/home.html/feed.xml (HTTPError)",
       "rss skip: Micron Newsroom https://www.micron.com/about/news-and-events/rss.xml (HTTPError)",
       "rss skip: Micron Newsroom https://www.micron.com/about/news-and-events/feed/ (HTTPError)",
       "rss skip: Micron Newsroom https://www.micron.com/about/news-and-events/rss (HTTPError)",
       "rss skip: Micron Newsroom https://www.micron.com/about/news-and-events/feed.xml (HTTPError)",
-      "rss ok: SEMI (10) https://www.semi.org/en/rss.xml",
+      "rss skip: SEMI https://www.semi.org/en/rss.xml (HTTPError)",
+      "rss skip: SEMI https://www.semi.org/en/news-resources/feed/ (HTTPError)",
+      "rss skip: SEMI https://www.semi.org/en/news-resources/rss (HTTPError)",
+      "rss skip: SEMI https://www.semi.org/en/news-resources/rss.xml (HTTPError)",
+      "rss skip: SEMI https://www.semi.org/en/news-resources/feed.xml (HTTPError)",
       "rss skip: SIA https://www.semiconductors.org/news/feed/ (HTTPError)",
       "rss skip: SIA https://www.semiconductors.org/news/rss (HTTPError)",
       "rss skip: SIA https://www.semiconductors.org/news/rss.xml (HTTPError)",
       "rss skip: SIA https://www.semiconductors.org/news/feed.xml (HTTPError)",
       "rss ok: Semiconductor Engineering (10) https://semiengineering.com/feed/",
-      "rss skip: Semiconductor Today https://www.semiconductor-today.com/rss.shtml/feed/ (URLError)",
-      "rss skip: Semiconductor Today https://www.semiconductor-today.com/rss.shtml/rss (URLError)",
-      "rss skip: Semiconductor Today https://www.semiconductor-today.com/rss.shtml/rss.xml (URLError)",
-      "rss skip: Semiconductor Today https://www.semiconductor-today.com/rss.shtml/feed.xml (URLError)",
+      "rss skip: Semiconductor Today https://www.semiconductor-today.com/rss.shtml/feed/ (HTTPError)",
+      "rss skip: Semiconductor Today https://www.semiconductor-today.com/rss.shtml/rss (HTTPError)",
+      "rss skip: Semiconductor Today https://www.semiconductor-today.com/rss.shtml/rss.xml (HTTPError)",
+      "rss skip: Semiconductor Today https://www.semiconductor-today.com/rss.shtml/feed.xml (HTTPError)",
       "rss ok: SemiWiki (5) https://semiwiki.com/feed/",
       "rss ok: EE Times (10) https://www.eetimes.com/feed/",
       "rss ok: ServeTheHome (6) https://www.servethehome.com/feed/",
@@ -419,10 +424,29 @@
       "reddit rss skip: r/chipdesign semiconductor foundry TSMC Samsung ASML (HTTPError)",
       "x skip: disabled by configuration; Reddit-only community mode",
       "cache load: loaded 17 existing summaries from articles.json",
-      "llm ok: summarized 0 articles, reused 17 cached summaries (total 17)"
+      "llm skip article: From HBM to eSSD: How SK hynix is charting the future of ful (ValueError)",
+      "llm ok: summarized 0 articles, reused 17 cached summaries (total 18)"
     ]
   },
   "articles": [
+    {
+      "id": "art-75ca723f1c22ec",
+      "headline": "From HBM to eSSD: How SK hynix is charting the future of full-stack memory",
+      "body": "The focus of AI infrastructure competition is shifting. Larger models and faster compute engines remain important, but for AI systems to scale reliably across real-world services and industrial environments, it is becoming equally important to determine where data resides, which memory layer processes it, and how effic...",
+      "sector": "소자",
+      "category": "news",
+      "trust": "high",
+      "created_at": "2026-07-08T09:00:07+09:00",
+      "placement": "top",
+      "source_name": "SK hynix Newsroom",
+      "source_url": "https://news.skhynix.com/hbm-to-essd",
+      "source_note": "html_or_rss",
+      "raw_source_type": "rss",
+      "matched_keywords": [
+        "HBM"
+      ],
+      "summary_method": "snippet"
+    },
     {
       "id": "art-4a19b66dd1da0a",
       "headline": "[삼성 반도체 점검]삼성전자, HBM4로 종합반도체 실효성 가늠 : 네이버 블로그 - Naver Blog",
@@ -431,7 +455,7 @@
       "category": "news",
       "trust": "medium",
       "created_at": "2026-07-08T06:13:17+09:00",
-      "placement": "top",
+      "placement": "main",
       "source_name": "Google News RSS",
       "source_url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxOQ19lVndfWDE5UWVmV0NBc05Pc0pZd29GOHVNSXRaVHAyNm5ITXExOHVHdU1vdVg1MjlNZEt0SjVGRnFlMmpocnNOQ1pmLWVUY0dkMXFoMUxFNGI5U2xzTDhJM1p6dVljTGdvZWQ4V1I4UVVGU2ZkbEZNMXdNaE1rZDRLVVlfTG1wQnR6LUhsOA?oc=5",
       "source_note": "Google News search RSS result; original publisher link is retained where available.",
@@ -578,7 +602,7 @@
       "category": "news",
       "trust": "medium",
       "created_at": "2026-07-07T16:04:48+09:00",
-      "placement": "main",
+      "placement": "side",
       "source_name": "Semiconductor Engineering",
       "source_url": "https://semiengineering.com/the-test-cell-ecosystem-from-tester-performance-to-production-outcomes",
       "source_note": "rss_or_html",
