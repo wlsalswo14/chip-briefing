@@ -333,7 +333,7 @@
 <script id="inline-data" type="application/json">
 {
   "schema_version": 4,
-  "generated_at": "2026-07-08T09:46:09+09:00",
+  "generated_at": "2026-07-09T08:01:57+09:00",
   "briefing_title": "칩 브리핑",
   "sectors": [
     "설계",
@@ -343,7 +343,7 @@
   ],
   "collector": {
     "name": "collect_news.py",
-    "source_count": 18,
+    "source_count": 22,
     "job_count": 0,
     "notes": "Metadata/link collection only; article full text is not stored. LLM summaries are generated transiently when configured.",
     "summary_methods": [
@@ -352,20 +352,6 @@
     ],
     "summary_model": "google/gemma-4-26B-A4B-it",
     "logs": [
-      "rss ok: Samsung Newsroom (20) https://news.samsung.com/global/feed",
-      "rss ok: SK hynix Newsroom (9) https://news.skhynix.com/feed/",
-      "rss skip: NVIDIA Newsroom https://nvidianews.nvidia.com/news/feed/ (HTTPError)",
-      "rss ok: NVIDIA Developer Blog (20) https://developer.nvidia.com/blog/feed/",
-      "rss skip: AMD Newsroom https://www.amd.com/en/newsroom.html/feed/ (HTTPError)",
-      "rss skip: AMD Newsroom https://www.amd.com/en/newsroom.html/rss (HTTPError)",
-      "rss skip: AMD Newsroom https://www.amd.com/en/newsroom.html/rss.xml (HTTPError)",
-      "rss skip: AMD Newsroom https://www.amd.com/en/newsroom.html/feed.xml (HTTPError)",
-      "rss skip: Intel Newsroom https://www.intel.com/content/www/us/en/newsroom/rss.xml (HTTPError)",
-      "rss skip: Intel Newsroom https://www.intel.com/content/www/us/en/newsroom/home.html/feed/ (HTTPError)",
-      "rss skip: Intel Newsroom https://www.intel.com/content/www/us/en/newsroom/home.html/rss (HTTPError)",
-      "rss skip: Intel Newsroom https://www.intel.com/content/www/us/en/newsroom/home.html/rss.xml (HTTPError)",
-      "rss skip: Intel Newsroom https://www.intel.com/content/www/us/en/newsroom/home.html/feed.xml (HTTPError)",
-      "rss skip: Micron Newsroom https://www.micron.com/about/news-and-events/rss.xml (HTTPError)",
       "rss skip: Micron Newsroom https://www.micron.com/about/news-and-events/feed/ (HTTPError)",
       "rss skip: Micron Newsroom https://www.micron.com/about/news-and-events/rss (HTTPError)",
       "rss skip: Micron Newsroom https://www.micron.com/about/news-and-events/feed.xml (HTTPError)",
@@ -393,9 +379,9 @@
       "rss skip: The Elec https://www.thelec.net/feed.xml (HTTPError)",
       "rss skip: DIGITIMES https://www.digitimes.com/rss (HTTPError)",
       "google news ok: semiconductor HBM OR HBM4 OR HBM4E (10)",
-      "google news ok: semiconductor CoWoS advanced packaging hybrid bonding (9)",
+      "google news ok: semiconductor CoWoS advanced packaging hybrid bonding (10)",
       "google news ok: semiconductor High NA EUV GAA 2nm (9)",
-      "google news ok: AI accelerator ASIC GPU NPU semiconductor (9)",
+      "google news ok: AI accelerator ASIC GPU NPU semiconductor (10)",
       "google news ok: 반도체 HBM OR 패키징 OR EUV OR 파운드리 (10)",
       "naver skip: NAVER_CLIENT_ID/NAVER_CLIENT_SECRET not set",
       "hn ok: HBM OR HBM4 OR HBM4E (0)",
@@ -424,49 +410,371 @@
       "reddit rss skip: r/chipdesign semiconductor foundry TSMC Samsung ASML (HTTPError)",
       "x skip: disabled by configuration; Reddit-only community mode",
       "cache load: loaded 17 existing summaries from articles.json",
-      "llm skip article: From HBM to eSSD: How SK hynix is charting the future of ful (ValueError)",
-      "llm ok: summarized 0 articles, reused 17 cached summaries (total 18)"
+      "llm skip article: Running Low-Latency Analytical Workloads with GPU-Accelerate (ValueError)",
+      "llm skip article: See Autonomous Chip Design in Action with ChipAgents at DAC  (ValueError)",
+      "llm skip article: Inside the Race to Electrify Semi Trailers for Long Haul Fre (ValueError)",
+      "llm skip article: Caspia Technologies is pioneering a new, agentic chip and sy (ValueError)",
+      "llm skip article: IP Lifecycle Management in the AI Era (ValueError)",
+      "llm skip article: Chip Industry Technical Paper Roundup: July 8 (ValueError)",
+      "llm skip article: 선글라스 낀 이재용, 선밸리서 ‘파운드리 세일즈’ - 에너지경제신문 (ValueError)",
+      "llm skip article: 이재용 회장, '선밸리'에 한진만 파운드리 사장 동행…빅테크 수주 노린다 - 지디넷코리아 (ValueError)",
+      "llm skip article: \"AI 연구 요원들 소통하며 협업···반도체 설계부터 시뮬레이션도 척척\"KAIST 테라랩, 업무 자동화 사례 (ValueError)",
+      "llm skip article: [WIKI 현장] 반도체부터 친환경 에너지까지…삼성전자, 차세대 첨단 패키징 기술력 입증 - 위키리크스한국 (ValueError)",
+      "llm skip article: 이재용, 빅테크 거물 모이는 선밸리 참석…AI 반도체 협력 기대감 - 시사저널 (ValueError)",
+      "llm skip article: 삼성 파운드리 턴어라운드 기대…이재용 美 출장길에 한진만 사장 동행(종합) - KB Think (ValueError)",
+      "llm skip article: Unifying Software And Semiconductor Development (ValueError)",
+      "llm skip article: Field Guide to DDR Signal Integrity Analysis (ValueError)",
+      "llm skip article: PCIe 7.0 in Practice: Design Considerations for Storage, Net (ValueError)",
+      "llm skip article: The Ultimate Guide to PCI Express: Specs, Features, Use Case (ValueError)",
+      "llm skip article: Arm Neoverse CMN-700: Performance Analysis Methodology (ValueError)",
+      "llm skip article: Blog Review: July 8 (ValueError)",
+      "llm skip article: 이재용, 파운드리 사업부장과 선밸리 참석…빅테크 수주 주목 - 연합뉴스 (ValueError)",
+      "llm skip article: HBM 승부수 띄운 마이크론…국내 후공정 장비 수요 커진다 [반도체레이다] - 디지털데일리 (ValueError)",
+      "llm skip article: IEEE Honors Robotics Pioneer Toshio Fukuda (ValueError)",
+      "llm ok: summarized 0 articles, reused 1 cached summaries (total 22)"
     ]
   },
   "articles": [
     {
-      "id": "art-75ca723f1c22ec",
-      "headline": "From HBM to eSSD: How SK hynix is charting the future of full-stack memory",
-      "body": "The focus of AI infrastructure competition is shifting. Larger models and faster compute engines remain important, but for AI systems to scale reliably across real-world services and industrial environments, it is becoming equally important to determine where data resides, which memory layer processes it, and how effic...",
-      "sector": "소자",
+      "id": "art-11cf0f7920bebb",
+      "headline": "Running Low-Latency Analytical Workloads with GPU-Accelerated Presto on NVIDIA GB200 NVL72",
+      "body": "Presto is an open source, distributed SQL engine for running fast, interactive queries on very large datasets. On NVIDIA GPUs, Presto delivers peak performance...",
+      "sector": "설계",
       "category": "news",
       "trust": "high",
-      "created_at": "2026-07-08T09:00:07+09:00",
+      "created_at": "2026-07-09T01:05:25+09:00",
       "placement": "top",
-      "source_name": "SK hynix Newsroom",
-      "source_url": "https://news.skhynix.com/hbm-to-essd",
-      "source_note": "html_or_rss",
+      "source_name": "NVIDIA Developer Blog",
+      "source_url": "https://developer.nvidia.com/blog/running-low-latency-analytical-workloads-with-gpu-accelerated-presto-on-nvidia-gb200-nvl72",
+      "source_note": "rss_or_html",
+      "raw_source_type": "rss",
+      "matched_keywords": [
+        "GPU"
+      ],
+      "summary_method": "snippet"
+    },
+    {
+      "id": "art-861d1c5b592f67",
+      "headline": "See Autonomous Chip Design in Action with ChipAgents at DAC 2026",
+      "body": "For decades, semiconductor innovation has been constrained not by imagination, but by engineering capacity. While transistor density has continued to advance, the process of building chips has remained fundamentally manual, fragmented across specifications, RTL, verification, debugging, coverage analysis, and signoff.…...",
+      "sector": "소자",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-07-09T06:00:31+09:00",
+      "placement": "main",
+      "source_name": "SemiWiki",
+      "source_url": "https://semiwiki.com/eda/moores-lab-ai/370928-see-autonomous-chip-design-in-action-with-chipagents-at-dac-2026-2",
+      "source_note": "rss_or_html",
+      "raw_source_type": "rss",
+      "matched_keywords": [
+        "transistor"
+      ],
+      "summary_method": "snippet"
+    },
+    {
+      "id": "art-00ba61e48a5c0a",
+      "headline": "Inside the Race to Electrify Semi Trailers for Long Haul Freight",
+      "body": "A semi-trailer that helps propel itself entered commercial road testing in late May, when a powertrain kit developed by Nivalis Energy Europe , headquartered in Luxembourg with engineering operations in Germany, was fitted to a trailer supplied by Amsterdam-based TIP Group . The self-powered trailer was handed over to...",
+      "sector": "소자",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-07-09T02:58:34+09:00",
+      "placement": "main",
+      "source_name": "IEEE Spectrum",
+      "source_url": "https://spectrum.ieee.org/self-powered-trailers-freight-decarbonization",
+      "source_note": "rss_or_html",
+      "raw_source_type": "rss",
+      "matched_keywords": [
+        "cell"
+      ],
+      "summary_method": "snippet"
+    },
+    {
+      "id": "art-47d7e0b83ec09a",
+      "headline": "Caspia Technologies is pioneering a new, agentic chip and system security approach at DAC 2026",
+      "body": "Caspia’s advanced tools and agents blend seamlessly with existing design flows to add expert-level security verification capabilities for all design teams. Founded in 2020 and headquartered in Gainesville, Florida, Caspia brings together expertise in chip design, fabrication, test, and verification with a deep understa...",
+      "sector": "설계",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-07-09T02:00:20+09:00",
+      "placement": "main",
+      "source_name": "SemiWiki",
+      "source_url": "https://semiwiki.com/security/caspia-technologies/370802-caspia-dac-plan-2026",
+      "source_note": "rss_or_html",
+      "raw_source_type": "rss",
+      "matched_keywords": [],
+      "summary_method": "snippet"
+    },
+    {
+      "id": "art-017d0887a88680",
+      "headline": "IP Lifecycle Management in the AI Era",
+      "body": "Large design enterprises have multiple concurrent activities around IP of various types: software/firmware, blocks defined in RTL or HLS, verification IPs of multiple different types, physical implementations, scripts/files for timing, power management, etc., etc. Each of these continues to evolve and branch to serve …...",
+      "sector": "설계",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-07-08T22:00:32+09:00",
+      "placement": "main",
+      "source_name": "SemiWiki",
+      "source_url": "https://semiwiki.com/artificial-intelligence/370919-ip-lifecycle-management-in-the-ai-era",
+      "source_note": "rss_or_html",
+      "raw_source_type": "rss",
+      "matched_keywords": [
+        "IP"
+      ],
+      "summary_method": "snippet"
+    },
+    {
+      "id": "art-9b8799547554f6",
+      "headline": "Chip Industry Technical Paper Roundup: July 8",
+      "body": "Schottky barriers at Si/metal interfaces; agentic HLS; probabilistic memory for edge; agentic HW design automation as repository-level code evolution; HW fingerprinting for photonic ICs; functional safety; open-source, customizable RISC-V SoC platform. The post Chip Industry Technical Paper Roundup: July 8 appeared fir...",
+      "sector": "설계",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-07-08T19:55:28+09:00",
+      "placement": "main",
+      "source_name": "Semiconductor Engineering",
+      "source_url": "https://semiengineering.com/chip-industry-technical-paper-roundup-july-8-2",
+      "source_note": "rss_or_html",
+      "raw_source_type": "rss",
+      "matched_keywords": [
+        "RISC-V"
+      ],
+      "summary_method": "snippet"
+    },
+    {
+      "id": "art-e067de1fc6137f",
+      "headline": "선글라스 낀 이재용, 선밸리서 ‘파운드리 세일즈’ - 에너지경제신문",
+      "body": "선글라스 낀 이재용, 선밸리서 ‘파운드리 세일즈’ 에너지경제신문",
+      "sector": "설계",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-07-08T18:40:15+09:00",
+      "placement": "main",
+      "source_name": "Google News RSS",
+      "source_url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE9WcG1vZTRYRjBkU21hYmlMMXRhTktvZkdUSG9PbTZZWW5YQnZxTzJsTmJYRjlDRF9ybEJWOFdGYkoxMFNNUDJxeXUzR00wN3RQSjlYSzl3cFl4aVE?oc=5",
+      "source_note": "Google News search RSS result; original publisher link is retained where available.",
+      "raw_source_type": "rss",
+      "matched_keywords": [],
+      "summary_method": "snippet"
+    },
+    {
+      "id": "art-30cfa0eb9b4454",
+      "headline": "이재용 회장, '선밸리'에 한진만 파운드리 사장 동행…빅테크 수주 노린다 - 지디넷코리아",
+      "body": "이재용 회장, '선밸리'에 한진만 파운드리 사장 동행…빅테크 수주 노린다 지디넷코리아",
+      "sector": "설계",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-07-08T17:58:09+09:00",
+      "placement": "side",
+      "source_name": "Google News RSS",
+      "source_url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE9sNFJBU1FPTjNrWWVHeFlVWXlzNE1IbkFIbDc4ZlpCMVMyQTM0SDhLa2M3QlF1SmlvQkJPV1N5MTBNWGVMc0tvMlpETXBkekE2RmZCZnRB?oc=5",
+      "source_note": "Google News search RSS result; original publisher link is retained where available.",
+      "raw_source_type": "rss",
+      "matched_keywords": [],
+      "summary_method": "snippet"
+    },
+    {
+      "id": "art-4346d4dc270eb1",
+      "headline": "\"AI 연구 요원들 소통하며 협업···반도체 설계부터 시뮬레이션도 척척\"KAIST 테라랩, 업무 자동화 사례 공개 - 헬로디디",
+      "body": "\"AI 연구 요원들 소통하며 협업···반도체 설계부터 시뮬레이션도 척척\"KAIST 테라랩, 업무 자동화 사례 공개 헬로디디",
+      "sector": "설계",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-07-08T17:40:00+09:00",
+      "placement": "side",
+      "source_name": "Google News RSS",
+      "source_url": "https://news.google.com/rss/articles/CBMiakFVX3lxTFBrWmxNOUNsVmlBS2lwOVZPVmVnUDR6enlmemt5a2VBNkcyS1lURzI5V01NMGVTYUo3dWZ6R2dGd2N1Q01QMW9GYWNDSWQ0dXo0OVVrOXRpT1l1WWdRN1hZMWgzb3gyNkFtQnc?oc=5",
+      "source_note": "Google News search RSS result; original publisher link is retained where available.",
+      "raw_source_type": "rss",
+      "matched_keywords": [],
+      "summary_method": "snippet"
+    },
+    {
+      "id": "art-963c3c8194df9c",
+      "headline": "[WIKI 현장] 반도체부터 친환경 에너지까지…삼성전자, 차세대 첨단 패키징 기술력 입증 - 위키리크스한국",
+      "body": "[WIKI 현장] 반도체부터 친환경 에너지까지…삼성전자, 차세대 첨단 패키징 기술력 입증 위키리크스한국",
+      "sector": "설계",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-07-08T17:19:00+09:00",
+      "placement": "side",
+      "source_name": "Google News RSS",
+      "source_url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE5kNXkxbE5yeEhBX0o1dWRIUHZXNHBUOW1OMU9NQUNfQm9ZZTZ5UVhnNk1iR3dKRzFGamMwU1VOUE9CZS1SSXpLVmx5QUN6bXhhUEpZX0J3aENrN1Jud2lCdmJCc1ZaZHo5WjNVVFZVTQ?oc=5",
+      "source_note": "Google News search RSS result; original publisher link is retained where available.",
+      "raw_source_type": "rss",
+      "matched_keywords": [],
+      "summary_method": "snippet"
+    },
+    {
+      "id": "art-b002e3b18303d7",
+      "headline": "이재용, 빅테크 거물 모이는 선밸리 참석…AI 반도체 협력 기대감 - 시사저널",
+      "body": "이재용, 빅테크 거물 모이는 선밸리 참석…AI 반도체 협력 기대감 시사저널",
+      "sector": "설계",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-07-08T16:40:00+09:00",
+      "placement": "side",
+      "source_name": "Google News RSS",
+      "source_url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE9aaWlhUERwY19seGNYWWQ5VFQ0UnJEYUZmYUlzMjZ5OHlveXhRYmtNTW9nVktBd2ZQbGo2TXpST2x1R2xKd2NkNjA3cURXQUctTF9LM3UzR1pyclhBdE1aakdfYnQwU0tCTC1hck5yMNIBc0FVX3lxTE0xcEt1Q1BFZTFUR3lKdG9FOHNXN0hUR0xBbzh2UFYyU1FXYXBMMjJsWWZTR3hIeDR0d0pZakNiZmZvaXFXUnhpNEgxYkUzQlZrcFlDUWI3TkQweEUzOVFzd1lpbDYzT1NyemVWT19YQWJfSmM?oc=5",
+      "source_note": "Google News search RSS result; original publisher link is retained where available.",
+      "raw_source_type": "rss",
+      "matched_keywords": [],
+      "summary_method": "snippet"
+    },
+    {
+      "id": "art-449bc974b48114",
+      "headline": "삼성 파운드리 턴어라운드 기대…이재용 美 출장길에 한진만 사장 동행(종합) - KB Think",
+      "body": "삼성 파운드리 턴어라운드 기대…이재용 美 출장길에 한진만 사장 동행(종합) KB Think",
+      "sector": "설계",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-07-08T16:23:37+09:00",
+      "placement": "side",
+      "source_name": "Google News RSS",
+      "source_url": "https://news.google.com/rss/articles/CBMickFVX3lxTE81VEcwWXF1YWtRS3o1Z0o3TWF3RjJaSjJVd3VVTTNFYldmZkIyWXpBX2x3S0s5aDF2OEFNNk04RE1aeVFZRjVKWnB5clMwa3hVUVFXMnRYTGtrNlh2cWdITVR5RmxvbDFOSWgwMHRiSDFDdw?oc=5",
+      "source_note": "Google News search RSS result; original publisher link is retained where available.",
+      "raw_source_type": "rss",
+      "matched_keywords": [],
+      "summary_method": "snippet"
+    },
+    {
+      "id": "art-69be37dfdd42fe",
+      "headline": "Unifying Software And Semiconductor Development",
+      "body": "Redefining IP lifecycle management by uniting silicon and software to deliver traceability, automation, and AI-ready design flows. The post Unifying Software And Semiconductor Development appeared first on Semiconductor Engineering .",
+      "sector": "설계",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-07-08T16:08:58+09:00",
+      "placement": "side",
+      "source_name": "Semiconductor Engineering",
+      "source_url": "https://semiengineering.com/unifying-software-and-semiconductor-development",
+      "source_note": "rss_or_html",
+      "raw_source_type": "rss",
+      "matched_keywords": [
+        "IP"
+      ],
+      "summary_method": "snippet"
+    },
+    {
+      "id": "art-69e461c62f4309",
+      "headline": "Field Guide to DDR Signal Integrity Analysis",
+      "body": "Catch every DDR5 compliance failure in simulation, not on the bench. The post Field Guide to DDR Signal Integrity Analysis appeared first on Semiconductor Engineering .",
+      "sector": "설계",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-07-08T16:02:41+09:00",
+      "placement": "side",
+      "source_name": "Semiconductor Engineering",
+      "source_url": "https://semiengineering.com/field-guide-to-ddr-signal-integrity-analysis",
+      "source_note": "rss_or_html",
+      "raw_source_type": "rss",
+      "matched_keywords": [],
+      "summary_method": "snippet"
+    },
+    {
+      "id": "art-90af5f57ee1a86",
+      "headline": "PCIe 7.0 in Practice: Design Considerations for Storage, Networking, and AI",
+      "body": "Overcoming data bottlenecks and meeting the rapidly growing demands for performance and reliability. The post PCIe 7.0 in Practice: Design Considerations for Storage, Networking, and AI appeared first on Semiconductor Engineering .",
+      "sector": "설계",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-07-08T16:01:08+09:00",
+      "placement": "side",
+      "source_name": "Semiconductor Engineering",
+      "source_url": "https://semiengineering.com/pcie-7-0-in-practice-design-considerations-for-storage-networking-and-ai",
+      "source_note": "rss_or_html",
+      "raw_source_type": "rss",
+      "matched_keywords": [],
+      "summary_method": "snippet"
+    },
+    {
+      "id": "art-867159814571d8",
+      "headline": "The Ultimate Guide to PCI Express: Specs, Features, Use Cases and PCIe 7.0",
+      "body": "For design teams moving from specification to implementation, controller IP will continue to play a critical role to help accelerate the path to robust, standards-aligned PCIe 7.0 designs. The post The Ultimate Guide to PCI Express: Specs, Features, Use Cases and PCIe 7.0 appeared first on Semiconductor Engineering .",
+      "sector": "설계",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-07-08T16:01:07+09:00",
+      "placement": "side",
+      "source_name": "Semiconductor Engineering",
+      "source_url": "https://semiengineering.com/the-ultimate-guide-to-pci-express-specs-features-use-cases-and-pcie-7-0",
+      "source_note": "rss_or_html",
+      "raw_source_type": "rss",
+      "matched_keywords": [
+        "IP"
+      ],
+      "summary_method": "snippet"
+    },
+    {
+      "id": "art-67cd4ff7e48f36",
+      "headline": "Arm Neoverse CMN-700: Performance Analysis Methodology",
+      "body": "Comprehending how requests are queued, routed, and serviced within the interconnect is essential to explaining latency, stalls, and throughput limitations that are not attributable to the cores themselves. The post Arm Neoverse CMN-700: Performance Analysis Methodology appeared first on Semiconductor Engineering .",
+      "sector": "설계",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-07-08T16:01:02+09:00",
+      "placement": "side",
+      "source_name": "Semiconductor Engineering",
+      "source_url": "https://semiengineering.com/arm-neoverse-cmn-700-performance-analysis-methodology",
+      "source_note": "rss_or_html",
+      "raw_source_type": "rss",
+      "matched_keywords": [
+        "Arm",
+        "interconnect"
+      ],
+      "summary_method": "snippet"
+    },
+    {
+      "id": "art-cfc438244170ff",
+      "headline": "Blog Review: July 8",
+      "body": "System complexity challenges; security Ethernet; IP for 3D-ICs; on-device gesture recognition; MRC protocol. The post Blog Review: July 8 appeared first on Semiconductor Engineering .",
+      "sector": "설계",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-07-08T16:01:00+09:00",
+      "placement": "side",
+      "source_name": "Semiconductor Engineering",
+      "source_url": "https://semiengineering.com/blog-review-july-8-3",
+      "source_note": "rss_or_html",
+      "raw_source_type": "rss",
+      "matched_keywords": [
+        "IP"
+      ],
+      "summary_method": "snippet"
+    },
+    {
+      "id": "art-7c1129c1f86634",
+      "headline": "이재용, 파운드리 사업부장과 선밸리 참석…빅테크 수주 주목 - 연합뉴스",
+      "body": "이재용, 파운드리 사업부장과 선밸리 참석…빅테크 수주 주목 연합뉴스",
+      "sector": "설계",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-07-08T15:25:41+09:00",
+      "placement": "side",
+      "source_name": "Google News RSS",
+      "source_url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE1HRThzM29JajhGZFFDbld0eFdtUEozZlNibTQ5aEVpUXpuTENzUEJ4bFJsaWlWM3BmQ0tCUlFaUnQ0anVNZS1XZkpObHp0UmtHQk1NVmdKTkpqaTDSAWBBVV95cUxQcURfbnc3M2o0dm9pZ3NrY0wyZUYzMV9Nek54eDVrbTBrek53bUxmTWdURnhZaDVic0pxaFlFRW0zamVXN2MwNV9wei1DNlJaV2N6ckVsTng0cl9PbVhRdlc?oc=5",
+      "source_note": "Google News search RSS result; original publisher link is retained where available.",
+      "raw_source_type": "rss",
+      "matched_keywords": [],
+      "summary_method": "snippet"
+    },
+    {
+      "id": "art-4108b48f4e9d2f",
+      "headline": "HBM 승부수 띄운 마이크론…국내 후공정 장비 수요 커진다 [반도체레이다] - 디지털데일리",
+      "body": "HBM 승부수 띄운 마이크론…국내 후공정 장비 수요 커진다 [반도체레이다] 디지털데일리",
+      "sector": "소자",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-07-08T15:00:00+09:00",
+      "placement": "side",
+      "source_name": "Google News RSS",
+      "source_url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE00X0RGTGtkV0lfZ0hpSlpVYkFnMWRTSE5FZjZEQk8wSFNkZ3Y1X1pQSnpoN0ZRWmp5eXZaUWQweEg3Ukg3VkhRNXlKd0MtNjdrNlU1ZjU4eDNiUlA5cVFWWkVrRWQ?oc=5",
+      "source_note": "Google News search RSS result; original publisher link is retained where available.",
       "raw_source_type": "rss",
       "matched_keywords": [
         "HBM"
       ],
       "summary_method": "snippet"
-    },
-    {
-      "id": "art-4a19b66dd1da0a",
-      "headline": "[삼성 반도체 점검]삼성전자, HBM4로 종합반도체 실효성 가늠 : 네이버 블로그 - Naver Blog",
-      "body": "제공된 텍스트에는 삼성전자의 HBM4 관련 구체적인 기술 사양, 공정 노드, 투자 규모 또는 발표된 일정에 대한 정보가 포함되어 있지 않습니다. 기사 제목을 통해 삼성전자가 HBM4를 통해 종합반도체 기업으로서의 역량을 검증하려 한다는 점만 확인됩니다.",
-      "sector": "소자",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-07-08T06:13:17+09:00",
-      "placement": "main",
-      "source_name": "Google News RSS",
-      "source_url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxOQ19lVndfWDE5UWVmV0NBc05Pc0pZd29GOHVNSXRaVHAyNm5ITXExOHVHdU1vdVg1MjlNZEt0SjVGRnFlMmpocnNOQ1pmLWVUY0dkMXFoMUxFNGI5U2xzTDhJM1p6dVljTGdvZWQ4V1I4UVVGU2ZkbEZNMXdNaE1rZDRLVVlfTG1wQnR6LUhsOA?oc=5",
-      "source_note": "Google News search RSS result; original publisher link is retained where available.",
-      "raw_source_type": "rss",
-      "matched_keywords": [],
-      "summary_method": "llm",
-      "summary_model": "google/gemma-4-26B-A4B-it",
-      "llm_keywords": [
-        "삼성전자",
-        "HBM4"
-      ]
     },
     {
       "id": "art-3a27be65eabab0",
@@ -476,7 +784,7 @@
       "category": "news",
       "trust": "medium",
       "created_at": "2026-07-08T06:00:12+09:00",
-      "placement": "main",
+      "placement": "side",
       "source_name": "SemiWiki",
       "source_url": "https://semiwiki.com/eda/chipagents-ai/370911-see-autonomous-chip-design-in-action-with-chipagents-at-dac-2026",
       "source_note": "rss_or_html",
@@ -493,380 +801,23 @@
       ]
     },
     {
-      "id": "art-6b835be55a2d9f",
-      "headline": "AI 호황에 취한 한국 반도체…전문가들 “HBM 이후 준비할 마지막 기회” [중국 반도체 굴기 2026 下] - 이투데이",
-      "body": "해당 기사는 한국 반도체 산업의 HBM 이후 차세대 기술 준비 필요성을 다루고 있으나, 구체적인 신제품 발표, 공정 수치, 투자 규모 등 확인 가능한 기술적 팩트가 포함되어 있지 않습니다.",
+      "id": "art-a9723771177ea7",
+      "headline": "IEEE Honors Robotics Pioneer Toshio Fukuda",
+      "body": "Toshio Fukuda has been blazing trails for most of his career. He is considered to be one of the most prolific scholars in robotics , writing more than 2,000 research papers and authoring several books on the field. He’s an influential figure thanks to his pioneering work developing biomedical robotic systems, industria...",
       "sector": "소자",
       "category": "news",
       "trust": "medium",
-      "created_at": "2026-07-08T05:00:00+09:00",
-      "placement": "main",
-      "source_name": "Google News RSS",
-      "source_url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE10VWZaNUZIWFFRNWJ0MVJrR3hYcXl4SzI4ZmJoaXVGVXVBY19uNnUxbnFDdDVIenQxSlJjOXN5YzR1N0hlLUROLVF5emxZblRNazl4MA?oc=5",
-      "source_note": "Google News search RSS result; original publisher link is retained where available.",
-      "raw_source_type": "rss",
-      "matched_keywords": [
-        "HBM"
-      ],
-      "summary_method": "llm",
-      "summary_model": "google/gemma-4-26B-A4B-it",
-      "llm_keywords": [
-        "HBM",
-        "한국 반도체"
-      ]
-    },
-    {
-      "id": "art-f206c831bf9d14",
-      "headline": "Demonstrating the EasyAI ECO Suite – An AI-Powered Functional ECO Solution at DAC 2026",
-      "body": "Easy-Logic이 DAC 2026에서 AI 기반 기능적 ECO 솔루션인 'EasyAI ECO Suite'를 공개한다. 이 제품은 Auto Partition, Learning/I-Learning, Smart Caching 엔진을 통해 SYN ECO, DFT ECO, PR ECO 전 과정을 지원하며, 벤치마크 결과 패치 크기를 평균 20% 이상(최대 90%) 줄이고 반복 실행 시 런타임을 최대 80% 이상 단축한다.",
-      "sector": "설계",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-07-07T22:00:06+09:00",
-      "placement": "main",
-      "source_name": "SemiWiki",
-      "source_url": "https://semiwiki.com/eda/easy-logic/370861-demonstrating-the-easyai-eco-suite-an-ai-powered-functional-eco-solution-at-dac-2026",
-      "source_note": "rss_or_html",
-      "raw_source_type": "rss",
-      "matched_keywords": [
-        "EDA"
-      ],
-      "summary_method": "llm",
-      "summary_model": "google/gemma-4-26B-A4B-it",
-      "llm_keywords": [
-        "EasyAI ECO Suite",
-        "Easy-Logic",
-        "EDA",
-        "ECO",
-        "AI-driven optimization"
-      ]
-    },
-    {
-      "id": "art-a5cd1749d9836b",
-      "headline": "Photoluminescence Inspection Is Changing How Manufacturers Protect Yield In SiC And GaN Devices",
-      "body": "SiC 및 GaN 전력 반도체의 수율 확보를 위해 표면 기반 광학 검사의 한계를 극복하는 광발광(PL) 검사 기술이 활용됩니다. PL 검사는 XY 스테이지 스캔 방식을 통해 200mm 및 300mm 대구경 웨이퍼 전 영역에서 중심부와 가장자리 간 감도 차이 없이 내부 결정 결함을 탐지합니다. 제조사는 PL 검사 데이터와 코로나 충전 표면 전압 매핑 기반의 비접촉 전기 계측 데이터를 결합하여 결정 결함과 전기적 누설 전류 간의 상관관계를 분석합니다.",
-      "sector": "공정",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-07-07T16:08:27+09:00",
-      "placement": "main",
-      "source_name": "Semiconductor Engineering",
-      "source_url": "https://semiengineering.com/photoluminescence-inspection-is-changing-how-manufacturers-protect-yield-in-sic-and-gan-devices",
-      "source_note": "rss_or_html",
-      "raw_source_type": "rss",
-      "matched_keywords": [
-        "yield"
-      ],
-      "summary_method": "llm",
-      "summary_model": "google/gemma-4-26B-A4B-it",
-      "llm_keywords": [
-        "SiC",
-        "GaN",
-        "광발광(PL) 검사",
-        "결정 결함",
-        "수율"
-      ]
-    },
-    {
-      "id": "art-bcf0d944c1378b",
-      "headline": "From Data Accumulation To Data Activation: AI-Driven Data Feed Forward For Chiplet-Based Test",
-      "body": "PDF Solutions가 칩렛(Chiplet) 기반 테스트를 위해 상위 공정의 측정 데이터를 하위 공정의 의사결정에 활용하는 '데이터 피드 포워드(Data Feed Forward, DFF)' 프레임워크를 제안했다. DFF는 웨이퍼 소트(Wafer Sort) 등 초기 단계의 파라미터 및 검사 데이터를 변환·전송하여 패키지 테스트나 시스템 레벨 테스트(SLT) 단계에서 적응형 한계 설정 및 라우팅 결정에 적용한다. 이를 구현하기 위한 제품으로 데이터 수집, 관리 및 공급망 연결을 지원하는 'Exensio Test Operations'가 제시되었다.",
-      "sector": "패키징",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-07-07T16:05:51+09:00",
-      "placement": "main",
-      "source_name": "Semiconductor Engineering",
-      "source_url": "https://semiengineering.com/from-data-accumulation-to-data-activation-ai-driven-data-feed-forward-for-chiplet-based-test",
-      "source_note": "rss_or_html",
-      "raw_source_type": "rss",
-      "matched_keywords": [
-        "chiplet",
-        "advanced packaging"
-      ],
-      "summary_method": "llm",
-      "summary_model": "google/gemma-4-26B-A4B-it",
-      "llm_keywords": [
-        "칩렛",
-        "Data Feed Forward",
-        "PDF Solutions",
-        "Exensio Test Operations",
-        "적응형 테스트"
-      ]
-    },
-    {
-      "id": "art-a49a1eb6bc4d9c",
-      "headline": "The Test Cell Ecosystem: From Tester Performance To Production Outcomes",
-      "body": "Teradyne와 Tokyo Electron(TEL)은 AI 및 데이터센터용 어드밴스드 패키징의 KGD(Known Good Device) 선별을 위한 통합 테스트 셀 솔루션을 발표했다. 해당 솔루션은 Teradyne의 UltraFLEXplus 플랫폼과 TEL의 Prexa SDP(singulated device prober)를 결합하여 생산 규모의 테스트를 지원한다. 칩렛, HBM, Co-packaged optics 등 이종 집적 기술 확산에 따라 웨이퍼 레벨 및 모듈 레벨의 테스트 삽입 지점이 증가하고 있으며, 이에 따라 테스트 셀은 테스터, 핸들러, 프로버, 인터페이스 하드웨어가 통합된 시스템 아키텍처로 요구된다.",
-      "sector": "공정",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-07-07T16:04:48+09:00",
+      "created_at": "2026-07-08T04:02:42+09:00",
       "placement": "side",
-      "source_name": "Semiconductor Engineering",
-      "source_url": "https://semiengineering.com/the-test-cell-ecosystem-from-tester-performance-to-production-outcomes",
+      "source_name": "IEEE Spectrum",
+      "source_url": "https://spectrum.ieee.org/ieee-honors-toshio-fukuda",
       "source_note": "rss_or_html",
       "raw_source_type": "rss",
       "matched_keywords": [
+        "transistor",
         "cell"
       ],
-      "summary_method": "llm",
-      "summary_model": "google/gemma-4-26B-A4B-it",
-      "llm_keywords": [
-        "Teradyne",
-        "Tokyo Electron",
-        "UltraFLEXplus",
-        "Prexa SDP",
-        "KGD",
-        "Advanced Packaging"
-      ]
-    },
-    {
-      "id": "art-72715405ac1eee",
-      "headline": "Multi-die Testing In The Field Must Build On Established Test Methodologies",
-      "body": "2.5D 및 3D-IC 구조의 신뢰성 확보를 위해 칩렛(Chiplet), TSV, 하이브리드 본딩 등 인터커넥트 결함을 실시간 감지하는 인시스템 테스트(In-system testing) 기술이 요구됩니다. UCIe, AIB, HBM4 등 최신 인터페이스 표준은 예비 레인(Spare lane)을 제공하여 결함 발생 시 자동 복구를 지원하며, PCIe 및 USB와 같은 고속 I/O를 활용해 테스트 데이터 전송 효율을 높이는 방식이 적용됩니다. Siemens EDA와 Synopsys 등은 실리콘 에이징, 전압 변동, 열 스트레스로 인한 잠재적 결함을 탐지하기 위해 온칩 모니터링과 DFT(Design-for-Test) 기술을 활용하고 있습니다.",
-      "sector": "설계",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-07-07T16:03:40+09:00",
-      "placement": "side",
-      "source_name": "Semiconductor Engineering",
-      "source_url": "https://semiengineering.com/multi-die-testing-in-the-field-must-build-on-established-test-methodologies",
-      "source_note": "rss_or_html",
-      "raw_source_type": "rss",
-      "matched_keywords": [],
-      "summary_method": "llm",
-      "summary_model": "google/gemma-4-26B-A4B-it",
-      "llm_keywords": [
-        "In-system testing",
-        "2.5D/3D-IC",
-        "Chiplet",
-        "UCIe",
-        "HBM4",
-        "DFT"
-      ]
-    },
-    {
-      "id": "art-5fd1fa81ffa57b",
-      "headline": "Inspection And Metrology Catching Up For High-Density Fan-Out Panel Packaging",
-      "body": "고밀도 팬아웃 패널 레벨 패키징(HDFO PLP) 도입으로 RDL 레이어 수가 3개에서 9개로 증가하고, 트레이스 및 범프 피치가 20~5마이크론 수준으로 축소됩니다. TSMC는 310x310mm에서 600x600mm 크기의 패널 폼팩터가 CoWoS를 보완할 것이라고 밝혔으며, 향후 5년 내 2마이크론 피치 달성을 목표로 하고 있습니다. 이에 따라 검사 장비는 sub-2µm RDL 선폭, sub-20µm 범프 피치, sub-micron 오버레이 및 TGV 특성 분석 기능을 갖춰야 합니다.",
-      "sector": "패키징",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-07-07T16:02:46+09:00",
-      "placement": "side",
-      "source_name": "Semiconductor Engineering",
-      "source_url": "https://semiengineering.com/inspection-and-metrology-catching-up-for-high-density-fan-out-panel-packaging",
-      "source_note": "rss_or_html",
-      "raw_source_type": "rss",
-      "matched_keywords": [
-        "metrology"
-      ],
-      "summary_method": "llm",
-      "summary_model": "google/gemma-4-26B-A4B-it",
-      "llm_keywords": [
-        "HDFO",
-        "PLP",
-        "RDL",
-        "범프 피치",
-        "검사 및 계측"
-      ]
-    },
-    {
-      "id": "art-1fc0afc0e98b72",
-      "headline": "From Reactive Replacement To Predictive Planning: Unlocking Probe Card Intelligence With Real-Time Data",
-      "body": "Advantest가 ACS Real-Time Data Infrastructure(RTDI)를 통해 DC 프로파일링 데이터를 실시간 스트리밍하여 프로브 카드(Probe Card)의 팁 번(Tip-burn) 마모 및 고장을 예측하는 기술을 공개했다. NVIDIA Nemotron LLM과 NV-Tesseract 모델을 결합하여 테스터 로그, 접합 온도, 웨이퍼 통계 데이터를 분석하고 실시간으로 근본 원인 분석(RCA) 가설을 생성한다. 이 시스템은 기존의 사후 교체 방식에서 벗어나 실시간 데이터 기반의 예측 계획 및 폐쇄 루프(Closed-loop) 생산 워크플로우 구현을 목표로 한다.",
-      "sector": "공정",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-07-07T16:02:38+09:00",
-      "placement": "side",
-      "source_name": "Semiconductor Engineering",
-      "source_url": "https://semiengineering.com/from-reactive-replacement-to-predictive-planning-unlocking-probe-card-intelligence-with-real-time-data",
-      "source_note": "rss_or_html",
-      "raw_source_type": "rss",
-      "matched_keywords": [
-        "yield"
-      ],
-      "summary_method": "llm",
-      "summary_model": "google/gemma-4-26B-A4B-it",
-      "llm_keywords": [
-        "Advantest",
-        "Probe Card",
-        "DC Profiling",
-        "NVIDIA Nemotron",
-        "Real-time Data Infrastructure"
-      ]
-    },
-    {
-      "id": "art-7fe929d03e350c",
-      "headline": "When The Test Cell Lies",
-      "body": "테스트 셀의 소켓, 프로브 카드, 로드 보드 등 측정 환경의 불안정성이 실제 소자 결함과 구별되지 않아 수율 판단에 오류를 일으킬 수 있음이 확인되었습니다. AI 및 HPC용 대형 다이(Die) 생산 시 측정 인터페이스의 접촉 저항 변화나 열 변형이 정상 제품을 낮은 등급(Bin)으로 분류하거나 불필요한 폐기를 유발하는 경제적 손실을 초래합니다. 테라다인(Teradyne)과 어드반테스트(Advantest) 등은 특정 채널이나 사이트에서 결함이 반복되는 패턴을 통해 소자와 테스트 장비 간의 결함 원인을 구분하는 진단 방식을 제시합니다.",
-      "sector": "소자",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-07-07T16:01:42+09:00",
-      "placement": "side",
-      "source_name": "Semiconductor Engineering",
-      "source_url": "https://semiengineering.com/when-the-test-cell-lies",
-      "source_note": "rss_or_html",
-      "raw_source_type": "rss",
-      "matched_keywords": [
-        "cell"
-      ],
-      "summary_method": "llm",
-      "summary_model": "google/gemma-4-26B-A4B-it",
-      "llm_keywords": [
-        "테스트 셀(Test Cell)",
-        "수율(Yield)",
-        "접촉 저항(Contact Resistance)",
-        "AI/HPC 다이",
-        "프로브 카드(Probe Card)"
-      ]
-    },
-    {
-      "id": "art-ff663936bdf25b",
-      "headline": "Microchip Manufacturing: Understanding The Semiconductor Manufacturing Process",
-      "body": "Nordson은 웨이퍼 제조 공정의 전공정(Front-end) 피니싱 및 다층 인터커넥트 형성을 위한 정밀 디스펜싱과 유체 관리 기술을 제공한다. Slot die 및 유체 코팅 시스템을 통해 반도체 코팅 공정 내 정밀한 재료 도포를 지원하며, UV 경화 기술로 공정 속도 향상과 에너지 소비 절감을 구현한다. 해당 기술은 나노미터 단위의 정밀도가 요구되는 고밀도 소자 구조의 유전체 박막(Dielectric film) 형성 및 공정 일관성 확보에 적용된다.",
-      "sector": "공정",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-07-07T16:01:17+09:00",
-      "placement": "side",
-      "source_name": "Semiconductor Engineering",
-      "source_url": "https://semiengineering.com/microchip-manufacturing-understanding-the-semiconductor-manufacturing-process",
-      "source_note": "rss_or_html",
-      "raw_source_type": "rss",
-      "matched_keywords": [],
-      "summary_method": "llm",
-      "summary_model": "google/gemma-4-26B-A4B-it",
-      "llm_keywords": [
-        "Nordson",
-        "인터커넥트",
-        "UV 경화",
-        "유체 코팅",
-        "전공정 피니싱"
-      ]
-    },
-    {
-      "id": "art-4482e8de6f642b",
-      "headline": "Unlocking Scalable SRG Waveguides for Mass‑Market AR/MR Displays",
-      "body": "Onto Innovation은 AR/MR 디스플레이용 SRG(Surface Relief Grating) 웨이브가이드의 대량 생산(HVM)을 위한 전 공정 제어 솔루션을 공개했다. 해당 솔루션은 금속 박막 계측, OCD(Optical Critical Dimension)를 이용한 격자 파라미터 측정, 오버레이 정렬 검증, 결함 검사를 포함한다. 이는 광학 결합기(Optical Combiner) 내 빛의 결합, 확장, 회절을 제어하는 광학 부품의 제조 수율과 정밀도를 확보하기 위한 기술이다.",
-      "sector": "공정",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-07-07T16:01:08+09:00",
-      "placement": "side",
-      "source_name": "Semiconductor Engineering",
-      "source_url": "https://semiengineering.com/unlocking-scalable-srg-waveguides-for-mass-market-ar-mr-displays",
-      "source_note": "rss_or_html",
-      "raw_source_type": "rss",
-      "matched_keywords": [
-        "metrology"
-      ],
-      "summary_method": "llm",
-      "summary_model": "google/gemma-4-26B-A4B-it",
-      "llm_keywords": [
-        "SRG 웨이브가이드",
-        "AR/MR 디스플레이",
-        "Onto Innovation",
-        "HVM",
-        "광학 계측"
-      ]
-    },
-    {
-      "id": "art-64b45ef019cafd",
-      "headline": "반도체 제3차 치킨게임?…'수주형' HBM이 바꾼 쩐의 전쟁 - 머니투데이 - 머니투데이",
-      "body": "제공된 기사 원문에 구체적인 기술 수치, 기업명, 공정 세부사항 등 요약 가능한 핵심 팩트가 포함되어 있지 않습니다. 기사 제목을 통해 HBM 시장이 수주형 구조로 변화했다는 점만 확인됩니다.",
-      "sector": "소자",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-07-07T15:00:00+09:00",
-      "placement": "side",
-      "source_name": "Google News RSS",
-      "source_url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE4tLVNreU9DdWF2WVh6a3Q4ZE44Q1FBNHlhUmljdTNiMWphU3JRVHJxU2Y2cTJSeUpEeDBRWEJ1SDd4emFzbGtaTTQ2OTJZZWFqVC10dUhMTUFuVEhNalZrdkUzRVp0cUxfZ2Jv0gFwQVVfeXFMUGV1ekxXa09HQXpRNmlDTkQ4TVVuOW9BbmNOOThwdXl2V0ZGVW5Xdjk3c3JXSGZHa01oV0R3ZDZpMUhSbDlKRWpuV3lxQm1tLXJUTVk4c0d4ZTVaWm5ZbGZPS0hNM1pOekhjN21MbEFveA?oc=5",
-      "source_note": "Google News search RSS result; original publisher link is retained where available.",
-      "raw_source_type": "rss",
-      "matched_keywords": [
-        "HBM"
-      ],
-      "summary_method": "llm",
-      "summary_model": "google/gemma-4-26B-A4B-it",
-      "llm_keywords": [
-        "HBM",
-        "수주형 모델"
-      ]
-    },
-    {
-      "id": "art-7fb5e58be4b964",
-      "headline": "삼성전자, 반도체만 90조 벌었다…“HBM 두 배 오를 것” - 한국경제TV",
-      "body": "삼성전자의 반도체 부문 매출이 90조 원을 기록했습니다. HBM(고대역폭메모리) 가격이 향후 2배 상승할 것이라는 전망이 제시되었습니다.",
-      "sector": "소자",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-07-07T14:26:00+09:00",
-      "placement": "side",
-      "source_name": "Google News RSS",
-      "source_url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE1OQ2hOaFZYLWprdmRzb3dUcUNhX2hMbmI5alhYUHprcDE3M0s4NFpINmMzWkNIM1NBaGN5eVJGb3NjNmttQmVlOXk3enlybHZyMHJ0Rk5TUnFZVjZqVXNVazhFaEtfd054VjdMUHpsV3JFcnFzb2xR?oc=5",
-      "source_note": "Google News search RSS result; original publisher link is retained where available.",
-      "raw_source_type": "rss",
-      "matched_keywords": [
-        "HBM"
-      ],
-      "summary_method": "llm",
-      "summary_model": "google/gemma-4-26B-A4B-it",
-      "llm_keywords": [
-        "삼성전자",
-        "반도체 매출",
-        "HBM",
-        "가격 상승"
-      ]
-    },
-    {
-      "id": "art-26ffe931266270",
-      "headline": "석유화학, '메가 프로젝트' 반도체 소재서 미래 사업 활로 - 뉴스핌",
-      "body": "제공된 기사 원문에 구체적인 기업명, 투자 규모, 반도체 소재 종류, 공정 기술 등 핵심 사실이 포함되어 있지 않습니다. 현재 텍스트만으로는 신규 발표된 기술 세부사항이나 수치를 확인할 수 없습니다.",
-      "sector": "공정",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-07-07T14:17:00+09:00",
-      "placement": "side",
-      "source_name": "Google News RSS",
-      "source_url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE5TNkdwLXIyRXVUczdtRzlzeXl5T1ZVMWc0eWsyOHdpNkNUWkpVOVR0eDZVZ3pMNlh0YnBvdVAwSnhSWFJaaUdWQzFnNUptSS0yVFZLVkhob0c4SWJJ?oc=5",
-      "source_note": "Google News search RSS result; original publisher link is retained where available.",
-      "raw_source_type": "rss",
-      "matched_keywords": [],
-      "summary_method": "llm",
-      "summary_model": "google/gemma-4-26B-A4B-it",
-      "llm_keywords": [
-        "석유화학",
-        "반도체 소재"
-      ]
-    },
-    {
-      "id": "art-0ce2737b749315",
-      "headline": "The Accidental Infrastructure: How Crypto Miners Built the Foundation of the AI Boom",
-      "body": "존 카맥(John Carmack)은 고대역폭 플래시 메모리가 AI 추론(Inference) 성능을 지원할 수 있는 방안에 대해 언급했습니다. 해당 내용은 SemiWiki 포럼 내 기술 토론을 통해 공유되었습니다.",
-      "sector": "설계",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-07-07T06:00:15+09:00",
-      "placement": "side",
-      "source_name": "SemiWiki",
-      "source_url": "https://semiwiki.com/artificial-intelligence/370845-the-accidental-infrastructure-how-crypto-miners-built-the-foundation-of-the-ai-boom",
-      "source_note": "rss_or_html",
-      "raw_source_type": "rss",
-      "matched_keywords": [
-        "GPU"
-      ],
-      "summary_method": "llm",
-      "summary_model": "google/gemma-4-26B-A4B-it",
-      "llm_keywords": [
-        "고대역폭 플래시",
-        "AI 추론",
-        "존 카맥",
-        "SemiWiki"
-      ]
+      "summary_method": "snippet"
     }
   ],
   "jobs": []
