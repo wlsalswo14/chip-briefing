@@ -1,6 +1,6 @@
 {
   "schema_version": 4,
-  "generated_at": "2026-07-09T08:01:57+09:00",
+  "generated_at": "2026-07-09T11:32:59+09:00",
   "briefing_title": "칩 브리핑",
   "sectors": [
     "설계",
@@ -10,15 +10,16 @@
   ],
   "collector": {
     "name": "collect_news.py",
-    "source_count": 22,
+    "source_count": 42,
     "job_count": 0,
     "notes": "Metadata/link collection only; article full text is not stored. LLM summaries are generated transiently when configured.",
     "summary_methods": [
-      "llm",
-      "snippet"
+      "llm"
     ],
-    "summary_model": "google/gemma-4-26B-A4B-it",
+    "summary_model": "gemma-4-31b-it",
     "logs": [
+      "rss skip: Intel Newsroom https://www.intel.com/content/www/us/en/newsroom/home.html/feed.xml (HTTPError)",
+      "rss skip: Micron Newsroom https://www.micron.com/about/news-and-events/rss.xml (HTTPError)",
       "rss skip: Micron Newsroom https://www.micron.com/about/news-and-events/feed/ (HTTPError)",
       "rss skip: Micron Newsroom https://www.micron.com/about/news-and-events/rss (HTTPError)",
       "rss skip: Micron Newsroom https://www.micron.com/about/news-and-events/feed.xml (HTTPError)",
@@ -50,7 +51,26 @@
       "google news ok: semiconductor High NA EUV GAA 2nm (9)",
       "google news ok: AI accelerator ASIC GPU NPU semiconductor (10)",
       "google news ok: 반도체 HBM OR 패키징 OR EUV OR 파운드리 (10)",
-      "naver skip: NAVER_CLIENT_ID/NAVER_CLIENT_SECRET not set",
+      "naver ok: Naver News Search 반도체 HBM (10)",
+      "naver ok: Naver News Search HBM4 HBM4E (10)",
+      "naver ok: Naver News Search 반도체 패키징 CoWoS (10)",
+      "naver ok: Naver News Search EUV High NA (10)",
+      "naver ok: Naver News Search 2나노 공정 GAA (10)",
+      "naver ok: Naver News Search AI 반도체 ASIC NPU (10)",
+      "naver ok: Naver News Search 삼성전자 파운드리 (10)",
+      "naver ok: Naver News Search SK하이닉스 HBM (10)",
+      "naver ok: Naver News Search TSMC 패키징 (10)",
+      "naver ok: Naver News Search ASML EUV (10)",
+      "naver ok: Naver Blog Search 반도체 HBM (10)",
+      "naver ok: Naver Blog Search HBM4 HBM4E (10)",
+      "naver ok: Naver Blog Search 반도체 패키징 CoWoS (10)",
+      "naver ok: Naver Blog Search EUV High NA (10)",
+      "naver ok: Naver Blog Search 2나노 공정 GAA (10)",
+      "naver ok: Naver Blog Search AI 반도체 ASIC NPU (10)",
+      "naver ok: Naver Blog Search 삼성전자 파운드리 (10)",
+      "naver ok: Naver Blog Search SK하이닉스 HBM (10)",
+      "naver ok: Naver Blog Search TSMC 패키징 (10)",
+      "naver ok: Naver Blog Search ASML EUV (10)",
       "hn ok: HBM OR HBM4 OR HBM4E (0)",
       "hn ok: CoWoS OR advanced packaging OR hybrid bonding (0)",
       "hn ok: High NA EUV OR GAA OR nanosheet OR 2nm (0)",
@@ -76,36 +96,15 @@
       "reddit rss skip: r/chipdesign AI accelerator OR ASIC OR GPU OR NPU (HTTPError)",
       "reddit rss skip: r/chipdesign semiconductor foundry TSMC Samsung ASML (HTTPError)",
       "x skip: disabled by configuration; Reddit-only community mode",
-      "cache load: loaded 17 existing summaries from articles.json",
-      "llm skip article: Running Low-Latency Analytical Workloads with GPU-Accelerate (ValueError)",
-      "llm skip article: See Autonomous Chip Design in Action with ChipAgents at DAC  (ValueError)",
-      "llm skip article: Inside the Race to Electrify Semi Trailers for Long Haul Fre (ValueError)",
-      "llm skip article: Caspia Technologies is pioneering a new, agentic chip and sy (ValueError)",
-      "llm skip article: IP Lifecycle Management in the AI Era (ValueError)",
-      "llm skip article: Chip Industry Technical Paper Roundup: July 8 (ValueError)",
-      "llm skip article: 선글라스 낀 이재용, 선밸리서 ‘파운드리 세일즈’ - 에너지경제신문 (ValueError)",
-      "llm skip article: 이재용 회장, '선밸리'에 한진만 파운드리 사장 동행…빅테크 수주 노린다 - 지디넷코리아 (ValueError)",
-      "llm skip article: \"AI 연구 요원들 소통하며 협업···반도체 설계부터 시뮬레이션도 척척\"KAIST 테라랩, 업무 자동화 사례 (ValueError)",
-      "llm skip article: [WIKI 현장] 반도체부터 친환경 에너지까지…삼성전자, 차세대 첨단 패키징 기술력 입증 - 위키리크스한국 (ValueError)",
-      "llm skip article: 이재용, 빅테크 거물 모이는 선밸리 참석…AI 반도체 협력 기대감 - 시사저널 (ValueError)",
-      "llm skip article: 삼성 파운드리 턴어라운드 기대…이재용 美 출장길에 한진만 사장 동행(종합) - KB Think (ValueError)",
-      "llm skip article: Unifying Software And Semiconductor Development (ValueError)",
-      "llm skip article: Field Guide to DDR Signal Integrity Analysis (ValueError)",
-      "llm skip article: PCIe 7.0 in Practice: Design Considerations for Storage, Net (ValueError)",
-      "llm skip article: The Ultimate Guide to PCI Express: Specs, Features, Use Case (ValueError)",
-      "llm skip article: Arm Neoverse CMN-700: Performance Analysis Methodology (ValueError)",
-      "llm skip article: Blog Review: July 8 (ValueError)",
-      "llm skip article: 이재용, 파운드리 사업부장과 선밸리 참석…빅테크 수주 주목 - 연합뉴스 (ValueError)",
-      "llm skip article: HBM 승부수 띄운 마이크론…국내 후공정 장비 수요 커진다 [반도체레이다] - 디지털데일리 (ValueError)",
-      "llm skip article: IEEE Honors Robotics Pioneer Toshio Fukuda (ValueError)",
-      "llm ok: summarized 0 articles, reused 1 cached summaries (total 22)"
+      "cache load: loaded 1 existing summaries from articles.json",
+      "llm ok: summarized 42 articles, reused 0 cached summaries (total 42)"
     ]
   },
   "articles": [
     {
       "id": "art-11cf0f7920bebb",
       "headline": "Running Low-Latency Analytical Workloads with GPU-Accelerated Presto on NVIDIA GB200 NVL72",
-      "body": "Presto is an open source, distributed SQL engine for running fast, interactive queries on very large datasets. On NVIDIA GPUs, Presto delivers peak performance...",
+      "body": "NVIDIA GB200 NVL72 및 DGX B200에서 cuDF와 Velox를 활용한 GPU 가속 Presto SQL 엔진의 벤치마크 결과 공개\nDGX B200(8개 GPU, NVLink 5.0 1,800GB/s) 1대는 Intel Xeon 6642Y 서버 8~10대 규모의 CPU Presto 대비 2.5~8.2배 낮은 지연시간 달성\nGB200 NVL72는 18개 노드(노드당 Grace CPU 2개, B200 GPU 4개, CX7 400Gbps NIC 4개) 구성이며 모든 GPU가 NVLink로 연결됨\nIBM Storage Scale(10PB 용량, 4.5TiB/s 대역폭)과 NVIDIA GPUDirect Storage(GDS)를 결합해 CPU를 거치지 않고 스토리지에서 GPU 메모리로 데이터를 직접 전송\nGDS 활성화, I/O 태스크 크기 확대(16MiB), I/O 스레드 증가(16개) 및 리배칭 최적화를 통해 쿼리 실행 시간을 총 64% 단축",
       "sector": "설계",
       "category": "news",
       "trust": "high",
@@ -118,30 +117,68 @@
       "matched_keywords": [
         "GPU"
       ],
-      "summary_method": "snippet"
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "llm_keywords": [
+        "GB200 NVL72",
+        "Presto",
+        "GPUDirect Storage",
+        "NVLink 5.0",
+        "cuDF"
+      ]
     },
     {
-      "id": "art-861d1c5b592f67",
-      "headline": "See Autonomous Chip Design in Action with ChipAgents at DAC 2026",
-      "body": "For decades, semiconductor innovation has been constrained not by imagination, but by engineering capacity. While transistor density has continued to advance, the process of building chips has remained fundamentally manual, fragmented across specifications, RTL, verification, debugging, coverage analysis, and signoff.…...",
-      "sector": "소자",
+      "id": "art-929e7651b9917b",
+      "headline": "TSMC 첨단 공정 가격 인상에 삼성전자도 가세… 파운드리도 공급자 시대 - 조선비즈 - Chosunbiz",
+      "body": "TSMC가 첨단 공정 서비스 가격을 인상함\n삼성전자 파운드리 사업부 또한 가격 인상에 가세함\n파운드리 시장의 가격 결정권이 공급자 중심으로 이동하는 추세임",
+      "sector": "공정",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-07-09T06:05:09+09:00",
+      "placement": "main",
+      "source_name": "Google News RSS",
+      "source_url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQUG1wZ3BhLW5JSlQzRXhxa0VMN3ZYU0VHcXRJYmpsaEFMQzh2R0t4bl9CMFRkVEJ5Ukt6TzgwcHFjeE9SMEhmWDJTRWdLQTYxMDZFQTZxRFl0Vmd6b1Nyd3Q0TGJxaUVxV3BoUTNlMFJqV2VoMkRVaWZzTU1iM1RXWjdB0gGWAUFVX3lxTE1ZaFNFUVA5LWhicEtGTU5aZzhCNzRaZ19mMG1qQWFGQm5Pd3Zzc2dpbWg1eEhEOHJ2SEE0ZG8zWDFXUms1ZFFrZHJEa2NNQkVMZzdLOG1ERVFRckRZQ0VlUWtKcmZuZ2xaSWhOTTJHa0hvaktPYVo4Z1Z6WUR4aTNkaU5Ob2JqTEtvbTRraEwzamtDWEU2UQ?oc=5",
+      "source_note": "Google News search RSS result; original publisher link is retained where available.",
+      "raw_source_type": "rss",
+      "matched_keywords": [],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "llm_keywords": [
+        "TSMC",
+        "삼성전자",
+        "파운드리",
+        "가격 인상"
+      ]
+    },
+    {
+      "id": "art-d75902f6a54a0b",
+      "headline": "MooresLabAI at DAC 2026: Why the Future of Semiconductor Engineering Is Agentic, Not Just Generative",
+      "body": "MooresLabAI가 DAC 2026에서 사양 정의부터 테이프아웃까지 전 과정을 지원하는 자율 실리콘 개발 AI 에이전트 플랫폼을 공개함\n제품군으로 사양 정의를 위한 SpecAgent™, RTL 및 IP 개발용 DesignAgent™와 MooreIP, 시스템 통합용 MooreSoC를 제공함\n검증 단계 효율화를 위해 검증 환경을 생성하는 VerifAgent™, 결함을 격리하는 DebugAgent™, 커버리지를 분석하는 CoverageAgent™를 포함함\n해당 플랫폼은 Synopsys, Cadence, Siemens의 산업 표준 EDA 환경과 통합되어 작동함",
+      "sector": "설계",
       "category": "news",
       "trust": "medium",
       "created_at": "2026-07-09T06:00:31+09:00",
       "placement": "main",
       "source_name": "SemiWiki",
-      "source_url": "https://semiwiki.com/eda/moores-lab-ai/370928-see-autonomous-chip-design-in-action-with-chipagents-at-dac-2026-2",
+      "source_url": "https://semiwiki.com/eda/moores-lab-ai/370928-mooreslabai-at-dac-2026-why-the-future-of-semiconductor-engineering-is-agentic-not-just-generative",
       "source_note": "rss_or_html",
       "raw_source_type": "rss",
       "matched_keywords": [
         "transistor"
       ],
-      "summary_method": "snippet"
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "llm_keywords": [
+        "MooresLabAI",
+        "Agentic AI",
+        "EDA",
+        "DAC 2026"
+      ]
     },
     {
       "id": "art-00ba61e48a5c0a",
       "headline": "Inside the Race to Electrify Semi Trailers for Long Haul Freight",
-      "body": "A semi-trailer that helps propel itself entered commercial road testing in late May, when a powertrain kit developed by Nivalis Energy Europe , headquartered in Luxembourg with engineering operations in Germany, was fitted to a trailer supplied by Amsterdam-based TIP Group . The self-powered trailer was handed over to...",
+      "body": "Nivalis Energy Europe가 BPW와 공동 개발한 50kW 피크 출력 전기 액슬 및 60kWh 400V 리튬이온 배터리 팩 기반의 트레일러 파워트레인 키트 상용 도로 테스트 실시\nTrailer Dynamics가 CATL의 300kWh LFP 배터리를 적용한 M300 모델을 포함해 187~551kWh 범위의 모듈형 시스템을 제공하며, 2028년 산업 규모 생산 계획\nZF가 최대 210kW 연속 출력 전기 액슬을 탑재한 TrailTrax 시스템을 공개했으며, Kässbohrer, Krone, BPW 등이 해당 플랫폼을 채택\nRange Energy가 디젤, 배터리 전기, 수소 연료 전지 트럭과 호환되는 최대 300kWh 용량의 온보드 에너지 시스템 개발 중",
       "sector": "소자",
       "category": "news",
       "trust": "medium",
@@ -154,12 +191,20 @@
       "matched_keywords": [
         "cell"
       ],
-      "summary_method": "snippet"
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "llm_keywords": [
+        "전기 액슬",
+        "LFP 배터리",
+        "TrailTrax",
+        "Nivalis",
+        "Trailer Dynamics"
+      ]
     },
     {
       "id": "art-47d7e0b83ec09a",
       "headline": "Caspia Technologies is pioneering a new, agentic chip and system security approach at DAC 2026",
-      "body": "Caspia’s advanced tools and agents blend seamlessly with existing design flows to add expert-level security verification capabilities for all design teams. Founded in 2020 and headquartered in Gainesville, Florida, Caspia brings together expertise in chip design, fabrication, test, and verification with a deep understa...",
+      "body": "Caspia Technologies가 DAC 2026에서 AI 기반 정적 RTL 보안 강화 툴인 'CODAx'의 최신 버전을 공개한다.\nCODAx는 RTL 설계의 정적 분석을 통해 보안 취약점을 식별 및 수정하며, 보안 자산 자동 식별(Asset Assist)과 위반 사항 분류 가속(Report Assist) 기능을 제공한다.\n보안 검증 플랫폼의 범위를 기존 RTL 정적 분석에서 보안 어설션(Assertion) 자동 생성 및 시스템 레벨의 하드웨어/소프트웨어 보안 테스트 및 검증으로 확장하고 있다.\n복잡한 칩 및 멀티칩 시스템 설계 팀을 대상으로 하며, 오픈소스 Root-of-Trust 설계에 대한 분석 사례를 시연할 예정이다.",
       "sector": "설계",
       "category": "news",
       "trust": "medium",
@@ -170,12 +215,20 @@
       "source_note": "rss_or_html",
       "raw_source_type": "rss",
       "matched_keywords": [],
-      "summary_method": "snippet"
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "llm_keywords": [
+        "Caspia Technologies",
+        "CODAx",
+        "RTL 보안 검증",
+        "DAC 2026",
+        "AI 보안"
+      ]
     },
     {
       "id": "art-017d0887a88680",
       "headline": "IP Lifecycle Management in the AI Era",
-      "body": "Large design enterprises have multiple concurrent activities around IP of various types: software/firmware, blocks defined in RTL or HLS, verification IPs of multiple different types, physical implementations, scripts/files for timing, power management, etc., etc. Each of these continues to evolve and branch to serve …...",
+      "body": "Perforce가 대규모 설계 기업을 위한 AI 기반 IP 생애주기 관리(IPLM) 시스템인 'Perforce P4'(구 Helix Core)를 제공함\nPerforce P4는 코드와 대용량 바이너리 자산의 병렬 작업을 지원하며, API를 통한 툴 상태 업데이트 기능을 포함함\nAI 에이전트가 버전 관리 이력, 데이터, 코드 리뷰에 접근할 수 있도록 지원하는 'P4 MCP'를 출시함\nSiemens 및 일부 고객사가 플랫폼 내 자체 훅(hook)을 개발해 적용 중이며, Perforce는 다른 설계 에코시스템 벤더들과 지원 협력을 진행 중임\n해당 솔루션은 롱비치에서 개최되는 DAC 2026에서 공개될 예정임",
       "sector": "설계",
       "category": "news",
       "trust": "medium",
@@ -188,12 +241,20 @@
       "matched_keywords": [
         "IP"
       ],
-      "summary_method": "snippet"
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "llm_keywords": [
+        "Perforce P4",
+        "IPLM",
+        "P4 MCP",
+        "AI 에이전트",
+        "DAC 2026"
+      ]
     },
     {
       "id": "art-9b8799547554f6",
       "headline": "Chip Industry Technical Paper Roundup: July 8",
-      "body": "Schottky barriers at Si/metal interfaces; agentic HLS; probabilistic memory for edge; agentic HW design automation as repository-level code evolution; HW fingerprinting for photonic ICs; functional safety; open-source, customizable RISC-V SoC platform. The post Chip Industry Technical Paper Roundup: July 8 appeared fir...",
+      "body": "Si/금속 인터페이스의 쇼트키 장벽(Schottky barriers) 관련 기술 논문 공개\n에이전트 기반 HLS 및 저장소 수준 코드 진화 방식의 하드웨어 설계 자동화 연구 발표\n엣지 컴퓨팅용 확률적 메모리와 광집적회로(Photonic IC)용 하드웨어 핑거프린팅 기술 논문 추가\n오픈소스 기반 커스터마이징 가능 RISC-V SoC 플랫폼 및 기능 안전(Functional safety) 연구 공개",
       "sector": "설계",
       "category": "news",
       "trust": "medium",
@@ -206,44 +267,218 @@
       "matched_keywords": [
         "RISC-V"
       ],
-      "summary_method": "snippet"
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "llm_keywords": [
+        "HLS",
+        "RISC-V",
+        "광집적회로",
+        "하드웨어 설계 자동화",
+        "확률적 메모리"
+      ]
     },
     {
       "id": "art-e067de1fc6137f",
       "headline": "선글라스 낀 이재용, 선밸리서 ‘파운드리 세일즈’ - 에너지경제신문",
-      "body": "선글라스 낀 이재용, 선밸리서 ‘파운드리 세일즈’ 에너지경제신문",
-      "sector": "설계",
+      "body": "이재용 삼성전자 회장이 선밸리 컨퍼런스에 참석함\n파운드리 사업 수주를 위한 세일즈 활동을 수행함\n확인된 내용은 이재용 회장의 행사 참석 및 파운드리 영업 활동 수행으로 제한됨",
+      "sector": "공정",
       "category": "news",
       "trust": "medium",
       "created_at": "2026-07-08T18:40:15+09:00",
-      "placement": "main",
+      "placement": "side",
       "source_name": "Google News RSS",
       "source_url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE9WcG1vZTRYRjBkU21hYmlMMXRhTktvZkdUSG9PbTZZWW5YQnZxTzJsTmJYRjlDRF9ybEJWOFdGYkoxMFNNUDJxeXUzR00wN3RQSjlYSzl3cFl4aVE?oc=5",
       "source_note": "Google News search RSS result; original publisher link is retained where available.",
       "raw_source_type": "rss",
       "matched_keywords": [],
-      "summary_method": "snippet"
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "llm_keywords": [
+        "삼성전자",
+        "이재용",
+        "선밸리",
+        "파운드리"
+      ]
     },
     {
-      "id": "art-30cfa0eb9b4454",
-      "headline": "이재용 회장, '선밸리'에 한진만 파운드리 사장 동행…빅테크 수주 노린다 - 지디넷코리아",
-      "body": "이재용 회장, '선밸리'에 한진만 파운드리 사장 동행…빅테크 수주 노린다 지디넷코리아",
-      "sector": "설계",
+      "id": "art-cbcb3ee88c8b36",
+      "headline": "삼성, 베라 루빈에 들어갈 eSSD 양산… AI 메모리 영역 확장",
+      "body": "삼성전자가 엔비디아 차세대 AI 가속기 '베라 루빈'에 탑재되는 PCIe 6.0 기반 기업용 SSD(eSSD) 'PM1763' 양산을 시작함\nPM1763은 9세대 V낸드와 4나노 컨트롤러를 탑재했으며, 4TB, 8TB, 16TB의 세 가지 용량으로 제공됨\n16TB 모델 기준 연속 읽기·쓰기 속도는 최대 28,400MB/s 및 21,900MB/s로 전작 PM1753 대비 약 2배 향상됨\n다이렉트 투 칩(D2C) 액체 냉각 방식을 적용해 고부하 환경 성능을 유지하며, 전력 효율을 전작 대비 1.8배 이상 높임\n4나노 공정 기반 HBM4를 베라 루빈에 공급 중이며, 내년 출시 예정인 '베라 루빈 울트라'용 HBM4E 12단 샘플을 고객사에 공급함",
+      "sector": "소자",
       "category": "news",
       "trust": "medium",
-      "created_at": "2026-07-08T17:58:09+09:00",
+      "created_at": "2026-07-08T18:11:00+09:00",
       "placement": "side",
-      "source_name": "Google News RSS",
-      "source_url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE9sNFJBU1FPTjNrWWVHeFlVWXlzNE1IbkFIbDc4ZlpCMVMyQTM0SDhLa2M3QlF1SmlvQkJPV1N5MTBNWGVMc0tvMlpETXBkekE2RmZCZnRB?oc=5",
-      "source_note": "Google News search RSS result; original publisher link is retained where available.",
-      "raw_source_type": "rss",
+      "source_name": "Naver News Search",
+      "source_url": "http://www.fnnews.com/news/202607081810187114",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
       "matched_keywords": [],
-      "summary_method": "snippet"
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "llm_keywords": [
+        "PM1763",
+        "베라 루빈",
+        "eSSD",
+        "PCIe 6.0",
+        "HBM4"
+      ]
+    },
+    {
+      "id": "art-a7d420a5c210d2",
+      "headline": "나노코리아서 제조 기술력 뽐낸 삼성전자·LG전자… “미세 공정에서 완...",
+      "body": "삼성전자가 나노코리아에서 6~7세대 고대역폭메모리인 HBM4 및 HBM4E를 공개함\n2나노 게이트올어라운드(GAA) 공정 기술을 전시함\n자동차 및 로봇용 반도체 제품으로 3D 이미지센서, 차량용 UFS 4.1, LPDDR5X, 탈부착형 오토SSD를 선보임",
+      "sector": "공정",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-07-08T18:10:00+09:00",
+      "placement": "side",
+      "source_name": "Naver News Search",
+      "source_url": "https://biz.chosun.com/it-science/ict/2026/07/08/B2SXL4QZFJCCPEK76Z4M6EHGJI",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "GAA"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "llm_keywords": [
+        "삼성전자",
+        "HBM4",
+        "2나노 GAA",
+        "차량용 반도체"
+      ]
+    },
+    {
+      "id": "art-a1c6ffff340c1d",
+      "headline": "'반도체 갈등' 중-네덜란드 통상장관 회담…\"분쟁 적절 해결해야\"",
+      "body": "중국과 네덜란드 통상장관이 반도체 갈등 해결을 위한 회담을 진행함\n미국은 ASML이 EUV 노광장비 부품 및 이송 장비를 중국에 수출했다고 주장함\n중국이 인수한 네덜란드 반도체 기업 넥스페리아는 이번 방중 대표단에서 제외됨",
+      "sector": "공정",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-07-08T18:08:00+09:00",
+      "placement": "side",
+      "source_name": "Naver News Search",
+      "source_url": "https://www.news1.kr/world/northeast-asia/6222084",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "EUV"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "llm_keywords": [
+        "ASML",
+        "EUV",
+        "중-네덜란드 통상회담",
+        "넥스페리아"
+      ]
+    },
+    {
+      "id": "art-56de56253b8dc1",
+      "headline": "中상무부장, 네덜란드에 \"반도체 공급망 유지 희망\"",
+      "body": "왕원타오 중국 상무부장과 슈르트 슈르츠마 네덜란드 장관이 제18차 경제·무역 혼합위원회 회의를 통해 '중·네덜란드 기업가위원회 설립 양해각서'를 체결함\n중국 정부는 네덜란드 측에 반도체 생산 및 공급망의 안정적 유지와 중국 기업의 네덜란드 투자 환경 개선을 요청함\nASML의 EUV 및 고성능 DUV 노광장비 수출 규제와 넥스페리아 경영권 박탈 관련 양국 간 갈등이 지속되고 있는 상황임\n네덜란드 장관의 방중단에 포함된 17명의 기업 임원 중 ASML 대표가 포함된 것으로 보도됨",
+      "sector": "공정",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-07-08T18:04:00+09:00",
+      "placement": "side",
+      "source_name": "Naver News Search",
+      "source_url": "https://www.newsis.com/view/NISX20260708_0003701367",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "EUV"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "llm_keywords": [
+        "ASML",
+        "노광장비",
+        "공급망",
+        "중-네덜란드 경제무역 혼합위원회"
+      ]
+    },
+    {
+      "id": "art-5a2a76fa17fdc2",
+      "headline": "美유학길 3번 퇴짜 당한 인도청년…삼전닉스 넘보는 ‘메모리 승부사’...",
+      "body": "마이크론이 일본 히로시마 공장에 약 1조 5,000억 엔(약 14조 2,000억 원) 규모의 투자를 단행함\n2028년 하반기부터 해당 신규 시설에서 D램 및 7세대 HBM 제품인 HBM4E를 생산할 계획임\n일본 정부가 마이크론의 이번 투자에 대해 최대 5,360억 엔(약 5조 원)을 지원함\n2026회계연도 3분기 매출 414억 6,000만 달러, 매출총이익률 84.9%를 기록함\n1분기 글로벌 시장 점유율은 D램 22%(3위), 낸드플래시 13%(4위)로 집계됨",
+      "sector": "소자",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-07-08T18:01:00+09:00",
+      "placement": "side",
+      "source_name": "Naver News Search",
+      "source_url": "https://biz.heraldcorp.com/article/10802689?ref=naver",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "HBM"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "llm_keywords": [
+        "마이크론",
+        "HBM4E",
+        "히로시마 팹",
+        "D램",
+        "낸드플래시"
+      ]
+    },
+    {
+      "id": "art-0742f88eef97b4",
+      "headline": "장비·인재 확보가 관건…호남 반도체 클러스터의 숙제 [호남 반도체 르...",
+      "body": "네덜란드 ASML이 전 세계에서 유일하게 극자외선(EUV) 노광장비를 생산함\n최신 EUV 노광장비의 대당 가격은 약 5,000억 원 수준임\nASML의 EUV 노광장비 연간 생산량은 약 60대 규모로 파악됨",
+      "sector": "공정",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-07-08T17:46:00+09:00",
+      "placement": "side",
+      "source_name": "Naver News Search",
+      "source_url": "https://news.mtn.co.kr/news-detail/2026070816305067767",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "EUV"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "llm_keywords": [
+        "ASML",
+        "EUV",
+        "노광장비"
+      ]
+    },
+    {
+      "id": "art-1af977bdc7a02f",
+      "headline": "중-네덜란드, 베이징서 ‘반도체 갈등’ 조율…8년 만의 통상회담",
+      "body": "중국과 네덜란드가 베이징에서 8년 만에 통상장관 회담인 '제18차 중국-네덜란드 경제·무역 혼합위원회'를 개최함\n네덜란드 정부는 안보 위협 방지를 목적으로 ASML의 EUV 및 DUV 장비에 대한 엄격한 수출 통제 기조를 유지함\nASML 대표를 포함한 네덜란드 기업인 17명이 이번 방중단에 합류해 수출 통제 관련 돌파구를 모색함\n차량용 반도체 기업 넥스페리아와 중국 모회사 윙테크 간의 경영권 및 기술 유출 분쟁 논의는 이번 회담에서 제외됨\n양국은 민간 경제 협력 지속을 위해 '중국-네덜란드 기업가위원회 설립 양해각서(MOU)'를 체결함",
+      "sector": "공정",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-07-08T17:42:00+09:00",
+      "placement": "side",
+      "source_name": "Naver News Search",
+      "source_url": "https://www.dt.co.kr/article/12071905?ref=naver",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "EUV"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "llm_keywords": [
+        "ASML",
+        "수출 통제",
+        "EUV",
+        "DUV",
+        "넥스페리아"
+      ]
     },
     {
       "id": "art-4346d4dc270eb1",
       "headline": "\"AI 연구 요원들 소통하며 협업···반도체 설계부터 시뮬레이션도 척척\"KAIST 테라랩, 업무 자동화 사례 공개 - 헬로디디",
-      "body": "\"AI 연구 요원들 소통하며 협업···반도체 설계부터 시뮬레이션도 척척\"KAIST 테라랩, 업무 자동화 사례 공개 헬로디디",
+      "body": "KAIST 테라랩이 AI 연구 요원 간 협업을 통한 업무 자동화 사례를 공개함\n자동화 적용 범위에 반도체 설계 및 시뮬레이션 업무가 포함됨\nAI 연구 요원들이 상호 소통하며 협업하는 방식으로 업무를 처리함",
       "sector": "설계",
       "category": "news",
       "trust": "medium",
@@ -254,13 +489,47 @@
       "source_note": "Google News search RSS result; original publisher link is retained where available.",
       "raw_source_type": "rss",
       "matched_keywords": [],
-      "summary_method": "snippet"
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "llm_keywords": [
+        "KAIST 테라랩",
+        "AI 연구 요원",
+        "업무 자동화",
+        "반도체 설계",
+        "시뮬레이션"
+      ]
+    },
+    {
+      "id": "art-a988224944458a",
+      "headline": "[WIKI 현장] 반도체부터 친환경 에너지까지…삼성전자, 차세대 첨단 패...",
+      "body": "삼성전자가 3차원 트랜지스터 구조인 GAA(Gate-All-Around) 기반 2나노 공정 웨이퍼를 전시함\n6세대 고대역폭메모리인 HBM4 및 HBM4E 제품 로드맵을 공개함\n기존 핀펫(FinFET) 구조를 대체하는 2나노 GAA 공정 기술의 실물을 선보임",
+      "sector": "공정",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-07-08T17:20:00+09:00",
+      "placement": "side",
+      "source_name": "Naver News Search",
+      "source_url": "http://www.wikileaks-kr.org/news/articleView.html?idxno=189515",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "GAA"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "llm_keywords": [
+        "삼성전자",
+        "2나노",
+        "GAA",
+        "HBM4",
+        "HBM4E"
+      ]
     },
     {
       "id": "art-963c3c8194df9c",
       "headline": "[WIKI 현장] 반도체부터 친환경 에너지까지…삼성전자, 차세대 첨단 패키징 기술력 입증 - 위키리크스한국",
-      "body": "[WIKI 현장] 반도체부터 친환경 에너지까지…삼성전자, 차세대 첨단 패키징 기술력 입증 위키리크스한국",
-      "sector": "설계",
+      "body": "삼성전자가 차세대 첨단 패키징 기술력을 공개함\n해당 기술의 적용 범위로 반도체 및 친환경 에너지 분야를 제시함\n구체적인 기술 사양, 공정명, 수치 등 세부 내용은 제공된 원문에서 확인되지 않음",
+      "sector": "패키징",
       "category": "news",
       "trust": "medium",
       "created_at": "2026-07-08T17:19:00+09:00",
@@ -270,29 +539,148 @@
       "source_note": "Google News search RSS result; original publisher link is retained where available.",
       "raw_source_type": "rss",
       "matched_keywords": [],
-      "summary_method": "snippet"
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "llm_keywords": [
+        "삼성전자",
+        "첨단 패키징",
+        "친환경 에너지"
+      ]
     },
     {
-      "id": "art-b002e3b18303d7",
-      "headline": "이재용, 빅테크 거물 모이는 선밸리 참석…AI 반도체 협력 기대감 - 시사저널",
-      "body": "이재용, 빅테크 거물 모이는 선밸리 참석…AI 반도체 협력 기대감 시사저널",
+      "id": "art-f48e0a0857b442",
+      "headline": "이재용, ‘억만장자 사교 클럽’ 참석 한다…“빅테크 CEO 회동, ‘파운...",
+      "body": "이재용 삼성전자 회장과 한진만 파운드리사업부장 사장이 7월 7~11일 미국 선밸리 콘퍼런스에 참석해 구글, 애플, 메타, 오픈AI 등 빅테크 CEO들과 AI 협력 및 파운드리 파트너십을 논의한다.\n삼성전자 파운드리 2나노 공정 수율이 60% 이상으로 개선되었으며, 올해 하반기 2나노 2세대 공정을 적용한 신제품을 양산할 계획이다.\n삼성전자는 올해 DS(디바이스솔루션) 부문을 중심으로 110조 원 이상의 투자를 집행할 예정이다.\n삼성전자는 테슬라(약 23조 원 규모), 애플과 칩 생산 계약을 체결했으며, 엔비디아의 차세대 AI 반도체 '베라 루빈'용 '그록(Groq)3' LPU를 제조하고 있다.",
+      "sector": "공정",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-07-08T16:48:00+09:00",
+      "placement": "side",
+      "source_name": "Naver News Search",
+      "source_url": "https://www.ceoscoredaily.com/page/view/2026070815581951961",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "GAA"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "llm_keywords": [
+        "선밸리 콘퍼런스",
+        "2나노 공정",
+        "GAA",
+        "삼성 파운드리",
+        "AI 반도체"
+      ]
+    },
+    {
+      "id": "art-012ee826fdfc25",
+      "headline": "[증시 인사이트] 국내증시 연일 급등락…'패닉셀'에 극심해진 변동성",
+      "body": "삼성전자가 HBM4E 12단 샘플을 고객사에 납품함\n삼성전자 HBM4E 신뢰성 테스트 수율 70% 이상 달성\nSK하이닉스가 ADR 상장을 통해 최대 43조 원 조달 예정\nAI 메모리칩 가격이 고점 대비 20% 이상 하락하며 베어마켓 진입",
+      "sector": "소자",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-07-08T16:41:00+09:00",
+      "placement": "side",
+      "source_name": "Naver News Search",
+      "source_url": "https://biz.sbs.co.kr/article_hub/20000321371?division=NAVER",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
+      "matched_keywords": [],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "llm_keywords": [
+        "삼성전자",
+        "SK하이닉스",
+        "HBM4E",
+        "ADR 상장",
+        "AI 메모리칩"
+      ]
+    },
+    {
+      "id": "art-aa4f2c912848dc",
+      "headline": "삼성전자 기업가치 두고 시선이 엇갈리기 시작했다 : 관건은 이재용 HBM ...",
+      "body": "삼성전자가 성과급 충당금 17조 원을 반영하고 연결기준 영업이익 89조 4천억 원의 잠정실적을 발표함\n3분기 D램 및 낸드 가격 상승률이 2분기 대비 둔화될 것으로 전망되며, 키움증권은 D램 6%, 낸드 7% 상승을 예측함\n1분기 매출 기준 HBM 시장 점유율은 SK하이닉스 58%, 삼성전자 21%로 집계되었으며 삼성전자는 전년 대비 점유율을 8%p 높임\n삼성전자가 2월 HBM4(6세대)를 세계 최초로 양산 출하하고, 5월 HBM4E(7세대) 샘플을 업계 최초로 고객사에 공급함\n이재용 회장이 미국 선밸리 콘퍼런스에 참석해 주요 고객사와 HBM 및 AI 반도체 협력 방안을 논의할 예정임",
+      "sector": "소자",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-07-08T16:36:00+09:00",
+      "placement": "side",
+      "source_name": "Naver News Search",
+      "source_url": "https://www.huffingtonpost.kr/article/258568",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "HBM"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "llm_keywords": [
+        "삼성전자",
+        "HBM4",
+        "HBM4E",
+        "메모리 가격",
+        "시장 점유율"
+      ]
+    },
+    {
+      "id": "art-ec1381dadc3201",
+      "headline": "中 딥시크, 자체 AI 칩 만든다…기술 만리장성 쌓는 중국 [팩플]",
+      "body": "딥시크(DeepSeek)가 약 1년 전부터 생성AI 추론에 특화된 맞춤형 반도체(ASIC) 설계 및 생산 프로젝트를 추진 중이다.\n즈푸AI(智谱AI)가 자사 AI 모델 'GLM' 실행 최적화 프로세서 공동 개발을 위해 중국 반도체 기업들과 논의하고 있다.\n중국 기업 임원 60명 대상 설문 결과, 화웨이 '어센드 910B/C'의 도입 및 평가 비율이 65%로 엔비디아 H20/L20 및 A800/H800(각 47%)보다 높게 나타났다.\n중국 기업들의 향후 1년간 AI 가속기 예산 중 중국 제품 배정 비율이 현재 30%에서 46%로 확대될 전망이다.",
       "sector": "설계",
       "category": "news",
       "trust": "medium",
-      "created_at": "2026-07-08T16:40:00+09:00",
+      "created_at": "2026-07-08T16:29:00+09:00",
       "placement": "side",
-      "source_name": "Google News RSS",
-      "source_url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE9aaWlhUERwY19seGNYWWQ5VFQ0UnJEYUZmYUlzMjZ5OHlveXhRYmtNTW9nVktBd2ZQbGo2TXpST2x1R2xKd2NkNjA3cURXQUctTF9LM3UzR1pyclhBdE1aakdfYnQwU0tCTC1hck5yMNIBc0FVX3lxTE0xcEt1Q1BFZTFUR3lKdG9FOHNXN0hUR0xBbzh2UFYyU1FXYXBMMjJsWWZTR3hIeDR0d0pZakNiZmZvaXFXUnhpNEgxYkUzQlZrcFlDUWI3TkQweEUzOVFzd1lpbDYzT1NyemVWT19YQWJfSmM?oc=5",
-      "source_note": "Google News search RSS result; original publisher link is retained where available.",
-      "raw_source_type": "rss",
-      "matched_keywords": [],
-      "summary_method": "snippet"
+      "source_name": "Naver News Search",
+      "source_url": "https://www.joongang.co.kr/article/25443455",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "ASIC",
+        "NPU"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "llm_keywords": [
+        "딥시크",
+        "ASIC",
+        "추론 칩",
+        "어센드 910B/C",
+        "즈푸AI"
+      ]
+    },
+    {
+      "id": "art-6653e6be5d003c",
+      "headline": "인텔 견제 나선 TSMC…차세대 AI 패키징 'CoPoS' 양산 앞당기나",
+      "body": "TSMC가 AI GPU 및 ASIC 수요 대응을 위해 차세대 패키징 기술 'CoPoS'의 양산 시점 단축을 검토 중임\nCoPoS는 AI 가속기와 주문형 반도체(ASIC)를 대상으로 하는 차세대 패키징 솔루션임\nCoPoS의 기술 성숙도와 칩 간 연결 밀도는 현재 주력 공정인 CoWoS보다 낮은 수준으로 확인됨",
+      "sector": "패키징",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-07-08T16:27:00+09:00",
+      "placement": "side",
+      "source_name": "Naver News Search",
+      "source_url": "http://www.joseilbo.com/news/news_read.php?uid=571532&class=17&grp=",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "ASIC",
+        "GPU"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "llm_keywords": [
+        "TSMC",
+        "CoPoS",
+        "CoWoS",
+        "AI 패키징"
+      ]
     },
     {
       "id": "art-449bc974b48114",
       "headline": "삼성 파운드리 턴어라운드 기대…이재용 美 출장길에 한진만 사장 동행(종합) - KB Think",
-      "body": "삼성 파운드리 턴어라운드 기대…이재용 美 출장길에 한진만 사장 동행(종합) KB Think",
-      "sector": "설계",
+      "body": "이재용 삼성전자 회장이 미국 출장을 진행한다.\n한진만 삼성전자 파운드리 사업부장이 이번 출장 일정에 동행했다.\n삼성 파운드리 사업의 턴어라운드 추진을 위한 행보로 확인된다.",
+      "sector": "공정",
       "category": "news",
       "trust": "medium",
       "created_at": "2026-07-08T16:23:37+09:00",
@@ -302,12 +690,71 @@
       "source_note": "Google News search RSS result; original publisher link is retained where available.",
       "raw_source_type": "rss",
       "matched_keywords": [],
-      "summary_method": "snippet"
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "llm_keywords": [
+        "삼성전자",
+        "파운드리",
+        "이재용",
+        "한진만"
+      ]
+    },
+    {
+      "id": "art-85826c8036fb4f",
+      "headline": "[현장] 삼성·LG, 나노코리아 2026서 미래 기술 경쟁 선보여",
+      "body": "삼성전자가 1c D램과 4nm 파운드리 공정 로직 베이스 다이를 적용한 HBM4 및 HBM4E를 공개함\n실리콘 브리지로 로직 칩과 HBM을 연결한 첨단 패키징 구조와 DDR5 RDIMM, GDDR7 제품을 전시함\nGAA 기술을 적용해 전력 효율을 높인 MBCFET 트랜지스터 구조를 선보임\nLG가 유리기판(Glass Substrate)에 미세 전기 통로를 형성하는 TGV(Through Glass Via) 레이저 시스템을 공개함\n웨이퍼 내부 균열을 비파괴 검사하는 Wafer SAT 장비와 LDI, 비아홀 레이저 드릴링, 레이저 싱귤레이션 기술을 전시함",
+      "sector": "공정",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-07-08T16:22:00+09:00",
+      "placement": "side",
+      "source_name": "Naver News Search",
+      "source_url": "https://www.smartbizn.com/news/articleView.html?idxno=148112",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "GPU"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "llm_keywords": [
+        "HBM4",
+        "1c D램",
+        "MBCFET",
+        "TGV",
+        "유리기판"
+      ]
+    },
+    {
+      "id": "art-c98ee86f3a27d5",
+      "headline": "中-네덜란드 통상장관 베이징서 회동…'반도체 마찰' 등 논의",
+      "body": "중국 상무부와 네덜란드 대외무역·개발협력부가 7월 7일 베이징에서 회담을 갖고 '중국-네덜란드 기업가위원회 설립 양해각서(MOU)'에 서명함\n네덜란드 정부는 ASML의 극자외선(EUV) 및 심자외선(DUV) 노광장비에 대한 대중국 수출 통제 기조를 유지함\n네덜란드 정부가 기술 유출 우려로 박탈한 넥스페리아(Nexperia)의 경영권 및 중국 윙테크와의 분쟁 해결을 위한 협의를 진행함\n이번 네덜란드 통상장관 방중 대표단에 ASML 대표를 포함한 네덜란드 기업 임원 17명이 동행함",
+      "sector": "공정",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-07-08T16:09:00+09:00",
+      "placement": "side",
+      "source_name": "Naver News Search",
+      "source_url": "https://www.yna.co.kr/view/AKR20260708132800083?input=1195m",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "EUV"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "llm_keywords": [
+        "ASML",
+        "EUV",
+        "DUV",
+        "넥스페리아",
+        "수출 통제"
+      ]
     },
     {
       "id": "art-69be37dfdd42fe",
       "headline": "Unifying Software And Semiconductor Development",
-      "body": "Redefining IP lifecycle management by uniting silicon and software to deliver traceability, automation, and AI-ready design flows. The post Unifying Software And Semiconductor Development appeared first on Semiconductor Engineering .",
+      "body": "Siemens EDA와 Perforce가 소프트웨어 정의 시스템 개발을 위한 통합 설계 플랫폼 파트너십을 체결함\nIC 및 PCB 설계를 소프트웨어 설계와 병행 수행하여 엔드-투-엔드 추적성과 자동화를 구현하는 방법론을 제시함\n실리콘과 소프트웨어의 IP 라이프사이클 관리를 통합하여 AI 준비형(AI-ready) 설계 플로우를 제공함",
       "sector": "설계",
       "category": "news",
       "trust": "medium",
@@ -320,12 +767,20 @@
       "matched_keywords": [
         "IP"
       ],
-      "summary_method": "snippet"
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "llm_keywords": [
+        "Siemens EDA",
+        "Perforce",
+        "소프트웨어 정의 시스템",
+        "EDA",
+        "IP 라이프사이클 관리"
+      ]
     },
     {
       "id": "art-69e461c62f4309",
       "headline": "Field Guide to DDR Signal Integrity Analysis",
-      "body": "Catch every DDR5 compliance failure in simulation, not on the bench. The post Field Guide to DDR Signal Integrity Analysis appeared first on Semiconductor Engineering .",
+      "body": "DDR5 컴플라이언스 검증을 위해 Eye width/height, overshoot/ringback, DQ-to-DQS skew, RX mask margins, BER 리포트 등 JEDEC 측정 항목을 분석함\nSigrity X PowerSI 및 Sigrity SystemSI 툴을 사용하여 JEDEC 기준값 준수 여부를 검증함\n해당 검증 프로세스는 Allegro 설계 플로우 내에서 통합 수행됨\n물리적 벤치 테스트 전 시뮬레이션 단계에서 DDR5 컴플라이언스 실패 사례를 식별하는 분석 가이드를 제공함",
       "sector": "설계",
       "category": "news",
       "trust": "medium",
@@ -336,12 +791,20 @@
       "source_note": "rss_or_html",
       "raw_source_type": "rss",
       "matched_keywords": [],
-      "summary_method": "snippet"
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "llm_keywords": [
+        "DDR5",
+        "JEDEC",
+        "Sigrity",
+        "Allegro",
+        "Signal Integrity"
+      ]
     },
     {
       "id": "art-90af5f57ee1a86",
       "headline": "PCIe 7.0 in Practice: Design Considerations for Storage, Networking, and AI",
-      "body": "Overcoming data bottlenecks and meeting the rapidly growing demands for performance and reliability. The post PCIe 7.0 in Practice: Design Considerations for Storage, Networking, and AI appeared first on Semiconductor Engineering .",
+      "body": "Semiconductor Engineering가 PCIe 7.0 설계 고려 사항에 관한 화이트페이퍼를 공개함\n고성능 시스템을 위한 고급 인터커넥트 솔루션의 기술적 인사이트를 제공함\n스토리지, 네트워킹, AI 분야의 데이터 병목 현상 해결 및 성능과 신뢰성 확보 방안을 다룸",
       "sector": "설계",
       "category": "news",
       "trust": "medium",
@@ -352,12 +815,18 @@
       "source_note": "rss_or_html",
       "raw_source_type": "rss",
       "matched_keywords": [],
-      "summary_method": "snippet"
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "llm_keywords": [
+        "PCIe 7.0",
+        "인터커넥트",
+        "화이트페이퍼"
+      ]
     },
     {
       "id": "art-867159814571d8",
       "headline": "The Ultimate Guide to PCI Express: Specs, Features, Use Cases and PCIe 7.0",
-      "body": "For design teams moving from specification to implementation, controller IP will continue to play a critical role to help accelerate the path to robust, standards-aligned PCIe 7.0 designs. The post The Ultimate Guide to PCI Express: Specs, Features, Use Cases and PCIe 7.0 appeared first on Semiconductor Engineering .",
+      "body": "PCIe 7.0 사양이 2025년 6월 11일 PCI-SIG 회원사들에게 공식 발표됨\n데이터 전송 속도가 PCIe 6.x의 64.0 GT/s에서 128.0 GT/s로 2배 증가함\nx16 구성 시 최대 512 GB/s의 양방향 대역폭을 제공함\nPAM4 시그널링과 FLIT 기반 인코딩을 유지하며 전력 효율 개선 및 광 인터커넥트(optical interconnect)를 지원함\nAI, 머신러닝, 하이퍼스케일 데이터센터, 양자 컴퓨팅 등 데이터 집약적 애플리케이션에 적용됨",
       "sector": "설계",
       "category": "news",
       "trust": "medium",
@@ -370,12 +839,20 @@
       "matched_keywords": [
         "IP"
       ],
-      "summary_method": "snippet"
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "llm_keywords": [
+        "PCIe 7.0",
+        "PCI-SIG",
+        "PAM4",
+        "128 GT/s",
+        "광 인터커넥트"
+      ]
     },
     {
       "id": "art-67cd4ff7e48f36",
       "headline": "Arm Neoverse CMN-700: Performance Analysis Methodology",
-      "body": "Comprehending how requests are queued, routed, and serviced within the interconnect is essential to explaining latency, stalls, and throughput limitations that are not attributable to the cores themselves. The post Arm Neoverse CMN-700: Performance Analysis Methodology appeared first on Semiconductor Engineering .",
+      "body": "Arm Neoverse CMN-700 코히런트 인터커넥트의 지연 시간, 스톨, 처리량 제한 분석을 위한 성능 분석 방법론 제시\n인터커넥트 내 요청 큐잉, 라우팅, 서비스 처리 방식이 SoC 전체 성능을 결정하는 핵심 요인으로 작용\nCPU, 가속기, 메모리, I/O 장치 간 확장 가능한 성능 구현을 위해 코히런트 인터커넥트 중심 설계 적용\n코어 수 증가, 이기종 워크로드 통합, 멀티 칩렛 및 소켓 확장 시 인터커넥트 패브릭에서 성능 병목 현상 발생",
       "sector": "설계",
       "category": "news",
       "trust": "medium",
@@ -389,12 +866,19 @@
         "Arm",
         "interconnect"
       ],
-      "summary_method": "snippet"
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "llm_keywords": [
+        "Arm Neoverse CMN-700",
+        "코히런트 인터커넥트",
+        "성능 분석",
+        "칩렛"
+      ]
     },
     {
       "id": "art-cfc438244170ff",
       "headline": "Blog Review: July 8",
-      "body": "System complexity challenges; security Ethernet; IP for 3D-ICs; on-device gesture recognition; MRC protocol. The post Blog Review: July 8 appeared first on Semiconductor Engineering .",
+      "body": "Keysight가 8-플레인 아키텍처, 호스트 측 패킷 스프레이잉, 정적 소스 라우팅을 결합해 수십만 개의 GPU 확장이 가능한 AI 데이터센터용 전송 프로토콜 MRC(Multipath Reliable Connection)를 공개함\nArm이 Ethos NPU를 활용해 차량용 인포테인먼트 시스템에서 실시간 오프라인 제스처 인식을 가능하게 하는 오픈소스 프로젝트를 공유함\nCadence가 상위 계층 프로토콜 수정 없이 데이터 링크 계층의 이더넷 포트 수준에서 데이터 기밀성과 무결성을 보장하는 MACsec 기술을 제시함\nSiemens EDA가 나노미터 공정 제조 병목 현상을 해결하기 위한 컴퓨테이셔널 리소그래피(Computational Lithography) 가속화 방안을 분석함\nAlphawave와 Siemens가 3D-IC 구현을 위한 전용 IP 개발 및 시스템 정의 요소로서의 커넥티비티 설계 방안을 논의함",
       "sector": "설계",
       "category": "news",
       "trust": "medium",
@@ -407,13 +891,123 @@
       "matched_keywords": [
         "IP"
       ],
-      "summary_method": "snippet"
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "llm_keywords": [
+        "MRC",
+        "Ethos NPU",
+        "MACsec",
+        "컴퓨테이셔널 리소그래피",
+        "3D-IC IP"
+      ]
+    },
+    {
+      "id": "art-239a1f903ea941",
+      "headline": "[포토] 삼성전자 HBM4 는",
+      "body": "삼성전자가 '나노코리아 2026' 전시회에서 HBM4 및 HBM4E 기술을 공개함\n해당 행사는 7월 8일 경기도 킨텍스에서 개최됨\n전시 대상은 삼성전자의 차세대 고대역폭메모리(HBM) 제품군임",
+      "sector": "소자",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-07-08T15:51:00+09:00",
+      "placement": "side",
+      "source_name": "Naver News Search",
+      "source_url": "https://www.etnews.com/20260708000389",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "HBM"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "llm_keywords": [
+        "삼성전자",
+        "HBM4",
+        "HBM4E",
+        "나노코리아 2026"
+      ]
+    },
+    {
+      "id": "art-3ce93f8c04d765",
+      "headline": "[포토] 화려한 K-반도체 ' HBM4 '",
+      "body": "삼성전자가 '나노코리아 2026' 전시회에서 HBM4 및 HBM4E 기술을 공개함\n해당 행사는 8일 경기도 킨텍스에서 개최됨\n전시회에는 반도체, 로봇, 소부장 분야의 첨단 기술이 집결됨",
+      "sector": "소자",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-07-08T15:50:00+09:00",
+      "placement": "side",
+      "source_name": "Naver News Search",
+      "source_url": "https://www.etnews.com/20260708000387",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "HBM"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "llm_keywords": [
+        "삼성전자",
+        "HBM4",
+        "HBM4E",
+        "나노코리아 2026"
+      ]
+    },
+    {
+      "id": "art-2d3327f5d86838",
+      "headline": "SK하이닉스 AI 메모리 전략, ' HBM 리더십 기반' 성능 고도화 넘어 고객 ...",
+      "body": "HBM4 개발 완료 및 양산 준비에 착수했으며, TSMC와 협력해 베이스 다이에 첨단 로직 공정을 적용하고 냉각 요소(ICE)를 내장한 iHBM 솔루션을 제시함\n1cnm LPDDR5X 기반 192GB SOCAMM2 양산을 시작하고 GDDR7, DDR5, PIM, CXL 등 AI-DRAM 제품군을 구축함\n321단 QLC 낸드 양산 및 245TB급 고용량 스토리지를 전개하며, HBM과 SSD를 연동하는 HBF(High Bandwidth Flash) 기술을 개발 중임\n엔비디아와 차세대 메모리 공동 개발 파트너십을 체결하고 청주 P&T7 패키징 전용 팹 및 미국 인디애나 첨단 패키징 거점 투자를 추진함",
+      "sector": "소자",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-07-08T15:50:00+09:00",
+      "placement": "side",
+      "source_name": "Naver News Search",
+      "source_url": "https://www.financialpost.co.kr/news/articleView.html?idxno=265655",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "HBM"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "llm_keywords": [
+        "HBM4",
+        "SOCAMM2",
+        "321단 QLC",
+        "iHBM",
+        "HBF"
+      ]
+    },
+    {
+      "id": "art-6899db4e9345e6",
+      "headline": "애플도 시험한 中 D램 CXMT, AI 메모리 판 흔드나…\"최소 2년은 공급난\"",
+      "body": "애플이 중국 내수용 아이폰에 탑재할 CXMT의 D램 칩을 시험 중이며, 일부 미국 기업들은 정부에 CXMT 제품 사용 범위 확대를 요청하고 있다.\nCXMT의 D램 웨이퍼 생산능력 비중은 2023년 약 11%에서 허페이·상하이·베이징 신규 라인이 가동되는 2028년 15%까지 확대될 전망이다.\nIPO를 통해 조달한 295억 위안을 생산공정 고도화 및 차세대 D램 연구개발(R&D)에 투자할 계획이다.\nASML의 극자외선(EUV) 장비 미확보로 인해 HBM 생산 비용과 수율 면에서 경쟁사 대비 불리한 상황이다.\n올해 1분기 330억 위안의 순이익을 기록하며 지난 10년간의 누적 손실 370억 위안을 대부분 만회했다.",
+      "sector": "소자",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-07-08T15:28:00+09:00",
+      "placement": "side",
+      "source_name": "Naver News Search",
+      "source_url": "https://www.newsis.com/view/NISX20260708_0003701020",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "EUV"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "llm_keywords": [
+        "CXMT",
+        "D램",
+        "애플",
+        "EUV",
+        "HBM"
+      ]
     },
     {
       "id": "art-7c1129c1f86634",
       "headline": "이재용, 파운드리 사업부장과 선밸리 참석…빅테크 수주 주목 - 연합뉴스",
-      "body": "이재용, 파운드리 사업부장과 선밸리 참석…빅테크 수주 주목 연합뉴스",
-      "sector": "설계",
+      "body": "이재용 삼성전자 회장이 선밸리 컨퍼런스에 참석함\n삼성전자 파운드리 사업부장이 이번 일정에 동행함\n빅테크 기업 대상의 파운드리 수주 확보를 추진함",
+      "sector": "공정",
       "category": "news",
       "trust": "medium",
       "created_at": "2026-07-08T15:25:41+09:00",
@@ -423,13 +1017,20 @@
       "source_note": "Google News search RSS result; original publisher link is retained where available.",
       "raw_source_type": "rss",
       "matched_keywords": [],
-      "summary_method": "snippet"
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "llm_keywords": [
+        "이재용",
+        "선밸리",
+        "파운드리",
+        "빅테크"
+      ]
     },
     {
       "id": "art-4108b48f4e9d2f",
       "headline": "HBM 승부수 띄운 마이크론…국내 후공정 장비 수요 커진다 [반도체레이다] - 디지털데일리",
-      "body": "HBM 승부수 띄운 마이크론…국내 후공정 장비 수요 커진다 [반도체레이다] 디지털데일리",
-      "sector": "소자",
+      "body": "마이크론이 HBM(고대역폭메모리) 시장 공략을 강화하고 있음\n마이크론의 HBM 전략 추진으로 인해 국내 후공정 장비 수요가 증가하는 추세임\n제공된 텍스트 내에 구체적인 장비명, 투자 규모, 공정 세부사항은 명시되지 않음",
+      "sector": "패키징",
       "category": "news",
       "trust": "medium",
       "created_at": "2026-07-08T15:00:00+09:00",
@@ -441,50 +1042,118 @@
       "matched_keywords": [
         "HBM"
       ],
-      "summary_method": "snippet"
-    },
-    {
-      "id": "art-3a27be65eabab0",
-      "headline": "See Autonomous Chip Design in Action with ChipAgents at DAC 2026",
-      "body": "ChipAgents는 DAC 2026에서 멀티 에이전트 플랫폼을 활용한 자율형 칩 설계, 검증 및 디버깅 자동화 기술을 시연한다. STMicroelectronics와의 협업 결과, ChipAgents 플랫폼 적용 시 사양 분석 시간은 15배, 포멀 어설션 생성은 240배, UVM 환경 구축은 400배 단축된 것으로 나타났다. 또한 RISC-V 코어 및 PCIe 등 상용 IP 대상 디버깅 테스트에서 기존 범용 AI 에이전트 대비 3배 이상의 'pass-at-one' 정확도를 기록했다.",
-      "sector": "설계",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-07-08T06:00:12+09:00",
-      "placement": "side",
-      "source_name": "SemiWiki",
-      "source_url": "https://semiwiki.com/eda/chipagents-ai/370911-see-autonomous-chip-design-in-action-with-chipagents-at-dac-2026",
-      "source_note": "rss_or_html",
-      "raw_source_type": "rss",
-      "matched_keywords": [],
       "summary_method": "llm",
-      "summary_model": "google/gemma-4-26B-A4B-it",
+      "summary_model": "gemma-4-31b-it",
       "llm_keywords": [
-        "ChipAgents",
-        "Agentic AI",
-        "EDA",
-        "DAC 2026",
-        "검증 자동화"
+        "마이크론",
+        "HBM",
+        "후공정 장비"
       ]
     },
     {
-      "id": "art-a9723771177ea7",
-      "headline": "IEEE Honors Robotics Pioneer Toshio Fukuda",
-      "body": "Toshio Fukuda has been blazing trails for most of his career. He is considered to be one of the most prolific scholars in robotics , writing more than 2,000 research papers and authoring several books on the field. He’s an influential figure thanks to his pioneering work developing biomedical robotic systems, industria...",
-      "sector": "소자",
+      "id": "art-abe02c41048596",
+      "headline": "네덜란드 무역사절단 8년만 방중...‘첨단 반도체’ 갈등 봉합 시도",
+      "body": "네덜란드 무역사절단이 ASML 대표단을 포함해 2018년 4월 이후 8년 만에 베이징을 방문함\n슈르트 슈르츠마 네덜란드 장관과 왕원타오 중국 상무부장이 양국 관계 안정화, 시장 접근성, 공정 경쟁 환경을 논의함\nASML의 EUV 노광장비는 2019년부터, DUV 노광장비는 2024년부터 대중국 수출이 제한된 상태임\n슈르츠마 장관은 최근 미 상무장관과 회담하여 ASML 첨단 장비의 중국 유입 주장에 대해 반박함",
+      "sector": "공정",
       "category": "news",
       "trust": "medium",
-      "created_at": "2026-07-08T04:02:42+09:00",
+      "created_at": "2026-07-08T15:00:00+09:00",
       "placement": "side",
-      "source_name": "IEEE Spectrum",
-      "source_url": "https://spectrum.ieee.org/ieee-honors-toshio-fukuda",
-      "source_note": "rss_or_html",
-      "raw_source_type": "rss",
+      "source_name": "Naver News Search",
+      "source_url": "https://www.joongang.co.kr/article/25443412",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
       "matched_keywords": [
-        "transistor",
-        "cell"
+        "EUV"
       ],
-      "summary_method": "snippet"
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "llm_keywords": [
+        "ASML",
+        "EUV",
+        "DUV",
+        "노광장비",
+        "대중국 수출제한"
+      ]
+    },
+    {
+      "id": "art-5003684a892fa0",
+      "headline": "에브리봇, 유엑스팩토리와 피지컬 AI ·휴머노이드 협약",
+      "body": "에브리봇과 유엑스팩토리가 피지컬 AI 및 휴머노이드 개발을 위한 협약을 체결함\n유엑스팩토리는 기존 NPU 중심 AI 반도체와 차별화된 'Near-Sensor AI 반도체' 아키텍처를 보유함\n유엑스팩토리는 ASIC, FPGA, MCU 기반 AI 시스템 솔루션 및 35건 이상의 특허 IP를 확보함",
+      "sector": "설계",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-07-08T14:06:00+09:00",
+      "placement": "side",
+      "source_name": "Naver News Search",
+      "source_url": "https://www.cstimes.com/news/articleView.html?idxno=712681",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "ASIC",
+        "NPU",
+        "IP"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "llm_keywords": [
+        "Near-Sensor AI",
+        "피지컬 AI",
+        "휴머노이드",
+        "유엑스팩토리"
+      ]
+    },
+    {
+      "id": "art-371d75f695a03e",
+      "headline": "'사상 최대 실적' 삼성전자, \"내년까지 누적 영업익 1000조\"…비메모리...",
+      "body": "삼성전자 2분기 매출 171조 원, 영업이익 89조 4,000억 원을 기록하며 전년 동기 대비 영업이익이 129% 증가했다.\n6세대 고대역폭 메모리(HBM4) 양산 출하를 시작하여 주요 고객사에 납품하고 있다.\n2분기 D램 가격은 전 분기 대비 50% 이상, AI 데이터센터용 낸드플래시는 55~60% 상승했다.\n하반기 미국 테일러 팹 가동을 통해 수주한 테슬라 반도체 물량의 본격 양산에 착수할 예정이다.\n파운드리 및 시스템LSI 사업부에서 약 2조 원의 영업손실이 추정되는 가운데 2나노 GAA 공정을 차세대 성장동력으로 육성 중이다.",
+      "sector": "공정",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-07-08T12:54:00+09:00",
+      "placement": "side",
+      "source_name": "Naver News Search",
+      "source_url": "https://www.thepublic.kr/news/articleView.html?idxno=310498",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "GAA"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "llm_keywords": [
+        "삼성전자",
+        "HBM4",
+        "테일러 팹",
+        "2나노 GAA",
+        "테슬라"
+      ]
+    },
+    {
+      "id": "art-2725c836ab673b",
+      "headline": "SK하이닉스 나스닥 상장 초읽기, AI 투자심리 가늠할 시험대 될 듯",
+      "body": "SK하이닉스가 나스닥 글로벌 셀렉트 마켓에 'SKHY' 티커로 상장하며, 약 1억 7,790만 주의 미국예탁주식(ADS) 발행을 통해 최대 280억 달러를 조달할 계획이다.\n베일리 기포드, 코튜 매니지먼트, 시추에이셔널 어웨어니스 파트너스 등 글로벌 투자기관들이 총 70억 달러 규모의 주식 매입 의향을 밝혔다.\n조달 자금을 한국 내 반도체 생산시설 확장 및 한국과 미국 인디애나주의 첨단 패키징 공장 건설에 투입한다.\nAI 메모리 생산 확대를 위해 ASML의 극자외선(EUV) 노광장비 도입에 약 78억 달러를 투자할 예정이다.",
+      "sector": "공정",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-07-08T07:56:00+09:00",
+      "placement": "side",
+      "source_name": "Naver News Search",
+      "source_url": "https://www.autodaily.co.kr/news/articleView.html?idxno=545553",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "EUV"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "llm_keywords": [
+        "SK하이닉스",
+        "나스닥 상장",
+        "EUV",
+        "첨단 패키징",
+        "HBM"
+      ]
     }
   ],
   "jobs": []

@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-07-09T08:01:57+09:00",
+  "updated_at": "2026-07-09T11:32:59+09:00",
   "items": [
     {
       "date": "2026-07-09",
-      "generated_at": "2026-07-09T08:01:57+09:00",
+      "generated_at": "2026-07-09T11:32:59+09:00",
       "file": "archive/2026-07-09.json",
-      "article_count": 22,
+      "article_count": 42,
       "job_count": 0,
       "top_headline": "Running Low-Latency Analytical Workloads with GPU-Accelerated Presto on NVIDIA GB200 NVL72"
     },
