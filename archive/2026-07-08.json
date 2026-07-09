@@ -11,7 +11,6 @@
   "collector": {
     "name": "collect_news.py",
     "source_count": 18,
-    "job_count": 0,
     "notes": "Metadata/link collection only; article full text is not stored. LLM summaries are generated transiently when configured.",
     "summary_methods": [
       "llm",
@@ -535,6 +534,5 @@
         "SemiWiki"
       ]
     }
-  ],
-  "jobs": []
+  ]
 }

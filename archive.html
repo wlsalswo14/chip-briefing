@@ -36,7 +36,8 @@
   .date-btn.active, .date-btn:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
   .section-label { display: flex; align-items: center; gap: 12px; margin: 0 0 18px; color: var(--accent); font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
   .section-label::after { content: ""; height: 1px; flex: 1; background: var(--soft); }
-  .entry { padding: 18px 0; border-bottom: 1px solid var(--soft); }
+  .entry { padding: 18px 0; border-bottom: 1px solid var(--soft); cursor: pointer; }
+  .entry:hover { background: var(--paper-2); }
   .entry h2, .entry h3 { margin: 7px 0; font-family: var(--serif); line-height: 1.25; }
   .entry h2 { font-size: clamp(1.45rem, 3vw, 2.1rem); }
   .entry h3 { font-size: 1.15rem; }
@@ -46,6 +47,15 @@
   .source { display: inline-flex; margin-top: 10px; color: var(--accent); font-family: var(--mono); font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; text-decoration: none; }
   .source:hover { color: var(--ink); text-decoration: underline; }
   .empty { padding: 40px 0; color: var(--muted); font-family: var(--mono); font-size: 12px; letter-spacing: .1em; }
+  .summary-box { margin: 0 0 24px; padding: 18px 20px; background: #171717; color: var(--paper); border-top: 4px solid var(--accent); }
+  .summary-box h2 { margin: 0 0 8px; font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #f7d08a; }
+  .summary-box p { color: var(--paper); margin: 0 0 8px; font-family: var(--serif); }
+  .reader { position: fixed; inset: 0; display: none; align-items: flex-start; justify-content: center; padding: 38px 18px; overflow-y: auto; background: rgba(16, 16, 16, .56); z-index: 10; }
+  .reader.open { display: flex; }
+  .reader-panel { width: min(760px, 100%); background: var(--paper); border: 1px solid var(--soft); padding: 50px clamp(24px, 6vw, 58px) 58px; position: relative; box-shadow: 0 28px 80px rgba(0, 0, 0, .28); }
+  .close { position: absolute; top: 14px; right: 18px; border: 0; background: transparent; font-family: var(--serif); font-size: 30px; cursor: pointer; }
+  .reader h2 { margin: 12px 0 18px; font-family: var(--serif); font-size: clamp(1.7rem, 4vw, 2.5rem); line-height: 1.2; }
+  .reader-body { border-top: 1px solid var(--soft); padding-top: 22px; font-family: var(--serif); font-size: 1.08rem; white-space: pre-line; }
 </style>
 </head>
 <body>
@@ -66,6 +76,16 @@
       <div id="content"></div>
     </section>
   </main>
+  <div class="reader" id="reader" role="dialog" aria-modal="true">
+    <article class="reader-panel">
+      <button class="close" id="close" aria-label="닫기">×</button>
+      <div class="meta" id="reader-meta"></div>
+      <h2 id="reader-title"></h2>
+      <div class="meta" id="reader-date"></div>
+      <div id="reader-source"></div>
+      <div class="reader-body" id="reader-body"></div>
+    </article>
+  </div>
 <script>
 (async function () {
   const $ = (id) => document.getElementById(id);
@@ -78,9 +98,11 @@
     const clean = String(s || "").replace(/\s+/g, " ").trim();
     return clean.length > n ? clean.slice(0, n).trim() + "..." : clean;
   };
+  const para = (s) => String(s || "").split(/\n{2,}|\n/).filter(Boolean)
+    .map((p) => `<p>${esc(p)}</p>`).join("");
   function sourceLink(a) {
     if (!a.source_url) return "";
-    return `<a class="source" href="${esc(a.source_url)}" target="_blank" rel="noopener">근거 출처 · ${esc(a.source_name || "source")}</a>`;
+    return `<a class="source" href="${esc(a.source_url)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">근거 출처 · ${esc(a.source_name || "source")}</a>`;
   }
   async function loadJson(path) {
     const res = await fetch(path + "?t=" + Date.now());
@@ -97,11 +119,12 @@
   }
   const items = index.items || [];
   let active = items[0] && items[0].date;
+  let byId = {};
   async function renderDates() {
     $("dates").innerHTML = items.map((item) => `
       <button class="date-btn ${item.date === active ? "active" : ""}" data-date="${esc(item.date)}">
         ${esc(item.date)}<br>
-        ${esc(item.article_count)} NEWS · ${esc(item.job_count || 0)} JOBS
+        ${esc(item.article_count)} NEWS
       </button>
     `).join("");
     document.querySelectorAll(".date-btn").forEach((btn) => {
@@ -119,15 +142,43 @@
     $("updated").textContent = "GENERATED " + fmt(data.generated_at);
     $("day-title").textContent = item.date;
     const articles = data.articles || [];
-    $("content").innerHTML = articles.map((a, i) => `
-      <article class="entry">
+    byId = Object.fromEntries(articles.map((a) => [a.id, a]));
+    const summaryBlocks = [
+      data.daily_summary ? `<article class="summary-box"><h2>Daily Summary</h2>${para(data.daily_summary)}</article>` : "",
+      data.community_sentiment ? `<article class="summary-box"><h2>Community Sentiment</h2>${para(data.community_sentiment)}</article>` : ""
+    ].join("");
+    $("content").innerHTML = summaryBlocks + (articles.map((a, i) => `
+      <article class="entry" data-id="${esc(a.id)}">
         <div class="meta"><span class="sector">${esc(a.sector)}</span> · ${esc((a.category || "news").toUpperCase())}</div>
         ${i === 0 ? `<h2>${esc(a.headline)}</h2>` : `<h3>${esc(a.headline)}</h3>`}
         <p>${esc(excerpt(a.body))}</p>
         ${sourceLink(a)}
-      </article>
-    `).join("") || `<div class="empty">이 날짜의 기사가 없습니다.</div>`;
+      </article>    `).join("") || `<div class="empty">해당 날짜의 기사가 없습니다.</div>`);
+    document.querySelectorAll("[data-id]").forEach((el) => {
+      el.addEventListener("click", () => openReader(el.dataset.id));
+    });
   }
+  function openReader(id) {
+    const a = byId[id];
+    if (!a) return;
+    $("reader-meta").innerHTML = `<span class="sector">${esc(a.sector)}</span> · ${esc((a.category || "news").toUpperCase())}`;
+    $("reader-title").textContent = a.headline || "";
+    $("reader-date").textContent = fmt(a.created_at);
+    $("reader-source").innerHTML = sourceLink(a);
+    $("reader-body").innerHTML = para(a.body);
+    $("reader").classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+  $("close").addEventListener("click", () => {
+    $("reader").classList.remove("open");
+    document.body.style.overflow = "";
+  });
+  $("reader").addEventListener("click", (e) => {
+    if (e.target.id === "reader") $("close").click();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") $("close").click();
+  });
   await render();
 })();
 </script>

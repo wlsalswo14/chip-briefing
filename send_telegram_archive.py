@@ -83,7 +83,9 @@ def build_archive_message() -> str:
     model = data.get("collector", {}).get("summary_model", "")
     methods = ", ".join(data.get("collector", {}).get("summary_methods", []))
     articles = data.get("articles", [])
-    jobs = data.get("jobs", [])
+    community_items = data.get("community_items", [])
+    daily_summary = data.get("daily_summary", "")
+    community_sentiment = data.get("community_sentiment", "")
     by_sector: dict[str, int] = {}
     for article in articles:
         by_sector[article.get("sector", "기타")] = by_sector.get(article.get("sector", "기타"), 0) + 1
@@ -93,11 +95,20 @@ def build_archive_message() -> str:
     lines = [
         f"<b>칩 브리핑 아카이브 · {today}</b>",
         f"생성: <code>{clean_html(generated)}</code>",
-        f"수집: 뉴스 {len(articles)}개 · 채용 {len(jobs)}개 · {clean_html(sector_line)}",
+        f"수집: 뉴스 {len(articles)}개 · {clean_html(sector_line)}",
     ]
     if model:
         lines.append(f"요약: <code>{clean_html(model)}</code> ({clean_html(methods)})")
     lines.append("")
+
+    if daily_summary:
+        lines.append("<b>[Daily Summary]</b>")
+        lines.append(clean_html(trim(daily_summary, 900)))
+        lines.append("")
+    if community_sentiment:
+        lines.append("<b>[Community Sentiment]</b>")
+        lines.append(clean_html(trim(community_sentiment, 700)))
+        lines.append("")
 
     for i, article in enumerate(articles[:8], 1):
         title = clean_html(trim(article.get("headline", ""), 120))
@@ -110,17 +121,17 @@ def build_archive_message() -> str:
         lines.append(f"출처: <a href=\"{url}\">{source}</a>")
         lines.append("")
 
-    if jobs:
-        lines.append("<b>채용</b>")
-        for i, job in enumerate(jobs[:6], 1):
-            title = clean_html(trim(job.get("title", ""), 100))
-            company = clean_html(job.get("company", ""))
-            sector = clean_html(job.get("sector", ""))
-            location = clean_html(trim(job.get("location", ""), 80))
-            url = clean_html(job.get("source_url", ""))
-            lines.append(f"{i}. [{sector}] <a href=\"{url}\">{company} · {title}</a>")
-            if location:
-                lines.append(f"   {location}")
+    if community_items:
+        lines.append("<b>[Community Signals]</b>")
+        for i, article in enumerate(community_items[:5], 1):
+            title = clean_html(trim(article.get("headline", ""), 100))
+            reaction = clean_html(trim(article.get("reaction_summary") or article.get("body", ""), 220))
+            source = clean_html(article.get("source_name", ""))
+            url = clean_html(article.get("source_url", ""))
+            lines.append(f"{i}. <a href=\"{url}\">{title}</a> ({source})")
+            if reaction:
+                lines.append(reaction)
+        lines.append("")
 
     return "\n".join(lines).strip()
 

@@ -22,6 +22,15 @@
           "trust_default": "low",
           "category_default": "analysis",
           "notes": "Useful for Korean commentary. Treat as lower trust unless author is known."
+        },
+        {
+          "name": "Naver Cafe Search",
+          "type": "api",
+          "endpoint": "https://openapi.naver.com/v1/search/cafearticle.json",
+          "requires_env": ["NAVER_CLIENT_ID", "NAVER_CLIENT_SECRET"],
+          "trust_default": "low",
+          "category_default": "community",
+          "notes": "Official Naver Cafe Search API for practitioner discussion and sentiment tracking."
         }
       ]
     },
@@ -115,42 +124,5 @@
     "공정": ["EUV", "High NA", "GAA", "nanosheet", "2nm", "3nm", "yield", "lithography", "etch", "deposition", "metrology"],
     "소자": ["DRAM", "NAND", "HBM", "MRAM", "ReRAM", "CXL memory", "transistor", "cell", "leakage", "retention"],
     "패키징": ["CoWoS", "2.5D", "3D packaging", "interposer", "hybrid bonding", "bump", "substrate", "chiplet", "advanced packaging"]
-  },
-  "job_sources": [
-    {
-      "company": "Lightmatter",
-      "name": "Lightmatter Careers",
-      "provider": "greenhouse",
-      "board": "lightmatter",
-      "url": "https://boards.greenhouse.io/lightmatter"
-    },
-    {
-      "company": "Tenstorrent",
-      "name": "Tenstorrent Careers",
-      "provider": "greenhouse",
-      "board": "tenstorrent",
-      "url": "https://boards.greenhouse.io/tenstorrent"
-    },
-    {
-      "company": "Cerebras",
-      "name": "Cerebras Careers",
-      "provider": "ashby",
-      "board": "cerebras",
-      "url": "https://jobs.ashbyhq.com/cerebras"
-    },
-    {
-      "company": "Etched",
-      "name": "Etched Careers",
-      "provider": "ashby",
-      "board": "etched",
-      "url": "https://jobs.ashbyhq.com/etched"
-    },
-    {
-      "company": "d-Matrix",
-      "name": "d-Matrix Careers",
-      "provider": "ashby",
-      "board": "d-matrix",
-      "url": "https://jobs.ashbyhq.com/d-matrix"
-    }
-  ]
+  }
 }

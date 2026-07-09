@@ -59,7 +59,7 @@ TIMEOUT = int(os.environ.get("CHIP_BRIEFING_TIMEOUT", "15"))
 socket.setdefaulttimeout(TIMEOUT)
 
 MAX_ITEMS = int(os.environ.get("CHIP_BRIEFING_MAX_ITEMS", "100"))
-MAX_JOBS = int(os.environ.get("CHIP_BRIEFING_MAX_JOBS", "24"))
+MAX_COMMUNITY_ITEMS = int(os.environ.get("CHIP_BRIEFING_MAX_COMMUNITY_ITEMS", "40"))
 HF_TOKEN = (
     os.environ.get("HF_TOKEN")
     or os.environ.get("HUGGINGFACE_TOKEN")
@@ -85,6 +85,21 @@ def rotate_llm_key():
 LLM_MODEL = os.environ.get("CHIP_BRIEFING_LLM_MODEL", "")
 LLM_MAX_ITEMS = int(os.environ.get("CHIP_BRIEFING_LLM_MAX_ITEMS", str(MAX_ITEMS)))
 LLM_TIMEOUT = int(os.environ.get("CHIP_BRIEFING_LLM_TIMEOUT", "45"))
+DAILY_SUMMARY_MAX_ITEMS = int(os.environ.get("CHIP_BRIEFING_DAILY_SUMMARY_MAX_ITEMS", "12"))
+
+EDITORIAL_PRIORITY_PROMPT = """
+You are the semiconductor briefing editor. Read the article context and assign importance_score by editorial impact, not by simple keyword matching.
+
+Ranking policy:
+- 5: Top priority. Direct impact on AI acceleration or AI infrastructure bottlenecks: AI accelerators, GPU/NPU/TPU/ASIC, HBM/HBM4/HBM4E, CoWoS/SoIC/advanced packaging, high-bandwidth memory supply, AI server supply chain, rack-scale AI infrastructure, or Big Tech custom AI chips and major supplier partnerships.
+- 4: Major semiconductor industry impact: leading-edge foundry competition, 2nm/1.4nm/GAA/backside power/High-NA EUV, meaningful yield/capacity/customer wins, memory cycle shifts outside HBM, major policy/export-control/supply-chain risk, or M&A.
+- 3: Relevant but normal semiconductor news: design/process/materials/device/packaging/EDA/IP/standard updates, market trend notes, ordinary product or technical announcements.
+- 2: Narrow company updates, minor product/tool announcements, routine financial or event coverage with limited industry impact.
+- 1: Weak semiconductor relevance, promotional content, peripheral industries, awards, general interviews, or routine corporate activity.
+
+Prioritize actual industry consequences: who is affected, which bottleneck moves, whether capacity/supply/demand changes, and whether the news changes AI compute availability or competitive position. If an article only mentions AI in passing, do not over-score it.
+Return JSON only and include importance_score as an integer from 1 to 5.
+""".strip()
 
 if HF_TOKEN and not LLM_BASE_URL:
     LLM_BASE_URL = "https://router.huggingface.co/v1"
@@ -126,15 +141,6 @@ REDDIT_SUBREDDITS = [
     "AMD_Stock",
     "intel",
 ]
-
-JOB_KEYWORDS = [
-    "semiconductor", "silicon", "asic", "soc", "rtl", "verification", "physical design",
-    "sta", "dfx", "dfm", "eda", "compiler", "firmware", "gpu", "accelerator", "npu",
-    "chiplet", "packaging", "substrate", "interposer", "hbm", "dram", "memory",
-    "fabrication", "process", "yield", "device", "layout", "vlsi", "pcie", "serdes",
-    "hardware", "fpga", "architecture",
-]
-
 
 def now_iso() -> str:
     return dt.datetime.now(dt.timezone(dt.timedelta(hours=9))).isoformat(timespec="seconds")
@@ -446,7 +452,9 @@ def collect_naver(sources: list[dict], queries: list[str]) -> tuple[list[dict], 
                 for item in items:
                     link = item.get("originallink") or item.get("link") or ""
                     snippet = item.get("description") or ""
-                    articles.append(make_article(item.get("title", ""), link, snippet, source, "api", parse_date(item.get("pubDate"))))
+                    raw_type = "community" if source.get("category_default") == "community" else "api"
+                    published = item.get("pubDate") or item.get("postdate")
+                    articles.append(make_article(item.get("title", ""), link, snippet, source, raw_type, parse_date(published)))
                 logs.append(f"naver ok: {source.get('name')} {query} ({len(items)})")
                 time.sleep(0.15)
             except Exception as exc:
@@ -542,142 +550,6 @@ def collect_x(queries: list[str], source: dict) -> tuple[list[dict], list[str]]:
     return articles, logs
 
 
-def make_job(
-    company: str,
-    title: str,
-    url: str,
-    location: str,
-    department: str,
-    source_name: str,
-    source_type: str,
-    created_at: str | None = None,
-) -> dict:
-    text = f"{title} {department} {location}"
-    sector, matched = classify_sector(text)
-    return {
-        "id": stable_id(url, f"{company}:{title}:{location}"),
-        "company": clean_text(company),
-        "title": clean_text(title),
-        "location": clean_text(location),
-        "department": clean_text(department),
-        "sector": sector,
-        "matched_keywords": matched,
-        "created_at": created_at or now_iso(),
-        "source_name": source_name,
-        "source_url": canonical_url(url),
-        "source_type": source_type,
-    }
-
-
-def is_relevant_job(job: dict) -> bool:
-    haystack = f"{job.get('company','')} {job.get('title','')} {job.get('department','')} {job.get('location','')}".lower()
-    if any(keyword_matches(haystack, kw) for kw in JOB_KEYWORDS):
-        return True
-    return bool(job.get("matched_keywords"))
-
-
-def collect_greenhouse_jobs(source: dict) -> tuple[list[dict], str]:
-    board = source["board"]
-    url = f"https://boards-api.greenhouse.io/v1/boards/{board}/jobs?content=false"
-    data = request_json(url)
-    jobs = []
-    for item in data.get("jobs", []):
-        offices = item.get("offices") or []
-        departments = item.get("departments") or []
-        location = item.get("location", {}).get("name", "")
-        if not location and offices:
-            location = ", ".join(o.get("name", "") for o in offices if o.get("name"))
-        department = ", ".join(d.get("name", "") for d in departments if d.get("name"))
-        jobs.append(make_job(
-            source["company"],
-            item.get("title", ""),
-            item.get("absolute_url", ""),
-            location,
-            department,
-            source.get("name", source["company"]),
-            "greenhouse",
-            parse_date(item.get("updated_at")),
-        ))
-    return jobs, f"jobs greenhouse ok: {source['company']} ({len(jobs)})"
-
-
-def collect_ashby_jobs(source: dict) -> tuple[list[dict], str]:
-    board = source["board"]
-    url = f"https://api.ashbyhq.com/posting-api/job-board/{board}"
-    data = request_json(url)
-    jobs = []
-    for item in data.get("jobs", []):
-        location = item.get("locationName") or ""
-        department = item.get("department") or ""
-        jobs.append(make_job(
-            source["company"],
-            item.get("title", ""),
-            item.get("jobUrl") or item.get("applyUrl") or "",
-            location,
-            department,
-            source.get("name", source["company"]),
-            "ashby",
-            parse_date(item.get("publishedAt")),
-        ))
-    return jobs, f"jobs ashby ok: {source['company']} ({len(jobs)})"
-
-
-def collect_lever_jobs(source: dict) -> tuple[list[dict], str]:
-    board = source["board"]
-    url = f"https://api.lever.co/v0/postings/{board}?mode=json"
-    data = request_json(url)
-    jobs = []
-    for item in data if isinstance(data, list) else []:
-        categories = item.get("categories") or {}
-        location = categories.get("location", "")
-        department = categories.get("team", "") or categories.get("department", "")
-        jobs.append(make_job(
-            source["company"],
-            item.get("text", ""),
-            item.get("hostedUrl") or item.get("applyUrl") or "",
-            location,
-            department,
-            source.get("name", source["company"]),
-            "lever",
-            parse_date(item.get("createdAt")),
-        ))
-    return jobs, f"jobs lever ok: {source['company']} ({len(jobs)})"
-
-
-def collect_jobs(config: dict) -> tuple[list[dict], list[str]]:
-    job_sources = config.get("job_sources", [])
-    jobs: list[dict] = []
-    logs: list[str] = []
-    for source in job_sources:
-        try:
-            if source.get("provider") == "greenhouse":
-                found, msg = collect_greenhouse_jobs(source)
-            elif source.get("provider") == "ashby":
-                found, msg = collect_ashby_jobs(source)
-            elif source.get("provider") == "lever":
-                found, msg = collect_lever_jobs(source)
-            else:
-                logs.append(f"jobs skip: unknown provider {source.get('provider')} {source.get('company')}")
-                continue
-            jobs.extend(found)
-            logs.append(msg)
-            time.sleep(0.15)
-        except Exception as exc:
-            logs.append(f"jobs skip: {source.get('company')} ({type(exc).__name__})")
-
-    seen: set[str] = set()
-    unique: list[dict] = []
-    for job in jobs:
-        key = job.get("source_url") or f"{job.get('company')}:{job.get('title')}:{job.get('location')}"
-        if not key or key in seen:
-            continue
-        seen.add(key)
-        if is_relevant_job(job):
-            unique.append(job)
-    unique.sort(key=lambda j: (j.get("created_at", ""), j.get("company", "")), reverse=True)
-    return unique[:MAX_JOBS], logs
-
-
 def flatten_sources(config: dict) -> list[dict]:
     out: list[dict] = []
     for group in config.get("source_groups", []):
@@ -701,6 +573,171 @@ def is_relevant(article: dict) -> bool:
     if any(keyword_matches(haystack, term) for term in strong_terms):
         return True
     return bool(article.get("matched_keywords"))
+
+
+def is_community_article(article: dict) -> bool:
+    return (
+        article.get("category") in {"community", "rumor"}
+        or article.get("raw_source_type") in {"community", "social"}
+        or article.get("trust") == "low" and article.get("source_name", "").lower().startswith(("reddit", "hacker news"))
+    )
+
+
+def clamp_importance_score(value: object, default: int = 2) -> int:
+    try:
+        score = int(value)
+    except Exception:
+        score = default
+    return max(1, min(5, score))
+
+
+def fallback_importance_score(article: dict, source_text: str = "") -> int:
+    text = f"{article.get('headline', '')} {article.get('body', '')} {source_text}".lower()
+    score = 2
+    tier5 = [
+        "ai accelerator", "gpu", "npu", "tpu", "asic", "hbm", "hbm4", "hbm4e",
+        "cowos", "advanced packaging", "hybrid bonding", "nvidia", "tsmc",
+        "sk hynix", "samsung", "amd", "intel", "google", "microsoft", "meta",
+        "apple", "ai chip", "blackwell", "rubin", "mi350", "mi400",
+        "ai 가속기", "엔비디아", "빅테크", "협업", "파트너십", "공동 개발",
+        "제휴", "동맹", "mou",
+    ]
+    tier4 = [
+        "2nm", "gaa", "high-na", "high na", "euv", "nanosheet", "gate-all-around",
+        "yield", "foundry", "acquisition", "merger", "export control",
+        "supply chain", "메모리", "수율", "인수", "합병", "공급망",
+    ]
+    tier3 = [
+        "semiconductor", "chiplet", "eda", "dram", "nand", "lithography",
+        "interposer", "substrate", "packaging", "process", "fab",
+    ]
+    if any(term in text for term in tier5):
+        score = max(score, 5)
+    elif any(term in text for term in tier4):
+        score = max(score, 4)
+    elif any(term in text for term in tier3):
+        score = max(score, 3)
+    if article.get("trust") == "high" and score < 5:
+        score += 1
+    if article.get("category") in {"community", "rumor"} and score > 4:
+        score = 4
+    return clamp_importance_score(score)
+
+
+def sort_by_importance(articles: list[dict], limit: int | None = None, assign_placement: bool = True) -> list[dict]:
+    for article in articles:
+        article["importance_score"] = clamp_importance_score(
+            article.get("importance_score"),
+            fallback_importance_score(article),
+        )
+    sorted_articles = sorted(
+        articles,
+        key=lambda a: (a.get("importance_score", 0), a.get("created_at", "")),
+        reverse=True,
+    )
+    if limit is not None:
+        sorted_articles = sorted_articles[:limit]
+    if assign_placement:
+        for i, article in enumerate(sorted_articles):
+            article["placement"] = "top" if i == 0 else ("main" if i < 7 else "side")
+    return sorted_articles
+
+
+def fallback_reaction_summary(item: dict) -> str:
+    text = clean_text(item.get("body", "") or item.get("headline", ""))
+    if len(text) > 180:
+        text = text[:179].rstrip() + "..."
+    if not text:
+        text = clean_text(item.get("headline", ""))
+    return f"원문에서는 {text} 관련 반응이나 논의가 있었다."
+
+
+def prepare_community_items(items: list[dict], limit: int | None = None) -> list[dict]:
+    prepared = sorted(items, key=lambda a: a.get("created_at", ""), reverse=True)
+    if limit is not None:
+        prepared = prepared[:limit]
+    for item in prepared:
+        item.pop("importance_score", None)
+        item.pop("importance", None)
+        item.pop("placement", None)
+        item["reaction_summary"] = item.get("reaction_summary") or fallback_reaction_summary(item)
+    return prepared
+
+
+def enrich_community_reactions(items: list[dict], logs: list[str]) -> tuple[list[dict], str]:
+    items = prepare_community_items(items, MAX_COMMUNITY_ITEMS)
+    if not items:
+        return items, ""
+
+    fallback_sentiment = " / ".join(item.get("reaction_summary", "") for item in items[:3] if item.get("reaction_summary"))
+    if not llm_is_configured():
+        return items, fallback_sentiment
+
+    prompt_items = [
+        {
+            "id": item.get("id", ""),
+            "title": item.get("headline", ""),
+            "source": item.get("source_name", ""),
+            "snippet": item.get("body", ""),
+            "url": item.get("source_url", ""),
+        }
+        for item in items
+    ]
+    instruction = (
+        "Return JSON only. You are summarizing community reactions, not confirmed news. "
+        "For each item, write reaction_summary in Korean in one concise sentence using the style "
+        "'이런 상황에서 이런 반응이 있었다'. Do not assign scores. Do not state rumors as facts. "
+        "Also write community_sentiment in Korean in 2-3 lines summarizing recurring reactions. "
+        "Schema: {\"community_sentiment\":\"...\", \"items\":[{\"id\":\"...\", \"reaction_summary\":\"...\"}]}"
+    )
+    is_native_gemini = "generativelanguage.googleapis.com" in LLM_BASE_URL and "gemma" in LLM_MODEL.lower()
+
+    try:
+        current_key = get_current_llm_key()
+        headers: dict[str, str] = {}
+        user_text = instruction + "\n\n" + json.dumps(prompt_items, ensure_ascii=False)
+        if is_native_gemini:
+            base_path = LLM_BASE_URL.split("/openai")[0]
+            endpoint = f"{base_path}/models/{LLM_MODEL}:generateContent?key={current_key}"
+            payload = {
+                "contents": [{"role": "user", "parts": [{"text": user_text}]}],
+                "generationConfig": {
+                    "temperature": 0.2,
+                    "maxOutputTokens": 1200,
+                    "responseMimeType": "application/json",
+                },
+            }
+        else:
+            endpoint = LLM_BASE_URL + "/chat/completions"
+            if current_key:
+                headers["Authorization"] = f"Bearer {current_key}"
+            payload = {
+                "model": LLM_MODEL,
+                "temperature": 0.2,
+                "max_tokens": 1200,
+                "messages": [{"role": "user", "content": user_text}],
+            }
+        data = post_json(endpoint, payload, headers=headers, timeout=LLM_TIMEOUT)
+        if is_native_gemini:
+            parts = data["candidates"][0]["content"]["parts"]
+            content = "".join([p["text"] for p in parts if not p.get("thought")])
+        else:
+            content = data["choices"][0]["message"]["content"]
+        parsed = parse_llm_json(content)
+        by_id = {
+            str(row.get("id")): clean_text(str(row.get("reaction_summary", "")))
+            for row in parsed.get("items", [])
+            if isinstance(row, dict) and row.get("id")
+        }
+        for item in items:
+            summary = by_id.get(str(item.get("id", "")))
+            if summary:
+                item["reaction_summary"] = summary
+        sentiment = clean_text(str(parsed.get("community_sentiment", ""))) or fallback_sentiment
+        return items, sentiment
+    except Exception as exc:
+        logs.append(f"community reaction summary skip: {type(exc).__name__}")
+        return items, fallback_sentiment
 
 
 def dedupe_rank(articles: list[dict]) -> list[dict]:
@@ -748,7 +785,7 @@ def llm_is_configured() -> bool:
     return bool(LLM_BASE_URL and LLM_MODEL)
 
 
-def summarize_with_llm(article: dict, source_text: str) -> tuple[str, str | None, list[str] | None]:
+def summarize_with_llm(article: dict, source_text: str) -> tuple[str, str | None, list[str] | None, int | None]:
     system_prompt = (
         "너는 반도체 뉴스 팩트 에디터다. 독자는 평가나 배경 설명이 아니라 새로 나온 사실을 원한다. "
         "요약은 기사에서 확인되는 핵심 사실, 새 발표/변경점, 기술 세부사항, 수치, 기업명, 제품명, 공정명, 일정, 적용 대상을 중심으로 쓴다. "
@@ -757,6 +794,7 @@ def summarize_with_llm(article: dict, source_text: str) -> tuple[str, str | None
         "반드시 JSON만 출력한다. summary_lines는 3~5개의 문자열 배열이며 각 줄은 서로 다른 핵심 사실을 담는다. "
         "sector는 설계, 공정, 소자, 패키징 중 하나다."
     )
+    system_prompt = EDITORIAL_PRIORITY_PROMPT + "\n\n" + system_prompt
     prompt = {
         "title": article.get("headline", ""),
         "source": article.get("source_name", ""),
@@ -844,7 +882,10 @@ def summarize_with_llm(article: dict, source_text: str) -> tuple[str, str | None
             if not isinstance(keywords, list):
                 keywords = None
             keywords = [clean_text(str(k)) for k in keywords or [] if clean_text(str(k))][:6]
-            return summary, sector, keywords
+            importance_score = parsed.get("importance_score")
+            if importance_score is None:
+                importance_score = parsed.get("importance")
+            return summary, sector, keywords, clamp_importance_score(importance_score) if importance_score is not None else None
         except Exception as exc:
             is_429 = False
             if hasattr(exc, "code") and exc.code == 429:
@@ -877,6 +918,8 @@ def parse_llm_json(content: str) -> dict:
 def enrich_with_llm_summaries(articles: list[dict], logs: list[str]) -> list[dict]:
     if not llm_is_configured():
         logs.append("llm skip: CHIP_BRIEFING_LLM_BASE_URL/CHIP_BRIEFING_LLM_MODEL not set")
+        for article in articles:
+            article["importance_score"] = fallback_importance_score(article)
         return articles
 
     # Load cache of previous summaries from articles.json
@@ -891,6 +934,7 @@ def enrich_with_llm_summaries(articles: list[dict], logs: list[str]) -> list[dic
                         "sector": art.get("sector"),
                         "llm_keywords": art.get("llm_keywords"),
                         "summary_model": art.get("summary_model"),
+                        "importance_score": art.get("importance_score"),
                     }
             logs.append(f"cache load: loaded {len(cache)} existing summaries from articles.json")
         except Exception as exc:
@@ -909,6 +953,10 @@ def enrich_with_llm_summaries(articles: list[dict], logs: list[str]) -> list[dic
                 article["sector"] = cache[art_id]["sector"]
             if cache[art_id].get("llm_keywords"):
                 article["llm_keywords"] = cache[art_id]["llm_keywords"]
+            article["importance_score"] = clamp_importance_score(
+                cache[art_id].get("importance_score"),
+                fallback_importance_score(article),
+            )
             cache_hits += 1
             continue
 
@@ -924,11 +972,15 @@ def enrich_with_llm_summaries(articles: list[dict], logs: list[str]) -> list[dic
         if len(source_text) < 300:
             source_text = f"{article.get('headline', '')}\n\n{article.get('body', '')}"
         try:
-            summary, sector, keywords = summarize_with_llm(article, source_text)
+            summary, sector, keywords, importance_score = summarize_with_llm(article, source_text)
             if summary:
                 article["body"] = summary
                 article["summary_method"] = "llm"
                 article["summary_model"] = LLM_MODEL
+                article["importance_score"] = clamp_importance_score(
+                    importance_score,
+                    fallback_importance_score(article, source_text),
+                )
                 if sector:
                     article["sector"] = sector
                 if keywords:
@@ -937,8 +989,10 @@ def enrich_with_llm_summaries(articles: list[dict], logs: list[str]) -> list[dic
                 time.sleep(4.0)
             else:
                 article["summary_method"] = "snippet"
+                article["importance_score"] = fallback_importance_score(article, source_text)
         except Exception as exc:
             article["summary_method"] = "snippet"
+            article["importance_score"] = fallback_importance_score(article)
             err_msg = f"{type(exc).__name__}: {exc}"
             if hasattr(exc, "read"):
                 try:
@@ -947,28 +1001,106 @@ def enrich_with_llm_summaries(articles: list[dict], logs: list[str]) -> list[dic
                     pass
             logs.append(f"llm skip article: {article.get('headline', '')[:60]} ({type(exc).__name__})")
             print(f"Error summarizing: {err_msg}", flush=True)
+    for article in articles:
+        if not article.get("importance_score"):
+            article["importance_score"] = fallback_importance_score(article)
     logs.append(f"llm ok: summarized {enriched} articles, reused {cache_hits} cached summaries (total {min(len(articles), LLM_MAX_ITEMS)})")
     return articles
 
 
-def write_articles(articles: list[dict], jobs: list[dict], logs: list[str]) -> None:
+def generate_collection_summary(items: list[dict], logs: list[str], kind: str) -> str:
+    selected = items[:DAILY_SUMMARY_MAX_ITEMS]
+    if not selected:
+        return ""
+
+    fallback = " / ".join(clean_text(item.get("headline", "")) for item in selected[:3] if item.get("headline"))
+    if not llm_is_configured():
+        return fallback
+
+    if kind == "community":
+        instruction = (
+            "Summarize today's semiconductor community sentiment in Korean in 2-3 concise lines. "
+            "Focus on recurring topics, positive/negative/concern trends, and engineer or public reactions. "
+            "Do not present community rumors as confirmed facts."
+        )
+    else:
+        instruction = (
+            "Summarize today's semiconductor news in Korean in 3 concise lines. "
+            "Cover the most important common themes across the selected high-importance articles."
+        )
+
+    prompt_items = [
+        {
+            "title": item.get("headline", ""),
+            "source": item.get("source_name", ""),
+            "importance_score": item.get("importance_score", 0),
+            "summary": item.get("body", ""),
+        }
+        for item in selected
+    ]
+    is_native_gemini = "generativelanguage.googleapis.com" in LLM_BASE_URL and "gemma" in LLM_MODEL.lower()
+
+    try:
+        current_key = get_current_llm_key()
+        headers: dict[str, str] = {}
+        user_text = instruction + "\n\n" + json.dumps(prompt_items, ensure_ascii=False)
+        if is_native_gemini:
+            base_path = LLM_BASE_URL.split("/openai")[0]
+            endpoint = f"{base_path}/models/{LLM_MODEL}:generateContent?key={current_key}"
+            payload = {
+                "contents": [{"role": "user", "parts": [{"text": user_text}]}],
+                "generationConfig": {"temperature": 0.2, "maxOutputTokens": 700},
+            }
+        else:
+            endpoint = LLM_BASE_URL + "/chat/completions"
+            if current_key:
+                headers["Authorization"] = f"Bearer {current_key}"
+            payload = {
+                "model": LLM_MODEL,
+                "temperature": 0.2,
+                "max_tokens": 700,
+                "messages": [{"role": "user", "content": user_text}],
+            }
+        data = post_json(endpoint, payload, headers=headers, timeout=LLM_TIMEOUT)
+        if is_native_gemini:
+            parts = data["candidates"][0]["content"]["parts"]
+            text = "".join([p["text"] for p in parts if not p.get("thought")])
+        else:
+            text = data["choices"][0]["message"]["content"]
+        text = clean_text(text)
+        return text or fallback
+    except Exception as exc:
+        logs.append(f"{kind} summary skip: {type(exc).__name__}")
+        return fallback
+
+
+def write_articles(
+    articles: list[dict],
+    logs: list[str],
+    community_items: list[dict] | None = None,
+    daily_summary: str = "",
+    community_sentiment: str = "",
+) -> None:
     summary_methods = sorted({a.get("summary_method", "snippet") for a in articles})
+    community_items = community_items or []
     payload = {
-        "schema_version": 4,
+        "schema_version": 5,
         "generated_at": now_iso(),
+        "daily_summary": daily_summary,
+        "community_sentiment": community_sentiment,
         "briefing_title": "칩 브리핑",
         "sectors": ["설계", "공정", "소자", "패키징"],
         "collector": {
             "name": "collect_news.py",
             "source_count": len(articles),
-            "job_count": len(jobs),
+            "community_count": len(community_items),
             "notes": "Metadata/link collection only; article full text is not stored. LLM summaries are generated transiently when configured.",
             "summary_methods": summary_methods,
             "summary_model": LLM_MODEL if llm_is_configured() else "",
             "logs": logs[-80:],
         },
         "articles": articles,
-        "jobs": jobs,
+        "community_items": community_items,
     }
     text = json.dumps(payload, ensure_ascii=False, indent=2)
     ARTICLES_PATH.write_text(text + "\n", encoding="utf-8")
@@ -991,7 +1123,6 @@ def write_archive_snapshot(payload: dict) -> None:
         "generated_at": payload.get("generated_at", ""),
         "file": f"archive/{date_key}.json",
         "article_count": len(payload.get("articles", [])),
-        "job_count": len(payload.get("jobs", [])),
         "top_headline": (payload.get("articles") or [{}])[0].get("headline", ""),
     }
     if ARCHIVE_INDEX_PATH.exists():
@@ -1033,7 +1164,6 @@ def main() -> int:
     en_queries = config.get("queries", {}).get("en", [])
 
     all_articles: list[dict] = []
-    all_jobs: list[dict] = []
     logs: list[str] = []
 
     rss_sources = [s for s in sources if s.get("group") in {"official", "specialized_media"}]
@@ -1061,18 +1191,21 @@ def main() -> int:
         logs.extend(new_logs)
     logs.append("x skip: disabled by configuration; Reddit-only community mode")
 
-    ranked = dedupe_rank(all_articles)
+    news_candidates = [article for article in all_articles if not is_community_article(article)]
+    community_candidates = [article for article in all_articles if is_community_article(article)]
+
+    ranked = dedupe_rank(news_candidates)
+    community_items = dedupe_rank(community_candidates)
     if not ranked:
         print("No relevant articles collected; articles.json not changed.", file=sys.stderr)
         for line in logs:
             print(line, file=sys.stderr)
         return 2
-    # Disabled job postings collection as requested
-    found_jobs, job_logs = [], []
-    all_jobs.extend(found_jobs)
-    logs.extend(job_logs)
     ranked = enrich_with_llm_summaries(ranked, logs)
-    write_articles(ranked, all_jobs, logs)
+    ranked = sort_by_importance(ranked, MAX_ITEMS, assign_placement=True)
+    community_items, community_sentiment = enrich_community_reactions(community_items, logs)
+    daily_summary = generate_collection_summary(ranked, logs, "daily")
+    write_articles(ranked, logs, community_items, daily_summary, community_sentiment)
     print(f"Wrote {len(ranked)} articles to {ARTICLES_PATH}")
     print(f"Synced inline data in {INDEX_PATH}")
     for line in logs[-20:]:

@@ -6,7 +6,6 @@
       "generated_at": "2026-07-09T11:32:59+09:00",
       "file": "archive/2026-07-09.json",
       "article_count": 42,
-      "job_count": 0,
       "top_headline": "Running Low-Latency Analytical Workloads with GPU-Accelerated Presto on NVIDIA GB200 NVL72"
     },
     {
@@ -14,7 +13,6 @@
       "generated_at": "2026-07-08T09:46:09+09:00",
       "file": "archive/2026-07-08.json",
       "article_count": 18,
-      "job_count": 0,
       "top_headline": "From HBM to eSSD: How SK hynix is charting the future of full-stack memory"
     },
     {
@@ -22,7 +20,6 @@
       "generated_at": "2026-07-06T11:18:46+09:00",
       "file": "archive/2026-07-06.json",
       "article_count": 36,
-      "job_count": 24,
       "top_headline": "[Expert POV] From AI semiconductors to AI services: How the ecosystem is evolving"
     }
   ]

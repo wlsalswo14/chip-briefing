@@ -215,24 +215,6 @@
     border-bottom: 1px solid var(--soft);
     cursor: pointer;
   }
-  .jobs-list {
-    margin-top: 30px;
-  }
-  .job-item {
-    padding: 16px 0;
-    border-bottom: 1px solid var(--soft);
-  }
-  .job-item h3 {
-    margin: 7px 0 5px;
-    font-family: var(--serif);
-    font-size: 1.05rem;
-    line-height: 1.28;
-  }
-  .job-item p {
-    margin: 0;
-    color: var(--muted);
-    font-size: .86rem;
-  }
   .sector {
     color: var(--accent-2);
   }
@@ -286,6 +268,70 @@
     font-size: 12px;
     letter-spacing: .1em;
   }
+  .summary-band {
+    max-width: 1180px;
+    margin: 18px auto 0;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, .45fr);
+    gap: 18px;
+  }
+  @media (max-width: 820px) {
+    .summary-band { grid-template-columns: 1fr; }
+  }
+  .summary-box {
+    background: #171717;
+    color: var(--paper);
+    border-top: 4px solid var(--accent);
+    padding: 20px 22px;
+  }
+  .summary-box h2 {
+    margin: 0 0 8px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: #f7d08a;
+  }
+  .summary-box p {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+  .summary-box.community {
+    border-top-color: var(--accent-2);
+  }
+  .community-list {
+    max-width: 1180px;
+    margin: 0 auto 44px;
+    padding: 0 20px;
+  }
+  .community-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border-top: 1px solid var(--soft);
+  }
+  @media (max-width: 820px) {
+    .community-grid { grid-template-columns: 1fr; }
+  }
+  .community-item {
+    padding: 18px 16px;
+    border-right: 1px solid var(--soft);
+    border-bottom: 1px solid var(--soft);
+  }
+  .community-item:nth-child(3n) { border-right: 0; }
+  .community-item h3 {
+    margin: 8px 0;
+    font-family: var(--serif);
+    font-size: 1rem;
+    line-height: 1.35;
+  }
+  .community-item p {
+    margin: 0;
+    color: var(--muted);
+    font-size: .88rem;
+  }
 </style>
 </head>
 <body>
@@ -303,6 +349,11 @@
 
   <nav class="filters" id="filters" aria-label="섹터 필터"></nav>
 
+  <section class="summary-band" aria-label="Daily summaries">
+    <article class="summary-box" id="daily-summary-container"></article>
+    <article class="summary-box community" id="community-sentiment-container"></article>
+  </section>
+
   <main class="layout">
     <section>
       <div class="section-label">Top Signal</div>
@@ -313,12 +364,13 @@
     <aside class="side">
       <div class="section-label">Watchlist</div>
       <div id="side"></div>
-      <div class="jobs-list">
-        <div class="section-label">채용</div>
-        <div id="jobs"></div>
-      </div>
     </aside>
   </main>
+
+  <section class="community-list">
+    <div class="section-label">Community Signals</div>
+    <div class="community-grid" id="community"></div>
+  </section>
 
   <div class="reader" id="reader" role="dialog" aria-modal="true">
     <article class="reader-panel">
@@ -345,7 +397,6 @@
   "collector": {
     "name": "collect_news.py",
     "source_count": 42,
-    "job_count": 0,
     "notes": "Metadata/link collection only; article full text is not stored. LLM summaries are generated transiently when configured.",
     "summary_methods": [
       "llm"
@@ -1609,8 +1660,7 @@ AI 메모리 생산 확대를 위해 ASML의 극자외선(EUV) 노광장비 도�
         "HBM"
       ]
     }
-  ],
-  "jobs": []
+  ]
 }
 </script>
 <script>
@@ -1648,12 +1698,17 @@ AI 메모리 생산 확대를 위해 ASML의 극자외선(EUV) 노광장비 도�
   const sectors = ["전체"].concat(data.sectors || ["설계", "공정", "소자", "패키징"]);
   let active = "전체";
   let articles = data.articles || [];
-  let jobs = data.jobs || [];
+  let communityItems = data.community_items || [];
   const byId = Object.fromEntries(articles.map((a) => [a.id, a]));
   $("updated").textContent = "UPDATED " + fmt(data.generated_at);
 
   function badge(a) {
-    return `<span class="sector">${esc(a.sector)}</span> · ${esc((a.category || "news").toUpperCase())}`;
+    const score = Number(a.importance_score || a.importance || 0);
+    const scoreLabel = score ? ` · W${score}` : "";
+    return `<span class="sector">${esc(a.sector)}</span> · ${esc((a.category || "news").toUpperCase())}${scoreLabel}`;
+  }
+  function communityMeta(a) {
+    return `${esc(a.source_name || "community")} · ${esc(fmt(a.created_at))}`;
   }
   function sourceLink(a) {
     if (!a.source_url) return "";
@@ -1673,8 +1728,13 @@ AI 메모리 생산 확대를 위해 ASML의 극자외선(EUV) 노광장비 도�
   function visible() {
     return active === "전체" ? articles : articles.filter((a) => a.sector === active);
   }
-  function visibleJobs() {
-    return active === "전체" ? jobs : jobs.filter((j) => j.sector === active);
+  function sortRows(rows) {
+    return rows.slice().sort((a, b) => {
+      const impA = Number(a.importance_score || a.importance || 0);
+      const impB = Number(b.importance_score || b.importance || 0);
+      if (impB !== impA) return impB - impA;
+      return String(b.created_at).localeCompare(String(a.created_at));
+    });
   }
   function openReader(id) {
     const a = byId[id];
@@ -1689,7 +1749,13 @@ AI 메모리 생산 확대를 위해 ASML의 극자외선(EUV) 노광장비 도�
   }
   function render() {
     renderFilters();
-    const rows = visible().sort((a, b) => String(b.created_at).localeCompare(String(a.created_at)));
+    $("daily-summary-container").innerHTML = data.daily_summary
+      ? `<h2>Daily Summary</h2>${para(data.daily_summary)}`
+      : "";
+    $("community-sentiment-container").innerHTML = data.community_sentiment
+      ? `<h2>Community Sentiment</h2>${para(data.community_sentiment)}`
+      : "";
+    const rows = sortRows(visible());
     const top = rows.find((a) => a.placement === "top") || rows[0];
     const rest = rows.filter((a) => !top || a.id !== top.id);
     $("top").innerHTML = top ? `
@@ -1708,7 +1774,7 @@ AI 메모리 생산 확대를 위해 ASML의 극자외선(EUV) 노광장비 도�
         ${sourceLink(a)}
       </article>
     `).join("") || `<div class="empty">이 섹터의 추가 브리핑이 없습니다.</div>`;
-    $("side").innerHTML = rest.slice(4).concat(rest.slice(0, 4)).slice(0, 8).map((a) => `
+    $("side").innerHTML = rest.slice(4).map((a) => `
       <article class="side-item" data-id="${esc(a.id)}">
         <div class="meta">${badge(a)}</div>
         <h3>${esc(a.headline)}</h3>
@@ -1716,15 +1782,15 @@ AI 메모리 생산 확대를 위해 ASML의 극자외선(EUV) 노광장비 도�
         ${sourceLink(a)}
       </article>
     `).join("");
-    const jobRows = visibleJobs().slice(0, 10);
-    $("jobs").innerHTML = jobRows.length ? jobRows.map((j) => `
-      <article class="job-item">
-        <div class="meta"><span class="sector">${esc(j.sector || "채용")}</span> · ${esc(j.company || "")}</div>
-        <h3>${esc(j.title || "")}</h3>
-        <p>${esc(j.location || "Location unspecified")}${j.department ? " · " + esc(j.department) : ""}</p>
-        <a class="source" href="${esc(j.source_url)}" target="_blank" rel="noopener">공식 공고 · ${esc(j.source_name || j.company || "careers")}</a>
+    const communityRows = communityItems.slice().sort((a, b) => String(b.created_at).localeCompare(String(a.created_at)));
+    $("community").innerHTML = communityRows.map((a) => `
+      <article class="community-item">
+        <div class="meta">${communityMeta(a)}</div>
+        <h3>${esc(a.headline)}</h3>
+        <p>${esc(a.reaction_summary || excerpt(a.body, 130))}</p>
+        ${sourceLink(a)}
       </article>
-    `).join("") : `<div class="empty">표시할 채용 공고가 없습니다.</div>`;
+    `).join("") || `<div class="empty">No community signals.</div>`;
     document.querySelectorAll("[data-id]").forEach((el) => {
       el.addEventListener("click", () => openReader(el.dataset.id));
     });
