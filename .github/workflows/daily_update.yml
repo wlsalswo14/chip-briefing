@@ -23,7 +23,7 @@ jobs:
 
       - name: Run collector
         env:
-          CHIP_BRIEFING_LLM_API_KEY: ${{ secrets.CHIP_BRIEFING_LLM_API_KEY }}
+          CHIP_BRIEFING_LLM_API_KEY: ${{ secrets.GEMINI_API }}
           CHIP_BRIEFING_LLM_BASE_URL: https://generativelanguage.googleapis.com/v1beta/openai
           CHIP_BRIEFING_LLM_MODEL: gemma-4-31b-it
           CHIP_BRIEFING_LLM_MAX_ITEMS: "100"
