@@ -23,8 +23,10 @@ jobs:
 
       - name: Run collector
         env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
-          CHIP_BRIEFING_LLM_MAX_ITEMS: "36"
+          CHIP_BRIEFING_LLM_API_KEY: ${{ secrets.CHIP_BRIEFING_LLM_API_KEY }}
+          CHIP_BRIEFING_LLM_BASE_URL: https://generativelanguage.googleapis.com/v1beta/openai
+          CHIP_BRIEFING_LLM_MODEL: gemma-4-31b-it
+          CHIP_BRIEFING_LLM_MAX_ITEMS: "100"
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}

@@ -21,6 +21,29 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 ARTICLES_PATH = ROOT / "articles.json"
 LOGS_DIR = ROOT / "logs"
+
+
+def load_dotenv():
+    env_path = ROOT / ".env"
+    if env_path.is_file():
+        try:
+            with open(env_path, "r", encoding="utf-8") as f:
+                for line in f:
+                    line = line.strip()
+                    if not line or line.startswith("#"):
+                        continue
+                    if "=" in line:
+                        key, val = line.split("=", 1)
+                        key = key.strip()
+                        val = val.strip().strip("'\"")
+                        if key and val and key not in os.environ:
+                            os.environ[key] = val
+        except Exception:
+            pass
+
+
+load_dotenv()
+
 TELEGRAM_TIMEOUT = int(os.environ.get("TELEGRAM_TIMEOUT", "20"))
 
 

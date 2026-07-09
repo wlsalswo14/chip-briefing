@@ -29,13 +29,14 @@ if (-not $env:HF_TOKEN) {
   throw "HF_TOKEN is not set and Hugging Face token file was not found."
 }
 
-$env:CHIP_BRIEFING_LLM_BASE_URL = "https://router.huggingface.co/v1"
-$env:CHIP_BRIEFING_LLM_MODEL = "google/gemma-4-26B-A4B-it"
-if (-not $env:CHIP_BRIEFING_LLM_MAX_ITEMS) {
-  $env:CHIP_BRIEFING_LLM_MAX_ITEMS = $env:CHIP_BRIEFING_MAX_ITEMS
+if (-not $env:CHIP_BRIEFING_LLM_BASE_URL) {
+  $env:CHIP_BRIEFING_LLM_BASE_URL = "https://router.huggingface.co/v1"
+}
+if (-not $env:CHIP_BRIEFING_LLM_MODEL) {
+  $env:CHIP_BRIEFING_LLM_MODEL = "google/gemma-4-26B-A4B-it"
 }
 if (-not $env:CHIP_BRIEFING_LLM_MAX_ITEMS) {
-  $env:CHIP_BRIEFING_LLM_MAX_ITEMS = "36"
+  $env:CHIP_BRIEFING_LLM_MAX_ITEMS = $env:CHIP_BRIEFING_MAX_ITEMS
 }
 
 python "$here\collect_news.py"

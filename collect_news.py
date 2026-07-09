@@ -32,6 +32,28 @@ INDEX_PATH = ROOT / "index.html"
 ARCHIVE_DIR = ROOT / "archive"
 ARCHIVE_INDEX_PATH = ARCHIVE_DIR / "index.json"
 
+
+def load_dotenv():
+    env_path = ROOT / ".env"
+    if env_path.is_file():
+        try:
+            with open(env_path, "r", encoding="utf-8") as f:
+                for line in f:
+                    line = line.strip()
+                    if not line or line.startswith("#"):
+                        continue
+                    if "=" in line:
+                        key, val = line.split("=", 1)
+                        key = key.strip()
+                        val = val.strip().strip("'\"")
+                        if key and val and key not in os.environ:
+                            os.environ[key] = val
+        except Exception:
+            pass
+
+
+load_dotenv()
+
 USER_AGENT = "ChipBriefingCollector/1.0 (+local personal briefing)"
 TIMEOUT = int(os.environ.get("CHIP_BRIEFING_TIMEOUT", "15"))
 socket.setdefaulttimeout(TIMEOUT)
@@ -45,7 +67,21 @@ HF_TOKEN = (
     or ""
 )
 LLM_BASE_URL = os.environ.get("CHIP_BRIEFING_LLM_BASE_URL", "").rstrip("/")
-LLM_API_KEY = os.environ.get("CHIP_BRIEFING_LLM_API_KEY", "") or HF_TOKEN
+LLM_API_KEY_RAW = os.environ.get("CHIP_BRIEFING_LLM_API_KEY", "") or HF_TOKEN
+LLM_API_KEYS = [k.strip() for k in LLM_API_KEY_RAW.split(",") if k.strip()]
+_CURRENT_KEY_INDEX = 0
+
+def get_current_llm_key() -> str:
+    global _CURRENT_KEY_INDEX
+    if not LLM_API_KEYS:
+        return ""
+    return LLM_API_KEYS[_CURRENT_KEY_INDEX % len(LLM_API_KEYS)]
+
+def rotate_llm_key():
+    global _CURRENT_KEY_INDEX
+    if LLM_API_KEYS:
+        _CURRENT_KEY_INDEX += 1
+
 LLM_MODEL = os.environ.get("CHIP_BRIEFING_LLM_MODEL", "")
 LLM_MAX_ITEMS = int(os.environ.get("CHIP_BRIEFING_LLM_MAX_ITEMS", str(MAX_ITEMS)))
 LLM_TIMEOUT = int(os.environ.get("CHIP_BRIEFING_LLM_TIMEOUT", "45"))
@@ -129,8 +165,40 @@ def post_json(url: str, payload: dict, headers: dict[str, str] | None = None, ti
         },
         method="POST",
     )
-    with urllib.request.urlopen(req, timeout=timeout) as res:
-        return json.loads(res.read().decode("utf-8", errors="replace"))
+    
+    max_retries = 3
+    for attempt in range(max_retries):
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as res:
+                return json.loads(res.read().decode("utf-8", errors="replace"))
+        except urllib.error.HTTPError as exc:
+            if exc.code == 429:
+                if len(LLM_API_KEYS) > 1:
+                    raise exc
+                if attempt < max_retries - 1:
+                    # Try to get retry delay from headers or body
+                    retry_after = exc.headers.get("Retry-After")
+                    delay = 10.0
+                    if retry_after:
+                        try:
+                            delay = float(retry_after)
+                        except ValueError:
+                            pass
+                    else:
+                        try:
+                            # Try parsing response body for retry delay
+                            body_text = exc.read().decode("utf-8", errors="replace")
+                            err_data = json.loads(body_text)
+                            msg = err_data.get("error", {}).get("message", "")
+                            match = re.search(r"Please retry in (\d+\.?\d*)s", msg)
+                            if match:
+                                delay = float(match.group(1)) + 1.0
+                        except Exception:
+                            pass
+                    print(f"Rate limited (429). Retrying in {delay:.1f}s...")
+                    time.sleep(delay)
+                    continue
+            raise
 
 
 def post_form(url: str, payload: dict, headers: dict[str, str] | None = None, timeout: int = TIMEOUT) -> object:
@@ -638,7 +706,12 @@ def is_relevant(article: dict) -> bool:
 def dedupe_rank(articles: list[dict]) -> list[dict]:
     seen: set[str] = set()
     unique: list[dict] = []
-    now = dt.datetime.now(dt.timezone(dt.timedelta(hours=9)))
+    kst = dt.timezone(dt.timedelta(hours=9))
+    now = dt.datetime.now(kst)
+    window_end = now.replace(hour=7, minute=0, second=0, microsecond=0)
+    if now < window_end:
+        window_end -= dt.timedelta(days=1)
+    window_start = window_end - dt.timedelta(days=1)
     
     for article in articles:
         url = article.get("source_url") or ""
@@ -647,11 +720,11 @@ def dedupe_rank(articles: list[dict]) -> list[dict]:
             continue
         seen.add(key)
         
-        # Keep only articles published within the last 30 hours
+        # Keep only articles in the latest Seoul 07:00-to-07:00 briefing window.
         try:
             created_at = dt.datetime.fromisoformat(article["created_at"].replace("Z", "+00:00"))
-            diff_hours = (now - created_at).total_seconds() / 3600.0
-            if diff_hours > 30.0:
+            created_at = created_at.astimezone(kst)
+            if not (window_start <= created_at < window_end):
                 continue
         except Exception:
             pass
@@ -676,10 +749,14 @@ def llm_is_configured() -> bool:
 
 
 def summarize_with_llm(article: dict, source_text: str) -> tuple[str, str | None, list[str] | None]:
-    endpoint = LLM_BASE_URL + "/chat/completions"
-    headers: dict[str, str] = {}
-    if LLM_API_KEY:
-        headers["Authorization"] = f"Bearer {LLM_API_KEY}"
+    system_prompt = (
+        "너는 반도체 뉴스 팩트 에디터다. 독자는 평가나 배경 설명이 아니라 새로 나온 사실을 원한다. "
+        "요약은 기사에서 확인되는 핵심 사실, 새 발표/변경점, 기술 세부사항, 수치, 기업명, 제품명, 공정명, 일정, 적용 대상을 중심으로 쓴다. "
+        "'반도체의 중요성이 커지고 있습니다', '경쟁이 치열해지고 있습니다', '주목됩니다', '의미가 있습니다' 같은 범용 평가 문장은 금지한다. "
+        "원문에 없는 전망, 투자 조언, 과장 표현은 쓰지 않는다. 원문을 베껴 쓰지 말고 한국어로 압축한다. "
+        "반드시 JSON만 출력한다. summary_lines는 3~5개의 문자열 배열이며 각 줄은 서로 다른 핵심 사실을 담는다. "
+        "sector는 설계, 공정, 소자, 패키징 중 하나다."
+    )
     prompt = {
         "title": article.get("headline", ""),
         "source": article.get("source_name", ""),
@@ -687,50 +764,100 @@ def summarize_with_llm(article: dict, source_text: str) -> tuple[str, str | None
         "current_sector": article.get("sector", ""),
         "text": source_text[:6500],
     }
-    payload = {
-        "model": LLM_MODEL,
-        "temperature": 0.2,
-        "max_tokens": 420,
-        "messages": [
-            {
-                "role": "system",
-                "content": (
-                    "너는 반도체 뉴스 팩트 에디터다. 독자는 평가나 배경 설명이 아니라 새로 나온 사실을 원한다. "
-                    "요약은 기사에서 확인되는 핵심 사실, 새 발표/변경점, 기술 세부사항, 수치, 기업명, 제품명, 공정명, 일정, 적용 대상을 중심으로 쓴다. "
-                    "'반도체의 중요성이 커지고 있습니다', '경쟁이 치열해지고 있습니다', '주목됩니다', '의미가 있습니다' 같은 범용 평가 문장은 금지한다. "
-                    "원문에 없는 전망, 투자 조언, 과장 표현은 쓰지 않는다. 원문을 베껴 쓰지 말고 한국어로 압축한다. "
-                    "반드시 JSON만 출력한다. sector는 설계, 공정, 소자, 패키징 중 하나다."
-                ),
-            },
-            {
-                "role": "user",
-                "content": (
-                    "다음 뉴스 후보를 칩 브리핑용으로 요약해줘.\n"
-                    "작성 규칙:\n"
-                    "- 2~3문장, 각 문장은 가능한 한 구체적인 팩트로 시작\n"
-                    "- 무엇이 새로 발표/공개/변경/출하/투자/지원됐는지 먼저 말하기\n"
-                    "- 기술명, 노드, 세대, 용량, 속도, 수율, 장비, 패키징 방식, 고객/적용처가 있으면 포함\n"
-                    "- 배경 평가나 산업 일반론은 제외\n"
-                    "- 기사에 근거가 약하면 '확인된 내용은 ...'처럼 제한적으로 쓰기\n"
-                    "JSON 형식: {\"summary\":\"팩트 중심 2~3문장 요약\", \"sector\":\"설계|공정|소자|패키징\", "
-                    "\"keywords\":[\"핵심어1\",\"핵심어2\"]}\n\n"
-                    + json.dumps(prompt, ensure_ascii=False)
-                ),
-            },
-        ],
-    }
-    data = post_json(endpoint, payload, headers=headers, timeout=LLM_TIMEOUT)
-    content = data["choices"][0]["message"]["content"]
-    parsed = parse_llm_json(content)
-    summary = clean_text(parsed.get("summary", ""))
-    sector = parsed.get("sector")
-    keywords = parsed.get("keywords")
-    if sector not in {"설계", "공정", "소자", "패키징"}:
-        sector = None
-    if not isinstance(keywords, list):
-        keywords = None
-    keywords = [clean_text(str(k)) for k in keywords or [] if clean_text(str(k))][:6]
-    return summary, sector, keywords
+    user_prompt = (
+        "다음 뉴스 후보를 칩 브리핑용으로 요약해줘.\n"
+        "작성 규칙:\n"
+        "- 3~5줄, 각 줄은 가능한 한 구체적인 팩트로 시작\n"
+        "- 무엇이 새로 발표/공개/변경/출하/투자/지원됐는지 먼저 말하기\n"
+        "- 기술명, 노드, 세대, 용량, 속도, 수율, 장비, 패키징 방식, 고객/적용처가 있으면 포함\n"
+        "- 배경 평가나 산업 일반론은 제외\n"
+        "- 기사에 근거가 약하면 '확인된 내용은 ...'처럼 제한적으로 쓰기\n"
+        "JSON 형식: {\"summary_lines\":[\"팩트 중심 요약 1줄\",\"팩트 중심 요약 1줄\",\"팩트 중심 요약 1줄\"], "
+        "\"sector\":\"설계|공정|소자|패키징\", "
+        "\"keywords\":[\"핵심어1\",\"핵심어2\"]}\n\n"
+        + json.dumps(prompt, ensure_ascii=False)
+    )
+
+    is_native_gemini = "generativelanguage.googleapis.com" in LLM_BASE_URL and "gemma" in LLM_MODEL.lower()
+    
+    max_attempts = max(1, len(LLM_API_KEYS))
+    for attempt in range(max_attempts):
+        headers: dict[str, str] = {}
+        current_key = get_current_llm_key()
+        
+        if is_native_gemini:
+            base_path = LLM_BASE_URL.split("/openai")[0]
+            endpoint = f"{base_path}/models/{LLM_MODEL}:generateContent?key={current_key}"
+            payload = {
+                "contents": [
+                    {
+                        "role": "user",
+                        "parts": [{"text": user_prompt}]
+                    }
+                ],
+                "systemInstruction": {
+                    "parts": [{"text": system_prompt}]
+                },
+                "generationConfig": {
+                    "temperature": 0.2,
+                    "maxOutputTokens": 2048,
+                    "responseMimeType": "application/json"
+                }
+            }
+        else:
+            endpoint = LLM_BASE_URL + "/chat/completions"
+            if current_key:
+                headers["Authorization"] = f"Bearer {current_key}"
+            payload = {
+                "model": LLM_MODEL,
+                "temperature": 0.2,
+                "max_tokens": 2048,
+                "messages": [
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": user_prompt}
+                ]
+            }
+            
+        try:
+            data = post_json(endpoint, payload, headers=headers, timeout=LLM_TIMEOUT)
+            
+            if is_native_gemini:
+                parts = data["candidates"][0]["content"]["parts"]
+                content = "".join([p["text"] for p in parts if not p.get("thought")])
+            else:
+                content = data["choices"][0]["message"]["content"]
+                
+            parsed = parse_llm_json(content)
+            lines = parsed.get("summary_lines")
+            if isinstance(lines, list):
+                summary_lines = [clean_text(str(line)) for line in lines if clean_text(str(line))]
+            else:
+                raw_summary = str(parsed.get("summary", ""))
+                summary_lines = [clean_text(line) for line in raw_summary.splitlines() if clean_text(line)]
+                if not summary_lines and raw_summary:
+                    summary_lines = [clean_text(raw_summary)]
+            summary = "\n".join(summary_lines[:5])
+            sector = parsed.get("sector")
+            keywords = parsed.get("keywords")
+            if sector not in {"설계", "공정", "소자", "패키징"}:
+                sector = None
+            if not isinstance(keywords, list):
+                keywords = None
+            keywords = [clean_text(str(k)) for k in keywords or [] if clean_text(str(k))][:6]
+            return summary, sector, keywords
+        except Exception as exc:
+            is_429 = False
+            if hasattr(exc, "code") and exc.code == 429:
+                is_429 = True
+            elif "429" in str(exc):
+                is_429 = True
+                
+            if is_429 and len(LLM_API_KEYS) > 1 and attempt < max_attempts - 1:
+                print(f"Key {current_key[:8]}... got 429/quota exceeded. Rotating to next key...")
+                rotate_llm_key()
+                time.sleep(1.0)
+                continue
+            raise
 
 
 def parse_llm_json(content: str) -> dict:
@@ -771,7 +898,8 @@ def enrich_with_llm_summaries(articles: list[dict], logs: list[str]) -> list[dic
 
     enriched = 0
     cache_hits = 0
-    for article in articles[:LLM_MAX_ITEMS]:
+    total_to_process = len(articles[:LLM_MAX_ITEMS])
+    for i, article in enumerate(articles[:LLM_MAX_ITEMS]):
         art_id = article.get("id")
         if art_id in cache:
             article["body"] = cache[art_id]["body"]
@@ -784,6 +912,14 @@ def enrich_with_llm_summaries(articles: list[dict], logs: list[str]) -> list[dic
             cache_hits += 1
             continue
 
+        try:
+            print(f"[{i+1}/{total_to_process}] 요약 중: {article.get('headline', '')[:55]}...", flush=True)
+        except UnicodeEncodeError:
+            try:
+                safe_headline = article.get('headline', '')[:55].encode('ascii', errors='replace').decode('ascii')
+                print(f"[{i+1}/{total_to_process}] 요약 중: {safe_headline}...", flush=True)
+            except Exception:
+                print(f"[{i+1}/{total_to_process}] 요약 중: (인코딩 에러 발생 기사)...", flush=True)
         source_text = extract_article_text(article.get("source_url", ""))
         if len(source_text) < 300:
             source_text = f"{article.get('headline', '')}\n\n{article.get('body', '')}"
@@ -798,12 +934,19 @@ def enrich_with_llm_summaries(articles: list[dict], logs: list[str]) -> list[dic
                 if keywords:
                     article["llm_keywords"] = keywords
                 enriched += 1
-                time.sleep(0.2)
+                time.sleep(4.0)
             else:
                 article["summary_method"] = "snippet"
         except Exception as exc:
             article["summary_method"] = "snippet"
+            err_msg = f"{type(exc).__name__}: {exc}"
+            if hasattr(exc, "read"):
+                try:
+                    err_msg += f" - {exc.read().decode('utf-8', errors='replace')}"
+                except Exception:
+                    pass
             logs.append(f"llm skip article: {article.get('headline', '')[:60]} ({type(exc).__name__})")
+            print(f"Error summarizing: {err_msg}", flush=True)
     logs.append(f"llm ok: summarized {enriched} articles, reused {cache_hits} cached summaries (total {min(len(articles), LLM_MAX_ITEMS)})")
     return articles
 
