@@ -1,6 +1,13 @@
 {
-  "updated_at": "2026-07-15T08:35:17+09:00",
+  "updated_at": "2026-07-16T08:33:55+09:00",
   "items": [
+    {
+      "date": "2026-07-16",
+      "generated_at": "2026-07-16T08:33:55+09:00",
+      "file": "archive/2026-07-16.json",
+      "article_count": 60,
+      "top_headline": "인텔 EMIB 급부상…구글마저 TSMC 등 돌리나, AI 패키징 판세 요동"
+    },
     {
       "date": "2026-07-15",
       "generated_at": "2026-07-15T08:35:17+09:00",
