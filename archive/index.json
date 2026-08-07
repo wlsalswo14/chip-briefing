@@ -1,6 +1,13 @@
 {
-  "updated_at": "2026-08-06T08:33:08+09:00",
+  "updated_at": "2026-08-07T10:57:54+09:00",
   "items": [
+    {
+      "date": "2026-08-07",
+      "generated_at": "2026-08-07T10:57:54+09:00",
+      "file": "archive/2026-08-07.json",
+      "article_count": 47,
+      "top_headline": "AI Chip Startup Taalas Acquired by AMD"
+    },
     {
       "date": "2026-08-06",
       "generated_at": "2026-08-06T08:33:08+09:00",
