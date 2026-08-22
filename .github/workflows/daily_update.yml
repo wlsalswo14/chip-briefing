@@ -9,6 +9,10 @@ on:
 permissions:
   contents: write # Required to push commits back to the repo
 
+concurrency:
+  group: chip-briefing-daily-update
+  cancel-in-progress: false
+
 jobs:
   update:
     runs-on: ubuntu-latest
@@ -27,12 +31,14 @@ jobs:
           CHIP_BRIEFING_LLM_BASE_URL: https://generativelanguage.googleapis.com/v1beta/openai
           CHIP_BRIEFING_LLM_MODEL: gemma-4-31b-it
           CHIP_BRIEFING_LLM_MAX_ITEMS: "100"
+          CHIP_BRIEFING_DAILY_SUMMARY_MAX_ITEMS: "10"
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
           NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
           REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
           REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
+          REDDIT_USER_AGENT: ${{ secrets.REDDIT_USER_AGENT }}
         run: |
           python collect_news.py
 
@@ -47,7 +53,7 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add articles.json index.html archive/
+          git add articles.json archive/
           if ! git diff --cached --quiet; then
             git commit -m "Auto-update briefing: $(date -u +'%Y-%m-%d %H:%M:%S') UTC"
             git push

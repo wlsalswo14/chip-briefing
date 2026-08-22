@@ -28,7 +28,6 @@ import socket
 ROOT = Path(__file__).resolve().parent
 SOURCES_PATH = ROOT / "sources.json"
 ARTICLES_PATH = ROOT / "articles.json"
-INDEX_PATH = ROOT / "index.html"
 ARCHIVE_DIR = ROOT / "archive"
 ARCHIVE_INDEX_PATH = ARCHIVE_DIR / "index.json"
 
@@ -54,7 +53,7 @@ def load_dotenv():
 
 load_dotenv()
 
-USER_AGENT = "ChipBriefingCollector/1.0 (+local personal briefing)"
+USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
 TIMEOUT = int(os.environ.get("CHIP_BRIEFING_TIMEOUT", "15"))
 socket.setdefaulttimeout(TIMEOUT)
 
@@ -85,7 +84,7 @@ def rotate_llm_key():
 LLM_MODEL = os.environ.get("CHIP_BRIEFING_LLM_MODEL", "")
 LLM_MAX_ITEMS = int(os.environ.get("CHIP_BRIEFING_LLM_MAX_ITEMS", str(MAX_ITEMS)))
 LLM_TIMEOUT = int(os.environ.get("CHIP_BRIEFING_LLM_TIMEOUT", "45"))
-DAILY_SUMMARY_MAX_ITEMS = int(os.environ.get("CHIP_BRIEFING_DAILY_SUMMARY_MAX_ITEMS", "12"))
+DAILY_SUMMARY_MAX_ITEMS = int(os.environ.get("CHIP_BRIEFING_DAILY_SUMMARY_MAX_ITEMS", "10"))
 
 EDITORIAL_PRIORITY_PROMPT = """
 You are the semiconductor briefing editor. Read the article context and assign importance_score by editorial impact, not by simple keyword matching.
@@ -261,6 +260,16 @@ def parse_date(value: str | None) -> str:
         return parsed.astimezone(dt.timezone(dt.timedelta(hours=9))).isoformat(timespec="seconds")
     except Exception:
         pass
+    # Naver Blog/Cafe Search returns date-only values such as 20260821.
+    # Treat them as Seoul-local calendar dates instead of falling back to the
+    # collector run time, which would place a 07:00 run outside its own window.
+    if re.fullmatch(r"\d{8}", value):
+        try:
+            parsed = dt.datetime.strptime(value, "%Y%m%d")
+            parsed = parsed.replace(tzinfo=dt.timezone(dt.timedelta(hours=9)))
+            return parsed.isoformat(timespec="seconds")
+        except Exception:
+            pass
     try:
         parsed = dt.datetime.fromisoformat(value.replace("Z", "+00:00"))
         if parsed.tzinfo is None:
@@ -454,7 +463,13 @@ def collect_naver(sources: list[dict], queries: list[str]) -> tuple[list[dict], 
                     snippet = item.get("description") or ""
                     raw_type = "community" if source.get("category_default") == "community" else "api"
                     published = item.get("pubDate") or item.get("postdate")
-                    articles.append(make_article(item.get("title", ""), link, snippet, source, raw_type, parse_date(published)))
+                    article = make_article(item.get("title", ""), link, snippet, source, raw_type, parse_date(published))
+                    if raw_type == "community":
+                        community_name = clean_text(item.get("cafename", "")) or "Naver Cafe"
+                        article["community_origin"] = "domestic"
+                        article["community_name"] = community_name
+                        article["source_name"] = f"Naver Cafe · {community_name}"
+                    articles.append(article)
                 logs.append(f"naver ok: {source.get('name')} {query} ({len(items)})")
                 time.sleep(0.15)
             except Exception as exc:
@@ -484,12 +499,36 @@ def collect_hn(queries: list[str], source: dict) -> tuple[list[dict], list[str]]
 def collect_reddit(queries: list[str], source: dict) -> tuple[list[dict], list[str]]:
     articles: list[dict] = []
     logs: list[str] = []
-    
-    # Browser-like User-Agent to avoid Reddit blocking python urllib
-    user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-    headers = {"User-Agent": user_agent}
-    
-    search_targets = ["all", "r/hardware", "r/semiconductors", "r/chipdesign"]
+
+    client_id = os.environ.get("REDDIT_CLIENT_ID", "").strip()
+    client_secret = os.environ.get("REDDIT_CLIENT_SECRET", "").strip()
+    user_agent = (
+        os.environ.get("REDDIT_USER_AGENT")
+        or "script:chip-briefing:v2.0 (contact: github.com/wlsalswo14)"
+    ).strip()
+    if not client_id or not client_secret:
+        return [], ["reddit skip: REDDIT_CLIENT_ID/REDDIT_CLIENT_SECRET not set"]
+
+    try:
+        credentials = base64.b64encode(f"{client_id}:{client_secret}".encode("utf-8")).decode("ascii")
+        token_data = post_form(
+            "https://www.reddit.com/api/v1/access_token",
+            {"grant_type": "client_credentials"},
+            headers={
+                "Authorization": f"Basic {credentials}",
+                "User-Agent": user_agent,
+            },
+        )
+        access_token = str(token_data.get("access_token", "")) if isinstance(token_data, dict) else ""
+        if not access_token:
+            return [], ["reddit oauth skip: access token missing"]
+    except Exception as exc:
+        return [], [f"reddit oauth skip: {type(exc).__name__}"]
+
+    headers = {
+        "Authorization": f"Bearer {access_token}",
+        "User-Agent": user_agent,
+    }
     compact_queries = [
         "HBM OR HBM4 OR HBM4E",
         "CoWoS OR advanced packaging OR hybrid bonding",
@@ -497,28 +536,59 @@ def collect_reddit(queries: list[str], source: dict) -> tuple[list[dict], list[s
         "AI accelerator OR ASIC OR GPU OR NPU",
         "semiconductor foundry TSMC Samsung ASML",
     ]
-    
-    for target in search_targets:
-        for query in compact_queries:
-            params = urllib.parse.urlencode({
-                "q": query,
-                "sort": "new",
-                "restrict_sr": "true" if target != "all" else "false",
-                "t": "week"
-            })
-            url = f"https://www.reddit.com/{target}/search.rss?{params}"
-            try:
-                xml_text = request_text(url, headers=headers)
-                found = parse_feed(xml_text, source, url)
-                for article in found:
-                    article["source_name"] = f"Reddit · {target}"
-                    article["category"] = "community"
-                    article["trust"] = "low"
-                articles.extend(found)
-                logs.append(f"reddit rss ok: {target} {query} ({len(found)})")
-                time.sleep(0.3)
-            except Exception as exc:
-                logs.append(f"reddit rss skip: {target} {query} ({type(exc).__name__})")
+
+    # A multi-subreddit search keeps the request count small and uses Reddit's
+    # authenticated JSON API. Anonymous RSS traffic is now routinely blocked.
+    target = "+".join(REDDIT_SUBREDDITS)
+    for query in compact_queries:
+        params = urllib.parse.urlencode({
+            "q": query,
+            "sort": "new",
+            "restrict_sr": "true",
+            "t": "day",
+            "limit": 25,
+            "raw_json": 1,
+        })
+        url = f"https://oauth.reddit.com/r/{target}/search?{params}"
+        try:
+            data = request_json(url, headers=headers)
+            children = data.get("data", {}).get("children", []) if isinstance(data, dict) else []
+            found: list[dict] = []
+            for child in children:
+                row = child.get("data", {}) if isinstance(child, dict) else {}
+                title = clean_text(row.get("title", ""))
+                permalink = str(row.get("permalink", ""))
+                if not title or not permalink:
+                    continue
+                subreddit = clean_text(row.get("subreddit", "")) or "Reddit"
+                created = dt.datetime.fromtimestamp(
+                    float(row.get("created_utc", 0) or 0),
+                    tz=dt.timezone.utc,
+                ).astimezone(dt.timezone(dt.timedelta(hours=9))).isoformat(timespec="seconds")
+                reddit_source = dict(source)
+                reddit_source["name"] = f"Reddit · r/{subreddit}"
+                snippet = clean_text(row.get("selftext", "")) or title
+                article = make_article(
+                    title,
+                    "https://www.reddit.com" + permalink,
+                    snippet,
+                    reddit_source,
+                    "community",
+                    created,
+                )
+                article.update({
+                    "community_origin": "reddit",
+                    "community_name": f"r/{subreddit}",
+                    "score": int(row.get("score", 0) or 0),
+                    "comment_count": int(row.get("num_comments", 0) or 0),
+                    "upvote_ratio": float(row.get("upvote_ratio", 0) or 0),
+                })
+                found.append(article)
+            articles.extend(found)
+            logs.append(f"reddit oauth ok: {query} ({len(found)})")
+            time.sleep(0.65)
+        except Exception as exc:
+            logs.append(f"reddit oauth skip: {query} ({type(exc).__name__})")
     return articles, logs
 
 
@@ -894,7 +964,7 @@ def summarize_with_llm(article: dict, source_text: str) -> tuple[str, str | None
                 is_429 = True
                 
             if is_429 and len(LLM_API_KEYS) > 1 and attempt < max_attempts - 1:
-                print(f"Key {current_key[:8]}... got 429/quota exceeded. Rotating to next key...")
+                print(f"LLM API key slot {attempt + 1} hit quota; rotating to the next configured key...")
                 rotate_llm_key()
                 time.sleep(1.0)
                 continue
@@ -1008,12 +1078,24 @@ def enrich_with_llm_summaries(articles: list[dict], logs: list[str]) -> list[dic
     return articles
 
 
+def select_daily_summary_items(items: list[dict], limit: int = DAILY_SUMMARY_MAX_ITEMS) -> list[dict]:
+    """Return the canonical Daily Summary ranking used by JSON and every UI."""
+    return sorted(
+        items,
+        key=lambda item: (
+            clamp_importance_score(item.get("importance_score"), 1),
+            item.get("created_at", ""),
+        ),
+        reverse=True,
+    )[:limit]
+
+
 def generate_collection_summary(items: list[dict], logs: list[str], kind: str) -> str:
-    selected = items[:DAILY_SUMMARY_MAX_ITEMS]
+    selected = select_daily_summary_items(items) if kind == "daily" else items[:DAILY_SUMMARY_MAX_ITEMS]
     if not selected:
         return ""
 
-    fallback = " / ".join(clean_text(item.get("headline", "")) for item in selected[:3] if item.get("headline"))
+    fallback = " / ".join(clean_text(item.get("headline", "")) for item in selected if item.get("headline"))
     if not llm_is_configured():
         return fallback
 
@@ -1025,18 +1107,20 @@ def generate_collection_summary(items: list[dict], logs: list[str], kind: str) -
         )
     else:
         instruction = (
-            "Summarize today's semiconductor news in Korean in 3 concise lines. "
-            "Cover the most important common themes across the selected high-importance articles."
+            "The input contains exactly the highest-importance semiconductor articles for today's briefing, "
+            "ordered by importance_score and recency. Summarize all selected articles in Korean in 4-5 concise lines. "
+            "Group overlapping stories, but do not omit a distinct topic. Lead with score-5 items and concrete facts."
         )
 
     prompt_items = [
         {
+            "rank": rank,
             "title": item.get("headline", ""),
             "source": item.get("source_name", ""),
             "importance_score": item.get("importance_score", 0),
             "summary": item.get("body", ""),
         }
-        for item in selected
+        for rank, item in enumerate(selected, 1)
     ]
     is_native_gemini = "generativelanguage.googleapis.com" in LLM_BASE_URL and "gemma" in LLM_MODEL.lower()
 
@@ -1083,10 +1167,12 @@ def write_articles(
 ) -> None:
     summary_methods = sorted({a.get("summary_method", "snippet") for a in articles})
     community_items = community_items or []
+    daily_summary_items = select_daily_summary_items(articles)
     payload = {
-        "schema_version": 5,
+        "schema_version": 6,
         "generated_at": now_iso(),
         "daily_summary": daily_summary,
+        "daily_summary_article_ids": [item.get("id", "") for item in daily_summary_items],
         "community_sentiment": community_sentiment,
         "briefing_title": "칩 브리핑",
         "sectors": ["설계", "공정", "소자", "패키징"],
@@ -1105,7 +1191,6 @@ def write_articles(
     text = json.dumps(payload, ensure_ascii=False, indent=2)
     ARTICLES_PATH.write_text(text + "\n", encoding="utf-8")
     write_archive_snapshot(payload)
-    sync_inline_data(payload)
 
 
 def write_archive_snapshot(payload: dict) -> None:
@@ -1139,20 +1224,6 @@ def write_archive_snapshot(payload: dict) -> None:
         json.dumps({"updated_at": payload.get("generated_at", ""), "items": items}, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
-
-
-def sync_inline_data(payload: dict) -> None:
-    if not INDEX_PATH.exists():
-        return
-    current = INDEX_PATH.read_text(encoding="utf-8")
-    replacement = '<script id="inline-data" type="application/json">\n'
-    replacement += json.dumps(payload, ensure_ascii=False, indent=2)
-    replacement += "\n</script>"
-    pattern = re.compile(r'<script id="inline-data" type="application/json">.*?</script>', re.S)
-    updated, count = pattern.subn(replacement, current)
-    if count != 1:
-        raise RuntimeError("Could not find exactly one inline-data script in index.html")
-    INDEX_PATH.write_text(updated, encoding="utf-8")
 
 
 def main() -> int:
@@ -1207,7 +1278,7 @@ def main() -> int:
     daily_summary = generate_collection_summary(ranked, logs, "daily")
     write_articles(ranked, logs, community_items, daily_summary, community_sentiment)
     print(f"Wrote {len(ranked)} articles to {ARTICLES_PATH}")
-    print(f"Synced inline data in {INDEX_PATH}")
+    print(f"Wrote archive snapshot to {ARCHIVE_DIR}")
     for line in logs[-20:]:
         print(line)
     return 0
