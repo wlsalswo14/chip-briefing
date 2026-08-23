@@ -98,6 +98,57 @@ class CommunityWindowTests(unittest.TestCase):
             ["naver_cafe", "dcinside", "naver_cafe", "dcinside"],
         )
 
+    def test_clien_collection_pages_until_window_start(self):
+        pages = [
+            """
+            <div class="list_item symph_row">
+              <span class="subject_fixed" title="HBM newest"></span>
+              <a class="list_subject" href="/service/board/park/3">HBM newest</a>
+              <span class="timestamp">2026-08-23 09:00:00</span>
+            </div>
+            """,
+            """
+            <div class="list_item symph_row">
+              <span class="subject_fixed" title="HBM in window"></span>
+              <a class="list_subject" href="/service/board/park/2">HBM in window</a>
+              <span class="timestamp">2026-08-22 12:00:00</span>
+            </div>
+            """,
+            """
+            <div class="list_item symph_row">
+              <span class="subject_fixed" title="HBM old"></span>
+              <a class="list_subject" href="/service/board/park/1">HBM old</a>
+              <span class="timestamp">2026-08-22 06:59:59</span>
+            </div>
+            """,
+        ]
+        kst = dt.timezone(dt.timedelta(hours=9))
+        source = {
+            "name": "Clien",
+            "url": "https://www.clien.net/service/board/",
+            "boards": [{"id": "park", "name": "모두의공원"}],
+            "max_pages": 10,
+            "category_default": "community",
+            "trust_default": "low",
+        }
+        with (
+            mock.patch.object(collector, "request_text", side_effect=pages) as request,
+            mock.patch.object(
+                collector,
+                "briefing_window",
+                return_value=(
+                    dt.datetime(2026, 8, 22, 7, 0, tzinfo=kst),
+                    dt.datetime(2026, 8, 23, 7, 0, tzinfo=kst),
+                ),
+            ),
+            mock.patch.object(collector.time, "sleep"),
+        ):
+            items, logs = collector.collect_clien(source)
+
+        self.assertEqual(request.call_count, 3)
+        self.assertEqual(len(items), 3)
+        self.assertIn("3 pages", logs[0])
+
 
 if __name__ == "__main__":
     unittest.main()

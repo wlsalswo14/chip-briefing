@@ -108,6 +108,7 @@
           "type": "html_board",
           "url": "https://www.clien.net/service/board/",
           "collection_method": "clien_boards",
+          "max_pages": 20,
           "boards": [
             {"id": "park", "name": "모두의공원"},
             {"id": "cm_stock", "name": "주식한당"},

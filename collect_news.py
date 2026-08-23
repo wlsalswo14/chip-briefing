@@ -688,44 +688,69 @@ def collect_clien(source: dict) -> tuple[list[dict], list[str]]:
     logs: list[str] = []
     base_url = str(source.get("url", "https://www.clien.net/service/board/")).rstrip("/") + "/"
     boards = source.get("boards", [])
+    max_pages = max(1, min(int(source.get("max_pages", 20)), 30))
+    window_start, _ = briefing_window()
 
     for board in boards:
         board_id = clean_text(str(board.get("id", "")))
         board_name = clean_text(str(board.get("name", ""))) or board_id
         if not board_id:
             continue
-        url = urllib.parse.urljoin(base_url, urllib.parse.quote(board_id, safe=""))
+        board_url = urllib.parse.urljoin(base_url, urllib.parse.quote(board_id, safe=""))
+        found: list[dict] = []
+        pages_fetched = 0
         try:
-            parser = ClienBoardParser()
-            parser.feed(request_text(url, headers=COMMUNITY_HEADERS))
-            found: list[dict] = []
-            for row in parser.items:
-                created_at = parse_kst_datetime(row.get("date", ""), "%Y-%m-%d %H:%M:%S")
-                if not created_at:
-                    continue
-                link = urllib.parse.urljoin(base_url, row.get("url", ""))
-                parsed_link = urllib.parse.urlsplit(link)
-                link = urllib.parse.urlunsplit((parsed_link.scheme, parsed_link.netloc, parsed_link.path, "", ""))
-                clien_source = dict(source)
-                clien_source["name"] = f"Clien · {board_name}"
-                article = make_article(
-                    row.get("title", ""),
-                    link,
-                    row.get("title", ""),
-                    clien_source,
-                    "community",
-                    created_at,
-                )
-                article.update({
-                    "community_origin": "domestic",
-                    "community_name": f"클리앙 · {board_name}",
-                })
-                found.append(article)
+            for page_index in range(max_pages):
+                query = urllib.parse.urlencode({"od": "T31", "category": 0, "po": page_index})
+                page_url = f"{board_url}?{query}"
+                parser = ClienBoardParser()
+                parser.feed(request_text(page_url, headers=COMMUNITY_HEADERS))
+                if not parser.items:
+                    break
+
+                page_dates: list[dt.datetime] = []
+                for row in parser.items:
+                    created_at = parse_kst_datetime(row.get("date", ""), "%Y-%m-%d %H:%M:%S")
+                    if not created_at:
+                        continue
+                    page_dates.append(dt.datetime.fromisoformat(created_at))
+                    link = urllib.parse.urljoin(base_url, row.get("url", ""))
+                    parsed_link = urllib.parse.urlsplit(link)
+                    link = urllib.parse.urlunsplit((parsed_link.scheme, parsed_link.netloc, parsed_link.path, "", ""))
+                    clien_source = dict(source)
+                    clien_source["name"] = f"Clien · {board_name}"
+                    article = make_article(
+                        row.get("title", ""),
+                        link,
+                        row.get("title", ""),
+                        clien_source,
+                        "community",
+                        created_at,
+                    )
+                    article.update({
+                        "community_origin": "domestic",
+                        "community_name": f"클리앙 · {board_name}",
+                    })
+                    found.append(article)
+
+                pages_fetched += 1
+                # Busy boards can require several pages to reach the completed
+                # 07:00-to-07:00 window during a later manual workflow run.
+                if page_dates and min(page_dates) <= window_start:
+                    break
+                time.sleep(0.4)
+
             articles.extend(found)
-            logs.append(f"clien ok: {board_name} ({len(found)})")
-            time.sleep(0.55)
+            logs.append(f"clien ok: {board_name} ({len(found)} from {pages_fetched} pages)")
         except Exception as exc:
-            logs.append(f"clien skip: {board_name} ({type(exc).__name__})")
+            if found:
+                articles.extend(found)
+                logs.append(
+                    f"clien partial: {board_name} ({len(found)} from {pages_fetched} pages; "
+                    f"{type(exc).__name__})"
+                )
+            else:
+                logs.append(f"clien skip: {board_name} ({type(exc).__name__})")
     return articles, logs
 
 
