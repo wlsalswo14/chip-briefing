@@ -1,20 +1,20 @@
 {
   "schema_version": 6,
-  "generated_at": "2026-08-23T07:48:37+09:00",
-  "daily_summary": "현금 대신 자사주 60%…SK하이닉스 '성과 공유 실험' 노조 선택만 남았다 / 브로드컴 AI 매출 1160억달러 전망…삼성전자 HBM ·파운드리 '기회' / ‘HBM 묶어 파는’ 삼성 파운드리, TSMC 틈새 뚫고 흑자 시동 - IT조선 / ' HBM 묶어 파는' 삼성 파운드리, TSMC 틈새 뚫고 흑자 시동 / 피지컬 AI 시대, 한국 제조업의 약한 고리는 로봇이다 / 마이크론 14조원 투자 발표, AI 메모리 시장 판도 바뀔까? / [오십부터 기업공부] 삼성전자 기업분석｜HBM4· 파운드리 ·AI로 보는 2.... / 앤트로픽, 구글 TPU 주역 영입…자체 AI칩 개발 가속 / 삼성·SK, HBM 기술戰…'핫칩스'서 맞붙는다 / \"AI 설비투자 더 간다\"···삼전·하이닉스 담은 ETF에 뭉칫돈",
+  "generated_at": "2026-08-23T18:39:20+09:00",
+  "daily_summary": "브로드컴 AI 매출 1160억달러 전망…삼성전자 HBM·파운드리 '기회' / ‘HBM 묶어 파는’ 삼성 파운드리, TSMC 틈새 뚫고 흑자 시동 - IT조선 / 'HBM 묶어 파는' 삼성 파운드리, TSMC 틈새 뚫고 흑자 시동 / [속보] 엔비디아 AI 서버 가격 15% 이상 인상…삼성전자·SK하이닉스 HB.... / [속보] 엔비디아 AI 서버 가격 15% 인상, HBM 메모리값 급등에 삼성전자.... / AI 광학 메모리 혁명: SK하이닉스 네이처 논문이 예고한 HBM 이후의 미.... / 260823_SK하이닉스_ HBM4 · HBM4E 와 40조 자사주 소각 호재, 좋은 기업이지만.... / 삼성 파운드리 와 SK하이닉스가 보여준 차세대 반도체 전략 / 엔비디아 AI 서버 가격 15% 오른다, 이유는 메모리 품귀…삼성전자· SK .... / [Bernstein] 삼성전자 HBM 4 램프업 가속… 3Q HBM 매출 SK하이닉스 추월 가....",
   "daily_summary_article_ids": [
-    "art-306084a670dc64",
     "art-f641a16eadc617",
     "art-dcccab1f7cf301",
     "art-3a8928026f3cb1",
-    "art-8233a84039b80f",
-    "art-432dae96ddc214",
-    "art-792bada73a4291",
-    "art-51e183dec97e38",
-    "art-e14e13e30afdd4",
-    "art-2ad30e45a1c40b"
+    "art-ae74c2f06c97a8",
+    "art-2ef1a3d724343b",
+    "art-3a460e8ba2805b",
+    "art-b720b09f62ab25",
+    "art-5d79de811b73e0",
+    "art-420185efe45afc",
+    "art-559b285568090b"
   ],
-  "community_sentiment": "",
+  "community_sentiment": "원문에서는 그래도 믿고 가봄 ACE 글로벌반도체TOP4 Plus => 하이닉스/ ASML /NVIDIA/ TSMC 를 top4로 해서 브로드컴/삼전/퀄컴/AMD 등등을 조금씩 담은 전세계 반도체 etf TIGER 코리아AI전력기기TOP3 플러스 => 효성중공업... 관련 반응이나 논의가 있었다. / 원문에서는 https://blog.naver.com/bsj7000/224378132334 \" \" & 관련 반응이나 논의가 있었다. / 원문에서는 래피더스, 2030년까지 2나노 멀티 패키징 구축 관련 반응이나 논의가 있었다.",
   "briefing_title": "칩 브리핑",
   "sectors": [
     "설계",
@@ -24,8 +24,8 @@
   ],
   "collector": {
     "name": "collect_news.py",
-    "source_count": 51,
-    "community_count": 0,
+    "source_count": 41,
+    "community_count": 40,
     "notes": "Metadata/link collection only; article full text is not stored. LLM summaries are generated transiently when configured.",
     "summary_methods": [
       "llm",
@@ -33,29 +33,15 @@
     ],
     "summary_model": "gemma-4-31b-it",
     "logs": [
-      "rss skip: Intel Newsroom https://www.intel.com/content/www/us/en/newsroom/rss.xml (HTTPError)",
-      "rss skip: Intel Newsroom https://www.intel.com/content/www/us/en/newsroom/home.html/feed/ (HTTPError)",
-      "rss skip: Intel Newsroom https://www.intel.com/content/www/us/en/newsroom/home.html/rss (HTTPError)",
-      "rss skip: Intel Newsroom https://www.intel.com/content/www/us/en/newsroom/home.html/rss.xml (HTTPError)",
-      "rss skip: Intel Newsroom https://www.intel.com/content/www/us/en/newsroom/home.html/feed.xml (HTTPError)",
-      "rss skip: Micron Newsroom https://www.micron.com/about/news-and-events/rss.xml (HTTPError)",
-      "rss skip: Micron Newsroom https://www.micron.com/about/news-and-events/feed/ (HTTPError)",
-      "rss skip: Micron Newsroom https://www.micron.com/about/news-and-events/rss (HTTPError)",
-      "rss skip: Micron Newsroom https://www.micron.com/about/news-and-events/feed.xml (HTTPError)",
-      "rss skip: SEMI https://www.semi.org/en/rss.xml (HTTPError)",
-      "rss skip: SEMI https://www.semi.org/en/news-resources/feed/ (HTTPError)",
-      "rss skip: SEMI https://www.semi.org/en/news-resources/rss (HTTPError)",
-      "rss skip: SEMI https://www.semi.org/en/news-resources/rss.xml (HTTPError)",
-      "rss skip: SEMI https://www.semi.org/en/news-resources/feed.xml (HTTPError)",
       "rss skip: SIA https://www.semiconductors.org/news/feed/ (HTTPError)",
       "rss skip: SIA https://www.semiconductors.org/news/rss (HTTPError)",
       "rss skip: SIA https://www.semiconductors.org/news/rss.xml (HTTPError)",
       "rss skip: SIA https://www.semiconductors.org/news/feed.xml (HTTPError)",
       "rss ok: Semiconductor Engineering (10) https://semiengineering.com/feed/",
-      "rss skip: Semiconductor Today https://www.semiconductor-today.com/rss.shtml/feed/ (URLError)",
-      "rss skip: Semiconductor Today https://www.semiconductor-today.com/rss.shtml/rss (URLError)",
-      "rss skip: Semiconductor Today https://www.semiconductor-today.com/rss.shtml/rss.xml (URLError)",
-      "rss skip: Semiconductor Today https://www.semiconductor-today.com/rss.shtml/feed.xml (URLError)",
+      "rss skip: Semiconductor Today https://www.semiconductor-today.com/rss.shtml/feed/ (HTTPError)",
+      "rss skip: Semiconductor Today https://www.semiconductor-today.com/rss.shtml/rss (HTTPError)",
+      "rss skip: Semiconductor Today https://www.semiconductor-today.com/rss.shtml/rss.xml (HTTPError)",
+      "rss skip: Semiconductor Today https://www.semiconductor-today.com/rss.shtml/feed.xml (HTTPError)",
       "rss ok: SemiWiki (5) https://semiwiki.com/feed/",
       "rss ok: EE Times (10) https://www.eetimes.com/feed/",
       "rss ok: ServeTheHome (6) https://www.servethehome.com/feed/",
@@ -68,7 +54,7 @@
       "google news ok: semiconductor HBM OR HBM4 OR HBM4E (10)",
       "google news ok: semiconductor CoWoS advanced packaging hybrid bonding (9)",
       "google news ok: semiconductor High NA EUV GAA 2nm (9)",
-      "google news ok: AI accelerator ASIC GPU NPU semiconductor (8)",
+      "google news ok: AI accelerator ASIC GPU NPU semiconductor (7)",
       "google news ok: 반도체 HBM OR 패키징 OR EUV OR 파운드리 (10)",
       "naver ok: Naver News Search 반도체 HBM (10)",
       "naver ok: Naver News Search HBM4 HBM4E (10)",
@@ -100,50 +86,45 @@
       "naver ok: Naver Cafe Search SK하이닉스 HBM (10)",
       "naver ok: Naver Cafe Search TSMC 패키징 (10)",
       "naver ok: Naver Cafe Search ASML EUV (10)",
+      "dcinside ok: HBM HBM4 (25)",
+      "dcinside ok: 반도체 패키징 CoWoS (25)",
+      "dcinside ok: EUV GAA 2나노 (25)",
+      "dcinside ok: AI 반도체 GPU NPU (25)",
+      "dcinside ok: 삼성전자 파운드리 (25)",
+      "dcinside ok: SK하이닉스 HBM (25)",
+      "dcinside ok: TSMC ASML (25)",
+      "clien ok: 모두의공원 (30)",
+      "clien ok: 주식한당 (30)",
+      "clien ok: AI당 (30)",
+      "naver web community ok: 에펨코리아 HBM HBM4 (5)",
+      "naver web community ok: 에펨코리아 반도체 패키징 CoWoS (5)",
+      "naver web community ok: 에펨코리아 EUV GAA 2나노 (5)",
+      "naver web community ok: 에펨코리아 AI 반도체 GPU NPU (5)",
+      "naver web community ok: 에펨코리아 삼성전자 파운드리 (5)",
+      "naver web community ok: 에펨코리아 SK하이닉스 HBM (5)",
+      "naver web community ok: 에펨코리아 TSMC ASML (5)",
       "hn ok: HBM OR HBM4 OR HBM4E (0)",
       "hn ok: CoWoS OR advanced packaging OR hybrid bonding (0)",
       "hn ok: High NA EUV OR GAA OR nanosheet OR 2nm (0)",
       "hn ok: AI accelerator OR ASIC OR GPU OR NPU (0)",
-      "reddit skip: REDDIT_CLIENT_ID/REDDIT_CLIENT_SECRET not set",
+      "reddit skip: REDDIT_DATA_API_APPROVED is not true",
       "x skip: disabled by configuration; Reddit-only community mode",
-      "cache load: loaded 52 existing summaries from articles.json",
-      "llm skip article: 현금 대신 자사주 60%…SK하이닉스 '성과 공유 실험' 노조 선택만 남았다 (TimeoutError)",
-      "llm skip article: 브로드컴 AI 매출 1160억달러 전망…삼성전자 HBM ·파운드리 '기회' (TimeoutError)",
-      "llm skip article: 피지컬 AI 시대, 한국 제조업의 약한 고리는 로봇이다 (TimeoutError)",
-      "llm skip article: [김대호 진단] 반도체 열전 (46) SMIC(中芯國際)...시진핑 파운드리 (TimeoutError)",
+      "cache load: loaded 46 existing summaries from articles.json",
+      "llm skip article: 브로드컴 AI 매출 1160억달러 전망…삼성전자 HBM·파운드리 '기회' (TimeoutError)",
       "llm skip article: 시놉시스, 3D 적층 PCIe 6.0 검증… HBM4 판도 흔든다 (TimeoutError)",
-      "llm ok: summarized 46 articles, reused 0 cached summaries (total 51)"
+      "llm ok: summarized 27 articles, reused 12 cached summaries (total 41)"
     ]
   },
   "articles": [
     {
-      "id": "art-306084a670dc64",
-      "headline": "현금 대신 자사주 60%…SK하이닉스 '성과 공유 실험' 노조 선택만 남았다",
-      "body": "인공지능(AI) 반도체 호황으로 회사의 현금창출력이 크게 확대된 가운데 노사가 구성원 보상과 주주가치... AI 가속기용 고대역폭메모리( HBM ) 시장을 주도하면서 실적이 급증하자 벌어들인 현금을 구성원 보상과 설비...",
-      "sector": "소자",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-08-23T06:14:00+09:00",
-      "placement": "top",
-      "source_name": "Naver News Search",
-      "source_url": "https://www.joongangenews.com/news/articleView.html?idxno=541951",
-      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "HBM"
-      ],
-      "summary_method": "snippet",
-      "importance_score": 5
-    },
-    {
       "id": "art-f641a16eadc617",
-      "headline": "브로드컴 AI 매출 1160억달러 전망…삼성전자 HBM ·파운드리 '기회'",
-      "body": "배런스에 따르면 JP모건은 \"삼성이 브로드컴의 주요 HBM 공급사 지위를 유지할 것\"으로 전망했다. JP모건은 또 \"향후 5년간 브로드컴의 삼성전자 반도체 구매액 가운데 90~95%가 메모리, 5~10%가 파운드리 웨이퍼가 될...",
+      "headline": "브로드컴 AI 매출 1160억달러 전망…삼성전자 HBM·파운드리 '기회'",
+      "body": "HBM 등 첨단 메모리부터 2나노미터(㎚) 이하 파운드리, 첨단 패키징 까지 협력 범위에 포함됐다. 씨티는 AI... 파운드리 1위 TSMC 와의 격차를 좁히는 데도 도움이 될 수 있다고 봤다. 메모리 사업에 대한 기대도 나온다....",
       "sector": "소자",
       "category": "news",
       "trust": "medium",
       "created_at": "2026-08-23T06:01:00+09:00",
-      "placement": "main",
+      "placement": "top",
       "source_name": "Naver News Search",
       "source_url": "http://www.inews24.com/view/1996905",
       "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
@@ -172,17 +153,17 @@
       ],
       "summary_method": "llm",
       "summary_model": "gemma-4-31b-it",
-      "importance_score": 5,
       "llm_keywords": [
         "삼성 파운드리",
         "HBM",
         "TSMC",
         "번들 전략"
-      ]
+      ],
+      "importance_score": 5
     },
     {
       "id": "art-3a8928026f3cb1",
-      "headline": "' HBM 묶어 파는' 삼성 파운드리, TSMC 틈새 뚫고 흑자 시동",
+      "headline": "'HBM 묶어 파는' 삼성 파운드리, TSMC 틈새 뚫고 흑자 시동",
       "body": "삼성전자가 미국 및 중국 고객사를 대상으로 4nm SF4 공정 단가를 최대 15%, 5nm 10~15%, 8nm 약 10% 인상함\nHBM과 파운드리를 일괄 수주하는 '턴키' 전략을 통해 평택 4nm 라인에서 로직 칩과 HBM 베이스다이를 병행 생산하며 최대 가동률을 기록 중임\n다수의 대형 고객사와 2nm 협력을 논의 중이며, 3분기 HBM4 매출이 2분기 대비 3배 이상 확대될 것으로 전망함\nTSMC의 생산 능력 포화에 따른 빅테크 주문 유입과 4nm 추론용 칩 양산 효과를 통해 2027년 파운드리 사업부 흑자 전환을 목표로 함",
       "sector": "공정",
       "category": "news",
@@ -198,45 +179,26 @@
       ],
       "summary_method": "llm",
       "summary_model": "gemma-4-31b-it",
-      "importance_score": 5,
       "llm_keywords": [
         "삼성전자 파운드리",
         "턴키 전략",
         "HBM4",
         "4nm SF4",
         "단가 인상"
-      ]
-    },
-    {
-      "id": "art-8233a84039b80f",
-      "headline": "피지컬 AI 시대, 한국 제조업의 약한 고리는 로봇이다",
-      "body": "AI 모델 경쟁은 미국 기업들이 주도했지만 그 모델을 학습하고 추론하는 데 필요한 HBM 은 SK하이닉스 와 삼성전자가 공급했다. AI 골드러시에서 한국은 가장 잘 팔리는 곡괭이를 쥐고 있었던 셈이다. 피지컬 AI는 다르다....",
-      "sector": "소자",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-08-23T01:56:00+09:00",
-      "placement": "main",
-      "source_name": "Naver News Search",
-      "source_url": "https://www.newsverse.kr/news/articleView.html?idxno=11251",
-      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "HBM"
       ],
-      "summary_method": "snippet",
       "importance_score": 5
     },
     {
-      "id": "art-432dae96ddc214",
-      "headline": "마이크론 14조원 투자 발표, AI 메모리 시장 판도 바뀔까?",
-      "body": "마이크론이 AI 메모리 분야에 약 14조 원 규모의 투자를 발표함\n투자 대상에 HBM 및 AI 반도체 관련 기술이 포함된 것으로 확인됨\n구체적인 투자 일정, 공정 노드, 장비 도입 계획 등 세부 사항은 명시되지 않음",
+      "id": "art-ae74c2f06c97a8",
+      "headline": "[속보] 엔비디아 AI 서버 가격 15% 이상 인상…삼성전자·SK하이닉스 HB....",
+      "body": "엔비디아가 AI 서버 가격을 15% 이상 인상함\n이번 가격 인상이 삼성전자와 SK하이닉스의 HBM 및 서버 D램 사업에 영향을 미칠 것으로 분석됨\n엔비디아가 AI 반도체 시장 내 강력한 가격 결정력을 행사하고 있는 상황임",
       "sector": "소자",
       "category": "analysis",
       "trust": "low",
       "created_at": "2026-08-23T00:00:00+09:00",
       "placement": "main",
       "source_name": "Naver Blog Search",
-      "source_url": "https://blog.naver.com/orangejk96/224387153727",
+      "source_url": "https://blog.naver.com/thisisblog-/224387603608",
       "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
       "raw_source_type": "api",
       "matched_keywords": [
@@ -246,64 +208,193 @@
       "summary_model": "gemma-4-31b-it",
       "importance_score": 5,
       "llm_keywords": [
-        "마이크론",
-        "AI 메모리",
+        "엔비디아",
+        "AI 서버",
         "HBM",
-        "시설투자"
+        "가격 인상"
       ]
     },
     {
-      "id": "art-792bada73a4291",
-      "headline": "[오십부터 기업공부] 삼성전자 기업분석｜HBM4· 파운드리 ·AI로 보는 2....",
-      "body": "삼성전자가 2026년 2월 HBM4 양산 및 상업 출하를 시작할 예정이다.\nHBM4 제품에 1c DRAM 공정을 적용한다.\nHBM4의 베이스다이에 삼성 파운드리의 4nm 로직 공정을 적용한다.",
+      "id": "art-2ef1a3d724343b",
+      "headline": "[속보] 엔비디아 AI 서버 가격 15% 인상, HBM 메모리값 급등에 삼성전자....",
+      "body": "엔비디아 AI 서버 가격이 15% 이상 인상됨\nHBM 메모리 가격 급등이 서버 가격 상승의 주요 원인으로 분석됨\nAI 서버 가격 상승이 데이터센터 투자 비용 압박으로 이어질 가능성이 제기됨",
       "sector": "소자",
       "category": "analysis",
       "trust": "low",
       "created_at": "2026-08-23T00:00:00+09:00",
       "placement": "main",
       "source_name": "Naver Blog Search",
-      "source_url": "https://blog.naver.com/100yearsplan/224386699386",
+      "source_url": "https://blog.naver.com/u___bkim/224387596071",
       "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
       "raw_source_type": "api",
       "matched_keywords": [
-        "DRAM"
+        "GPU"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "importance_score": 5,
+      "llm_keywords": [
+        "엔비디아",
+        "AI 서버",
+        "HBM",
+        "가격 인상"
+      ]
+    },
+    {
+      "id": "art-3a460e8ba2805b",
+      "headline": "AI 광학 메모리 혁명: SK하이닉스 네이처 논문이 예고한 HBM 이후의 미....",
+      "body": "SK하이닉스가 HBM의 물리적 한계를 극복하기 위한 광학 메모리 관련 연구 결과를 네이처(Nature)지에 발표함\nHBM 스택 증가 시 칩 둘레(Shoreline)의 한정된 면적으로 인해 신호선 연결 공간이 부족해지는 병목 현상을 해결하는 기술을 제시함\n전기 신호 대신 빛을 이용한 광학 인터커넥트를 통해 데이터 전송 대역폭을 확장하고 물리적 공간 제약을 해소하는 방안을 다룸",
+      "sector": "소자",
+      "category": "analysis",
+      "trust": "low",
+      "created_at": "2026-08-23T00:00:00+09:00",
+      "placement": "main",
+      "source_name": "Naver Blog Search",
+      "source_url": "https://blog.naver.com/got_dopamine/224387593234",
+      "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "HBM"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "importance_score": 5,
+      "llm_keywords": [
+        "SK하이닉스",
+        "광학 메모리",
+        "HBM",
+        "쇼라인",
+        "네이처"
+      ]
+    },
+    {
+      "id": "art-b720b09f62ab25",
+      "headline": "260823_SK하이닉스_ HBM4 · HBM4E 와 40조 자사주 소각 호재, 좋은 기업이지만....",
+      "body": "HBM4 양산 및 HBM4E 샘플 공급 진행\nAI 서버용 DRAM 및 엔터프라이즈 SSD 제품군 공급\n2026년 상반기 매출액 131.90조원, 영업이익 98.15조원 달성 전망",
+      "sector": "소자",
+      "category": "analysis",
+      "trust": "low",
+      "created_at": "2026-08-23T00:00:00+09:00",
+      "placement": "main",
+      "source_name": "Naver Blog Search",
+      "source_url": "https://blog.naver.com/upmc2013/224387439077",
+      "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "DRAM",
+        "HBM"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "importance_score": 5,
+      "llm_keywords": [
+        "SK하이닉스",
+        "HBM4",
+        "HBM4E",
+        "AI 서버 DRAM"
+      ]
+    },
+    {
+      "id": "art-5d79de811b73e0",
+      "headline": "삼성 파운드리 와 SK하이닉스가 보여준 차세대 반도체 전략",
+      "body": "삼성전자 파운드리가 테슬라의 차세대 자율주행용 칩 대형 물량을 확보함\n최첨단 공정을 활용해 대형 고객사의 실질적인 물량을 확보하는 전략을 추진 중임\n테슬라의 자율주행 칩 수주를 통해 파운드리 사업의 경쟁력 강화를 도모함",
+      "sector": "공정",
+      "category": "analysis",
+      "trust": "low",
+      "created_at": "2026-08-23T00:00:00+09:00",
+      "placement": "side",
+      "source_name": "Naver Blog Search",
+      "source_url": "https://blog.naver.com/gksthddl9290/224387563360",
+      "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
+      "raw_source_type": "api",
+      "matched_keywords": [],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "importance_score": 5,
+      "llm_keywords": [
+        "삼성전자",
+        "테슬라",
+        "자율주행 칩",
+        "파운드리"
+      ]
+    },
+    {
+      "id": "art-420185efe45afc",
+      "headline": "엔비디아 AI 서버 가격 15% 오른다, 이유는 메모리 품귀…삼성전자· SK ....",
+      "body": "엔비디아 AI 서버 가격이 메모리 품귀 현상으로 인해 약 15% 인상될 전망이다.\n가격 상승의 핵심 원인은 HBM 및 D램의 공급 부족과 이에 따른 단가 상승이다.\n삼성전자와 SK하이닉스 등 HBM 공급망의 수급 상황이 AI 서버 전체 가격에 영향을 미치고 있다.",
+      "sector": "소자",
+      "category": "analysis",
+      "trust": "low",
+      "created_at": "2026-08-23T00:00:00+09:00",
+      "placement": "side",
+      "source_name": "Naver Blog Search",
+      "source_url": "https://blog.naver.com/povidonk/224387541407",
+      "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "HBM"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "importance_score": 5,
+      "llm_keywords": [
+        "엔비디아",
+        "AI 서버",
+        "HBM",
+        "메모리 품귀"
+      ]
+    },
+    {
+      "id": "art-559b285568090b",
+      "headline": "[Bernstein] 삼성전자 HBM 4 램프업 가속… 3Q HBM 매출 SK하이닉스 추월 가....",
+      "body": "삼성전자가 HBM4 램프업을 가속화하며 3분기 HBM 매출에서 SK하이닉스를 추월할 가능성이 제기됨\n삼성전자의 중량당 단가가 고단가 HBM4 믹스 영향으로 전월 대비 21% 급등함\nSK하이닉스는 7월 충북 및 이천 지역 수출이 4월 대비 27% 감소하며 일시적 출하 지연이 발생함\n엔비디아 루빈(Rubin) 플랫폼향 HBM4 선적 관련 내용이 포함됨",
+      "sector": "소자",
+      "category": "analysis",
+      "trust": "low",
+      "created_at": "2026-08-23T00:00:00+09:00",
+      "placement": "side",
+      "source_name": "Naver Blog Search",
+      "source_url": "https://blog.naver.com/gaunyu/224387526756",
+      "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "HBM"
       ],
       "summary_method": "llm",
       "summary_model": "gemma-4-31b-it",
       "importance_score": 5,
       "llm_keywords": [
         "HBM4",
-        "1c DRAM",
-        "4nm 로직 베이스다이",
-        "삼성전자"
+        "삼성전자",
+        "SK하이닉스",
+        "엔비디아 루빈",
+        "Bernstein"
       ]
     },
     {
-      "id": "art-51e183dec97e38",
-      "headline": "앤트로픽, 구글 TPU 주역 영입…자체 AI칩 개발 가속",
-      "body": "앤트로픽이 구글 TPU 1~7세대 개발을 주도한 아미르 살렉을 연산팀으로 영입함\n지난 6월 오픈AI 맞춤형 칩 개발 초기 멤버인 클라이브 찬을 영입하며 자체 AI 칩 개발 인력을 강화함\n자체 칩 개발을 위해 삼성전자 파운드리 사업부와 협의를 진행 중인 것으로 알려짐\n자체 칩 개발과 별개로 엔비디아 GPU, 구글 TPU, 아마존 트레이니엄을 연산 인프라로 계속 활용할 방침임",
-      "sector": "설계",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-08-22T21:44:00+09:00",
+      "id": "art-5bac6444fb991f",
+      "headline": "# SK하이닉스 #CPO#AI광학메모리",
+      "body": "SK하이닉스가 CPO(Co-Packaged Optics) 기술을 적용한 AI 광학메모리를 개발 중임\n기존 GPU 옆에 HBM을 배치하는 구조에서 벗어나 메모리 일부를 GPU 패키지 외부로 분리하는 설계를 채택함\nAI 시스템의 에너지 효율을 개선하고 100Tbps 이상의 대역폭 확보를 목표로 함",
+      "sector": "패키징",
+      "category": "analysis",
+      "trust": "low",
+      "created_at": "2026-08-23T00:00:00+09:00",
       "placement": "side",
-      "source_name": "Naver News Search",
-      "source_url": "https://www.etnews.com/20260822000034",
-      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "source_name": "Naver Blog Search",
+      "source_url": "https://blog.naver.com/2gowego/224387525989",
+      "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
       "raw_source_type": "api",
       "matched_keywords": [
-        "GPU",
-        "TPU"
+        "GPU"
       ],
       "summary_method": "llm",
       "summary_model": "gemma-4-31b-it",
       "importance_score": 5,
       "llm_keywords": [
-        "앤트로픽",
-        "자체 AI 칩",
-        "TPU",
-        "삼성전자 파운드리",
-        "아미르 살렉"
+        "SK하이닉스",
+        "CPO",
+        "광학메모리",
+        "100Tbps"
       ]
     },
     {
@@ -324,14 +415,14 @@
       ],
       "summary_method": "llm",
       "summary_model": "gemma-4-31b-it",
-      "importance_score": 5,
       "llm_keywords": [
         "HBM4",
         "베이스다이",
         "Advanced MR-MUF",
         "핫칩스 2026",
         "HBM4E"
-      ]
+      ],
+      "importance_score": 5
     },
     {
       "id": "art-2ad30e45a1c40b",
@@ -351,41 +442,14 @@
       ],
       "summary_method": "llm",
       "summary_model": "gemma-4-31b-it",
-      "importance_score": 5,
       "llm_keywords": [
         "HBM4",
         "HBM4E",
         "서버용 D램",
         "엔비디아",
         "AI 인프라"
-      ]
-    },
-    {
-      "id": "art-dbe5f32efd722e",
-      "headline": "한미반도체, 1300억 들여 8공장 확보…\"장비 쇼티지 대비\"",
-      "body": "한미반도체가 인천 주안국가산업단지 내 기존 공장을 매입 및 리모델링하여 총 1,300억 원 규모의 8공장을 구축한다.\n8공장은 2027년 2분기 양산 예정이며 HBM용 TC 본더, 하이브리드 본더, AI 반도체용 2.5D 패키징 장비, BOC·COB 장비를 생산한다.\n7공장(하이브리드 본더 팩토리)과 8공장이 모두 가동되면 전체 생산라인 면적은 총 34,318평으로 확대된다.\n신규 건설 대신 기존 공장 매입 방식을 통해 구축 기간을 단축함으로써 SK하이닉스, 삼성전자, 마이크론 등 고객사의 팹 증설 일정에 맞춘 장비 공급 능력을 확보한다.",
-      "sector": "패키징",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-08-22T11:36:00+09:00",
-      "placement": "side",
-      "source_name": "Naver News Search",
-      "source_url": "https://www.econovill.com/news/articleView.html?idxno=748644",
-      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "HBM"
       ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "importance_score": 5,
-      "llm_keywords": [
-        "한미반도체",
-        "HBM",
-        "TC 본더",
-        "하이브리드 본더",
-        "2.5D 패키징"
-      ]
+      "importance_score": 5
     },
     {
       "id": "art-1dd64e4f63f5f5",
@@ -405,13 +469,13 @@
       ],
       "summary_method": "llm",
       "summary_model": "gemma-4-31b-it",
-      "importance_score": 5,
       "llm_keywords": [
         "한미반도체",
         "8공장",
         "HBM",
         "시스템반도체 패키징"
-      ]
+      ],
+      "importance_score": 5
     },
     {
       "id": "art-c85d450ba3275c",
@@ -431,13 +495,13 @@
       ],
       "summary_method": "llm",
       "summary_model": "gemma-4-31b-it",
-      "importance_score": 5,
       "llm_keywords": [
         "한미반도체",
         "8공장",
         "HBM",
         "시스템반도체 패키징"
-      ]
+      ],
+      "importance_score": 5
     },
     {
       "id": "art-1aa210fca24192",
@@ -457,14 +521,14 @@
       ],
       "summary_method": "llm",
       "summary_model": "gemma-4-31b-it",
-      "importance_score": 5,
       "llm_keywords": [
         "한미반도체",
         "TC본더",
         "하이브리드본더",
         "2.5D 패키징",
         "테라팹"
-      ]
+      ],
+      "importance_score": 5
     },
     {
       "id": "art-ec59a019ebe93b",
@@ -499,166 +563,62 @@
       "matched_keywords": [],
       "summary_method": "llm",
       "summary_model": "gemma-4-31b-it",
-      "importance_score": 5,
       "llm_keywords": [
         "마이크론 리서치 랩스",
         "HBM4E",
         "zHBM",
         "계층형 메모리",
         "HBM5"
-      ]
-    },
-    {
-      "id": "art-b7562f51fc2506",
-      "headline": "엔비디아·애플 등에 업은 마이크론 … 韓 HBM 주도권 비상",
-      "body": "마이크론이 2027년 착공 예정인 '마이크론 리서치 랩스' 설립에 향후 10년간 100억 달러를 투자하며 차세대 메모리, 3차원 첨단 패키징, 메모리-컴퓨팅 융합 아키텍처 등을 연구한다.\n엔비디아, 애플, AMD 연구진을 연구소에 상주시킨 DTCO(설계·공정 동시 최적화) 방식을 통해 커스텀 HBM4의 설계 주도권과 JEDEC 표준 설정을 추진한다.\n엔비디아 차세대 GPU '베라 루빈'용 HBM4 공급 비중은 SK하이닉스 65~70%, 삼성전자 25% 수준이며 마이크론은 한 자릿수 점유율을 기록 중이다.\n삼성전자는 AMD의 신형 가속기 'MI455X'에 HBM4를 주력으로 공급하는 계약을 마무리 단계에 두고 있으며, SK하이닉스는 TSMC의 3~5나노 공정으로 베이스 다이를 생산한다.",
-      "sector": "소자",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-08-22T09:00:00+09:00",
-      "placement": "side",
-      "source_name": "Naver News Search",
-      "source_url": "http://www.newskr.kr/news/articleView.html?idxno=105784",
-      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "HBM"
       ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "importance_score": 5,
-      "llm_keywords": [
-        "마이크론",
-        "HBM4",
-        "DTCO",
-        "마이크론 리서치 랩스",
-        "커스텀 HBM"
-      ]
+      "importance_score": 5
     },
     {
-      "id": "art-7129ac4e3ce417",
-      "headline": "\"2나노 양산에 사활\"… 日, 반도체 기업 '라피더스'에 1,500억 엔 추가 출...",
-      "body": "일본 정부가 반도체 기업 라피더스에 1,500억 엔 규모의 추가 출자를 결정함\n이번 투자는 2나노(nm) 공정 반도체의 양산 체계 구축 및 성공을 목적으로 함",
+      "id": "art-c22d76d59ff52a",
+      "headline": "파운드리 가격 인상 몰랐다가 대량 생산 계약서 다시 썼습니다·삼....",
+      "body": "삼성전자가 신규 파운드리 주문에 대해 4나노 공정 가격을 최대 15% 인상함\n5나노 공정 웨이퍼 가격을 10~15% 상향 조정함\nTSMC(73%)와 삼성전자(7%)의 시장 점유율 격차가 큰 구조 속에서 가격 정책을 변경함",
       "sector": "공정",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-08-23T06:46:00+09:00",
+      "category": "analysis",
+      "trust": "low",
+      "created_at": "2026-08-23T00:00:00+09:00",
       "placement": "side",
-      "source_name": "Naver News Search",
-      "source_url": "https://www.g-enews.com/view.php?ud=2026082301293996970c8c1c064d_1",
-      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "source_name": "Naver Blog Search",
+      "source_url": "https://blog.naver.com/jewongwonson/224387587176",
+      "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
       "raw_source_type": "api",
       "matched_keywords": [],
       "summary_method": "llm",
       "summary_model": "gemma-4-31b-it",
       "importance_score": 4,
       "llm_keywords": [
-        "라피더스",
-        "2나노",
-        "일본 정부",
-        "추가 출자"
+        "삼성전자",
+        "파운드리",
+        "4나노",
+        "5나노",
+        "가격 인상"
       ]
     },
     {
-      "id": "art-746fd986805318",
-      "headline": "'삼전닉스에 도전' 中낸드 YMTC, IPO로 6조8천억원 조달 계획",
-      "body": "양쯔메모리테크놀로지(YMTC)가 중국 과창판(STAR Market) IPO를 통해 약 6조 8천억 원 규모의 자금 조달을 계획함\n이번 IPO 규모는 CXMT와 SMIC에 이어 과창판 역대 3위에 해당하는 수준으로 전망됨\n조달된 자금은 삼성전자 및 SK하이닉스와 경쟁하는 낸드플래시 사업 확대에 투입될 예정임",
-      "sector": "소자",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-08-23T06:39:00+09:00",
-      "placement": "side",
-      "source_name": "Naver News Search",
-      "source_url": "https://biz.sbs.co.kr/article_hub/20000330182?division=NAVER",
-      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
-      "raw_source_type": "api",
-      "matched_keywords": [],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "importance_score": 4,
-      "llm_keywords": [
-        "YMTC",
-        "IPO",
-        "낸드플래시",
-        "과창판"
-      ]
-    },
-    {
-      "id": "art-1b5cfa3d553b31",
-      "headline": "마이크론, 미국에 100억 달러 규모 ‘메모리 연구 허브’ 설립…AI 시....",
-      "body": "마이크론이 미국 내 100억 달러 규모의 ‘메모리 연구 허브’를 설립한다.\n향후 10년에 걸쳐 리서치 랩스를 통해 투자를 진행할 계획이다.\n차세대 D램 및 HBM 개발을 넘어 10년 이후에 필요한 메모리와 컴퓨팅 기술 연구를 목표로 한다.",
+      "id": "art-cea6a58d7dc3de",
+      "headline": "삼성 메모리, 구글 웨이모 자율주행차에 들어간다…협력 확대 주목",
+      "body": "삼성전자의 차량용 메모리 솔루션이 구글 웨이모의 차세대 완전 자율주행 컴퓨팅 시스템에 탑재된다.\n양사의 협력 범위가 메모리 공급을 넘어 파운드리(반도체 위탁생산) 분야로 확대될 것으로 관측된다.\n첨단 패키징 분야에서도 웨이모와의 추가적인 협력 가능성이 제기되었다.",
       "sector": "소자",
       "category": "analysis",
       "trust": "low",
       "created_at": "2026-08-23T00:00:00+09:00",
       "placement": "side",
       "source_name": "Naver Blog Search",
-      "source_url": "https://blog.naver.com/gleamkim/224386573550",
+      "source_url": "https://blog.naver.com/qkrdpdls58/224387541227",
       "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "HBM"
-      ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "importance_score": 4,
-      "llm_keywords": [
-        "마이크론",
-        "메모리 연구 허브",
-        "미국 투자",
-        "차세대 메모리"
-      ]
-    },
-    {
-      "id": "art-e7a07c92130cd2",
-      "headline": "중국 양쯔메모리 IPO 추진… 삼성 -하이닉스와의 격차 줄일까?",
-      "body": "YMTC의 모회사 창장춘추홀딩스가 상하이증권거래소 과창판에 IPO 신청서를 제출하고 이르면 올해 4분기 상장을 추진함\n이번 IPO를 통해 약 330억 위안(약 6조 8천억 원)을 조달하여 생산라인 기술 업그레이드 및 연구개발(R&D)에 투자할 계획임\nYMTC는 낸드플래시 시장 점유율 14%(카운터포인트리서치 2분기 기준)를 기록하며 출하량 및 점유율 기준 업계 3위에 진입함\n1분기 매출액 470억 4천만 위안을 기록하며 흑자로 전환했으나, 미국 국방부 블랙리스트 등 지정학적 리스크로 인한 시장 확장 제한을 겪고 있음",
-      "sector": "소자",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-08-22T23:40:00+09:00",
-      "placement": "side",
-      "source_name": "Naver News Search",
-      "source_url": "https://www.gokorea.kr/news/articleView.html?idxno=875941",
-      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "DRAM"
-      ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "importance_score": 4,
-      "llm_keywords": [
-        "YMTC",
-        "낸드플래시",
-        "IPO",
-        "과창판",
-        "창장춘추홀딩스"
-      ]
-    },
-    {
-      "id": "art-57a2fe42b2e564",
-      "headline": "中 CXMT 이어 YMTC도 IPO 추진… 6조원대 조달해 생산·R&D 강화",
-      "body": "YMTC가 생산 및 R&D 역량 강화를 위해 약 6조 원 규모의 자금 조달을 목표로 IPO를 추진함\n이번 IPO는 중신궈지(SMIC)와 CXMT에 이어 중국 과창판(STAR Market) 역대 세 번째 규모의 조달이 될 전망임\n낸드플래시 출하량 시장에서 삼성전자(25%)와 SK하이닉스(솔리다임 포함 22%)가 상위권을 유지하는 상황에서 생산 능력 확대를 추진함",
-      "sector": "소자",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-08-22T20:56:00+09:00",
-      "placement": "side",
-      "source_name": "Naver News Search",
-      "source_url": "https://biz.chosun.com/it-science/ict/2026/08/22/WZTNEPN7GJE65LDOLINHJMHAPE",
-      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
       "raw_source_type": "api",
       "matched_keywords": [],
       "summary_method": "llm",
       "summary_model": "gemma-4-31b-it",
       "importance_score": 4,
       "llm_keywords": [
-        "YMTC",
-        "IPO",
-        "과창판",
-        "낸드플래시",
-        "자금조달"
+        "삼성전자",
+        "구글 웨이모",
+        "차량용 메모리",
+        "자율주행 컴퓨팅"
       ]
     },
     {
@@ -679,77 +639,24 @@
       ],
       "summary_method": "llm",
       "summary_model": "gemma-4-31b-it",
-      "importance_score": 4,
       "llm_keywords": [
         "라피더스",
         "600mm 패널 패키징",
         "PLP"
-      ]
-    },
-    {
-      "id": "art-cc7c26c13a9939",
-      "headline": "“삼성은 달라”…애플 제치고 ‘스마트폰 왕좌’ 되찾나",
-      "body": "카운터포인트리서치는 삼성전자가 올해 0.8% 성장하며 애플을 제치고 글로벌 스마트폰 시장 1위를 탈환할 것으로 전망함\n메모리 공급사들이 HBM 및 서버용 D램을 AI 데이터센터 수요에 우선 배정하면서 소비자 가전용 부품 원가 상승 및 공급 부족 현상이 심화됨\n삼성전자는 2분기 점유율을 3%포인트 끌어올려 애플(21%)을 추월했으며, 이는 인도·중동 시장의 가격 관리와 갤럭시 S26 시리즈 판매 호조에 기인함\n중국 스마트폰 업체들은 부품 원가 상승 압박으로 인해 출하량 감소 및 업계 구조조정 가속화가 예상됨\n전 세계 스마트폰 출하량은 2027년까지 하락세를 유지하다 2028년에 회복될 것으로 전망됨",
-      "sector": "소자",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-08-23T06:21:00+09:00",
-      "placement": "side",
-      "source_name": "Naver News Search",
-      "source_url": "https://www.sedaily.com/article/20082158?ref=naver",
-      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "HBM"
       ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "importance_score": 3,
-      "llm_keywords": [
-        "삼성전자",
-        "애플",
-        "HBM",
-        "스마트폰 출하량",
-        "카운터포인트리서치"
-      ]
+      "importance_score": 4
     },
     {
-      "id": "art-0a8c2b0b7c4112",
-      "headline": "'AI 반도체 슈퍼위크'…코스피 '주주환원 약발' 계속되나",
-      "body": "메타, 마이크로소프트, 구글, 오픈AI의 자체 AI 칩 로드맵 공개 예정\n고대역폭메모리(HBM) 공정 관련 정보 공개 예정\n엔비디아와 마벨테크의 실적 발표가 26일과 27일에 예정됨",
-      "sector": "소자",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-08-23T06:00:00+09:00",
-      "placement": "side",
-      "source_name": "Naver News Search",
-      "source_url": "https://www.yna.co.kr/view/AKR20260822023400008?input=1195m",
-      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "HBM"
-      ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "importance_score": 3,
-      "llm_keywords": [
-        "HBM",
-        "자체 AI 칩",
-        "엔비디아",
-        "마벨테크"
-      ]
-    },
-    {
-      "id": "art-09c90da70604fa",
-      "headline": "FC-BGA란 무엇인가? AI GPU가 커질수록 삼성전기가 돈 버는 이유",
-      "body": "AI 반도체 내 GPU, HBM, 고속 인터페이스의 통합으로 인해 전체 패키지 크기가 대면적화되는 추세임\n패키지 크기 증가에 따라 이를 지지하는 FC-BGA(Flip Chip Ball Grid Array) 기판의 면적 확대가 필수적으로 요구됨\n삼성전기가 AI GPU 대응을 위한 대면적 FC-BGA 솔루션을 통해 시장 대응을 추진 중임",
+      "id": "art-db2564ea993484",
+      "headline": "AI 데이터센터 전력 혁명, 800V HVDC와 액체냉각이 만드는 새로운 투자 ....",
+      "body": "AI 데이터센터의 전력 효율 향상을 위해 800V HVDC(고압직류송전) 기술 도입이 추진됨\nGPU 및 HBM의 연산량 증가로 인한 발열 문제를 해결하기 위해 액체냉각(Liquid Cooling) 방식이 적용됨\nAI 인프라의 경쟁 요소가 반도체 단일 성능에서 전력 공급 및 열 관리 효율성으로 확장됨",
       "sector": "패키징",
       "category": "analysis",
       "trust": "low",
       "created_at": "2026-08-23T00:00:00+09:00",
       "placement": "side",
       "source_name": "Naver Blog Search",
-      "source_url": "https://blog.naver.com/c4choi_1/224387030040",
+      "source_url": "https://blog.naver.com/bukhansan_life/224387583180",
       "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
       "raw_source_type": "api",
       "matched_keywords": [
@@ -759,11 +666,9 @@
       "summary_model": "gemma-4-31b-it",
       "importance_score": 3,
       "llm_keywords": [
-        "FC-BGA",
-        "삼성전기",
-        "AI GPU",
-        "HBM",
-        "대면적 패키지"
+        "800V HVDC",
+        "액체냉각",
+        "AI 데이터센터"
       ]
     },
     {
@@ -785,259 +690,37 @@
       ],
       "summary_method": "llm",
       "summary_model": "gemma-4-31b-it",
-      "importance_score": 3,
       "llm_keywords": [
         "LG전자",
         "레이저 직접 묘화",
         "LDI",
         "AI 칩 패키징"
-      ]
-    },
-    {
-      "id": "art-f5bc06f26702fe",
-      "headline": "엔비디아·잭슨홀 주목… 코스피 7000선 안착 시험 [주간증시전망]",
-      "body": "27일 엔비디아 실적 발표 예정\n엔비디아의 총이익률 유지 여부 및 HBM·첨단 패키징 공급 제약 관련 언급 여부가 주요 변수로 지목됨\nSK하이닉스가 대규모 주주환원 정책을 발표함",
-      "sector": "소자",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-08-23T06:10:00+09:00",
-      "placement": "side",
-      "source_name": "Naver News Search",
-      "source_url": "https://it.chosun.com/news/articleView.html?idxno=2023092168584",
-      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "HBM"
       ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "importance_score": 2,
-      "llm_keywords": [
-        "엔비디아",
-        "SK하이닉스",
-        "HBM",
-        "실적발표"
-      ]
+      "importance_score": 3
     },
     {
-      "id": "art-7fc41092e1571e",
-      "headline": "[주간증시전망] 엔비디아 실적 발표·美 국채금리에 ‘쏠린 눈’",
-      "body": "엔비디아가 실적 발표를 앞두고 있으며 시장은 높은 수준의 총이익률 유지 여부에 주목하고 있음\nHBM 공급 부족 상황이 메모리 반도체 기업들의 가격 협상력 강화 및 밸류에이션 재평가 요인으로 언급됨\n미국 국채금리 변동성과 엔비디아의 실적 결과가 반도체 시장의 주요 변수로 작용할 전망임",
-      "sector": "소자",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-08-23T06:01:00+09:00",
-      "placement": "side",
-      "source_name": "Naver News Search",
-      "source_url": "https://biz.chosun.com/stock/stock_general/2026/08/23/ZWAJN7A6CNDETC6Q2EI64ZU26Y",
-      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "HBM"
-      ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "importance_score": 2,
-      "llm_keywords": [
-        "엔비디아",
-        "HBM",
-        "실적발표"
-      ]
-    },
-    {
-      "id": "art-0a7f9b4c36d82b",
-      "headline": "\"170만닉스, 한 주도 부담\"…40조 쐈는데 \"다음 카드 나올까\" 설레는 개...",
-      "body": "유진투자증권 허재환 연구원이 SK하이닉스의 장기 주가 방향을 AI 투자 확대, HBM 시장 성장, 실적 개선 등 펀더멘털에 의해 결정될 것으로 분석함\nSK하이닉스의 액면분할 이벤트가 주가 변동의 주요 요소 중 하나로 언급됨\nAI 인프라 투자 확대에 따른 HBM 수요 증가가 기업 가치 평가의 핵심 변수로 지목됨",
-      "sector": "소자",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-08-23T04:00:00+09:00",
-      "placement": "side",
-      "source_name": "Naver News Search",
-      "source_url": "http://www.wowtv.co.kr/NewsCenter/News/Read?articleId=A202608220334&t=NN",
-      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "HBM"
-      ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "importance_score": 2,
-      "llm_keywords": [
-        "SK하이닉스",
-        "HBM",
-        "주가분석"
-      ]
-    },
-    {
-      "id": "art-e60fb6a8aa26a7",
-      "headline": "자사주 사들이자마자 없앤다… SK하이닉스 주주환원 '속도전'",
-      "body": "SK하이닉스가 8월 20일부터 11월 19일까지 40조원 규모의 자기주식 취득 및 전량 소각을 진행한다.\n취득한 자사주는 임직원 보상 등에 활용하지 않고, 취득 완료 후 1~2주 이내에 전량 소각하여 주당 가치를 높일 계획이다.\n3분기 실적 발표 시 배당 확대 및 추가 자사주 매입을 포함한 구체적인 주주환원 계획을 공개할 예정이다.\n이번 조치는 HBM 등 고부가 메모리 수요 확대에 따른 실적 기반의 주주가치 제고를 목적으로 한다.",
-      "sector": "소자",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-08-23T00:06:00+09:00",
-      "placement": "side",
-      "source_name": "Naver News Search",
-      "source_url": "https://www.pinpointnews.co.kr/news/articleView.html?idxno=479557",
-      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "HBM"
-      ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "importance_score": 2,
-      "llm_keywords": [
-        "SK하이닉스",
-        "자사주 소각",
-        "주주환원",
-        "HBM"
-      ]
-    },
-    {
-      "id": "art-1046da9169cce7",
-      "headline": "[김대호 진단] 반도체 열전 (46) SMIC(中芯國際)...시진핑 파운드리",
-      "body": "국유 파운드리 기업 SMIC(中芯國際·중신궈지)였다. 미국 상무장관의 면전에서 벌어진 이 상징적인 사건은... 이후 량멍쑹은 한국의 삼성전자 로 향했다. 대만 국립칭화대 교수직을 거치며 경업금지 기간을 우회한...",
-      "sector": "설계",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-08-23T00:00:00+09:00",
-      "placement": "side",
-      "source_name": "Naver News Search",
-      "source_url": "https://www.g-enews.com/view.php?ud=202608181355356576906806b77b_1",
-      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
-      "raw_source_type": "api",
-      "matched_keywords": [],
-      "summary_method": "snippet",
-      "importance_score": 2
-    },
-    {
-      "id": "art-994c23c7bcca8d",
-      "headline": "[ 반도체 ] 엔비디아 실적 D-3, 컨센서스 $91.85B·13연속 비트 — SK하이닉....",
-      "body": "엔비디아의 2분기(FY27 Q2) 실적 발표가 8월 26일 장 마감 후 예정됨\n시장 매출 컨센서스는 918.5억 달러로 집계됨\n블랙웰 및 베라 루빈 제품군 출시와 연계하여 HBM4 수요 확장이 예상됨",
-      "sector": "설계",
+      "id": "art-2255412ba90d5a",
+      "headline": "파운드리 가격 올랐다는데 직접 확인해보니 충격입니다· 삼성전자 ·....",
+      "body": "삼성전자 파운드리 4나노 공정의 가격 인상 배경을 다룸\nTSMC와 삼성전자의 파운드리 시장 점유율 비교 분석을 포함함\n2나노 초미세 공정 경쟁 전망 및 AI 반도체 수요 증가에 따른 공급 부족 상황을 언급함",
+      "sector": "공정",
       "category": "analysis",
       "trust": "low",
       "created_at": "2026-08-23T00:00:00+09:00",
       "placement": "side",
       "source_name": "Naver Blog Search",
-      "source_url": "https://blog.naver.com/nerdlog/224387134261",
+      "source_url": "https://blog.naver.com/jewongwonson/224387584355",
       "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
       "raw_source_type": "api",
-      "matched_keywords": [
-        "HBM"
-      ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "importance_score": 2,
-      "llm_keywords": [
-        "엔비디아",
-        "HBM4",
-        "블랙웰",
-        "베라루빈"
-      ]
-    },
-    {
-      "id": "art-c5657d80e9f932",
-      "headline": "삼성전자 30조 배당 SK하이닉스 40조 자사주 2분기 배당금 주식 영향",
-      "body": "삼성전자가 30조 원 규모의 배당을 실시함\nSK하이닉스가 40조 원 규모의 자사주 매입 및 배당을 추진함\nHBM 수익을 기반으로 한 자본 배분 및 주주 환원 경쟁이 진행 중임",
-      "sector": "소자",
-      "category": "analysis",
-      "trust": "low",
-      "created_at": "2026-08-23T00:00:00+09:00",
-      "placement": "side",
-      "source_name": "Naver Blog Search",
-      "source_url": "https://blog.naver.com/hang-in/224386676690",
-      "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "HBM"
-      ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "importance_score": 2,
-      "llm_keywords": [
-        "삼성전자",
-        "SK하이닉스",
-        "배당",
-        "자사주 매입"
-      ]
-    },
-    {
-      "id": "art-dfdadec6d64e58",
-      "headline": "\" HBM 4 따였습니다” 현직자 댓글까지… SK하이닉스 보다 삼성전자 비중....",
-      "body": "직장인 커뮤니티 블라인드에 HBM4 예상 가격과 관련된 현직자 주장 게시글 등장\nHBM3E 36GB 가격을 약 300달러, HBM4 48GB 가격을 약 500달러로 가정하여 분석\n해당 가정 적용 시 HBM4의 스택 가격이 HBM3E 대비 약 67% 상승하는 것으로 계산",
-      "sector": "소자",
-      "category": "analysis",
-      "trust": "low",
-      "created_at": "2026-08-23T00:00:00+09:00",
-      "placement": "side",
-      "source_name": "Naver Blog Search",
-      "source_url": "https://blog.naver.com/onehourblog/224386952166",
-      "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "HBM"
-      ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "importance_score": 2,
-      "llm_keywords": [
-        "HBM4",
-        "SK하이닉스",
-        "삼성전자",
-        "가격 추정"
-      ]
-    },
-    {
-      "id": "art-87733065893de9",
-      "headline": "[반도체 패권 지도 ⑤] D램 65% 쥔 한국, 파운드리는 7%…승부처가 패키징으로 옮겼다 - 자본시장뉴스",
-      "body": "한국의 D램 시장 점유율은 65%를 기록하고 있음\n한국의 파운드리 시장 점유율은 7% 수준임\n반도체 산업의 경쟁 중심축이 패키징 분야로 이동하는 추세임",
-      "sector": "패키징",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-08-22T15:00:00+09:00",
-      "placement": "side",
-      "source_name": "Google News RSS",
-      "source_url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE41Rmg3S0dscmF1RkNRRWlsN3U2RTI3RWhMb2t5NzY0VWJPVkNxYnFiQjEwa3VMcms2NlVhTER5LU1KT2tvVEFvRDZyM2hZNG45b1pqcDdHRVFlbndNdGNXOVJPMm1FWGs?oc=5",
-      "source_note": "Google News search RSS result; original publisher link is retained where available.",
-      "raw_source_type": "rss",
       "matched_keywords": [],
       "summary_method": "llm",
       "summary_model": "gemma-4-31b-it",
       "importance_score": 2,
       "llm_keywords": [
-        "D램",
-        "파운드리",
-        "패키징",
-        "시장점유율"
-      ]
-    },
-    {
-      "id": "art-46856b11ce3be1",
-      "headline": "삼성·SK, HBM 기술戰…'핫칩스'서 맞붙는다 - 블로터",
-      "body": "삼성전자와 SK하이닉스가 '핫칩스(Hot Chips)' 컨퍼런스에 참여함\n해당 행사에서 양사는 HBM(고대역폭메모리) 기술 관련 경쟁력을 선보일 예정임",
-      "sector": "소자",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-08-22T15:00:00+09:00",
-      "placement": "side",
-      "source_name": "Google News RSS",
-      "source_url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE1JYms0QXFtS1FtQlFIU3YzdlBuYWRYZ195elpGR0F3ZUZFUHhpYURPS0k0ckNYNHJYTC1lR3JrcGdJajJwRS1UdjhoS3ROYjBQdEQ3cy1UdUl3bGRsVWJ6MXZLZEZONmtz0gFsQVVfeXFMUFFEYzBpbHVoRU9tamdVSXd2aVJNYnJ2cExDT1BXalNWX0pjM05iamR1ZXVfSzNHeFBaRmtoMDh4TmgxVXhVWGNneGZMZVEzN01WX1J3QXI2S3g4Vjg4clpXZTkxOGtVVEZ4cTNl?oc=5",
-      "source_note": "Google News search RSS result; original publisher link is retained where available.",
-      "raw_source_type": "rss",
-      "matched_keywords": [
-        "HBM"
-      ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "importance_score": 2,
-      "llm_keywords": [
-        "HBM",
-        "핫칩스",
         "삼성전자",
-        "SK하이닉스"
+        "TSMC",
+        "4나노",
+        "2나노",
+        "파운드리 가격"
       ]
     },
     {
@@ -1056,6 +739,28 @@
       "matched_keywords": [],
       "summary_method": "llm",
       "summary_model": "gemma-4-31b-it",
+      "llm_keywords": [
+        "SMIC",
+        "파운드리"
+      ],
+      "importance_score": 1
+    },
+    {
+      "id": "art-1046da9169cce7",
+      "headline": "[김대호 진단] 반도체 열전 (46) SMIC(中芯國際)...시진핑 파운드리",
+      "body": "제공된 텍스트에 기사 본문 내용이 포함되지 않고 웹사이트 하단 정보(푸터)만 기재됨\n기사 제목을 통해 SMIC(중심국제) 관련 분석 내용임을 추정할 수 있음\n본문 부재로 인해 구체적인 기술 사양, 투자 규모, 일정 등 팩트 확인이 불가능함",
+      "sector": "공정",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-08-23T00:00:00+09:00",
+      "placement": "side",
+      "source_name": "Naver News Search",
+      "source_url": "https://www.g-enews.com/view.php?ud=202608181355356576906806b77b_1",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
+      "matched_keywords": [],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
       "importance_score": 1,
       "llm_keywords": [
         "SMIC",
@@ -1063,16 +768,16 @@
       ]
     },
     {
-      "id": "art-7170c17c2d8ede",
-      "headline": "반도체 쏠림 끝났나? 2026년 하반기 주도주로 떠오를 업종 5가지",
-      "body": "2026년 상반기 주도주를 AI, HBM, 메모리 가격 상승에 기반한 삼성전자와 SK하이닉스 등 반도체 대형주로 전망함\n2026년 하반기에는 조선, 방산, 금융, 바이오 등 비반도체 업종으로 시장의 관심이 확산될 것으로 예측함\n하반기 시장의 주요 상승 동력으로 기업 실적, 수주, 정책 및 순환매 장세를 제시함",
+      "id": "art-dd7bbfb9cf5b03",
+      "headline": "삼성전자 주가 \"110조보다 무서운 변수가 있다?\" HBM ·파운드리에서 확....",
+      "body": "삼성전자 주가 전망의 핵심 변수로 반도체 부문 이익을 제시함\nHBM4 공급 확대 및 범용 메모리 가격 강세 유지 여부를 주요 분석 지표로 언급함",
       "sector": "소자",
       "category": "analysis",
       "trust": "low",
       "created_at": "2026-08-23T00:00:00+09:00",
       "placement": "side",
       "source_name": "Naver Blog Search",
-      "source_url": "https://blog.naver.com/rony0716/224381573049",
+      "source_url": "https://blog.naver.com/dallim6888/224387591670",
       "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
       "raw_source_type": "api",
       "matched_keywords": [
@@ -1082,98 +787,95 @@
       "summary_model": "gemma-4-31b-it",
       "importance_score": 1,
       "llm_keywords": [
-        "2026년 전망",
-        "반도체 대형주",
-        "업종 순환매"
+        "삼성전자",
+        "HBM4",
+        "범용 메모리"
       ]
     },
     {
-      "id": "art-2d655441dc802a",
-      "headline": "SK하이닉스 vs 마이크론, HBM 1등이라고 주식도 하이닉스가 더 좋을까?",
-      "body": "엔비디아 GPU의 연산 성능 향상에 따라 메모리 대역폭을 결정하는 HBM의 중요성 언급\nHBM 시장 내 SK하이닉스와 마이크론의 경쟁 구도 및 기업 가치 비교 분석\nAI 반도체 투자 관점에서 HBM 공급망이 갖는 영향력 설명",
+      "id": "art-749c9eb947c672",
+      "headline": "HBM 다음은 ‘이것'? AI 반도체 판도 바꿀 광통신(CPO) 총정리[엔비디아....",
+      "body": "광통신(CPO) 및 실리콘 포토닉스 기술이 HBM 이후의 AI 반도체 핵심 기술로 언급됨\n퀄리타스 반도체가 실리콘 포토닉스 IP 개발 관련 수혜 기업으로 분류됨\n한미반도체가 HBM 수요 증가에 따른 수혜 기업으로 언급됨",
+      "sector": "패키징",
+      "category": "analysis",
+      "trust": "low",
+      "created_at": "2026-08-23T00:00:00+09:00",
+      "placement": "side",
+      "source_name": "Naver Blog Search",
+      "source_url": "https://blog.naver.com/coramdeo123600/224387555117",
+      "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "IP"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "importance_score": 1,
+      "llm_keywords": [
+        "CPO",
+        "실리콘 포토닉스",
+        "HBM"
+      ]
+    },
+    {
+      "id": "art-d906d0d2e0f058",
+      "headline": "HBM 관련주 대장주 총정리, 한국·미국 핵심 종목은",
+      "body": "HBM 관련 한국 및 미국 시장의 핵심 종목과 투자 포인트를 정리한 내용임\n구체적인 기술 사양, 공정 변경, 신제품 발표 등 반도체 산업 관련 팩트는 포함되지 않음\n투자 관점의 대장주 리스트 제공을 목적으로 하는 콘텐츠임",
       "sector": "소자",
       "category": "analysis",
       "trust": "low",
       "created_at": "2026-08-23T00:00:00+09:00",
       "placement": "side",
       "source_name": "Naver Blog Search",
-      "source_url": "https://blog.naver.com/great8678/224381144025",
+      "source_url": "https://blog.naver.com/new_blogger/224387552345",
       "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
       "raw_source_type": "api",
       "matched_keywords": [
-        "GPU"
+        "HBM"
       ],
       "summary_method": "llm",
       "summary_model": "gemma-4-31b-it",
       "importance_score": 1,
       "llm_keywords": [
         "HBM",
-        "SK하이닉스",
-        "마이크론",
-        "엔비디아"
+        "관련주"
       ]
     },
     {
-      "id": "art-3ab1cf65ec4ded",
-      "headline": "모더나 170% 폭등 놓쳤다면? 앞으로 100% 이상 오를 이 종목",
-      "body": "AI 반도체 및 인프라 관련 기업의 시장 주도 상황을 언급한 투자 권유 성격의 게시글임\n구체적인 반도체 기술 발표, 제품 출시, 기업의 사업 변경 등 산업 관련 팩트는 포함되어 있지 않음",
-      "sector": "설계",
-      "category": "analysis",
-      "trust": "low",
-      "created_at": "2026-08-23T00:00:00+09:00",
-      "placement": "side",
-      "source_name": "Naver Blog Search",
-      "source_url": "https://blog.naver.com/doomaker/224387142647",
-      "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "HBM"
-      ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "importance_score": 1,
-      "llm_keywords": [
-        "투자",
-        "AI 반도체"
-      ]
-    },
-    {
-      "id": "art-4c14c50625c554",
-      "headline": "경제 공부",
-      "body": "삼성전자와 SK하이닉스가 고성능 GPU용 HBM4 반도체를 개발 중임\nAI 발전을 위한 고성능 GPU 생산 필요성이 HBM4 개발의 배경으로 언급됨",
+      "id": "art-774761b6e369cc",
+      "headline": "2026 하반기 SK하이닉스 채용 총정리: 지원 자격부터 SKCT 및 면접 전형....",
+      "body": "SK하이닉스 2026년 하반기 채용 전형의 지원 자격, SKCT 및 면접 절차 안내\nHBM 및 반도체 혁신 기술 관련 전공 지식과 프로젝트 경험의 연계성 강조",
       "sector": "소자",
       "category": "analysis",
       "trust": "low",
       "created_at": "2026-08-23T00:00:00+09:00",
       "placement": "side",
       "source_name": "Naver Blog Search",
-      "source_url": "https://blog.naver.com/kk030420/224387137170",
+      "source_url": "https://blog.naver.com/ksl47wn2/224386664102",
       "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
       "raw_source_type": "api",
       "matched_keywords": [
-        "GPU"
+        "HBM"
       ],
       "summary_method": "llm",
       "summary_model": "gemma-4-31b-it",
       "importance_score": 1,
       "llm_keywords": [
-        "HBM4",
-        "삼성전자",
         "SK하이닉스",
-        "GPU"
+        "채용"
       ]
     },
     {
-      "id": "art-4c74ba96dde432",
-      "headline": "\"엔비디아 사상 최대 실적 전망\" 엔비디아 실적 수혜주 TOP7, 이제 HBM ....",
-      "body": "엔비디아의 사상 최대 실적 전망에 따른 AI 반도체 밸류체인 수혜 기업 분석\n기존 GPU, HBM, SK하이닉스, 삼성전자, 한미반도체로 이어지는 공급망 구조 언급\nGPU 보급 확대에 따른 데이터센터 규모 확장과 그로 인한 밸류체인 변화 가능성 제시",
-      "sector": "설계",
+      "id": "art-d794439893890f",
+      "headline": "AI 서버가 전기를 먹어치운다: 반도체 강국 한국은 전력망이 충분할....",
+      "body": "AI 서버 및 첨단 반도체 공장 가동을 위해 GW(기가와트) 규모의 안정적인 전력 공급망 확보가 필요함\nGPU, HBM 등 AI 가속기의 성능 향상에 따라 전력 소모량이 급증하는 추세임\n전력 인프라 부족 시 첨단 반도체 공장의 생산능력 확대에 제약이 발생할 수 있음",
+      "sector": "공정",
       "category": "analysis",
       "trust": "low",
       "created_at": "2026-08-23T00:00:00+09:00",
       "placement": "side",
       "source_name": "Naver Blog Search",
-      "source_url": "https://blog.naver.com/ghtjd2265/224387125346",
+      "source_url": "https://blog.naver.com/soogletory/224387537902",
       "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
       "raw_source_type": "api",
       "matched_keywords": [
@@ -1183,9 +885,36 @@
       "summary_model": "gemma-4-31b-it",
       "importance_score": 1,
       "llm_keywords": [
-        "엔비디아",
-        "AI 밸류체인",
+        "AI 서버",
+        "전력망",
+        "반도체 공장",
+        "AI 가속기"
+      ]
+    },
+    {
+      "id": "art-c2b18077f348f4",
+      "headline": "HBM 과 GDDR 메모리의 차이점이 궁금해요 \"이게 AI 핵심\" 뉴스에 매일 나....",
+      "body": "HBM(고대역폭메모리)과 GDDR 메모리의 기술적 차이점 및 AI 반도체 내 역할을 다룸\n엔비디아와 SK그룹·SK하이닉스의 차세대 AI 메모리 협력 관련 내용 언급\nHBM3E, HBM4 등 차세대 메모리 규격과 TSV(관통전극) 공정을 주요 기술 요소로 제시",
+      "sector": "소자",
+      "category": "analysis",
+      "trust": "low",
+      "created_at": "2026-08-23T00:00:00+09:00",
+      "placement": "side",
+      "source_name": "Naver Blog Search",
+      "source_url": "https://blog.naver.com/shining_voyage/224387525678",
+      "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
+      "raw_source_type": "api",
+      "matched_keywords": [
         "HBM"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "importance_score": 1,
+      "llm_keywords": [
+        "HBM",
+        "GDDR",
+        "SK하이닉스",
+        "엔비디아"
       ]
     },
     {
@@ -1211,24 +940,24 @@
       ],
       "summary_method": "llm",
       "summary_model": "gemma-4-31b-it",
-      "importance_score": 1,
       "llm_keywords": [
         "첨단 패키징",
         "CoWoS",
         "HBM"
-      ]
+      ],
+      "importance_score": 1
     },
     {
-      "id": "art-4c44ed0f7220e6",
-      "headline": "구글 천재들 영입! 2조 달러 앤트로픽 IPO 상장 전 무조건 알아야 할 3....",
-      "body": "앤트로픽의 IPO 상장 가능성과 관련 투자 정보에 관한 블로그 게시물임\n삼성전자 파운드리 수혜주 등 주식 투자 관련 키워드가 나열됨\n구체적인 반도체 기술 사양이나 기업의 공식 발표 내용은 포함되지 않음",
-      "sector": "설계",
+      "id": "art-2c6b98a9d3d74e",
+      "headline": "\" 삼성전자 , 아직 끝이 아니다? 상승 모멘텀 총정리\"",
+      "body": "삼성전자가 글로벌 메모리 시장 점유율 1위 및 레거시와 선단 공정을 포함한 생산 능력(CAPA)을 보유함\n메모리 단가 상승에 따른 실적 레버리지 효과가 발생하는 구조임\n파운드리 사업 부문의 상승 모멘텀이 언급됨",
+      "sector": "소자",
       "category": "analysis",
       "trust": "low",
       "created_at": "2026-08-23T00:00:00+09:00",
       "placement": "side",
       "source_name": "Naver Blog Search",
-      "source_url": "https://blog.naver.com/coramdeo123600/224387136435",
+      "source_url": "https://blog.naver.com/tmd0254/224387566847",
       "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
       "raw_source_type": "api",
       "matched_keywords": [],
@@ -1236,48 +965,47 @@
       "summary_model": "gemma-4-31b-it",
       "importance_score": 1,
       "llm_keywords": [
-        "앤트로픽",
-        "IPO",
-        "삼성전자 파운드리"
-      ]
-    },
-    {
-      "id": "art-50fc67b473b2b5",
-      "headline": "[국전 양대산맥 비교] 삼성전자 vs SK하이닉스, 지금 산다면 무엇이 ....",
-      "body": "삼성전자의 사업 구조는 메모리, 파운드리, 스마트폰(MX), 가전, 디스플레이를 포함한 종합 IT 포트폴리오로 구성됨\n삼성전자와 SK하이닉스의 핵심 사업 구조 및 주가 변동 요인의 차이점을 비교 분석함",
-      "sector": "소자",
-      "category": "analysis",
-      "trust": "low",
-      "created_at": "2026-08-23T00:00:00+09:00",
-      "placement": "side",
-      "source_name": "Naver Blog Search",
-      "source_url": "https://blog.naver.com/jejuoke/224387122806",
-      "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "DRAM",
-        "NAND"
-      ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "importance_score": 1,
-      "llm_keywords": [
         "삼성전자",
-        "SK하이닉스",
-        "사업구조"
+        "메모리 점유율",
+        "생산능력"
       ]
     },
     {
-      "id": "art-a374a4883a3f39",
-      "headline": "“ 삼성전자 매도금지령 2028년까지?” HBM4· 파운드리 동시에 터진다....",
-      "body": "로이터 통신이 삼성전자 파운드리의 가격 및 수요 관련 내용을 보도함\n삼성전자의 HBM4 및 파운드리 사업의 시장 흐름과 기업 변화를 다룬 내용임\n제공된 텍스트 내 구체적인 기술 사양, 수치, 일정 등 세부 팩트는 확인되지 않음",
+      "id": "art-acd7b0c4adceba",
+      "headline": "[AI 반도체 대전] 삼성전자 vs SK하이닉스 핵심 비교 분석! (HBM, 파운드....",
+      "body": "삼성전자가 TSMC에 이어 세계 2위 파운드리 사업자 지위를 보유함\n3나노 이하 선단 공정 기술을 확보하고 있음\n파운드리 부문의 수율 안정화 및 대형 고객사 수주 확보를 추진 중임",
       "sector": "공정",
       "category": "analysis",
       "trust": "low",
       "created_at": "2026-08-23T00:00:00+09:00",
       "placement": "side",
       "source_name": "Naver Blog Search",
-      "source_url": "https://blog.naver.com/f2bossbb/224387004699",
+      "source_url": "https://blog.naver.com/tmd0254/224387428131",
+      "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "HBM"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "importance_score": 1,
+      "llm_keywords": [
+        "삼성전자",
+        "파운드리",
+        "3나노"
+      ]
+    },
+    {
+      "id": "art-8ef0d9bc4d26d4",
+      "headline": "삼성전자 주가 28만 원대 안착할까? 외국인 수급·110조 주주환원·HBM4....",
+      "body": "삼성전자의 90조~110조 원 규모 주주환원 가능성이 기업 가치 평가의 주요 변수로 언급됨\nHBM4, DDR5, eSSD 등 차세대 메모리 제품군이 주가 및 가치 제고 요소로 거론됨\n메모리, 파운드리, 첨단 패키징을 연결하는 통합 반도체 경쟁력 확보가 핵심 전략으로 제시됨",
+      "sector": "소자",
+      "category": "analysis",
+      "trust": "low",
+      "created_at": "2026-08-23T00:00:00+09:00",
+      "placement": "side",
+      "source_name": "Naver Blog Search",
+      "source_url": "https://blog.naver.com/joy014/224387374590",
       "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
       "raw_source_type": "api",
       "matched_keywords": [],
@@ -1286,21 +1014,21 @@
       "importance_score": 1,
       "llm_keywords": [
         "삼성전자",
-        "파운드리",
+        "주주환원",
         "HBM4"
       ]
     },
     {
-      "id": "art-bcb19ab0debaea",
-      "headline": "HBM 4 관련주 지금 사도 될까? 삼성전자· SK하이닉스 체크포인트",
-      "body": "삼성전자와 SK하이닉스의 HBM4 판매 및 공급 확대 가능성을 주요 투자 포인트로 언급함\nHBM 경쟁력 회복과 함께 일반 D램 가격 추이의 중요성을 제시함\n구체적인 기술 사양, 양산 일정, 출하량 등 확인된 세부 팩트는 포함되지 않음",
+      "id": "art-9210681f7f5dd4",
+      "headline": "삼성전자 주가 다시 갈 수 있을까? HBM4와 파운드리 로 보는 2026년 투....",
+      "body": "삼성전자 2분기 실적 발표에서 HBM 베이스 다이 관련 내용 언급\n파운드리 사업부의 투자 대비 수익성 개선 여부 분석\nHBM4 및 파운드리 경쟁력을 기반으로 한 2026년 전망 논의",
       "sector": "소자",
       "category": "analysis",
       "trust": "low",
       "created_at": "2026-08-23T00:00:00+09:00",
       "placement": "side",
       "source_name": "Naver Blog Search",
-      "source_url": "https://blog.naver.com/knowhowpost/224385868773",
+      "source_url": "https://blog.naver.com/ajeossilog/224387093706",
       "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
       "raw_source_type": "api",
       "matched_keywords": [
@@ -1310,48 +1038,46 @@
       "summary_model": "gemma-4-31b-it",
       "importance_score": 1,
       "llm_keywords": [
-        "HBM4",
         "삼성전자",
-        "SK하이닉스"
+        "HBM4",
+        "파운드리"
       ]
     },
     {
-      "id": "art-5efcb0ffddc953",
-      "headline": "삼성 vs SK하이닉스 , 낸드플래시 1·2위는 누구? 2분기 성장률 1위는 따....",
-      "body": "삼성전자와 SK하이닉스의 2분기 낸드플래시 시장 순위 및 성장률을 분석함\nSK하이닉스 그룹의 데이터 집계 시 SK하이닉스와 솔리다임(Solidigm)의 실적을 합산하여 산출함\n제공된 텍스트 내에 구체적인 성장률 수치나 최종 순위 결과는 명시되지 않음",
+      "id": "art-a54b2b2ce39672",
+      "headline": "삼전..",
+      "body": "삼성전자가 6월 고점 이후 주가 조정을 거쳐 8월 들어 기술적 반등 신호를 보임\n파운드리 가격 결정력 회복 및 역대 최대 규모의 주주환원을 펀더멘털 재료로 언급\nHBM4의 엔비디아 공급 확대 가능성을 긍정적 요인으로 제시",
       "sector": "소자",
       "category": "analysis",
       "trust": "low",
       "created_at": "2026-08-23T00:00:00+09:00",
       "placement": "side",
       "source_name": "Naver Blog Search",
-      "source_url": "https://blog.naver.com/tinywheels/224384816410",
+      "source_url": "https://blog.naver.com/good-day-go/224387352181",
       "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
       "raw_source_type": "api",
-      "matched_keywords": [
-        "HBM"
-      ],
+      "matched_keywords": [],
       "summary_method": "llm",
       "summary_model": "gemma-4-31b-it",
       "importance_score": 1,
       "llm_keywords": [
-        "낸드플래시",
-        "SK하이닉스",
-        "솔리다임",
-        "삼성전자"
+        "삼성전자",
+        "HBM4",
+        "엔비디아",
+        "파운드리"
       ]
     },
     {
-      "id": "art-09904da1aa5a7c",
-      "headline": "HBM 독점 구조가 흔들릴 때 SK하이닉스 주가총액에 미칠 충격과 시나....",
-      "body": "SK하이닉스의 HBM 독점 구조 변화에 따른 단기 시가총액 조정 가능성 분석\n시장 규모 확대 과정에서 기술적 우위 및 수율 안정성 유지 여부를 실적 변수로 제시\nHBM 시장 경쟁 심화 시나리오가 기업 가치에 미치는 영향 논의",
+      "id": "art-3761383c9a68ab",
+      "headline": "SK하이닉스 주가 해외평가, 470만원 전망 나오는 이유와 꼭 봐야 할 ....",
+      "body": "해외 평가 기관에서 SK하이닉스의 주가 전망치를 470만 원으로 제시함\nAI 투자 확대에 따른 HBM 수요 증가가 기업 이익 및 현금흐름 확대로 이어질 것으로 분석함\n경기민감형 메모리 기업에서 AI 인프라 기업으로의 밸류에이션 재평가가 진행 중인 것으로 평가함",
       "sector": "소자",
       "category": "analysis",
       "trust": "low",
       "created_at": "2026-08-23T00:00:00+09:00",
       "placement": "side",
       "source_name": "Naver Blog Search",
-      "source_url": "https://blog.naver.com/cdj365/224385007328",
+      "source_url": "https://blog.naver.com/aoutworld/224387608165",
       "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
       "raw_source_type": "api",
       "matched_keywords": [
@@ -1363,32 +1089,865 @@
       "llm_keywords": [
         "SK하이닉스",
         "HBM",
-        "시가총액"
+        "주가전망"
       ]
     },
     {
-      "id": "art-552ec4a9f6aa5d",
-      "headline": "캐시 우드 “내가 SK하이닉스 사지 않는 이유…반도체 메모리 열풍 일시적” - 블록미디어",
-      "body": "캐시 우드가 SK하이닉스 주식을 매수하지 않는 이유를 공개함\n현재의 반도체 메모리 시장 열풍을 일시적인 현상으로 평가함\n메모리 반도체 산업의 성장 지속성에 대해 부정적인 견해를 제시함",
-      "sector": "소자",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-08-22T22:21:00+09:00",
+      "id": "art-423e83abac122a",
+      "headline": "ASML 이란? 반도체 EUV 독점기업｜주가 전망·실적·장단점 총정리",
+      "body": "ASML이 기존 EUV를 넘어 차세대 노광 장비인 High-NA EUV를 개발 중임\nHigh-NA EUV는 수치 개구(Numerical Aperture, NA) 값을 높여 해상력을 개선하는 기술을 적용함\n해당 장비는 기존 EUV 공정의 다음 단계 기술로 정의됨",
+      "sector": "공정",
+      "category": "analysis",
+      "trust": "low",
+      "created_at": "2026-08-23T00:00:00+09:00",
       "placement": "side",
-      "source_name": "Google News RSS",
-      "source_url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE5ELTN0VDF1UDhIV3lWcnJtNWcwUHgwNWZoNHRRVUFTaVRyU1VOUVJZY0Z3OEdOMzhpMTZieU1neEtiVmU0b1NjVlp2UEl2ekNuLVhnM1l1eEw?oc=5",
-      "source_note": "Google News search RSS result; original publisher link is retained where available.",
-      "raw_source_type": "rss",
-      "matched_keywords": [],
+      "source_name": "Naver Blog Search",
+      "source_url": "https://blog.naver.com/109rt/224387594515",
+      "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "EUV"
+      ],
       "summary_method": "llm",
       "summary_model": "gemma-4-31b-it",
       "importance_score": 1,
       "llm_keywords": [
-        "캐시 우드",
-        "SK하이닉스",
-        "메모리 반도체"
+        "ASML",
+        "High-NA EUV",
+        "노광장비"
+      ]
+    },
+    {
+      "id": "art-7890588a29b0e5",
+      "headline": "칩워",
+      "body": "크리스 밀러의 저서 '칩워(Chip War)'가 반도체 산업의 글로벌 공급망과 패권 경쟁 구조를 분석함\n미국의 설계 기술, ASML의 EUV 노광 장비, TSMC와 삼성전자의 제조 역량을 핵심 밸류체인으로 정의\n애플, 엔비디아, AMD의 첨단 칩 활용 사례와 AI, 서버, 무기 체계 등 주요 적용 분야를 다룸",
+      "sector": "공정",
+      "category": "analysis",
+      "trust": "low",
+      "created_at": "2026-08-23T00:00:00+09:00",
+      "placement": "side",
+      "source_name": "Naver Blog Search",
+      "source_url": "https://blog.naver.com/satstar3/224387496374",
+      "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "EUV"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "importance_score": 1,
+      "llm_keywords": [
+        "칩워",
+        "반도체 공급망",
+        "크리스 밀러"
       ]
     }
   ],
-  "community_items": []
+  "community_items": [
+    {
+      "id": "art-4501608acc5f08",
+      "headline": "ISA에 넣을만한 관심 etf 공유 (장기 투자) - 주식",
+      "body": "그래도 믿고 가봄 ACE 글로벌반도체TOP4 Plus => 하이닉스/ ASML /NVIDIA/ TSMC 를 top4로 해서 브로드컴/삼전/퀄컴/AMD 등등을 조금씩 담은 전세계 반도체 etf TIGER 코리아AI전력기기TOP3 플러스 => 효성중공업...",
+      "sector": "설계",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-08-23T18:22:38+09:00",
+      "source_name": "FMKorea",
+      "source_url": "https://www.fmkorea.com/9212992098",
+      "source_note": "Discover public FMKorea links through the official Naver Web Search API because FMKorea disallows generic bots on native search paths.",
+      "raw_source_type": "community",
+      "matched_keywords": [],
+      "community_origin": "domestic",
+      "community_name": "에펨코리아",
+      "date_is_estimated": true,
+      "collected_at": "2026-08-23T18:22:38+09:00",
+      "reaction_summary": "원문에서는 그래도 믿고 가봄 ACE 글로벌반도체TOP4 Plus => 하이닉스/ ASML /NVIDIA/ TSMC 를 top4로 해서 브로드컴/삼전/퀄컴/AMD 등등을 조금씩 담은 전세계 반도체 etf TIGER 코리아AI전력기기TOP3 플러스 => 효성중공업... 관련 반응이나 논의가 있었다."
+    },
+    {
+      "id": "art-7a9ff8416d496e",
+      "headline": "EUV 없이 반도체 패권을 뒤집겠다는 중국의 야망 - 도장·분자·전자빔으로 \"A....",
+      "body": "https://blog.naver.com/bsj7000/224378132334 \" \" &",
+      "sector": "공정",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-08-23T18:22:13+09:00",
+      "source_name": "Naver Cafe · 주식&와인",
+      "source_url": "https://cafe.naver.com/stockwine/1419",
+      "source_note": "Official Naver Cafe Search API for practitioner discussion and sentiment tracking.",
+      "raw_source_type": "community",
+      "matched_keywords": [
+        "EUV"
+      ],
+      "community_origin": "domestic",
+      "community_name": "주식&와인",
+      "date_is_estimated": true,
+      "collected_at": "2026-08-23T18:22:13+09:00",
+      "reaction_summary": "원문에서는 https://blog.naver.com/bsj7000/224378132334 \" \" & 관련 반응이나 논의가 있었다."
+    },
+    {
+      "id": "art-bf63612fd74655",
+      "headline": "래피더스, 2030년까지 2나노 멀티 패키징 구축",
+      "body": "래피더스, 2030년까지 2나노 멀티 패키징 구축",
+      "sector": "설계",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-08-22T20:59:00+09:00",
+      "source_name": "DCInside · 미국 주식",
+      "source_url": "https://gall.dcinside.com/mgallery/board/view?id=stockus&no=17540276",
+      "source_note": "Read title, gallery, URL, and timestamp from the public latest-post search. Do not open post bodies.",
+      "raw_source_type": "community",
+      "matched_keywords": [],
+      "community_origin": "domestic",
+      "community_name": "디시 · 미국 주식",
+      "reaction_summary": "원문에서는 래피더스, 2030년까지 2나노 멀티 패키징 구축 관련 반응이나 논의가 있었다."
+    },
+    {
+      "id": "art-b2e01049612a62",
+      "headline": "ASML 에서 독점 생산하는 EUV 노광 장비를 알아보자 - 미스터리/공포",
+      "body": "반도체 장비 기업 ASML 은 누구나 한번쯤 들어보았을 것이다 이 기업이 반도체 업계에서 슈퍼 을로... 빛의 세기를 높일 수 있음) 출처 신기방기 EUV 장비에서 사용되는 기술 - 실시간 베스트 갤러리 (dcinside. com )",
+      "sector": "공정",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-08-23T18:22:38+09:00",
+      "source_name": "FMKorea",
+      "source_url": "https://www.fmkorea.com/6940474351",
+      "source_note": "Discover public FMKorea links through the official Naver Web Search API because FMKorea disallows generic bots on native search paths.",
+      "raw_source_type": "community",
+      "matched_keywords": [
+        "EUV"
+      ],
+      "community_origin": "domestic",
+      "community_name": "에펨코리아",
+      "date_is_estimated": true,
+      "collected_at": "2026-08-23T18:22:38+09:00",
+      "reaction_summary": "원문에서는 반도체 장비 기업 ASML 은 누구나 한번쯤 들어보았을 것이다 이 기업이 반도체 업계에서 슈퍼 을로... 빛의 세기를 높일 수 있음) 출처 신기방기 EUV 장비에서 사용되는 기술 - 실시간 베스트 갤러리 (dcinside. com ) 관련 반응이나 논의가 있었다."
+    },
+    {
+      "id": "art-2a6072ea3a8a76",
+      "headline": "[갓생 25기] 0813/해뜰날온다",
+      "body": "EXE:5200B는 ASML 의 High-NA EUV 양산용 차세대 노광 시스템이다. 기사에 등장하는 SAT(Site Acceptance Test)는 장비가 고객사 팹에 설치된 후 실제 현장에서 요구 성능과 사양을 만족하는지 확인하는 현장 인수 시험을...",
+      "sector": "공정",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-08-23T18:22:13+09:00",
+      "source_name": "Naver Cafe · 디깅커리어",
+      "source_url": "https://cafe.naver.com/diggingcareer/2959",
+      "source_note": "Official Naver Cafe Search API for practitioner discussion and sentiment tracking.",
+      "raw_source_type": "community",
+      "matched_keywords": [
+        "EUV"
+      ],
+      "community_origin": "domestic",
+      "community_name": "디깅커리어",
+      "date_is_estimated": true,
+      "collected_at": "2026-08-23T18:22:13+09:00",
+      "reaction_summary": "원문에서는 EXE:5200B는 ASML 의 High-NA EUV 양산용 차세대 노광 시스템이다. 기사에 등장하는 SAT(Site Acceptance Test)는 장비가 고객사 팹에 설치된 후 실제 현장에서 요구 성능과 사양을 만족하는지 확인하는 현장 인수 시험을... 관련 반응이나 논의가 있었다."
+    },
+    {
+      "id": "art-539da47b2bbb28",
+      "headline": "[단독] SK하이닉스 LTA 가격상단 제한없다. 하단만 존재. - 주식",
+      "body": "https://biz.newdaily.co.kr/ site /data/html/2026/06/30/2026063000209.html📌 LTA 구조 차별화, 가격 상단 없는 독점 계약글로벌 메모리 5사, 빅테크와 3~5년 LTA 체결 확대 SK하이닉스 는 ‘가격 하단만 존재’하는 구조로 계약경쟁사(마이크론·....",
+      "sector": "설계",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-08-23T18:22:37+09:00",
+      "source_name": "FMKorea",
+      "source_url": "https://www.fmkorea.com/10023584711",
+      "source_note": "Discover public FMKorea links through the official Naver Web Search API because FMKorea disallows generic bots on native search paths.",
+      "raw_source_type": "community",
+      "matched_keywords": [],
+      "community_origin": "domestic",
+      "community_name": "에펨코리아",
+      "date_is_estimated": true,
+      "collected_at": "2026-08-23T18:22:37+09:00",
+      "reaction_summary": "원문에서는 https://biz.newdaily.co.kr/ site /data/html/2026/06/30/2026063000209.html📌 LTA 구조 차별화, 가격 상단 없는 독점 계약글로벌 메모리 5사, 빅테크와 3~5년 LTA 체결 확대 SK하이닉스 는 ‘가격 하단만 존재’하는 구조로 계약경쟁사(마이크론·.... 관련 반응이나 논의가 있었다."
+    },
+    {
+      "id": "art-b0c8727407942d",
+      "headline": "중국의 YMTC가 세계 3위 NAND 제조업체로 자리매김하며 폭발적인 성장과 삼성 ....",
+      "body": "함께 ASML 의 높은 NA EUV 도입을 지연시키며 비용이 많이 드는 기계들을 1nm 칩으로 밀고 있다 엔터프라이즈 SSD는 2분기 총 출하 비트의 48%를 차지했습니다. 삼성은 25%의 출하 점유율로 선두를 유지했고...",
+      "sector": "공정",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-08-23T18:22:13+09:00",
+      "source_name": "Naver Cafe · 국제결혼 잘하기",
+      "source_url": "https://cafe.naver.com/russiawedding/756",
+      "source_note": "Official Naver Cafe Search API for practitioner discussion and sentiment tracking.",
+      "raw_source_type": "community",
+      "matched_keywords": [
+        "EUV"
+      ],
+      "community_origin": "domestic",
+      "community_name": "국제결혼 잘하기",
+      "date_is_estimated": true,
+      "collected_at": "2026-08-23T18:22:13+09:00",
+      "reaction_summary": "원문에서는 함께 ASML 의 높은 NA EUV 도입을 지연시키며 비용이 많이 드는 기계들을 1nm 칩으로 밀고 있다 엔터프라이즈 SSD는 2분기 총 출하 비트의 48%를 차지했습니다. 삼성은 25%의 출하 점유율로 선두를 유지했고... 관련 반응이나 논의가 있었다."
+    },
+    {
+      "id": "art-941b951a058dca",
+      "headline": "한화세미텍은 SK하이닉스 공급을 레퍼런스로 마이크론도 고객사로 확보할 계획....",
+      "body": "https://www.ajunews. com /view/20250424152924957 SK하이닉스 와 진행한 퀄테스트에서도 12단 이상 적층한 HBM 양산 시 높은 수율을 보이며 기술력을 인정받은 것으로 알려졌다. SK하이닉스 가 내년 주력할 예정인 6세대 고대역폭메모리( HBM 4....",
+      "sector": "소자",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-08-23T18:22:37+09:00",
+      "source_name": "FMKorea",
+      "source_url": "https://www.fmkorea.com/8295104292",
+      "source_note": "Discover public FMKorea links through the official Naver Web Search API because FMKorea disallows generic bots on native search paths.",
+      "raw_source_type": "community",
+      "matched_keywords": [
+        "HBM"
+      ],
+      "community_origin": "domestic",
+      "community_name": "에펨코리아",
+      "date_is_estimated": true,
+      "collected_at": "2026-08-23T18:22:37+09:00",
+      "reaction_summary": "원문에서는 https://www.ajunews. com /view/20250424152924957 SK하이닉스 와 진행한 퀄테스트에서도 12단 이상 적층한 HBM 양산 시 높은 수율을 보이며 기술력을 인정받은 것으로 알려졌다. SK하이닉스 가 내년 주력할 예정인 6세대 고대역폭메모리( HBM 4.... 관련 반응이나 논의가 있었다."
+    },
+    {
+      "id": "art-21670a0d5d4a04",
+      "headline": "[갓생 25기] 0812/해뜰날온다",
+      "body": "푸케 CEO는 \" ASML 은 EUV 가 반도체 병목의 원인이 되는 것을 절대 원치 않는다\"며 \"모든 가용 수단을 동원해 이를 방지해왔고, 앞으로도 그럴 것\"이라고 말했다. 3) 궁금한 내용 서치 ① ASML 생산 능력 현 시점...",
+      "sector": "공정",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-08-23T18:22:13+09:00",
+      "source_name": "Naver Cafe · 디깅커리어",
+      "source_url": "https://cafe.naver.com/diggingcareer/2937",
+      "source_note": "Official Naver Cafe Search API for practitioner discussion and sentiment tracking.",
+      "raw_source_type": "community",
+      "matched_keywords": [
+        "EUV"
+      ],
+      "community_origin": "domestic",
+      "community_name": "디깅커리어",
+      "date_is_estimated": true,
+      "collected_at": "2026-08-23T18:22:13+09:00",
+      "reaction_summary": "원문에서는 푸케 CEO는 \" ASML 은 EUV 가 반도체 병목의 원인이 되는 것을 절대 원치 않는다\"며 \"모든 가용 수단을 동원해 이를 방지해왔고, 앞으로도 그럴 것\"이라고 말했다. 3) 궁금한 내용 서치 ① ASML 생산 능력 현 시점... 관련 반응이나 논의가 있었다."
+    },
+    {
+      "id": "art-6e2586c689e218",
+      "headline": "‘제2의 HBM ’ 소캠, 삼성· SK하이닉스 의 미래 먹거리 - 주식",
+      "body": "http://www.m-economynews. com /news/article.html?no=51332엔비디아가 ‘제 2의 고대역폭메모리( HBM )’를 상용화하기 위해 삼성전자· SK하이닉스 등 메모리반도체 회사들과 비밀리에 접촉 협의한 사실이 확인됐다. 엔비디아가 ‘개인용 인....",
+      "sector": "소자",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-08-23T18:22:37+09:00",
+      "source_name": "FMKorea",
+      "source_url": "https://www.fmkorea.com/8040706860",
+      "source_note": "Discover public FMKorea links through the official Naver Web Search API because FMKorea disallows generic bots on native search paths.",
+      "raw_source_type": "community",
+      "matched_keywords": [
+        "HBM"
+      ],
+      "community_origin": "domestic",
+      "community_name": "에펨코리아",
+      "date_is_estimated": true,
+      "collected_at": "2026-08-23T18:22:37+09:00",
+      "reaction_summary": "원문에서는 http://www.m-economynews. com /news/article.html?no=51332엔비디아가 ‘제 2의 고대역폭메모리( HBM )’를 상용화하기 위해 삼성전자· SK하이닉스 등 메모리반도체 회사들과 비밀리에 접촉 협의한 사실이 확인됐다. 엔비디아가 ‘개인용 인.... 관련 반응이나 논의가 있었다."
+    },
+    {
+      "id": "art-3e02cd7ac76a97",
+      "headline": "머스크가 찍은 차세대 EUV … ASML 방식보다 전력 84%↓",
+      "body": "머스크가 찍은 차세대 EUV … ASML 방식보다 전력 84%↓",
+      "sector": "공정",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-08-23T18:22:13+09:00",
+      "source_name": "Naver Cafe · 옷장사의 보물지도",
+      "source_url": "https://cafe.naver.com/treasuremap1/148054",
+      "source_note": "Official Naver Cafe Search API for practitioner discussion and sentiment tracking.",
+      "raw_source_type": "community",
+      "matched_keywords": [
+        "EUV"
+      ],
+      "community_origin": "domestic",
+      "community_name": "옷장사의 보물지도",
+      "date_is_estimated": true,
+      "collected_at": "2026-08-23T18:22:13+09:00",
+      "reaction_summary": "원문에서는 머스크가 찍은 차세대 EUV … ASML 방식보다 전력 84%↓ 관련 반응이나 논의가 있었다."
+    },
+    {
+      "id": "art-7f109d0613b35b",
+      "headline": "SK하이닉스 , 엔비디아에 HBM 4 \"이미 소량 납품 중\" - 주식",
+      "body": "엔비디아가 차세대 AI 가속기 '루빈'의 샘플 공급을 앞두면서 SK하이닉스 도 HBM 4 출하에 속도를 내고 있다. 현재 루빈 샘플에 탑재될 HBM 4 일부 물량이 소량 선공급되고 있는 것으로 전해진다. 마이크론도 최근...",
+      "sector": "소자",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-08-23T18:22:37+09:00",
+      "source_name": "FMKorea",
+      "source_url": "https://www.fmkorea.com/8529806745",
+      "source_note": "Discover public FMKorea links through the official Naver Web Search API because FMKorea disallows generic bots on native search paths.",
+      "raw_source_type": "community",
+      "matched_keywords": [
+        "HBM"
+      ],
+      "community_origin": "domestic",
+      "community_name": "에펨코리아",
+      "date_is_estimated": true,
+      "collected_at": "2026-08-23T18:22:37+09:00",
+      "reaction_summary": "원문에서는 엔비디아가 차세대 AI 가속기 '루빈'의 샘플 공급을 앞두면서 SK하이닉스 도 HBM 4 출하에 속도를 내고 있다. 현재 루빈 샘플에 탑재될 HBM 4 일부 물량이 소량 선공급되고 있는 것으로 전해진다. 마이크론도 최근... 관련 반응이나 논의가 있었다."
+    },
+    {
+      "id": "art-af93a1289edfc0",
+      "headline": "asml 노광기에 쓰인 합금들은 뭐가 있지?",
+      "body": "ASML 노광기(특히 EUV 장비)에 들어가는 핵심 광학 부품과 특수 합금·소재는 일반 시장이나 쇼핑몰에서 대량으로 유통되거나 일반 기업이 쉽게 구매할 수 있는 품목이 아닙니다. 이러한 부품들은 전 세계에서...",
+      "sector": "공정",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-08-23T18:22:13+09:00",
+      "source_name": "Naver Cafe · 태양광 제국",
+      "source_url": "https://cafe.naver.com/sunnygroup/499",
+      "source_note": "Official Naver Cafe Search API for practitioner discussion and sentiment tracking.",
+      "raw_source_type": "community",
+      "matched_keywords": [
+        "EUV"
+      ],
+      "community_origin": "domestic",
+      "community_name": "태양광 제국",
+      "date_is_estimated": true,
+      "collected_at": "2026-08-23T18:22:13+09:00",
+      "reaction_summary": "원문에서는 ASML 노광기(특히 EUV 장비)에 들어가는 핵심 광학 부품과 특수 합금·소재는 일반 시장이나 쇼핑몰에서 대량으로 유통되거나 일반 기업이 쉽게 구매할 수 있는 품목이 아닙니다. 이러한 부품들은 전 세계에서... 관련 반응이나 논의가 있었다."
+    },
+    {
+      "id": "art-b53045474157d0",
+      "headline": "삼성전자 파운드리 , 바이오보다 시급한데…\"美공장 어떡할 거냐\" 불안감 - 주식",
+      "body": "걸어야\" 삼성 바이오로직스의 인적분할이 삼성전자 파운드리 (반도체 위탁생산) 사업부에 대한 걱정으로... 설계 기술자들을 파운드리 사업 전면에 배치시켰다. https://www.investchosun. com /m/article.html?contid=2025052380216",
+      "sector": "설계",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-08-23T18:22:36+09:00",
+      "source_name": "FMKorea",
+      "source_url": "https://www.fmkorea.com/8430115275",
+      "source_note": "Discover public FMKorea links through the official Naver Web Search API because FMKorea disallows generic bots on native search paths.",
+      "raw_source_type": "community",
+      "matched_keywords": [],
+      "community_origin": "domestic",
+      "community_name": "에펨코리아",
+      "date_is_estimated": true,
+      "collected_at": "2026-08-23T18:22:36+09:00",
+      "reaction_summary": "원문에서는 걸어야\" 삼성 바이오로직스의 인적분할이 삼성전자 파운드리 (반도체 위탁생산) 사업부에 대한 걱정으로... 설계 기술자들을 파운드리 사업 전면에 배치시켰다. https://www.investchosun. com /m/article.html?contid=2025052380216 관련 반응이나 논의가 있었다."
+    },
+    {
+      "id": "art-3962212e6b3f4e",
+      "headline": "[정보] ASML 최근 상용화 성공한 트리플 레이저(3-Pulse) 광원 EUV 장비",
+      "body": "ASML 이 최근 상용화 제품을 내놓은 트리플 레이저(3-Pulse) 광원 기술은 기존 2단계 펄스 방식에 중간 펄스를 추가하여 EUV 광원 출력을 800W~1,000W까지 대폭 끌어올리는 차세대 기술입니다. 기존 EUV 장비는 초당...",
+      "sector": "공정",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-08-23T18:22:13+09:00",
+      "source_name": "Naver Cafe · 유리알속맑은세상(아이닥)",
+      "source_url": "https://cafe.naver.com/eyedaq/151705",
+      "source_note": "Official Naver Cafe Search API for practitioner discussion and sentiment tracking.",
+      "raw_source_type": "community",
+      "matched_keywords": [
+        "EUV"
+      ],
+      "community_origin": "domestic",
+      "community_name": "유리알속맑은세상(아이닥)",
+      "date_is_estimated": true,
+      "collected_at": "2026-08-23T18:22:13+09:00",
+      "reaction_summary": "원문에서는 ASML 이 최근 상용화 제품을 내놓은 트리플 레이저(3-Pulse) 광원 기술은 기존 2단계 펄스 방식에 중간 펄스를 추가하여 EUV 광원 출력을 800W~1,000W까지 대폭 끌어올리는 차세대 기술입니다. 기존 EUV 장비는 초당... 관련 반응이나 논의가 있었다."
+    },
+    {
+      "id": "art-c9e1434a969cee",
+      "headline": "삼성 파운드리 근황 - 미스터리/공포",
+      "body": "주문으로 삼성 파운드리 가 활력을 조금 찾기 시작했다... kr/ site /data/html/2025/02/20/2025022000090.html https://www.newsquest.co.kr/news/articleView.html?idxno=240072 https://biz.chosun. com /it-science/ict/2025/01...",
+      "sector": "설계",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-08-23T18:22:36+09:00",
+      "source_name": "FMKorea",
+      "source_url": "https://www.fmkorea.com/8055052893",
+      "source_note": "Discover public FMKorea links through the official Naver Web Search API because FMKorea disallows generic bots on native search paths.",
+      "raw_source_type": "community",
+      "matched_keywords": [],
+      "community_origin": "domestic",
+      "community_name": "에펨코리아",
+      "date_is_estimated": true,
+      "collected_at": "2026-08-23T18:22:36+09:00",
+      "reaction_summary": "원문에서는 주문으로 삼성 파운드리 가 활력을 조금 찾기 시작했다... kr/ site /data/html/2025/02/20/2025022000090.html https://www.newsquest.co.kr/news/articleView.html?idxno=240072 https://biz.chosun. com /it-scien... 관련 반응이나 논의가 있었다."
+    },
+    {
+      "id": "art-6f47d37161bc9d",
+      "headline": "ASML 도 불안했던 EUV “삼성 덕분에 살았다”",
+      "body": "https://youtu.be/3J9tHHygA0Q",
+      "sector": "공정",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-08-23T18:22:13+09:00",
+      "source_name": "Naver Cafe · 성수전략정비구역 연구소",
+      "source_url": "https://cafe.naver.com/aptmal/21544",
+      "source_note": "Official Naver Cafe Search API for practitioner discussion and sentiment tracking.",
+      "raw_source_type": "community",
+      "matched_keywords": [
+        "EUV"
+      ],
+      "community_origin": "domestic",
+      "community_name": "성수전략정비구역 연구소",
+      "date_is_estimated": true,
+      "collected_at": "2026-08-23T18:22:13+09:00",
+      "reaction_summary": "원문에서는 https://youtu.be/3J9tHHygA0Q 관련 반응이나 논의가 있었다."
+    },
+    {
+      "id": "art-f2705475278554",
+      "headline": "삼성전자 블라인드 올라왔다던 글 - 유머/움짤/이슈",
+      "body": "그 = 전 DS부문장(메모리, 파운드리 , LSI 총괄)",
+      "sector": "설계",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-08-23T18:22:36+09:00",
+      "source_name": "FMKorea",
+      "source_url": "https://www.fmkorea.com/5653424719",
+      "source_note": "Discover public FMKorea links through the official Naver Web Search API because FMKorea disallows generic bots on native search paths.",
+      "raw_source_type": "community",
+      "matched_keywords": [],
+      "community_origin": "domestic",
+      "community_name": "에펨코리아",
+      "date_is_estimated": true,
+      "collected_at": "2026-08-23T18:22:36+09:00",
+      "reaction_summary": "원문에서는 그 = 전 DS부문장(메모리, 파운드리 , LSI 총괄) 관련 반응이나 논의가 있었다."
+    },
+    {
+      "id": "art-46de25d03bb3c2",
+      "headline": "네덜란드의 거인 ASML 이 만드는 최첨단 EUV 노광 장비조차,일본의 부품과 원....",
+      "body": "네덜란드의 거인 ASML 이 만드는 최첨단 EUV 노광 장비조차, 일본의 부품과 원천 특허 없이는 단 한 대도 완성될 수 없다. 극미세 회로를 그려내는 초정밀 광학계의 니콘·캐논 특허부터, 웨이퍼를 깎고 검사하는...",
+      "sector": "공정",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-08-23T18:22:13+09:00",
+      "source_name": "Naver Cafe · 일본소재부품장비 강소기업",
+      "source_url": "https://cafe.naver.com/japansobuzang/1533",
+      "source_note": "Official Naver Cafe Search API for practitioner discussion and sentiment tracking.",
+      "raw_source_type": "community",
+      "matched_keywords": [
+        "EUV"
+      ],
+      "community_origin": "domestic",
+      "community_name": "일본소재부품장비 강소기업",
+      "date_is_estimated": true,
+      "collected_at": "2026-08-23T18:22:13+09:00",
+      "reaction_summary": "원문에서는 네덜란드의 거인 ASML 이 만드는 최첨단 EUV 노광 장비조차, 일본의 부품과 원천 특허 없이는 단 한 대도 완성될 수 없다. 극미세 회로를 그려내는 초정밀 광학계의 니콘·캐논 특허부터, 웨이퍼를 깎고 검사하는... 관련 반응이나 논의가 있었다."
+    },
+    {
+      "id": "art-1ce1aba866a2e5",
+      "headline": "D램값 오르고 파운드리 부활…\" 삼성전자 , 분기 영업익 10조 복귀\" - 주식",
+      "body": "퀄컴이 삼성전자 파운드리 에 반도체 위탁 생산을 맡길 것이라는 전망도 나온다. 2분기에 전 세계... 예측하며 목표주가를 잇따라 10만 원 이상으로 상향 조정했다. https://n.news.naver. com /article/011/0004536611?cds=news_my",
+      "sector": "설계",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-08-23T18:22:36+09:00",
+      "source_name": "FMKorea",
+      "source_url": "https://www.fmkorea.com/8950077831",
+      "source_note": "Discover public FMKorea links through the official Naver Web Search API because FMKorea disallows generic bots on native search paths.",
+      "raw_source_type": "community",
+      "matched_keywords": [],
+      "community_origin": "domestic",
+      "community_name": "에펨코리아",
+      "date_is_estimated": true,
+      "collected_at": "2026-08-23T18:22:36+09:00",
+      "reaction_summary": "원문에서는 퀄컴이 삼성전자 파운드리 에 반도체 위탁 생산을 맡길 것이라는 전망도 나온다. 2분기에 전 세계... 예측하며 목표주가를 잇따라 10만 원 이상으로 상향 조정했다. https://n.news.naver. com /article/011/0004536611?cds=news_my 관련 반응이나 논의가 있었다."
+    },
+    {
+      "id": "art-487fd3c0db86a1",
+      "headline": "아이성나의 액침DUV vs ASML 의 EUV",
+      "body": "공식 홈페이지도, 제품 사양도 공개하지 않은 이 회사가 정말 ASML 을 위협할 수준인지, 아니면 아직은 다른 이야기인지 궁금해서 DUV와 EUV 의 기술적 차이부터 하나하나 짚어보았습니다. 선두주자와 후발주자...",
+      "sector": "공정",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-08-23T18:22:13+09:00",
+      "source_name": "Naver Cafe · 가치투자연구소",
+      "source_url": "https://cafe.naver.com/vilab/289033",
+      "source_note": "Official Naver Cafe Search API for practitioner discussion and sentiment tracking.",
+      "raw_source_type": "community",
+      "matched_keywords": [
+        "EUV"
+      ],
+      "community_origin": "domestic",
+      "community_name": "가치투자연구소",
+      "date_is_estimated": true,
+      "collected_at": "2026-08-23T18:22:13+09:00",
+      "reaction_summary": "원문에서는 공식 홈페이지도, 제품 사양도 공개하지 않은 이 회사가 정말 ASML 을 위협할 수준인지, 아니면 아직은 다른 이야기인지 궁금해서 DUV와 EUV 의 기술적 차이부터 하나하나 짚어보았습니다. 선두주자와 후발주자... 관련 반응이나 논의가 있었다."
+    },
+    {
+      "id": "art-f31a31cf3c9442",
+      "headline": "삼성전자, AI PC 칩 '가이아' 개발 … 레노버·HP서 성능 검증 - 주식",
+      "body": "NPU 는 이미지, 음성, 언어 등 AI 연산에 특화된 반도체 다. GPU 가 대규모 병렬 연산을 기반으로 AI ... 시장에서 글로벌 반도체 업체들과 경쟁하게 된다. https://biz.newdaily.co.kr/ site /data/html/2026/07/09/2026070900324.html",
+      "sector": "설계",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-08-23T18:22:35+09:00",
+      "source_name": "FMKorea",
+      "source_url": "https://www.fmkorea.com/10063052979",
+      "source_note": "Discover public FMKorea links through the official Naver Web Search API because FMKorea disallows generic bots on native search paths.",
+      "raw_source_type": "community",
+      "matched_keywords": [
+        "GPU",
+        "NPU"
+      ],
+      "community_origin": "domestic",
+      "community_name": "에펨코리아",
+      "date_is_estimated": true,
+      "collected_at": "2026-08-23T18:22:35+09:00",
+      "reaction_summary": "원문에서는 NPU 는 이미지, 음성, 언어 등 AI 연산에 특화된 반도체 다. GPU 가 대규모 병렬 연산을 기반으로 AI ... 시장에서 글로벌 반도체 업체들과 경쟁하게 된다. https://biz.newdaily.co.kr/ site /data/html/2026/07/09/2026070900324.html 관련 반응이나 논의가 있었다."
+    },
+    {
+      "id": "art-387ba0ffc843c7",
+      "headline": "AI칩 패키징 대란에 백기 든 TSMC …라이벌 인텔에 SOS [마켓무버]",
+      "body": "https://naver.me/FqITqc7F",
+      "sector": "설계",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-08-23T18:22:12+09:00",
+      "source_name": "Naver Cafe · 로버스터 박사의 멀티 볼린저밴드 투자기법",
+      "source_url": "https://cafe.naver.com/robuster/114761",
+      "source_note": "Official Naver Cafe Search API for practitioner discussion and sentiment tracking.",
+      "raw_source_type": "community",
+      "matched_keywords": [],
+      "community_origin": "domestic",
+      "community_name": "로버스터 박사의 멀티 볼린저밴드 투자기법",
+      "date_is_estimated": true,
+      "collected_at": "2026-08-23T18:22:12+09:00",
+      "reaction_summary": "원문에서는 https://naver.me/FqITqc7F 관련 반응이나 논의가 있었다."
+    },
+    {
+      "id": "art-15f01722f4bbaa",
+      "headline": "차세대 반도체 기판· 패키징 '게임 체인저' 총출동 - 주식",
+      "body": "https://m.etnews. com /20250902000105?obj=Tzo4OiJzdGRDbGFzcyI6Mjp7czo3OiJyZWZlcmVyIjtOO3M6NzoiZm9yd2FyZCI7czoxMzoid2ViIHRvIG1vYmlsZSI... 그외 △FC·열강화 BGA·SiP 등 열·전기적 성능이 뛰어난 반도체 패키징 기술(시그네틱스) △모바일...",
+      "sector": "설계",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-08-23T18:22:33+09:00",
+      "source_name": "FMKorea",
+      "source_url": "https://www.fmkorea.com/8865648985",
+      "source_note": "Discover public FMKorea links through the official Naver Web Search API because FMKorea disallows generic bots on native search paths.",
+      "raw_source_type": "community",
+      "matched_keywords": [],
+      "community_origin": "domestic",
+      "community_name": "에펨코리아",
+      "date_is_estimated": true,
+      "collected_at": "2026-08-23T18:22:33+09:00",
+      "reaction_summary": "원문에서는 https://m.etnews. com /20250902000105?obj=Tzo4OiJzdGRDbGFzcyI6Mjp7czo3OiJyZWZlcmVyIjtOO3M6NzoiZm9yd2FyZCI7czoxMzoid2ViIHRvIG1vYmlsZSI... 그외 △FC·열강화 BGA·SiP 등 열·전기적 성능이 뛰어난 반도체 패키징... 관련 반응이나 논의가 있었다."
+    },
+    {
+      "id": "art-f22d8d00918388",
+      "headline": "AI칩 패키징 대란에 백기 든 TSMC …라이벌 인텔에 SOS",
+      "body": "AI칩 패키징 대란에 백기 든 TSMC …라이벌 인텔에 SOS [마켓무버]",
+      "sector": "설계",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-08-23T18:22:12+09:00",
+      "source_name": "Naver Cafe · 원탑 주식정보",
+      "source_url": "https://cafe.naver.com/pogba9981/127053",
+      "source_note": "Official Naver Cafe Search API for practitioner discussion and sentiment tracking.",
+      "raw_source_type": "community",
+      "matched_keywords": [],
+      "community_origin": "domestic",
+      "community_name": "원탑 주식정보",
+      "date_is_estimated": true,
+      "collected_at": "2026-08-23T18:22:12+09:00",
+      "reaction_summary": "원문에서는 AI칩 패키징 대란에 백기 든 TSMC …라이벌 인텔에 SOS [마켓무버] 관련 반응이나 논의가 있었다."
+    },
+    {
+      "id": "art-9edb0a6fee322c",
+      "headline": "(카더라)현재 코닝이 폭등하는이유? 정리 - 주식",
+      "body": "현재 CoWoS 는 여전히 AI 반도체 패키징 의 핵심 플랫폼이며, TSMC 역시 지속적인 대형화를 추진하고 있다. CoPoS와 유리 기판은 CoWoS 를 즉시 대체하는 기술이라기보다, 차세대 초대형 AI 시스템 구현을 위한...",
+      "sector": "패키징",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-08-23T18:22:33+09:00",
+      "source_name": "FMKorea",
+      "source_url": "https://www.fmkorea.com/10025565002",
+      "source_note": "Discover public FMKorea links through the official Naver Web Search API because FMKorea disallows generic bots on native search paths.",
+      "raw_source_type": "community",
+      "matched_keywords": [
+        "CoWoS"
+      ],
+      "community_origin": "domestic",
+      "community_name": "에펨코리아",
+      "date_is_estimated": true,
+      "collected_at": "2026-08-23T18:22:33+09:00",
+      "reaction_summary": "원문에서는 현재 CoWoS 는 여전히 AI 반도체 패키징 의 핵심 플랫폼이며, TSMC 역시 지속적인 대형화를 추진하고 있다. CoPoS와 유리 기판은 CoWoS 를 즉시 대체하는 기술이라기보다, 차세대 초대형 AI 시스템 구현을 위한... 관련 반응이나 논의가 있었다."
+    },
+    {
+      "id": "art-f6c41277b78284",
+      "headline": "반도체 시장동향 20260820",
+      "body": "반도체 시장동향 20260820 AI칩 패키징 대란에 백기 든 TSMC …라이벌 인텔에 SOS https://www.sedaily.com/article/20081054?ref=naver \" TSMC 로 부족해\"…삼성 파운드리, 빅테크 '러브콜'에 부활...",
+      "sector": "설계",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-08-23T18:22:12+09:00",
+      "source_name": "Naver Cafe · 밍그라빠",
+      "source_url": "https://cafe.naver.com/minkrappa/284957",
+      "source_note": "Official Naver Cafe Search API for practitioner discussion and sentiment tracking.",
+      "raw_source_type": "community",
+      "matched_keywords": [],
+      "community_origin": "domestic",
+      "community_name": "밍그라빠",
+      "date_is_estimated": true,
+      "collected_at": "2026-08-23T18:22:12+09:00",
+      "reaction_summary": "원문에서는 반도체 시장동향 20260820 AI칩 패키징 대란에 백기 든 TSMC …라이벌 인텔에 SOS https://www.sedaily.com/article/20081054?ref=naver \" TSMC 로 부족해\"…삼성 파운드리, 빅테크 '러브콜'에 부활... 관련 반응이나 논의가 있었다."
+    },
+    {
+      "id": "art-789bf83be023c1",
+      "headline": "[단독] 엔비디아, 삼성전자 천안캠퍼스 연쇄 방문 … HBM4 공급량 늘리나 - 주식",
+      "body": "https://biz.newdaily.co.kr/ site /data/html/2026/03/09/2026030900123.html 오는 12일 방문 … 이달 초 이어 연속 점검... 차세대 HBM4 (고대역폭메모리) 공급망 점검이 ‘최종 단계’로 들어갔다는 해석이 확산하고 있다....",
+      "sector": "설계",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-08-23T18:22:32+09:00",
+      "source_name": "FMKorea",
+      "source_url": "https://www.fmkorea.com/9571888165",
+      "source_note": "Discover public FMKorea links through the official Naver Web Search API because FMKorea disallows generic bots on native search paths.",
+      "raw_source_type": "community",
+      "matched_keywords": [],
+      "community_origin": "domestic",
+      "community_name": "에펨코리아",
+      "date_is_estimated": true,
+      "collected_at": "2026-08-23T18:22:32+09:00",
+      "reaction_summary": "원문에서는 https://biz.newdaily.co.kr/ site /data/html/2026/03/09/2026030900123.html 오는 12일 방문 … 이달 초 이어 연속 점검... 차세대 HBM4 (고대역폭메모리) 공급망 점검이 ‘최종 단계’로 들어갔다는 해석이 확산하고 있다.... 관련 반응이나 논의가 있었다."
+    },
+    {
+      "id": "art-a445b9bffb5342",
+      "headline": "TSMC “CoWoS 수율 98%”…‘AI 패키징 초격차’로 파운드리 1위 굳힌다",
+      "body": "https://n.news.naver.com/mnews/article/029/0003042567",
+      "sector": "패키징",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-08-23T18:22:12+09:00",
+      "source_name": "Naver Cafe · 주식으로미래를여는사람들",
+      "source_url": "https://cafe.naver.com/tkdska3/468393",
+      "source_note": "Official Naver Cafe Search API for practitioner discussion and sentiment tracking.",
+      "raw_source_type": "community",
+      "matched_keywords": [
+        "CoWoS"
+      ],
+      "community_origin": "domestic",
+      "community_name": "주식으로미래를여는사람들",
+      "date_is_estimated": true,
+      "collected_at": "2026-08-23T18:22:12+09:00",
+      "reaction_summary": "원문에서는 https://n.news.naver.com/mnews/article/029/0003042567 관련 반응이나 논의가 있었다."
+    },
+    {
+      "id": "art-dc29e02c09b1e3",
+      "headline": "[단독] 삼성, ‘승부처' HBM4 6개월 당겨… 상반기 양산승인 추진 - 주식",
+      "body": "https://biz.newdaily.co.kr/ site /data/html/2025/01/13/2025011300128.html삼성전자가 올해 승부처로 꼽히는 6세대 HBM (고대역폭메모리)인 ' HBM4 ' 출시에 속도를 낸다. 내부적으로 상반기 내에 PRA(생산준비승인) 절차를 마치는 것을 목표로 잡았....",
+      "sector": "소자",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-08-23T18:22:32+09:00",
+      "source_name": "FMKorea",
+      "source_url": "https://www.fmkorea.com/7918637607",
+      "source_note": "Discover public FMKorea links through the official Naver Web Search API because FMKorea disallows generic bots on native search paths.",
+      "raw_source_type": "community",
+      "matched_keywords": [
+        "HBM"
+      ],
+      "community_origin": "domestic",
+      "community_name": "에펨코리아",
+      "date_is_estimated": true,
+      "collected_at": "2026-08-23T18:22:32+09:00",
+      "reaction_summary": "원문에서는 https://biz.newdaily.co.kr/ site /data/html/2025/01/13/2025011300128.html삼성전자가 올해 승부처로 꼽히는 6세대 HBM (고대역폭메모리)인 ' HBM4 ' 출시에 속도를 낸다. 내부적으로 상반기 내에 PRA(생산준비승인) 절차를 마치는 것을 목표로 잡았.... 관련 반응이나 논의가 있었다."
+    },
+    {
+      "id": "art-211eadf8385972",
+      "headline": "TSMC , 패키징 공급난 심화…삼성 2나노 턴키로 반격",
+      "body": "https://naver.me/GQGAIRff",
+      "sector": "설계",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-08-23T18:22:12+09:00",
+      "source_name": "Naver Cafe · 로버스터 박사의 멀티 볼린저밴드 투자기법",
+      "source_url": "https://cafe.naver.com/robuster/114619",
+      "source_note": "Official Naver Cafe Search API for practitioner discussion and sentiment tracking.",
+      "raw_source_type": "community",
+      "matched_keywords": [],
+      "community_origin": "domestic",
+      "community_name": "로버스터 박사의 멀티 볼린저밴드 투자기법",
+      "date_is_estimated": true,
+      "collected_at": "2026-08-23T18:22:12+09:00",
+      "reaction_summary": "원문에서는 https://naver.me/GQGAIRff 관련 반응이나 논의가 있었다."
+    },
+    {
+      "id": "art-3a1cf90149f6bc",
+      "headline": "HBM4 의 Net Die가 DDR5 대비 - 주식",
+      "body": "같은 24Gb Die Density 기준으로도 HBM4 웨이퍼 Net Die가 DDR5 대비 1/3... 그때부터 HBM 같이 Die 크기가 큰 제품들을 생산하는데(내후년 초부터 양산 예정인 HBM4 E를 대비하는 경쟁사들의 전략이 이렇습니다)...",
+      "sector": "소자",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-08-23T18:22:32+09:00",
+      "source_name": "FMKorea",
+      "source_url": "https://www.fmkorea.com/8888334616",
+      "source_note": "Discover public FMKorea links through the official Naver Web Search API because FMKorea disallows generic bots on native search paths.",
+      "raw_source_type": "community",
+      "matched_keywords": [
+        "HBM"
+      ],
+      "community_origin": "domestic",
+      "community_name": "에펨코리아",
+      "date_is_estimated": true,
+      "collected_at": "2026-08-23T18:22:32+09:00",
+      "reaction_summary": "원문에서는 같은 24Gb Die Density 기준으로도 HBM4 웨이퍼 Net Die가 DDR5 대비 1/3... 그때부터 HBM 같이 Die 크기가 큰 제품들을 생산하는데(내후년 초부터 양산 예정인 HBM4 E를 대비하는 경쟁사들의 전략이 이렇습니다)... 관련 반응이나 논의가 있었다."
+    },
+    {
+      "id": "art-e13262954adc25",
+      "headline": "한눈에 보는 AI 반도체 산업 한빛미디어, 엔비디아·HBM· TSMC 연결 구조 이해....",
+      "body": "엔비디아 GPU가 어떻다거나 SK하이닉스 HBM이 중요하다거나, TSMC 의 첨단 패키징 과 삼성전자 파운드리 경쟁이 중요하다는 이야기는 많이 들어보셨을 텐데요. 그런데 각각의 뉴스는 이해해도 이 기업들이 AI 산업에서...",
+      "sector": "설계",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-08-23T18:22:12+09:00",
+      "source_name": "Naver Cafe · ★자취방★ 자격증 취득에 대한 모든 방법",
+      "source_url": "https://cafe.naver.com/suk6818/37885",
+      "source_note": "Official Naver Cafe Search API for practitioner discussion and sentiment tracking.",
+      "raw_source_type": "community",
+      "matched_keywords": [
+        "GPU"
+      ],
+      "community_origin": "domestic",
+      "community_name": "★자취방★ 자격증 취득에 대한 모든 방법",
+      "date_is_estimated": true,
+      "collected_at": "2026-08-23T18:22:12+09:00",
+      "reaction_summary": "원문에서는 엔비디아 GPU가 어떻다거나 SK하이닉스 HBM이 중요하다거나, TSMC 의 첨단 패키징 과 삼성전자 파운드리 경쟁이 중요하다는 이야기는 많이 들어보셨을 텐데요. 그런데 각각의 뉴스는 이해해도 이 기업들이 AI 산업에서... 관련 반응이나 논의가 있었다."
+    },
+    {
+      "id": "art-7f8d6d520d4a1f",
+      "headline": "HBM4 다음은 HBM4 P가 될 수 있을까 - 주식",
+      "body": "co.kr/view/?no=20230503112355 “ HBM 5세대 제품 이름 바꿔라”… ‘큰 손’ 엔비디아 요구에 고심하는 삼성전자 https://biz.chosun. com /it-science/ict/2023/10/06/GH42OD3QGJEEPA5ZKZ5YDJ4G2E/",
+      "sector": "소자",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-08-23T18:22:32+09:00",
+      "source_name": "FMKorea",
+      "source_url": "https://www.fmkorea.com/8981064931",
+      "source_note": "Discover public FMKorea links through the official Naver Web Search API because FMKorea disallows generic bots on native search paths.",
+      "raw_source_type": "community",
+      "matched_keywords": [
+        "HBM"
+      ],
+      "community_origin": "domestic",
+      "community_name": "에펨코리아",
+      "date_is_estimated": true,
+      "collected_at": "2026-08-23T18:22:32+09:00",
+      "reaction_summary": "원문에서는 co.kr/view/?no=20230503112355 “ HBM 5세대 제품 이름 바꿔라”… ‘큰 손’ 엔비디아 요구에 고심하는 삼성전자 https://biz.chosun. com /it-science/ict/2023/10/06/GH42OD3QGJEEPA5ZKZ5YDJ4G2E/ 관련 반응이나 논의가 있었다."
+    },
+    {
+      "id": "art-42809ada877837",
+      "headline": "[갓생 25기] 0814/ 민경",
+      "body": "특히 테라팹은 위탁생산(파운드리) 전문인 대만 TSMC 와 달리, 칩 설계부터 제조, 패키징 까지 모든 공정을 자체적으로 수행하는 '풀스택(Full-stack)' 방식으로 운영될 예정이다. 이를 통해 삼성전자나 TSMC 등 특정...",
+      "sector": "설계",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-08-23T18:22:12+09:00",
+      "source_name": "Naver Cafe · 디깅커리어",
+      "source_url": "https://cafe.naver.com/diggingcareer/2967",
+      "source_note": "Official Naver Cafe Search API for practitioner discussion and sentiment tracking.",
+      "raw_source_type": "community",
+      "matched_keywords": [],
+      "community_origin": "domestic",
+      "community_name": "디깅커리어",
+      "date_is_estimated": true,
+      "collected_at": "2026-08-23T18:22:12+09:00",
+      "reaction_summary": "원문에서는 특히 테라팹은 위탁생산(파운드리) 전문인 대만 TSMC 와 달리, 칩 설계부터 제조, 패키징 까지 모든 공정을 자체적으로 수행하는 '풀스택(Full-stack)' 방식으로 운영될 예정이다. 이를 통해 삼성전자나 TSMC 등 특정... 관련 반응이나 논의가 있었다."
+    },
+    {
+      "id": "art-05bce3bd3bc8df",
+      "headline": ">> 사실무근 HBM 3E 퀄테스트 최종 통과 - 유....",
+      "body": "[단독] 삼성전자, 엔비디아 뚫었다… HBM 3E 퀄테스트 최종 통과-삼성전자가 마침내 엔비디아에 5세대 HBM (고대역폭메모리)인 HBM 3E 퀄테스트(품질 검증)에서 승인을 얻었다. 조만간 이후 절차를 밟아 공식적으로 HBM 공급을 위....",
+      "sector": "소자",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-08-23T18:22:32+09:00",
+      "source_name": "FMKorea",
+      "source_url": "https://www.fmkorea.com/7211274188",
+      "source_note": "Discover public FMKorea links through the official Naver Web Search API because FMKorea disallows generic bots on native search paths.",
+      "raw_source_type": "community",
+      "matched_keywords": [
+        "HBM"
+      ],
+      "community_origin": "domestic",
+      "community_name": "에펨코리아",
+      "date_is_estimated": true,
+      "collected_at": "2026-08-23T18:22:32+09:00",
+      "reaction_summary": "원문에서는 [단독] 삼성전자, 엔비디아 뚫었다… HBM 3E 퀄테스트 최종 통과-삼성전자가 마침내 엔비디아에 5세대 HBM (고대역폭메모리)인 HBM 3E 퀄테스트(품질 검증)에서 승인을 얻었다. 조만간 이후 절차를 밟아 공식적으로 HBM 공급을 위.... 관련 반응이나 논의가 있었다."
+    },
+    {
+      "id": "art-aa530703320e35",
+      "headline": "TSMC , 첨단 패키징 외주 확대 국내 후공정 장비사 수주 '훈풍'",
+      "body": "https://naver.me/xVRW5t0B",
+      "sector": "설계",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-08-23T18:22:12+09:00",
+      "source_name": "Naver Cafe · 로버스터 박사의 멀티 볼린저밴드 투자기법",
+      "source_url": "https://cafe.naver.com/robuster/114593",
+      "source_note": "Official Naver Cafe Search API for practitioner discussion and sentiment tracking.",
+      "raw_source_type": "community",
+      "matched_keywords": [],
+      "community_origin": "domestic",
+      "community_name": "로버스터 박사의 멀티 볼린저밴드 투자기법",
+      "date_is_estimated": true,
+      "collected_at": "2026-08-23T18:22:12+09:00",
+      "reaction_summary": "원문에서는 https://naver.me/xVRW5t0B 관련 반응이나 논의가 있었다."
+    },
+    {
+      "id": "art-20f4a862c7a550",
+      "headline": "TSMC 가 바빠지고 있습니다. 삼성은 어떻게 될까요. AI 패키징 의 다음 승부처를....",
+      "body": "https://www.youtube.com/watch?v=2Z40cepmdds",
+      "sector": "설계",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-08-23T18:22:12+09:00",
+      "source_name": "Naver Cafe · 주식으로미래를여는사람들",
+      "source_url": "https://cafe.naver.com/tkdska3/467337",
+      "source_note": "Official Naver Cafe Search API for practitioner discussion and sentiment tracking.",
+      "raw_source_type": "community",
+      "matched_keywords": [],
+      "community_origin": "domestic",
+      "community_name": "주식으로미래를여는사람들",
+      "date_is_estimated": true,
+      "collected_at": "2026-08-23T18:22:12+09:00",
+      "reaction_summary": "원문에서는 https://www.youtube.com/watch?v=2Z40cepmdds 관련 반응이나 논의가 있었다."
+    },
+    {
+      "id": "art-dc916ba73e4201",
+      "headline": "TSMC , AI 수요 대응에 42조원 투자… 2나노·첨단 패키징 확대",
+      "body": "https://naver.me/xRg88I67",
+      "sector": "설계",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-08-23T18:22:12+09:00",
+      "source_name": "Naver Cafe · 로버스터 박사의 멀티 볼린저밴드 투자기법",
+      "source_url": "https://cafe.naver.com/robuster/114524",
+      "source_note": "Official Naver Cafe Search API for practitioner discussion and sentiment tracking.",
+      "raw_source_type": "community",
+      "matched_keywords": [],
+      "community_origin": "domestic",
+      "community_name": "로버스터 박사의 멀티 볼린저밴드 투자기법",
+      "date_is_estimated": true,
+      "collected_at": "2026-08-23T18:22:12+09:00",
+      "reaction_summary": "원문에서는 https://naver.me/xRg88I67 관련 반응이나 논의가 있었다."
+    },
+    {
+      "id": "art-eca7d5bae909a4",
+      "headline": "'170만원 하이닉스 주식' 비싸서 못 샀는데… 개미들 설렌다 [투자톡]",
+      "body": "'170만원 하이닉스 주식' 비싸서 못 샀는데… 개미들 설렌다 [투자톡]... 효과보다 HBM ·메모리 가격 중요\" 로이터 SK하이닉스 가 40조원 규모의... 최태원 SK 그룹 회장은 지난 7월 미국 뉴욕 나스닥 본사에서 열린 SK하이닉스 ...",
+      "sector": "소자",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-08-23T18:22:11+09:00",
+      "source_name": "Naver Cafe · 새시대계룡산정도령",
+      "source_url": "https://cafe.naver.com/global62sindoan/5184",
+      "source_note": "Official Naver Cafe Search API for practitioner discussion and sentiment tracking.",
+      "raw_source_type": "community",
+      "matched_keywords": [
+        "HBM"
+      ],
+      "community_origin": "domestic",
+      "community_name": "새시대계룡산정도령",
+      "date_is_estimated": true,
+      "collected_at": "2026-08-23T18:22:11+09:00",
+      "reaction_summary": "원문에서는 '170만원 하이닉스 주식' 비싸서 못 샀는데… 개미들 설렌다 [투자톡]... 효과보다 HBM ·메모리 가격 중요\" 로이터 SK하이닉스 가 40조원 규모의... 최태원 SK 그룹 회장은 지난 7월 미국 뉴욕 나스닥 본사에서 열린 SK하이닉스 ... 관련 반응이나 논의가 있었다."
+    }
+  ]
 }
