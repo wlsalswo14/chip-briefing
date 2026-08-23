@@ -22,6 +22,7 @@ import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
 import base64
+from html.parser import HTMLParser
 from pathlib import Path
 import socket
 
@@ -139,6 +140,24 @@ REDDIT_SUBREDDITS = [
     "nvidia",
     "AMD_Stock",
     "intel",
+]
+
+COMMUNITY_USER_AGENT = os.environ.get(
+    "CHIP_BRIEFING_COMMUNITY_USER_AGENT",
+    "script:chip-briefing:v2.1 (contact: github.com/wlsalswo14)",
+).strip()
+COMMUNITY_HEADERS = {
+    "User-Agent": COMMUNITY_USER_AGENT,
+    "Accept-Language": "ko-KR,ko;q=0.9,en;q=0.5",
+}
+COMMUNITY_SEARCH_QUERIES = [
+    "HBM HBM4",
+    "반도체 패키징 CoWoS",
+    "EUV GAA 2나노",
+    "AI 반도체 GPU NPU",
+    "삼성전자 파운드리",
+    "SK하이닉스 HBM",
+    "TSMC ASML",
 ]
 
 def now_iso() -> str:
@@ -277,6 +296,130 @@ def parse_date(value: str | None) -> str:
         return parsed.astimezone(dt.timezone(dt.timedelta(hours=9))).isoformat(timespec="seconds")
     except Exception:
         return now_iso()
+
+
+def parse_kst_datetime(value: str, *formats: str) -> str:
+    value = clean_text(value)
+    kst = dt.timezone(dt.timedelta(hours=9))
+    for date_format in formats:
+        try:
+            return dt.datetime.strptime(value, date_format).replace(tzinfo=kst).isoformat(timespec="seconds")
+        except ValueError:
+            continue
+    return ""
+
+
+class DCInsideSearchParser(HTMLParser):
+    """Parse public DCInside post-search result metadata without opening posts."""
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.items: list[dict[str, str]] = []
+        self.current: dict[str, str] | None = None
+        self.capture_field = ""
+        self.capture_tag = ""
+        self.capture_parts: list[str] = []
+
+    @staticmethod
+    def classes(attrs: dict[str, str]) -> set[str]:
+        return set(attrs.get("class", "").split())
+
+    def begin_capture(self, field: str, tag: str) -> None:
+        self.capture_field = field
+        self.capture_tag = tag
+        self.capture_parts = []
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        attr = {key: value or "" for key, value in attrs}
+        classes = self.classes(attr)
+        if tag == "a" and "tit_txt" in classes:
+            self.current = {"url": attr.get("href", "")}
+            self.begin_capture("title", tag)
+        elif self.current is not None and tag == "a" and "sub_txt" in classes:
+            self.begin_capture("community", tag)
+        elif self.current is not None and tag == "span" and "date_time" in classes:
+            self.begin_capture("date", tag)
+
+    def handle_data(self, data: str) -> None:
+        if self.capture_field:
+            self.capture_parts.append(data)
+
+    def handle_endtag(self, tag: str) -> None:
+        if not self.capture_field or tag != self.capture_tag or self.current is None:
+            return
+        field = self.capture_field
+        self.current[field] = clean_text("".join(self.capture_parts))
+        self.capture_field = ""
+        self.capture_tag = ""
+        self.capture_parts = []
+        if field == "date":
+            if self.current.get("title") and self.current.get("url"):
+                self.items.append(self.current)
+            self.current = None
+
+
+class ClienBoardParser(HTMLParser):
+    """Parse article rows from robots-allowed public Clien board pages."""
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.items: list[dict[str, str]] = []
+        self.current: dict[str, str] | None = None
+        self.row_depth = 0
+        self.capture_field = ""
+        self.capture_tag = ""
+        self.capture_parts: list[str] = []
+
+    @staticmethod
+    def classes(attrs: dict[str, str]) -> set[str]:
+        return set(attrs.get("class", "").split())
+
+    def begin_capture(self, field: str, tag: str) -> None:
+        self.capture_field = field
+        self.capture_tag = tag
+        self.capture_parts = []
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        attr = {key: value or "" for key, value in attrs}
+        classes = self.classes(attr)
+
+        if tag == "div":
+            if self.current is not None:
+                self.row_depth += 1
+            elif "list_item" in classes and "symph_row" in classes:
+                self.current = {}
+                self.row_depth = 1
+
+        if self.current is None:
+            return
+        if tag == "a" and "list_subject" in classes:
+            self.current["url"] = attr.get("href", "")
+            self.begin_capture("title", tag)
+        elif tag == "span" and "subject_fixed" in classes and attr.get("title"):
+            self.current["title"] = clean_text(attr["title"])
+        elif tag == "span" and "timestamp" in classes:
+            self.begin_capture("date", tag)
+
+    def handle_data(self, data: str) -> None:
+        if self.capture_field:
+            self.capture_parts.append(data)
+
+    def handle_endtag(self, tag: str) -> None:
+        if self.capture_field and tag == self.capture_tag and self.current is not None:
+            field = self.capture_field
+            value = clean_text("".join(self.capture_parts))
+            if value and not self.current.get(field):
+                self.current[field] = value
+            self.capture_field = ""
+            self.capture_tag = ""
+            self.capture_parts = []
+
+        if tag == "div" and self.current is not None:
+            self.row_depth -= 1
+            if self.row_depth == 0:
+                if self.current.get("title") and self.current.get("url"):
+                    self.items.append(self.current)
+                self.current = None
 
 
 def stable_id(url: str, title: str) -> str:
@@ -469,6 +612,11 @@ def collect_naver(sources: list[dict], queries: list[str]) -> tuple[list[dict], 
                         article["community_origin"] = "domestic"
                         article["community_name"] = community_name
                         article["source_name"] = f"Naver Cafe · {community_name}"
+                        if not published:
+                            # Naver Cafe Search deliberately omits a post timestamp.
+                            # Preserve the collection time but bypass exact publication-window checks.
+                            article["date_is_estimated"] = True
+                            article["collected_at"] = article["created_at"]
                     articles.append(article)
                 logs.append(f"naver ok: {source.get('name')} {query} ({len(items)})")
                 time.sleep(0.15)
@@ -496,9 +644,153 @@ def collect_hn(queries: list[str], source: dict) -> tuple[list[dict], list[str]]
     return articles, logs
 
 
+def collect_dcinside(queries: list[str], source: dict) -> tuple[list[dict], list[str]]:
+    articles: list[dict] = []
+    logs: list[str] = []
+    endpoint = str(source.get("endpoint", "https://search.dcinside.com/post")).rstrip("/")
+
+    for query in queries:
+        url = f"{endpoint}/sort/latest/q/{urllib.parse.quote(query, safe='')}"
+        try:
+            parser = DCInsideSearchParser()
+            parser.feed(request_text(url, headers=COMMUNITY_HEADERS))
+            found: list[dict] = []
+            for row in parser.items:
+                created_at = parse_kst_datetime(row.get("date", ""), "%Y.%m.%d %H:%M")
+                if not created_at:
+                    continue
+                community = clean_text(row.get("community", "")) or "디시인사이드"
+                dc_source = dict(source)
+                dc_source["name"] = f"DCInside · {community}"
+                article = make_article(
+                    row.get("title", ""),
+                    row.get("url", ""),
+                    row.get("title", ""),
+                    dc_source,
+                    "community",
+                    created_at,
+                )
+                article.update({
+                    "community_origin": "domestic",
+                    "community_name": f"디시 · {community}",
+                })
+                found.append(article)
+            articles.extend(found)
+            logs.append(f"dcinside ok: {query} ({len(found)})")
+            time.sleep(0.55)
+        except Exception as exc:
+            logs.append(f"dcinside skip: {query} ({type(exc).__name__})")
+    return articles, logs
+
+
+def collect_clien(source: dict) -> tuple[list[dict], list[str]]:
+    articles: list[dict] = []
+    logs: list[str] = []
+    base_url = str(source.get("url", "https://www.clien.net/service/board/")).rstrip("/") + "/"
+    boards = source.get("boards", [])
+
+    for board in boards:
+        board_id = clean_text(str(board.get("id", "")))
+        board_name = clean_text(str(board.get("name", ""))) or board_id
+        if not board_id:
+            continue
+        url = urllib.parse.urljoin(base_url, urllib.parse.quote(board_id, safe=""))
+        try:
+            parser = ClienBoardParser()
+            parser.feed(request_text(url, headers=COMMUNITY_HEADERS))
+            found: list[dict] = []
+            for row in parser.items:
+                created_at = parse_kst_datetime(row.get("date", ""), "%Y-%m-%d %H:%M:%S")
+                if not created_at:
+                    continue
+                link = urllib.parse.urljoin(base_url, row.get("url", ""))
+                parsed_link = urllib.parse.urlsplit(link)
+                link = urllib.parse.urlunsplit((parsed_link.scheme, parsed_link.netloc, parsed_link.path, "", ""))
+                clien_source = dict(source)
+                clien_source["name"] = f"Clien · {board_name}"
+                article = make_article(
+                    row.get("title", ""),
+                    link,
+                    row.get("title", ""),
+                    clien_source,
+                    "community",
+                    created_at,
+                )
+                article.update({
+                    "community_origin": "domestic",
+                    "community_name": f"클리앙 · {board_name}",
+                })
+                found.append(article)
+            articles.extend(found)
+            logs.append(f"clien ok: {board_name} ({len(found)})")
+            time.sleep(0.55)
+        except Exception as exc:
+            logs.append(f"clien skip: {board_name} ({type(exc).__name__})")
+    return articles, logs
+
+
+def collect_naver_web_communities(
+    sources: list[dict],
+    queries: list[str],
+) -> tuple[list[dict], list[str]]:
+    """Discover community links through Naver Web Search when native search disallows bots."""
+    client_id = os.environ.get("NAVER_CLIENT_ID")
+    client_secret = os.environ.get("NAVER_CLIENT_SECRET")
+    if not client_id or not client_secret:
+        return [], ["naver web community skip: NAVER_CLIENT_ID/NAVER_CLIENT_SECRET not set"]
+
+    articles: list[dict] = []
+    logs: list[str] = []
+    headers = {"X-Naver-Client-Id": client_id, "X-Naver-Client-Secret": client_secret}
+    for source in sources:
+        endpoint = str(source.get("endpoint", "https://openapi.naver.com/v1/search/webkr.json"))
+        domain = str(source.get("site_domain", "")).lower().lstrip(".")
+        community_name = clean_text(str(source.get("community_name", ""))) or source.get("name", "커뮤니티")
+        for query in queries:
+            params = urllib.parse.urlencode({
+                "query": f"site:{domain} {query}",
+                "display": 5,
+                "start": 1,
+            })
+            try:
+                data = request_json(endpoint + "?" + params, headers=headers)
+                rows = data.get("items", []) if isinstance(data, dict) else []
+                found: list[dict] = []
+                for row in rows:
+                    link = str(row.get("link", ""))
+                    hostname = (urllib.parse.urlsplit(link).hostname or "").lower()
+                    if not domain or not (hostname == domain or hostname.endswith("." + domain)):
+                        continue
+                    article = make_article(
+                        row.get("title", ""),
+                        link,
+                        row.get("description", ""),
+                        source,
+                        "community",
+                        now_iso(),
+                    )
+                    article.update({
+                        "community_origin": "domestic",
+                        "community_name": community_name,
+                        "date_is_estimated": True,
+                        "collected_at": article["created_at"],
+                    })
+                    found.append(article)
+                articles.extend(found)
+                logs.append(f"naver web community ok: {community_name} {query} ({len(found)})")
+                time.sleep(0.2)
+            except Exception as exc:
+                logs.append(f"naver web community skip: {community_name} {query} ({type(exc).__name__})")
+    return articles, logs
+
+
 def collect_reddit(queries: list[str], source: dict) -> tuple[list[dict], list[str]]:
     articles: list[dict] = []
     logs: list[str] = []
+
+    api_approved = os.environ.get("REDDIT_DATA_API_APPROVED", "").strip().lower() in {"1", "true", "yes"}
+    if not api_approved:
+        return [], ["reddit skip: REDDIT_DATA_API_APPROVED is not true"]
 
     client_id = os.environ.get("REDDIT_CLIENT_ID", "").strip()
     client_secret = os.environ.get("REDDIT_CLIENT_SECRET", "").strip()
@@ -722,10 +1014,36 @@ def fallback_reaction_summary(item: dict) -> str:
     return f"원문에서는 {text} 관련 반응이나 논의가 있었다."
 
 
+def community_source_family(item: dict) -> str:
+    source = str(item.get("source_name", "")).lower()
+    if source.startswith("naver cafe"):
+        return "naver_cafe"
+    if source.startswith("dcinside"):
+        return "dcinside"
+    if source.startswith("clien"):
+        return "clien"
+    if source.startswith("fmkorea"):
+        return "fmkorea"
+    if source.startswith("reddit"):
+        return "reddit"
+    if source.startswith("hacker news"):
+        return "hacker_news"
+    return source or "other"
+
+
 def prepare_community_items(items: list[dict], limit: int | None = None) -> list[dict]:
-    prepared = sorted(items, key=lambda a: a.get("created_at", ""), reverse=True)
-    if limit is not None:
-        prepared = prepared[:limit]
+    ordered = sorted(items, key=lambda a: a.get("created_at", ""), reverse=True)
+    if limit is None:
+        prepared = ordered
+    else:
+        buckets: dict[str, list[dict]] = {}
+        for item in ordered:
+            buckets.setdefault(community_source_family(item), []).append(item)
+        prepared = []
+        while len(prepared) < limit and any(buckets.values()):
+            for bucket in buckets.values():
+                if bucket and len(prepared) < limit:
+                    prepared.append(bucket.pop(0))
     for item in prepared:
         item.pop("importance_score", None)
         item.pop("importance", None)
@@ -810,15 +1128,61 @@ def enrich_community_reactions(items: list[dict], logs: list[str]) -> tuple[list
         return items, fallback_sentiment
 
 
-def dedupe_rank(articles: list[dict]) -> list[dict]:
-    seen: set[str] = set()
-    unique: list[dict] = []
+def briefing_window(now: dt.datetime | None = None) -> tuple[dt.datetime, dt.datetime]:
     kst = dt.timezone(dt.timedelta(hours=9))
-    now = dt.datetime.now(kst)
+    now = (now or dt.datetime.now(kst)).astimezone(kst)
     window_end = now.replace(hour=7, minute=0, second=0, microsecond=0)
     if now < window_end:
         window_end -= dt.timedelta(days=1)
-    window_start = window_end - dt.timedelta(days=1)
+    return window_end - dt.timedelta(days=1), window_end
+
+
+def recent_archived_community_urls(days: int = 7) -> set[str]:
+    """Return URLs from earlier daily snapshots, excluding today's rerunnable snapshot."""
+    kst = dt.timezone(dt.timedelta(hours=9))
+    today = dt.datetime.now(kst).date()
+    cutoff = today - dt.timedelta(days=days)
+    seen: set[str] = set()
+    for path in ARCHIVE_DIR.glob("*.json"):
+        try:
+            archive_date = dt.date.fromisoformat(path.stem)
+        except ValueError:
+            continue
+        if not (cutoff <= archive_date < today):
+            continue
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        for item in payload.get("community_items", []):
+            url = canonical_url(str(item.get("source_url", "")))
+            if url:
+                seen.add(url)
+    return seen
+
+
+def suppress_seen_estimated_community(items: list[dict], logs: list[str]) -> list[dict]:
+    seen = recent_archived_community_urls()
+    if not seen:
+        return items
+    kept: list[dict] = []
+    skipped = 0
+    for item in items:
+        url = canonical_url(str(item.get("source_url", "")))
+        if item.get("date_is_estimated") and url in seen:
+            skipped += 1
+            continue
+        kept.append(item)
+    if skipped:
+        logs.append(f"community history dedupe: skipped {skipped} estimated-date items seen in prior 7 days")
+    return kept
+
+
+def dedupe_rank(articles: list[dict], limit: int | None = MAX_ITEMS) -> list[dict]:
+    seen: set[str] = set()
+    unique: list[dict] = []
+    kst = dt.timezone(dt.timedelta(hours=9))
+    window_start, window_end = briefing_window()
     
     for article in articles:
         url = article.get("source_url") or ""
@@ -828,13 +1192,16 @@ def dedupe_rank(articles: list[dict]) -> list[dict]:
         seen.add(key)
         
         # Keep only articles in the latest Seoul 07:00-to-07:00 briefing window.
-        try:
-            created_at = dt.datetime.fromisoformat(article["created_at"].replace("Z", "+00:00"))
-            created_at = created_at.astimezone(kst)
-            if not (window_start <= created_at < window_end):
-                continue
-        except Exception:
-            pass
+        # Some official search APIs omit publication timestamps. Those items
+        # use collection time and are deduplicated against recent archives.
+        if not article.get("date_is_estimated"):
+            try:
+                created_at = dt.datetime.fromisoformat(article["created_at"].replace("Z", "+00:00"))
+                created_at = created_at.astimezone(kst)
+                if not (window_start <= created_at < window_end):
+                    continue
+            except Exception:
+                pass
             
         if is_relevant(article):
             unique.append(article)
@@ -846,9 +1213,10 @@ def dedupe_rank(articles: list[dict]) -> list[dict]:
         category_score.get(a.get("category"), 0),
         a.get("created_at", ""),
     ), reverse=True)
-    for i, article in enumerate(unique[:MAX_ITEMS]):
+    selected = unique if limit is None else unique[:limit]
+    for i, article in enumerate(selected):
         article["placement"] = "top" if i == 0 else ("main" if i < 7 else "side")
-    return unique[:MAX_ITEMS]
+    return selected
 
 
 def llm_is_configured() -> bool:
@@ -1252,6 +1620,22 @@ def main() -> int:
     logs.extend(new_logs)
 
     social_sources = {s.get("name"): s for s in sources if s.get("group") == "social_community"}
+    if "DCInside" in social_sources:
+        found, new_logs = collect_dcinside(COMMUNITY_SEARCH_QUERIES, social_sources["DCInside"])
+        all_articles.extend(found)
+        logs.extend(new_logs)
+    if "Clien" in social_sources:
+        found, new_logs = collect_clien(social_sources["Clien"])
+        all_articles.extend(found)
+        logs.extend(new_logs)
+    naver_web_sources = [
+        source for source in social_sources.values()
+        if source.get("collection_method") == "naver_web_search"
+    ]
+    if naver_web_sources:
+        found, new_logs = collect_naver_web_communities(naver_web_sources, COMMUNITY_SEARCH_QUERIES)
+        all_articles.extend(found)
+        logs.extend(new_logs)
     if "Hacker News Algolia" in social_sources:
         found, new_logs = collect_hn(en_queries, social_sources["Hacker News Algolia"])
         all_articles.extend(found)
@@ -1264,9 +1648,10 @@ def main() -> int:
 
     news_candidates = [article for article in all_articles if not is_community_article(article)]
     community_candidates = [article for article in all_articles if is_community_article(article)]
+    community_candidates = suppress_seen_estimated_community(community_candidates, logs)
 
     ranked = dedupe_rank(news_candidates)
-    community_items = dedupe_rank(community_candidates)
+    community_items = dedupe_rank(community_candidates, limit=None)
     if not ranked:
         print("No relevant articles collected; articles.json not changed.", file=sys.stderr)
         for line in logs:

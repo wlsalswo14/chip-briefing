@@ -81,7 +81,7 @@
           "name": "Reddit",
           "type": "api",
           "url": "https://www.reddit.com/",
-          "requires_env": ["REDDIT_CLIENT_ID", "REDDIT_CLIENT_SECRET", "REDDIT_USER_AGENT"],
+          "requires_env": ["REDDIT_CLIENT_ID", "REDDIT_CLIENT_SECRET", "REDDIT_USER_AGENT", "REDDIT_DATA_API_APPROVED"],
           "trust_default": "low",
           "category_default": "community",
           "notes": "Use API/PRAW for subreddits and search. Link back to original threads."
@@ -93,6 +93,41 @@
           "trust_default": "low",
           "category_default": "community",
           "notes": "Good for design, EDA, architecture discussions."
+        },
+        {
+          "name": "DCInside",
+          "type": "html_search",
+          "endpoint": "https://search.dcinside.com/post",
+          "collection_method": "dcinside_search",
+          "trust_default": "low",
+          "category_default": "community",
+          "notes": "Read title, gallery, URL, and timestamp from the public latest-post search. Do not open post bodies."
+        },
+        {
+          "name": "Clien",
+          "type": "html_board",
+          "url": "https://www.clien.net/service/board/",
+          "collection_method": "clien_boards",
+          "boards": [
+            {"id": "park", "name": "모두의공원"},
+            {"id": "cm_stock", "name": "주식한당"},
+            {"id": "cm_ai", "name": "AI당"}
+          ],
+          "trust_default": "low",
+          "category_default": "community",
+          "notes": "Read article-row metadata only from public board paths allowed by robots.txt. Do not call the disallowed search path."
+        },
+        {
+          "name": "FMKorea",
+          "type": "api",
+          "endpoint": "https://openapi.naver.com/v1/search/webkr.json",
+          "site_domain": "fmkorea.com",
+          "community_name": "에펨코리아",
+          "collection_method": "naver_web_search",
+          "requires_env": ["NAVER_CLIENT_ID", "NAVER_CLIENT_SECRET"],
+          "trust_default": "low",
+          "category_default": "community",
+          "notes": "Discover public FMKorea links through the official Naver Web Search API because FMKorea disallows generic bots on native search paths."
         }
       ]
     }

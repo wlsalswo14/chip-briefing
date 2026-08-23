@@ -51,7 +51,8 @@ function sourceLink(article) {
 function articleMeta(article) {
   const score = Number(article.importance_score || article.importance || 0);
   const scoreLabel = score ? `<span class="weight">W${score}</span>` : "";
-  return `<span class="sector">${esc(article.sector || "반도체")}</span>${scoreLabel}<span>${esc(article.source_name || "출처 미상")}</span><span>${esc(fmt(article.created_at, true))}</span>`;
+  const date = `${article.date_is_estimated ? "수집 " : ""}${fmt(article.created_at, true)}`;
+  return `<span class="sector">${esc(article.sector || "반도체")}</span>${scoreLabel}<span>${esc(article.source_name || "출처 미상")}</span><span>${esc(date)}</span>`;
 }
 
 function rankedArticle(article, index) {
@@ -182,7 +183,7 @@ function openReader(articleId, returnFocus = document.activeElement) {
   state.previousFocus = returnFocus;
   $("archive-reader-meta").innerHTML = articleMeta(article);
   $("archive-reader-title").textContent = article.headline || "";
-  $("archive-reader-date").textContent = fmt(article.created_at);
+  $("archive-reader-date").textContent = `${article.date_is_estimated ? "수집 시각 " : ""}${fmt(article.created_at)}`;
   $("archive-reader-source").innerHTML = sourceLink(article);
   $("archive-reader-body").innerHTML = para(article.body);
   $("archive-reader").classList.add("open");

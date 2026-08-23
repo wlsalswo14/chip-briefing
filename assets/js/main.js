@@ -63,7 +63,8 @@ import {
     const origin = communityOrigin(a);
     const label = origin === "reddit" ? "Reddit" : origin === "domestic" ? "국내 커뮤니티" : "글로벌 커뮤니티";
     const place = a.community_name || a.source_name || "커뮤니티";
-    return `<span class="origin-label">${esc(label)}</span><span>${esc(place)}</span><span>${esc(fmt(a.created_at, true))}</span>`;
+    const date = `${a.date_is_estimated ? "수집 " : ""}${fmt(a.created_at, true)}`;
+    return `<span class="origin-label">${esc(label)}</span><span>${esc(place)}</span><span>${esc(date)}</span>`;
   }
   function sourceLink(a) {
     const href = safeUrl(a.source_url);
@@ -170,9 +171,10 @@ import {
       : `<span class="sector">${esc(a.sector || "반도체")}</span>`;
     const source = isCommunity ? (a.community_name || a.source_name || "커뮤니티") : (a.source_name || "출처 미상");
     const summary = isCommunity ? (a.reaction_summary || excerpt(a.body, 150)) : excerpt(a.body, 150);
+    const date = `${isCommunity && a.date_is_estimated ? "수집 " : ""}${fmt(a.created_at, true)}`;
     return `<article class="feed-row" data-id="${esc(a.id)}" role="button" tabindex="0">
       <div class="meta">${first}</div>
-      <div class="feed-source">${esc(source)}<br>${esc(fmt(a.created_at, true))}</div>
+      <div class="feed-source">${esc(source)}<br>${esc(date)}</div>
       <div class="feed-title">${esc(a.headline)}</div>
       <div class="feed-summary">${esc(summary)}</div>
     </article>`;
@@ -201,7 +203,7 @@ import {
     previousFocus = returnFocus;
     $("reader-sector").innerHTML = (a.category === "community" || a.raw_source_type === "community") ? communityMeta(a) : badge(a);
     $("reader-title").textContent = a.headline || "";
-    $("reader-date").textContent = fmt(a.created_at);
+    $("reader-date").textContent = `${a.date_is_estimated ? "수집 시각 " : ""}${fmt(a.created_at)}`;
     $("reader-source").innerHTML = sourceLink(a);
     const reaction = a.reaction_summary ? `<p><strong>반응 요약</strong><br>${esc(a.reaction_summary)}</p>` : "";
     $("reader-body").innerHTML = reaction + para(a.body);
