@@ -61,6 +61,24 @@ def trim(text: str, limit: int) -> str:
     return text if len(text) <= limit else text[: limit - 1].rstrip() + "…"
 
 
+def split_telegram_message(message: str, limit: int = 3900) -> list[str]:
+    """Split on balanced HTML block boundaries below Telegram's 4096-char limit."""
+    blocks = [block.strip() for block in message.split("\n\n") if block.strip()]
+    chunks: list[str] = []
+    current = ""
+    for block in blocks:
+        candidate = f"{current}\n\n{block}" if current else block
+        if len(candidate) <= limit:
+            current = candidate
+            continue
+        if current:
+            chunks.append(current)
+        current = block
+    if current:
+        chunks.append(current)
+    return chunks
+
+
 def telegram(method: str, payload: dict, token: str) -> dict:
     url = f"https://api.telegram.org/bot{token}/{method}"
     body = urllib.parse.urlencode(payload).encode("utf-8")
@@ -85,7 +103,7 @@ def build_archive_message() -> str:
     articles = data.get("articles", [])
     community_items = data.get("community_items", [])
     daily_summary = data.get("daily_summary", "")
-    community_sentiment = data.get("community_sentiment", "")
+    community_sentiment = data.get("community_summary") or data.get("community_sentiment", "")
     by_sector: dict[str, int] = {}
     for article in articles:
         by_sector[article.get("sector", "기타")] = by_sector.get(article.get("sector", "기타"), 0) + 1
@@ -106,7 +124,7 @@ def build_archive_message() -> str:
         lines.append(clean_html(trim(daily_summary, 900)))
         lines.append("")
     if community_sentiment:
-        lines.append("<b>[Community Sentiment]</b>")
+        lines.append("<b>[Community TOP 10 Summary]</b>")
         lines.append(clean_html(trim(community_sentiment, 700)))
         lines.append("")
 
@@ -122,13 +140,14 @@ def build_archive_message() -> str:
         lines.append("")
 
     if community_items:
-        lines.append("<b>[Community Signals]</b>")
-        for i, article in enumerate(community_items[:5], 1):
-            title = clean_html(trim(article.get("headline", ""), 100))
+        lines.append("<b>[Community TOP 10]</b>")
+        for i, article in enumerate(community_items[:10], 1):
+            topic = clean_html(trim(article.get("topic") or article.get("headline", ""), 100))
             reaction = clean_html(trim(article.get("reaction_summary") or article.get("body", ""), 220))
             source = clean_html(article.get("source_name", ""))
             url = clean_html(article.get("source_url", ""))
-            lines.append(f"{i}. <a href=\"{url}\">{title}</a> ({source})")
+            score = int(article.get("community_score", 0) or 0)
+            lines.append(f"{i}. [W{score}] <a href=\"{url}\">{topic}</a> ({source})")
             if reaction:
                 lines.append(reaction)
         lines.append("")
@@ -144,17 +163,18 @@ def main() -> int:
         return 0
 
     try:
-        message = build_archive_message()
-        telegram(
-            "sendMessage",
-            {
-                "chat_id": chat_id,
-                "text": message,
-                "parse_mode": "HTML",
-                "disable_web_page_preview": "true",
-            },
-            token,
-        )
+        messages = split_telegram_message(build_archive_message())
+        for message in messages:
+            telegram(
+                "sendMessage",
+                {
+                    "chat_id": chat_id,
+                    "text": message,
+                    "parse_mode": "HTML",
+                    "disable_web_page_preview": "true",
+                },
+                token,
+            )
         if os.environ.get("TELEGRAM_SEND_RUN_LOG", "1") != "0":
             telegram(
                 "sendMessage",
@@ -171,7 +191,7 @@ def main() -> int:
     except Exception as exc:
         print(f"telegram failed: {type(exc).__name__}: {exc}")
         return 0
-    print("telegram ok: archive message sent")
+    print(f"telegram ok: archive message sent ({len(messages)} parts)")
     return 0
 
 

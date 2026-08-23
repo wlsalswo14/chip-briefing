@@ -59,7 +59,8 @@ TIMEOUT = int(os.environ.get("CHIP_BRIEFING_TIMEOUT", "15"))
 socket.setdefaulttimeout(TIMEOUT)
 
 MAX_ITEMS = int(os.environ.get("CHIP_BRIEFING_MAX_ITEMS", "100"))
-MAX_COMMUNITY_ITEMS = int(os.environ.get("CHIP_BRIEFING_MAX_COMMUNITY_ITEMS", "40"))
+MAX_COMMUNITY_ITEMS = int(os.environ.get("CHIP_BRIEFING_MAX_COMMUNITY_ITEMS", "10"))
+COMMUNITY_CANDIDATE_LIMIT = int(os.environ.get("CHIP_BRIEFING_COMMUNITY_CANDIDATE_LIMIT", "20"))
 HF_TOKEN = (
     os.environ.get("HF_TOKEN")
     or os.environ.get("HUGGINGFACE_TOKEN")
@@ -335,6 +336,8 @@ class DCInsideSearchParser(HTMLParser):
         if tag == "a" and "tit_txt" in classes:
             self.current = {"url": attr.get("href", "")}
             self.begin_capture("title", tag)
+        elif self.current is not None and tag == "p" and "link_dsc_txt" in classes and "dsc_sub" not in classes:
+            self.begin_capture("snippet", tag)
         elif self.current is not None and tag == "a" and "sub_txt" in classes:
             self.begin_capture("community", tag)
         elif self.current is not None and tag == "span" and "date_time" in classes:
@@ -397,6 +400,8 @@ class ClienBoardParser(HTMLParser):
             self.begin_capture("title", tag)
         elif tag == "span" and "subject_fixed" in classes and attr.get("title"):
             self.current["title"] = clean_text(attr["title"])
+        elif tag == "span" and "icon_pic" in classes:
+            self.current["has_image"] = "true"
         elif tag == "span" and "timestamp" in classes:
             self.begin_capture("date", tag)
 
@@ -665,7 +670,7 @@ def collect_dcinside(queries: list[str], source: dict) -> tuple[list[dict], list
                 article = make_article(
                     row.get("title", ""),
                     row.get("url", ""),
-                    row.get("title", ""),
+                    row.get("snippet", "") or row.get("title", ""),
                     dc_source,
                     "community",
                     created_at,
@@ -730,6 +735,7 @@ def collect_clien(source: dict) -> tuple[list[dict], list[str]]:
                     article.update({
                         "community_origin": "domestic",
                         "community_name": f"클리앙 · {board_name}",
+                        "has_image": row.get("has_image") == "true",
                     })
                     found.append(article)
 
@@ -799,6 +805,7 @@ def collect_naver_web_communities(
                         "community_name": community_name,
                         "date_is_estimated": True,
                         "collected_at": article["created_at"],
+                        "has_image": bool(row.get("thumbnail")),
                     })
                     found.append(article)
                 articles.extend(found)
@@ -899,6 +906,11 @@ def collect_reddit(queries: list[str], source: dict) -> tuple[list[dict], list[s
                     "score": int(row.get("score", 0) or 0),
                     "comment_count": int(row.get("num_comments", 0) or 0),
                     "upvote_ratio": float(row.get("upvote_ratio", 0) or 0),
+                    "has_image": bool(row.get("is_gallery"))
+                    or str(row.get("post_hint", "")).lower() == "image"
+                    or str(row.get("url_overridden_by_dest", "")).lower().endswith(
+                        (".jpg", ".jpeg", ".png", ".gif", ".webp")
+                    ),
                 })
                 found.append(article)
             articles.extend(found)
@@ -1030,13 +1042,129 @@ def sort_by_importance(articles: list[dict], limit: int | None = None, assign_pl
     return sorted_articles
 
 
+COMMUNITY_DESIGN_TERMS = [
+    "asic", "gpu", "npu", "tpu", "soc", "chiplet", "risc-v", "risc v", "arm",
+    "cuda", "architecture", "interconnect", "nvlink", "ucie", "cxl", "serdes",
+    "eda", "rtl", "verilog", "vhdl", "ip core", "inference chip", "ai accelerator",
+    "fabless", "custom silicon", "설계", "아키텍처", "가속기", "칩렛", "인터커넥트",
+    "팹리스", "반도체 ip", "커스텀 실리콘", "추론칩",
+]
+
+COMMUNITY_FRONTIER_COMPANIES = [
+    "nvidia", "엔비디아", "amd", "broadcom", "브로드컴", "qualcomm", "퀄컴",
+    "arm", "tsmc", "삼성전자", "samsung foundry", "sk hynix", "sk하이닉스",
+    "intel", "인텔", "micron", "마이크론", "asml", "synopsys", "시놉시스",
+    "cadence", "케이던스", "cerebras", "세레브라스", "groq", "tenstorrent",
+    "텐스토렌트", "sifive", "rapidus", "라피더스", "rebelions", "리벨리온",
+    "furiosa", "퓨리오사", "deepx", "딥엑스",
+]
+
+COMMUNITY_FRONTIER_TECH_TERMS = [
+    "hbm4", "hbm4e", "2nm", "1.4nm", "gaa", "nanosheet", "high na", "high-na",
+    "euv", "cowos", "soic", "hybrid bonding", "silicon photonics", "cpo",
+    "첨단 패키징", "하이브리드 본딩", "실리콘 포토닉스", "유리기판",
+]
+
+COMMUNITY_PHOTO_TITLE_PATTERNS = [
+    re.compile(pattern, re.I)
+    for pattern in [
+        r"(?:^|[\[\(\s])사진(?:[\]\)\s]|$)",
+        r"(?:^|[\[\(\s])포토(?:[\]\)\s]|$)",
+        r"(?:^|[\[\(\s])짤(?:방)?(?:[\]\)\s]|$)",
+        r"(?:^|[\[\(\s])움짤(?:[\]\)\s]|$)",
+        r"(?:^|[\[\(\s])스샷(?:[\]\)\s]|$)",
+        r"스크린\s*샷|사진\s*有|사진\s*있음|이미지\s*첨부|사진\s*첨부",
+        r"\.(?:jpe?g|png|gif|webp)(?:\s|$)",
+        r"(?:^|[\[\(\s])photo(?:s)?(?:[\]\)\s]|$)",
+        r"(?:^|[\[\(\s])image(?:s)?(?:[\]\)\s]|$)",
+    ]
+]
+
+
+def community_text(item: dict) -> str:
+    return clean_text(f"{item.get('headline', '')} {item.get('body', '')}").lower()
+
+
+def matching_community_terms(text: str, terms: list[str]) -> list[str]:
+    return [term for term in terms if keyword_matches(text, term)]
+
+
+def community_photo_reason(item: dict) -> str:
+    if item.get("has_image"):
+        return "source image flag"
+    title = clean_text(str(item.get("headline", "")))
+    if any(pattern.search(title) for pattern in COMMUNITY_PHOTO_TITLE_PATTERNS):
+        return "photo marker in title"
+    url = str(item.get("source_url", "")).lower().split("?", 1)[0]
+    if url.endswith((".jpg", ".jpeg", ".png", ".gif", ".webp")):
+        return "image URL"
+    if (urllib.parse.urlsplit(url).hostname or "").lower() in {"i.redd.it", "imgur.com", "i.imgur.com"}:
+        return "image host"
+    return ""
+
+
+def exclude_photo_community_items(items: list[dict], logs: list[str]) -> list[dict]:
+    kept: list[dict] = []
+    excluded = 0
+    for item in items:
+        reason = community_photo_reason(item)
+        if reason:
+            excluded += 1
+            continue
+        kept.append(item)
+    if excluded:
+        logs.append(f"community photo filter: excluded {excluded} items")
+    return kept
+
+
+def fallback_community_topic(item: dict) -> str:
+    topic = re.sub(r"^\s*[\[\(][^\]\)]{1,18}[\]\)]\s*", "", clean_text(item.get("headline", "")))
+    return topic[:70].rstrip() or "반도체 업계 이슈"
+
+
 def fallback_reaction_summary(item: dict) -> str:
-    text = clean_text(item.get("body", "") or item.get("headline", ""))
-    if len(text) > 180:
-        text = text[:179].rstrip() + "..."
-    if not text:
-        text = clean_text(item.get("headline", ""))
-    return f"원문에서는 {text} 관련 반응이나 논의가 있었다."
+    topic = item.get("topic") or fallback_community_topic(item)
+    body = clean_text(item.get("body", ""))
+    headline = clean_text(item.get("headline", ""))
+    if not body or body == headline or re.fullmatch(r"https?://\S+", body):
+        return f"{topic} 관련 정보 공유가 중심이며, 제공된 문구에서는 뚜렷한 찬반 반응이 확인되지 않았다."
+    if len(body) > 150:
+        body = body[:149].rstrip() + "..."
+    return f"{topic}에 대해 게시글은 ‘{body}’라는 관점이나 정보를 공유했다."
+
+
+def fallback_community_score(item: dict) -> tuple[int, list[str]]:
+    text = community_text(item)
+    headline_text = clean_text(item.get("headline", "")).lower()
+    design = matching_community_terms(text, COMMUNITY_DESIGN_TERMS)
+    companies = matching_community_terms(text, COMMUNITY_FRONTIER_COMPANIES)
+    frontier_tech = matching_community_terms(text, COMMUNITY_FRONTIER_TECH_TERMS)
+    headline_design = matching_community_terms(headline_text, COMMUNITY_DESIGN_TERMS)
+    headline_companies = matching_community_terms(headline_text, COMMUNITY_FRONTIER_COMPANIES)
+    reasons: list[str] = []
+    score = 2
+    if headline_design or design:
+        score = max(score, 4)
+        reasons.append("설계 주제")
+    if headline_companies or companies:
+        score = max(score, 4)
+        reasons.append("프론티어 기업")
+    if headline_design and headline_companies:
+        score = 5
+    elif frontier_tech:
+        score = max(score, 3)
+        reasons.append("첨단 기술")
+
+    body = clean_text(item.get("body", ""))
+    headline = clean_text(item.get("headline", ""))
+    if body and body != headline and len(body) >= 50 and score < 4:
+        score += 1
+        reasons.append("구체적 논점")
+    engagement = int(item.get("comment_count", 0) or 0) + int(item.get("score", 0) or 0)
+    if engagement >= 20 and score < 4:
+        score += 1
+        reasons.append("활발한 반응")
+    return clamp_importance_score(score), reasons[:3]
 
 
 def community_source_family(item: dict) -> str:
@@ -1056,35 +1184,82 @@ def community_source_family(item: dict) -> str:
     return source or "other"
 
 
-def prepare_community_items(items: list[dict], limit: int | None = None) -> list[dict]:
-    ordered = sorted(items, key=lambda a: a.get("created_at", ""), reverse=True)
-    if limit is None:
-        prepared = ordered
-    else:
-        buckets: dict[str, list[dict]] = {}
-        for item in ordered:
-            buckets.setdefault(community_source_family(item), []).append(item)
-        prepared = []
-        while len(prepared) < limit and any(buckets.values()):
-            for bucket in buckets.values():
-                if bucket and len(prepared) < limit:
-                    prepared.append(bucket.pop(0))
-    for item in prepared:
+def rank_community_items(
+    items: list[dict],
+    limit: int = MAX_COMMUNITY_ITEMS,
+    source_cap: int | None = None,
+) -> list[dict]:
+    for item in items:
+        fallback_score, reasons = fallback_community_score(item)
+        item["community_score"] = clamp_importance_score(item.get("community_score"), fallback_score)
+        item["priority_reasons"] = item.get("priority_reasons") or reasons
+        item["topic"] = item.get("topic") or fallback_community_topic(item)
+        item["reaction_summary"] = item.get("reaction_summary") or fallback_reaction_summary(item)
         item.pop("importance_score", None)
         item.pop("importance", None)
         item.pop("placement", None)
-        item["reaction_summary"] = item.get("reaction_summary") or fallback_reaction_summary(item)
-    return prepared
+
+    ordered = sorted(
+        items,
+        key=lambda item: (
+            int(item.get("community_score", 0) or 0),
+            int(item.get("comment_count", 0) or 0) + int(item.get("score", 0) or 0),
+            item.get("created_at", ""),
+        ),
+        reverse=True,
+    )
+    source_cap = source_cap if source_cap is not None else max(1, (limit * 2 + 4) // 5)
+    selected: list[dict] = []
+    selected_ids: set[str] = set()
+    family_counts: dict[str, int] = {}
+    for item in ordered:
+        family = community_source_family(item)
+        if family_counts.get(family, 0) >= source_cap:
+            continue
+        selected.append(item)
+        selected_ids.add(str(item.get("id", "")))
+        family_counts[family] = family_counts.get(family, 0) + 1
+        if len(selected) >= limit:
+            break
+    if len(selected) < limit:
+        for item in ordered:
+            if str(item.get("id", "")) in selected_ids:
+                continue
+            selected.append(item)
+            if len(selected) >= limit:
+                break
+    for rank, item in enumerate(selected, 1):
+        item["community_rank"] = rank
+    return selected
+
+
+def prepare_community_items(items: list[dict], limit: int | None = None) -> list[dict]:
+    """Backward-compatible entry point for ranked community preparation."""
+    return rank_community_items(items, limit or len(items) or MAX_COMMUNITY_ITEMS)
 
 
 def enrich_community_reactions(items: list[dict], logs: list[str]) -> tuple[list[dict], str]:
-    items = prepare_community_items(items, MAX_COMMUNITY_ITEMS)
+    items = exclude_photo_community_items(items, logs)
+    items = rank_community_items(
+        items,
+        max(MAX_COMMUNITY_ITEMS, COMMUNITY_CANDIDATE_LIMIT),
+        source_cap=max(4, COMMUNITY_CANDIDATE_LIMIT * 2 // 5),
+    )
     if not items:
         return items, ""
 
-    fallback_sentiment = " / ".join(item.get("reaction_summary", "") for item in items[:3] if item.get("reaction_summary"))
+    def finalize(rows: list[dict], summary: str = "") -> tuple[list[dict], str]:
+        rows = [item for item in rows if not item.get("llm_image_post")]
+        rows = rank_community_items(rows, MAX_COMMUNITY_ITEMS, source_cap=4)
+        fallback_lines = [
+            f"{item.get('topic')}: {item.get('reaction_summary')}"
+            for item in rows[:3]
+            if item.get("reaction_summary")
+        ]
+        return rows, summary or "\n".join(fallback_lines)
+
     if not llm_is_configured():
-        return items, fallback_sentiment
+        return finalize(items)
 
     prompt_items = [
         {
@@ -1093,15 +1268,29 @@ def enrich_community_reactions(items: list[dict], logs: list[str]) -> tuple[list
             "source": item.get("source_name", ""),
             "snippet": item.get("body", ""),
             "url": item.get("source_url", ""),
+            "initial_score": item.get("community_score", 0),
+            "priority_reasons": item.get("priority_reasons", []),
+            "has_image": bool(item.get("has_image")),
         }
         for item in items
     ]
     instruction = (
-        "Return JSON only. You are summarizing community reactions, not confirmed news. "
-        "For each item, write reaction_summary in Korean in one concise sentence using the style "
-        "'이런 상황에서 이런 반응이 있었다'. Do not assign scores. Do not state rumors as facts. "
-        "Also write community_sentiment in Korean in 2-3 lines summarizing recurring reactions. "
-        "Schema: {\"community_sentiment\":\"...\", \"items\":[{\"id\":\"...\", \"reaction_summary\":\"...\"}]}"
+        "Return JSON only. Evaluate semiconductor community posts using only the supplied title and snippet. "
+        "A post is not a comment corpus: summarize the viewpoint or tone expressed by the post, and never claim "
+        "community consensus. If it only shares a link or information without a stance, explicitly say in Korean "
+        "that it is information-sharing and no clear positive/negative reaction is visible. Do not state rumors as facts. "
+        "Set is_image_post=true when the metadata strongly indicates a photo, screenshot, image, meme, or gallery post; "
+        "such an item must not affect the summary. Write topic in concise Korean and reaction_summary as one concrete "
+        "Korean sentence explaining what reaction is shown toward that topic. Score 1-5: 5 only when both chip design "
+        "and a frontier semiconductor company are central to the post rather than passing mentions; 4 for either chip "
+        "design or a frontier semiconductor company; "
+        "3 for frontier process, memory, or packaging; 2 for ordinary semiconductor discussion; 1 for low-information, "
+        "promotional, or image-centric content. Frontier companies include NVIDIA, AMD, Broadcom, Qualcomm, Arm, TSMC, "
+        "Samsung Electronics, SK hynix, Intel, Micron, ASML, Synopsys, Cadence, Cerebras, Groq, Tenstorrent, SiFive, "
+        "Rapidus, Rebellions, FuriosaAI, and DeepX. community_summary_lines must contain 2-3 Korean lines describing "
+        "the dominant high-ranked topics and the reactions shown, excluding image posts. "
+        "Schema: {\"community_summary_lines\":[\"...\"],\"items\":[{\"id\":\"...\",\"topic\":\"...\","
+        "\"reaction_summary\":\"...\",\"community_score\":5,\"is_image_post\":false}]}"
     )
     is_native_gemini = "generativelanguage.googleapis.com" in LLM_BASE_URL and "gemma" in LLM_MODEL.lower()
 
@@ -1116,7 +1305,7 @@ def enrich_community_reactions(items: list[dict], logs: list[str]) -> tuple[list
                 "contents": [{"role": "user", "parts": [{"text": user_text}]}],
                 "generationConfig": {
                     "temperature": 0.2,
-                    "maxOutputTokens": 1200,
+                    "maxOutputTokens": 4000,
                     "responseMimeType": "application/json",
                 },
             }
@@ -1127,7 +1316,7 @@ def enrich_community_reactions(items: list[dict], logs: list[str]) -> tuple[list
             payload = {
                 "model": LLM_MODEL,
                 "temperature": 0.2,
-                "max_tokens": 1200,
+                "max_tokens": 4000,
                 "messages": [{"role": "user", "content": user_text}],
             }
         data = post_json(endpoint, payload, headers=headers, timeout=LLM_TIMEOUT)
@@ -1138,19 +1327,33 @@ def enrich_community_reactions(items: list[dict], logs: list[str]) -> tuple[list
             content = data["choices"][0]["message"]["content"]
         parsed = parse_llm_json(content)
         by_id = {
-            str(row.get("id")): clean_text(str(row.get("reaction_summary", "")))
+            str(row.get("id")): row
             for row in parsed.get("items", [])
             if isinstance(row, dict) and row.get("id")
         }
         for item in items:
-            summary = by_id.get(str(item.get("id", "")))
+            row = by_id.get(str(item.get("id", "")), {})
+            topic = clean_text(str(row.get("topic", "")))
+            summary = clean_text(str(row.get("reaction_summary", "")))
+            if topic:
+                item["topic"] = topic[:90]
             if summary:
                 item["reaction_summary"] = summary
-        sentiment = clean_text(str(parsed.get("community_sentiment", ""))) or fallback_sentiment
-        return items, sentiment
+            if row.get("community_score") is not None:
+                item["community_score"] = clamp_importance_score(
+                    row.get("community_score"),
+                    int(item.get("community_score", 2) or 2),
+                )
+            item["llm_image_post"] = row.get("is_image_post") is True
+        summary_lines = parsed.get("community_summary_lines", [])
+        if isinstance(summary_lines, list):
+            sentiment = "\n".join(clean_text(str(line)) for line in summary_lines if clean_text(str(line)))
+        else:
+            sentiment = clean_text(str(summary_lines))
+        return finalize(items, sentiment)
     except Exception as exc:
         logs.append(f"community reaction summary skip: {type(exc).__name__}")
-        return items, fallback_sentiment
+        return finalize(items)
 
 
 def briefing_window(now: dt.datetime | None = None) -> tuple[dt.datetime, dt.datetime]:
@@ -1562,11 +1765,13 @@ def write_articles(
     community_items = community_items or []
     daily_summary_items = select_daily_summary_items(articles)
     payload = {
-        "schema_version": 6,
+        "schema_version": 7,
         "generated_at": now_iso(),
         "daily_summary": daily_summary,
         "daily_summary_article_ids": [item.get("id", "") for item in daily_summary_items],
+        "community_summary": community_sentiment,
         "community_sentiment": community_sentiment,
+        "community_top10_ids": [item.get("id", "") for item in community_items[:MAX_COMMUNITY_ITEMS]],
         "briefing_title": "칩 브리핑",
         "sectors": ["설계", "공정", "소자", "패키징"],
         "collector": {
@@ -1685,6 +1890,13 @@ def main() -> int:
     ranked = enrich_with_llm_summaries(ranked, logs)
     ranked = sort_by_importance(ranked, MAX_ITEMS, assign_placement=True)
     community_items, community_sentiment = enrich_community_reactions(community_items, logs)
+    logs.append(
+        "community top 10: "
+        + ", ".join(
+            f"{item.get('community_rank')}:{item.get('community_score')}:{community_source_family(item)}"
+            for item in community_items
+        )
+    )
     daily_summary = generate_collection_summary(ranked, logs, "daily")
     write_articles(ranked, logs, community_items, daily_summary, community_sentiment)
     print(f"Wrote {len(ranked)} articles to {ARTICLES_PATH}")

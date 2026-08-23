@@ -14,6 +14,7 @@ class CommunityParserTests(unittest.TestCase):
         <a href="https://gall.dcinside.com/mgallery/board/view/?id=chips&amp;no=1" class="tit_txt">
           HBM <b>공급</b> 전망
         </a>
+        <p class="link_dsc_txt">설계 병목을 우려하는 반응</p>
         <a class="sub_txt">반도체산업</a>
         <span class="date_time">2026.08.22 09:30</span>
         """
@@ -24,6 +25,7 @@ class CommunityParserTests(unittest.TestCase):
             [{
                 "url": "https://gall.dcinside.com/mgallery/board/view/?id=chips&no=1",
                 "title": "HBM 공급 전망",
+                "snippet": "설계 병목을 우려하는 반응",
                 "community": "반도체산업",
                 "date": "2026.08.22 09:30",
             }],
@@ -36,6 +38,7 @@ class CommunityParserTests(unittest.TestCase):
           <a class="list_subject" href="/service/board/cm_stock/1">
             <span class="subject_fixed" title="HBM 전망"></span>
           </a>
+          <span class="icon_pic fa fa-picture-o"></span>
           <span class="timestamp">2026-08-22 10:11:12</span>
         </div>
         """
@@ -46,6 +49,7 @@ class CommunityParserTests(unittest.TestCase):
             [{
                 "url": "/service/board/cm_stock/1",
                 "title": "HBM 전망",
+                "has_image": "true",
                 "date": "2026-08-22 10:11:12",
             }],
         )
@@ -86,17 +90,48 @@ class CommunityWindowTests(unittest.TestCase):
                 self.assertEqual(collector.suppress_seen_estimated_community([item], logs), [])
                 self.assertTrue(logs)
 
-    def test_community_limit_round_robins_source_families(self):
-        items = []
-        for index in range(5):
-            items.append({"source_name": f"Naver Cafe · cafe {index}", "created_at": f"2026-08-23T07:0{index}:00+09:00"})
-        for index in range(2):
-            items.append({"source_name": f"DCInside · gallery {index}", "created_at": f"2026-08-22T12:0{index}:00+09:00"})
-        selected = collector.prepare_community_items(items, 4)
-        self.assertEqual(
-            [collector.community_source_family(item) for item in selected],
-            ["naver_cafe", "dcinside", "naver_cafe", "dcinside"],
-        )
+    def test_community_ranking_prioritizes_design_and_frontier_companies(self):
+        items = [
+            {
+                "id": "design-company",
+                "headline": "엔비디아 차세대 GPU 인터커넥트 설계",
+                "body": "새 아키텍처의 병목과 전력 효율을 두고 기대와 우려가 함께 나왔다.",
+                "source_name": "DCInside · 반도체",
+                "created_at": "2026-08-22T10:00:00+09:00",
+            },
+            {
+                "id": "company",
+                "headline": "ASML 장비 공급 전망",
+                "body": "장비 인도 일정에 관한 정보를 공유했다.",
+                "source_name": "Clien · 모두의공원",
+                "created_at": "2026-08-22T11:00:00+09:00",
+            },
+            {
+                "id": "ordinary",
+                "headline": "반도체 시장 이야기",
+                "body": "일반적인 업황 이야기를 짧게 공유했다.",
+                "source_name": "Naver Cafe · 투자",
+                "created_at": "2026-08-22T12:00:00+09:00",
+            },
+        ]
+        ranked = collector.rank_community_items(items, 3, source_cap=3)
+        self.assertEqual(ranked[0]["id"], "design-company")
+        self.assertEqual(ranked[0]["community_score"], 5)
+        self.assertIn("설계 주제", ranked[0]["priority_reasons"])
+        self.assertIn("프론티어 기업", ranked[0]["priority_reasons"])
+        self.assertEqual(ranked[1]["community_score"], 4)
+        self.assertGreater(ranked[1]["community_score"], ranked[2]["community_score"])
+
+    def test_photo_filter_uses_source_flags_and_strict_title_markers(self):
+        items = [
+            {"id": "flagged", "headline": "HBM 분석", "has_image": True},
+            {"id": "photo-title", "headline": "[사진] 웨이퍼 인증", "has_image": False},
+            {"id": "sensor", "headline": "CMOS 이미지 센서 설계", "has_image": False},
+        ]
+        logs = []
+        kept = collector.exclude_photo_community_items(items, logs)
+        self.assertEqual([item["id"] for item in kept], ["sensor"])
+        self.assertIn("excluded 2", logs[0])
 
     def test_clien_collection_pages_until_window_start(self):
         pages = [

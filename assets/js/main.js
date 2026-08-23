@@ -8,6 +8,7 @@ import {
   loadJson,
   para,
   safeUrl,
+  selectCommunityTopTen,
   selectDailyTopTen,
   sortByImportance,
 } from "./shared.js";
@@ -43,7 +44,7 @@ import {
   let summaryReturnItem = null;
   let summaryReturnScrollTop = 0;
   const articles = Array.isArray(data.articles) ? data.articles : [];
-  const communityItems = Array.isArray(data.community_items) ? data.community_items : [];
+  const communityItems = selectCommunityTopTen(data);
   const byId = Object.fromEntries(articles.concat(communityItems).map((a) => [a.id, a]));
   $("updated").textContent = fmtUpdated(data.generated_at);
 
@@ -197,6 +198,21 @@ import {
       ${metrics(a)}
     </article>`;
   }
+  function communityTopTenItem(a, index) {
+    const score = Number(a.community_score || 0);
+    const reasons = Array.isArray(a.priority_reasons) ? a.priority_reasons : [];
+    const reasonLabels = reasons.map((reason) => `<span>${esc(reason)}</span>`).join("");
+    const topic = a.topic || a.headline || "반도체 커뮤니티 이슈";
+    return `<button class="summary-top10-item community-top10-item" type="button" data-id="${esc(a.id)}" aria-label="${index + 1}위 ${esc(topic)} 자세히 보기">
+      <span class="summary-rank">${index + 1}</span>
+      <span>
+        <span class="summary-item-meta"><span class="score">W${score || "-"}</span>${reasonLabels}${communityMeta(a)}</span>
+        <h3>${esc(topic)}</h3>
+        <span class="community-post-headline">게시글 · ${esc(a.headline || "제목 없음")}</span>
+        <p><strong>반응</strong> · ${esc(a.reaction_summary || "뚜렷한 반응을 확인하지 못했습니다.")}</p>
+      </span>
+    </button>`;
+  }
   function openReader(id, returnFocus = document.activeElement) {
     const a = byId[id];
     if (!a) return;
@@ -205,8 +221,12 @@ import {
     $("reader-title").textContent = a.headline || "";
     $("reader-date").textContent = `${a.date_is_estimated ? "수집 시각 " : ""}${fmt(a.created_at)}`;
     $("reader-source").innerHTML = sourceLink(a);
+    const topic = a.topic ? `<p><strong>주제</strong><br>${esc(a.topic)}</p>` : "";
     const reaction = a.reaction_summary ? `<p><strong>반응 요약</strong><br>${esc(a.reaction_summary)}</p>` : "";
-    $("reader-body").innerHTML = reaction + para(a.body);
+    const reasons = Array.isArray(a.priority_reasons) && a.priority_reasons.length
+      ? `<p><strong>가중치 근거</strong><br>W${esc(a.community_score || "-")} · ${esc(a.priority_reasons.join(" · "))}</p>`
+      : "";
+    $("reader-body").innerHTML = topic + reaction + reasons + para(a.body);
     $("reader").classList.add("open");
     $("reader").setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
@@ -228,34 +248,16 @@ import {
   function renderCommunity() {
     renderFilters();
     const filtered = communityItems
-      .filter((item) => activeCommunity === "all" || communityOrigin(item) === activeCommunity)
-      .sort((a, b) => String(b.created_at).localeCompare(String(a.created_at)));
-    $("community-sentiment-container").innerHTML = data.community_sentiment
-      ? `${para(data.community_sentiment)}<span class="summary-note">커뮤니티 반응은 사실 확인 전 의견·추측을 포함할 수 있습니다.</span>`
-      : `<p>${communityItems.length ? "오늘 수집된 반응을 출처별로 모았습니다." : "오늘 수집된 커뮤니티 반응이 없습니다."}</p><span class="summary-note">커뮤니티 반응은 사실 확인 전 의견·추측을 포함할 수 있습니다.</span>`;
-    const lead = filtered[0];
-    const remaining = filtered.slice(1);
-    let domestic = remaining.filter((item) => communityOrigin(item) === "domestic");
-    let reddit = remaining.filter((item) => communityOrigin(item) === "reddit");
-    if (activeCommunity === "domestic") {
-      domestic = remaining.slice(0, 3);
-      reddit = remaining.slice(3, 6);
-      $("domestic-title").textContent = "국내 커뮤니티";
-      $("reddit-title").textContent = "국내 반응 더보기";
-    } else if (activeCommunity === "reddit") {
-      domestic = remaining.slice(0, 3);
-      reddit = remaining.slice(3, 6);
-      $("domestic-title").textContent = "Reddit";
-      $("reddit-title").textContent = "Reddit 더보기";
-    } else {
-      $("domestic-title").textContent = "국내 커뮤니티";
-      $("reddit-title").textContent = "Reddit";
-    }
-    $("community-lead").innerHTML = lead ? communityCard(lead, "lead") : `<div class="empty">선택한 출처의 반응이 없습니다.</div>`;
-    $("community-domestic").innerHTML = domestic.slice(0, 3).map((a) => communityCard(a)).join("") || `<div class="empty">수집된 반응이 없습니다.</div>`;
-    $("community-reddit").innerHTML = reddit.slice(0, 3).map((a) => communityCard(a)).join("") || `<div class="empty">수집된 반응이 없습니다.</div>`;
-    const shown = new Set([lead, ...domestic.slice(0, 3), ...reddit.slice(0, 3)].filter(Boolean).map((item) => item.id));
-    $("more-community").innerHTML = filtered.filter((item) => !shown.has(item.id)).map((a) => feedRow(a, true)).join("") || `<div class="empty">표시할 추가 반응이 없습니다.</div>`;
+      .filter((item) => activeCommunity === "all" || communityOrigin(item) === activeCommunity);
+    const communitySummary = data.community_summary || data.community_sentiment;
+    $("community-sentiment-container").innerHTML = communitySummary
+      ? `${para(communitySummary)}<span class="summary-note">사진 중심 게시물 제외 · 설계 및 프론티어 반도체 기업 가중치 반영 · 게시글에 드러난 반응만 요약</span>`
+      : `<p>${communityItems.length ? "오늘의 주요 커뮤니티 주제와 반응을 정리했습니다." : "오늘 수집된 커뮤니티 반응이 없습니다."}</p><span class="summary-note">커뮤니티 내용은 확인 전 의견·추측을 포함할 수 있습니다.</span>`;
+    const label = activeCommunity === "domestic" ? "국내 커뮤니티" : activeCommunity === "reddit" ? "Reddit" : "커뮤니티";
+    $("community-top-title").textContent = `${label} TOP ${filtered.length}`;
+    $("community-top10").innerHTML = filtered.length
+      ? filtered.map(communityTopTenItem).join("")
+      : `<div class="empty">선택한 출처의 TOP 10 반응이 없습니다.</div>`;
   }
   function setView(view, updateUrl = true) {
     activeView = view === "community" ? "community" : "news";

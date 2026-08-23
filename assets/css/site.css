@@ -495,6 +495,35 @@
     font-size: 13px;
     line-height: 1.6;
   }
+  .community-top-section {
+    width: min(920px, 100%);
+    margin: 22px auto 0;
+    padding: 0 8px 36px;
+  }
+  .community-top-section > h2 {
+    margin: 0;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--rule-dark);
+    font-family: var(--sans);
+    font-size: 16px;
+  }
+  .community-top-section .summary-top10 { margin-top: 0; }
+  .community-top10-item > span:last-child { min-width: 0; }
+  .community-top10-item h3,
+  .community-top10-item p,
+  .community-top10-item .community-post-headline {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+  .community-top10-item .community-post-headline {
+    display: block;
+    margin: 0 0 7px;
+    color: var(--muted);
+    font-family: var(--sans);
+    font-size: 11px;
+    line-height: 1.5;
+  }
+  .community-top10-item p strong { color: var(--ink); }
   .empty {
     padding: 34px 8px;
     color: var(--muted);

@@ -7,6 +7,7 @@ import {
   loadJson,
   para,
   safeUrl,
+  selectCommunityTopTen,
   selectDailyTopTen,
 } from "./shared.js";
 
@@ -55,6 +56,13 @@ function articleMeta(article) {
   return `<span class="sector">${esc(article.sector || "반도체")}</span>${scoreLabel}<span>${esc(article.source_name || "출처 미상")}</span><span>${esc(date)}</span>`;
 }
 
+function communityMeta(item) {
+  const score = Number(item.community_score || 0);
+  const reasons = Array.isArray(item.priority_reasons) ? item.priority_reasons : [];
+  const date = `${item.date_is_estimated ? "수집 " : ""}${fmt(item.created_at, true)}`;
+  return `<span class="weight">W${score || "-"}</span>${reasons.map((reason) => `<span>${esc(reason)}</span>`).join("")}<span>${esc(item.source_name || "커뮤니티")}</span><span>${esc(date)}</span>`;
+}
+
 function rankedArticle(article, index) {
   return `<button class="archive-ranked-item" type="button" data-article-id="${esc(article.id)}" aria-label="${index + 1}위 ${esc(article.headline)} 자세히 보기">
     <span class="archive-rank">${index + 1}</span>
@@ -71,6 +79,19 @@ function moreArticle(article) {
     <span class="archive-more-meta">${articleMeta(article)}</span>
     <h3>${esc(article.headline || "제목 없음")}</h3>
     <p>${esc(excerpt(article.body, 160) || "기사 요약을 준비 중입니다.")}</p>
+  </button>`;
+}
+
+function rankedCommunityItem(item, index) {
+  const topic = item.topic || item.headline || "반도체 커뮤니티 이슈";
+  return `<button class="archive-ranked-item" type="button" data-article-id="${esc(item.id)}" aria-label="${index + 1}위 ${esc(topic)} 자세히 보기">
+    <span class="archive-rank">${index + 1}</span>
+    <span class="archive-ranked-copy">
+      <h3>${esc(topic)}</h3>
+      <span class="archive-community-headline">게시글 · ${esc(item.headline || "제목 없음")}</span>
+      <p><strong>반응</strong> · ${esc(item.reaction_summary || "뚜렷한 반응을 확인하지 못했습니다.")}</p>
+    </span>
+    <span class="archive-ranked-meta">${communityMeta(item)}</span>
   </button>`;
 }
 
@@ -100,6 +121,7 @@ async function loadSnapshot(item) {
 function renderEdition(data, item) {
   const articles = Array.isArray(data.articles) ? data.articles : [];
   const communityItems = Array.isArray(data.community_items) ? data.community_items : [];
+  const communityTopTen = selectCommunityTopTen(data);
   const topTen = selectDailyTopTen(data);
   const topIds = new Set(topTen.map((article) => article.id));
   const remaining = articles.filter((article) => !topIds.has(article.id));
@@ -124,12 +146,17 @@ function renderEdition(data, item) {
     ? remaining.map(moreArticle).join("")
     : `<div class="empty">추가 뉴스가 없습니다.</div>`;
 
-  const hasCommunity = Boolean(data.community_sentiment) || communityItems.length > 0;
+  const hasCommunity = Boolean(data.community_summary || data.community_sentiment) || communityItems.length > 0;
   $("archive-community-section").hidden = !hasCommunity;
   if (hasCommunity) {
-    $("archive-community-summary").innerHTML = data.community_sentiment
-      ? `${para(data.community_sentiment)}<span class="summary-note">커뮤니티 의견과 추측을 요약한 내용입니다.</span>`
-      : `<p>수집된 커뮤니티 반응 ${communityItems.length.toLocaleString("ko-KR")}건</p>`;
+    const communitySummary = data.community_summary || data.community_sentiment;
+    $("archive-community-summary").innerHTML = communitySummary
+      ? `${para(communitySummary)}<span class="summary-note">사진 중심 게시물 제외 · 설계 및 프론티어 반도체 기업 가중치 반영</span>`
+      : `<p>수집된 커뮤니티 반응 ${communityTopTen.length.toLocaleString("ko-KR")}건</p>`;
+    $("archive-community-top-title").textContent = `커뮤니티 TOP ${communityTopTen.length}`;
+    $("archive-community-top10").innerHTML = communityTopTen.length
+      ? communityTopTen.map(rankedCommunityItem).join("")
+      : `<div class="empty">이날의 커뮤니티 TOP 10이 없습니다.</div>`;
   }
   document.title = `${selectedDate} · 칩 브리핑 아카이브`;
 }
@@ -181,11 +208,15 @@ function openReader(articleId, returnFocus = document.activeElement) {
   const article = state.articlesById.get(articleId);
   if (!article) return;
   state.previousFocus = returnFocus;
-  $("archive-reader-meta").innerHTML = articleMeta(article);
+  const isCommunity = Boolean(article.community_score || article.topic || article.reaction_summary);
+  $("archive-reader-meta").innerHTML = isCommunity ? communityMeta(article) : articleMeta(article);
   $("archive-reader-title").textContent = article.headline || "";
   $("archive-reader-date").textContent = `${article.date_is_estimated ? "수집 시각 " : ""}${fmt(article.created_at)}`;
   $("archive-reader-source").innerHTML = sourceLink(article);
-  $("archive-reader-body").innerHTML = para(article.body);
+  const communityDetails = isCommunity
+    ? `${article.topic ? `<p><strong>주제</strong><br>${esc(article.topic)}</p>` : ""}${article.reaction_summary ? `<p><strong>반응 요약</strong><br>${esc(article.reaction_summary)}</p>` : ""}`
+    : "";
+  $("archive-reader-body").innerHTML = communityDetails + para(article.body);
   $("archive-reader").classList.add("open");
   $("archive-reader").setAttribute("aria-hidden", "false");
   document.body.style.overflow = "hidden";

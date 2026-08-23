@@ -319,7 +319,7 @@
   line-height: 1.6;
 }
 
-.archive-community-section > div {
+.archive-community-section > #archive-community-summary {
   padding: 18px 8px;
   color: var(--muted);
   font-family: var(--serif);
@@ -328,6 +328,23 @@
 }
 
 .archive-community-section p { margin: 0 0 8px; }
+.archive-community-section > #archive-community-top10 { padding: 0; }
+.archive-community-headline {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.5;
+}
+.archive-community-section .archive-ranked-copy,
+.archive-community-section .archive-ranked-copy h3,
+.archive-community-section .archive-ranked-copy p,
+.archive-community-section .archive-community-headline {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+.archive-ranked-copy p strong { color: var(--ink); }
 
 @media (max-width: 1023px) {
   .archive-layout { grid-template-columns: 220px minmax(0, 1fr); }

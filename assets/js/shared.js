@@ -97,3 +97,30 @@ export function selectDailyTopTen(data) {
   }
   return selected.slice(0, 10);
 }
+
+export function selectCommunityTopTen(data) {
+  const items = Array.isArray(data.community_items) ? data.community_items : [];
+  const byId = new Map(items.map((item) => [item.id, item]));
+  const preferredIds = Array.isArray(data.community_top10_ids) ? data.community_top10_ids : [];
+  const selected = [];
+  const seen = new Set();
+
+  for (const id of preferredIds) {
+    const item = byId.get(id);
+    if (item && !seen.has(id)) {
+      selected.push(item);
+      seen.add(id);
+    }
+  }
+  for (const item of items.slice().sort((a, b) => {
+    const scoreDifference = Number(b.community_score || 0) - Number(a.community_score || 0);
+    if (scoreDifference) return scoreDifference;
+    return String(b.created_at || "").localeCompare(String(a.created_at || ""));
+  })) {
+    if (!seen.has(item.id)) {
+      selected.push(item);
+      seen.add(item.id);
+    }
+  }
+  return selected.slice(0, 10);
+}
