@@ -1,6 +1,13 @@
 {
-  "updated_at": "2026-08-27T12:28:29+09:00",
+  "updated_at": "2026-08-28T15:38:53+09:00",
   "items": [
+    {
+      "date": "2026-08-28",
+      "generated_at": "2026-08-28T15:38:53+09:00",
+      "file": "archive/2026-08-28.json",
+      "article_count": 73,
+      "top_headline": "Crescent Island: Turning Memory Capacity into Agentic AI Throughput"
+    },
     {
       "date": "2026-08-27",
       "generated_at": "2026-08-27T12:28:29+09:00",
