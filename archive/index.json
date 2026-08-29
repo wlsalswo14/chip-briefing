@@ -1,6 +1,13 @@
 {
-  "updated_at": "2026-08-28T15:38:53+09:00",
+  "updated_at": "2026-08-29T13:12:12+09:00",
   "items": [
+    {
+      "date": "2026-08-29",
+      "generated_at": "2026-08-29T13:12:12+09:00",
+      "file": "archive/2026-08-29.json",
+      "article_count": 76,
+      "top_headline": "Google’s Marvell Deal Shows Custom Silicon Spreading Beyond the TPU"
+    },
     {
       "date": "2026-08-28",
       "generated_at": "2026-08-28T15:38:53+09:00",
