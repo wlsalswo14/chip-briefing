@@ -2,8 +2,8 @@ name: Daily Chip Briefing Update
 
 on:
   schedule:
-    # Runs at 22:00 UTC (07:00 KST) every day
-    - cron: '0 22 * * *'
+    # Runs at 21:48 UTC (06:48 KST) every day
+    - cron: '48 21 * * *'
   workflow_dispatch: # Allows manual trigger from GitHub Actions tab
 
 permissions:

@@ -64,7 +64,7 @@ Reddit은 2026년 6월부터 API 접근 전에 명시적 승인을 요구합니�
 
 ## 자동 실행
 
-`.github/workflows/daily_update.yml`이 매일 `07:00 KST`에 GitHub 서버에서 실행됩니다. 같은 워크플로의 중복 실행은 concurrency 그룹으로 직렬화됩니다.
+`.github/workflows/daily_update.yml`이 매일 `06:48 KST`에 GitHub 서버에서 실행됩니다. 같은 워크플로의 중복 실행은 concurrency 그룹으로 직렬화됩니다.
 
 ## 기본 검사
 
