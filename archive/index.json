@@ -1,6 +1,13 @@
 {
-  "updated_at": "2026-09-11T09:01:45+09:00",
+  "updated_at": "2026-09-12T09:13:43+09:00",
   "items": [
+    {
+      "date": "2026-09-12",
+      "generated_at": "2026-09-12T09:13:43+09:00",
+      "file": "archive/2026-09-12.json",
+      "article_count": 95,
+      "top_headline": "Reducing HBM ECC Controller Overhead For AI Inference (RPI, IBM)"
+    },
     {
       "date": "2026-09-11",
       "generated_at": "2026-09-11T09:01:45+09:00",
