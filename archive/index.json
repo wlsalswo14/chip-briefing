@@ -1,6 +1,13 @@
 {
-  "updated_at": "2026-09-21T09:06:30+09:00",
+  "updated_at": "2026-09-22T09:38:19+09:00",
   "items": [
+    {
+      "date": "2026-09-22",
+      "generated_at": "2026-09-22T09:38:19+09:00",
+      "file": "archive/2026-09-22.json",
+      "article_count": 68,
+      "top_headline": "Simplifying Model Serving Across Multiple GPUs with NVIDIA TensorRT Multi-Device Integration in NVIDIA Dynamo-Triton"
+    },
     {
       "date": "2026-09-21",
       "generated_at": "2026-09-21T09:06:30+09:00",
