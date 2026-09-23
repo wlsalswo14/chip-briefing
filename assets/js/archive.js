@@ -9,7 +9,7 @@ import {
   safeUrl,
   selectCommunityTopTen,
   selectDailyTopTen,
-} from "./shared.js";
+} from "./shared.js?v=4";
 
 const state = {
   items: [],
