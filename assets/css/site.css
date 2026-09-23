@@ -689,6 +689,41 @@
     line-height: 1.5;
   }
   .manifesto-close p:last-child { margin-bottom: 0; color: var(--accent); }
+  .manifesto-invite {
+    margin-top: 46px;
+    padding: 26px 22px;
+    border: 1px solid var(--rule);
+    background: var(--wash);
+    text-align: center;
+  }
+  .manifesto .manifesto-invite p { margin: 0; }
+  .manifesto-invite > p:first-child {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.55;
+  }
+  .manifesto .manifesto-invite-sub {
+    margin-top: 8px;
+    color: var(--muted);
+    font-family: var(--sans);
+    font-size: 12px;
+    line-height: 1.6;
+  }
+  .manifesto .manifesto-invite-contact {
+    margin-top: 18px;
+    padding-top: 15px;
+    border-top: 1px solid var(--rule);
+    font-family: var(--sans);
+    font-size: 13px;
+  }
+  .manifesto-invite-contact a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(139, 30, 45, .35);
+  }
+  .manifesto-invite-contact a:hover { border-bottom-color: var(--accent); }
+  .manifesto-invite-contact span { margin: 0 9px; color: var(--rule); }
 
   @media (max-width: 900px) {
     .news-grid,
@@ -745,6 +780,11 @@
     .manifesto-lead { font-size: 18px !important; line-height: 1.5 !important; }
     .manifesto-marker { margin: 40px 0 16px; }
     .manifesto-close p { font-size: 20px; }
+    .manifesto-invite { padding: 20px 16px; }
+    .manifesto-invite > p:first-child { font-size: 16px; }
+    .manifesto .manifesto-invite-contact { font-size: 12px; }
+    .manifesto-invite-contact span { display: block; height: 0; overflow: hidden; margin: 0; }
+    .manifesto-invite-contact a { display: block; padding: 4px 0; }
   }
   @media (prefers-reduced-motion: reduce) {
     * { scroll-behavior: auto !important; transition: none !important; }
