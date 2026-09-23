@@ -87,6 +87,7 @@ def rotate_llm_key():
         _CURRENT_KEY_INDEX += 1
 
 LLM_MODEL = os.environ.get("CHIP_BRIEFING_LLM_MODEL", "")
+SUMMARY_PROMPT_VERSION = 2  # bump when the summary format changes (v2 = five lines)
 LLM_MAX_ITEMS = int(os.environ.get("CHIP_BRIEFING_LLM_MAX_ITEMS", str(MAX_ITEMS)))
 LLM_TIMEOUT = int(os.environ.get("CHIP_BRIEFING_LLM_TIMEOUT", "90"))
 LLM_BUDGET_SECONDS = int(os.environ.get("CHIP_BRIEFING_LLM_BUDGET_SECONDS", "7200"))
@@ -1607,13 +1608,40 @@ def llm_is_configured() -> bool:
     return bool(LLM_BASE_URL and LLM_MODEL)
 
 
+TOP_TRUST_SCORE = {"high": 3, "medium": 2, "low": 1}
+TOP_CATEGORY_SCORE = {"news": 3, "technology": 3, "analysis": 2, "community": 1, "rumor": 0}
+SECTOR_NAMES = ("설계", "공정", "소자", "패키징")
+
+
+def top_candidate_key(article: dict) -> tuple:
+    return (
+        fallback_importance_score(article),
+        TOP_TRUST_SCORE.get(article.get("trust"), 0),
+        TOP_CATEGORY_SCORE.get(article.get("category"), 0),
+        article.get("created_at", ""),
+    )
+
+
+def select_sector_candidates(articles: list[dict], per_sector: int = DAILY_SUMMARY_MAX_ITEMS) -> list[dict]:
+    """Choose the articles to summarize: the top N of each sector.
+
+    The list is the model's input, so it cannot depend on a model score. It uses
+    the keyword score, source trust, category and recency instead.
+    """
+    picked: list[dict] = []
+    for sector in SECTOR_NAMES:
+        rows = [article for article in articles if article.get("sector") == sector]
+        picked.extend(sorted(rows, key=top_candidate_key, reverse=True)[:per_sector])
+    return picked
+
+
 def summarize_with_llm(article: dict, source_text: str) -> tuple[str, str | None, list[str] | None, int | None]:
     system_prompt = (
         "너는 반도체 뉴스 팩트 에디터다. 독자는 평가나 배경 설명이 아니라 새로 나온 사실을 원한다. "
         "요약은 기사에서 확인되는 핵심 사실, 새 발표/변경점, 기술 세부사항, 수치, 기업명, 제품명, 공정명, 일정, 적용 대상을 중심으로 쓴다. "
         "'반도체의 중요성이 커지고 있습니다', '경쟁이 치열해지고 있습니다', '주목됩니다', '의미가 있습니다' 같은 범용 평가 문장은 금지한다. "
         "원문에 없는 전망, 투자 조언, 과장 표현은 쓰지 않는다. 원문을 베껴 쓰지 말고 한국어로 압축한다. "
-        "반드시 JSON만 출력한다. summary_lines는 3~5개의 문자열 배열이며 각 줄은 서로 다른 핵심 사실을 담는다. "
+        "반드시 JSON만 출력한다. summary_lines는 정확히 5개의 문자열 배열이며 각 줄은 서로 다른 핵심 사실을 담는다. "
         "sector는 설계, 공정, 소자, 패키징 중 하나다."
     )
     system_prompt = EDITORIAL_PRIORITY_PROMPT + "\n\n" + system_prompt
@@ -1625,14 +1653,15 @@ def summarize_with_llm(article: dict, source_text: str) -> tuple[str, str | None
         "text": source_text[:6500],
     }
     user_prompt = (
-        "다음 뉴스 후보를 칩 브리핑용으로 요약해줘.\n"
+        "다음 뉴스 후보를 칩 브리핑 TOP 10용으로 요약해줘.\n"
         "작성 규칙:\n"
-        "- 3~5줄, 각 줄은 가능한 한 구체적인 팩트로 시작\n"
+        "- 정확히 5줄, 각 줄은 가능한 한 구체적인 팩트로 시작\n"
         "- 무엇이 새로 발표/공개/변경/출하/투자/지원됐는지 먼저 말하기\n"
         "- 기술명, 노드, 세대, 용량, 속도, 수율, 장비, 패키징 방식, 고객/적용처가 있으면 포함\n"
         "- 배경 평가나 산업 일반론은 제외\n"
         "- 기사에 근거가 약하면 '확인된 내용은 ...'처럼 제한적으로 쓰기\n"
-        "JSON 형식: {\"summary_lines\":[\"팩트 중심 요약 1줄\",\"팩트 중심 요약 1줄\",\"팩트 중심 요약 1줄\"], "
+        "JSON 형식: {\"summary_lines\":[\"팩트 중심 요약 1줄\",\"팩트 중심 요약 2줄\",\"팩트 중심 요약 3줄\","
+        "\"팩트 중심 요약 4줄\",\"팩트 중심 요약 5줄\"], "
         "\"sector\":\"설계|공정|소자|패키징\", "
         "\"keywords\":[\"핵심어1\",\"핵심어2\"]}\n\n"
         + json.dumps(prompt, ensure_ascii=False)
@@ -1752,13 +1781,19 @@ def enrich_with_llm_summaries(articles: list[dict], logs: list[str]) -> list[dic
         try:
             prev_data = json.loads(ARTICLES_PATH.read_text(encoding="utf-8"))
             for art in prev_data.get("articles", []):
-                if art.get("id") and art.get("summary_method") == "llm":
+                # Only reuse summaries written with the current prompt version.
+                if (
+                    art.get("id")
+                    and art.get("summary_method") == "llm"
+                    and art.get("summary_version") == SUMMARY_PROMPT_VERSION
+                ):
                     entry = {
                         "body": art.get("body"),
                         "sector": art.get("sector"),
                         "llm_keywords": art.get("llm_keywords"),
                         "summary_model": art.get("summary_model"),
                         "importance_score": art.get("importance_score"),
+                        "summary_version": art.get("summary_version"),
                     }
                     cache[art["id"]] = entry
                     title_key = summary_cache_key(art.get("headline"))
@@ -1790,6 +1825,7 @@ def enrich_with_llm_summaries(articles: list[dict], logs: list[str]) -> list[dic
                 article["body"] = cached["body"]
                 article["summary_method"] = "llm"
                 article["summary_model"] = cached["summary_model"]
+                article["summary_version"] = cached.get("summary_version")
                 if cached.get("sector"):
                     article["sector"] = cached["sector"]
                 if cached.get("llm_keywords"):
@@ -1823,6 +1859,7 @@ def enrich_with_llm_summaries(articles: list[dict], logs: list[str]) -> list[dic
                     article["body"] = summary
                     article["summary_method"] = "llm"
                     article["summary_model"] = LLM_MODEL
+                    article["summary_version"] = SUMMARY_PROMPT_VERSION
                     article["importance_score"] = clamp_importance_score(
                         importance_score,
                         fallback_importance_score(article, source_text),
@@ -1831,13 +1868,13 @@ def enrich_with_llm_summaries(articles: list[dict], logs: list[str]) -> list[dic
                         article["sector"] = sector
                     if keywords:
                         article["llm_keywords"] = keywords
-                    # A summary shorter than the requested three lines is
+                    # A summary shorter than the requested five lines is
                     # retried once; the shorter text stays as the fallback.
-                    if len([line for line in summary.split("\n") if line.strip()]) < 3 and attempt_pass == 0:
+                    if len([line for line in summary.split("\n") if line.strip()]) < 5 and attempt_pass == 0:
                         failed.append(article)
                         logs.append(
                             f"llm short summary: {article.get('headline', '')[:60]} "
-                            "(fewer than 3 lines, retrying)"
+                            "(fewer than 5 lines, retrying)"
                         )
                     else:
                         enriched += 1
@@ -2115,7 +2152,11 @@ def main() -> int:
         for line in logs:
             print(line, file=sys.stderr)
         return 2
-    ranked = enrich_with_llm_summaries(ranked, logs)
+    # Summarize the top 10 of each sector (40 articles); the Daily Summary then
+    # uses the overall importance ranking. Everything else is published as a
+    # headline with a link to the original article.
+    top_candidates = select_sector_candidates(ranked, DAILY_SUMMARY_MAX_ITEMS)
+    enrich_with_llm_summaries(top_candidates, logs)
     ranked = sort_by_importance(ranked, MAX_ITEMS, assign_placement=True)
     attach_daily_images(select_daily_summary_items(ranked), logs)
     community_items, community_sentiment = enrich_community_reactions(community_items, logs)

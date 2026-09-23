@@ -262,6 +262,33 @@ class SummaryFormattingTests(unittest.TestCase):
         ordered = collector.sort_by_importance(items)
         self.assertEqual([item["headline"] for item in ordered], ["요약 기사", "스니펫 기사"])
 
+    def test_sector_candidates_pick_ten_per_sector(self):
+        items = [
+            {
+                "headline": "설계 기사 %d" % index,
+                "body": "설계 공정 소자 패키징",
+                "sector": "설계",
+                "trust": "medium",
+                "category": "news",
+                "created_at": "2026-09-23T%02d:00:00+09:00" % (index % 24),
+            }
+            for index in range(12)
+        ]
+        items.append(
+            {
+                "headline": "공정 기사",
+                "body": "공정",
+                "sector": "공정",
+                "trust": "medium",
+                "category": "news",
+                "created_at": "2026-09-23T09:00:00+09:00",
+            }
+        )
+        picked = collector.select_sector_candidates(items, per_sector=10)
+        self.assertEqual(len([item for item in picked if item["sector"] == "설계"]), 10)
+        self.assertEqual(len([item for item in picked if item["sector"] == "공정"]), 1)
+        self.assertEqual(len(picked), 11)
+
 
 class ModelRetryTests(unittest.TestCase):
     def test_post_json_retries_once_on_transient_503(self):

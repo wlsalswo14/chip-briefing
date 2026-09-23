@@ -168,7 +168,7 @@ import {
     if (!a) return `<div class="empty">표시할 뉴스가 없습니다.</div>`;
     const className = variant === "lead" ? "story story-lead" : variant === "latest" ? "story latest-item" : "story story-secondary";
     const heading = variant === "lead" ? "h2" : "h3";
-    const summary = variant === "latest" ? "" : `<p class="${variant === "lead" ? "lede" : ""}">${esc(excerpt(a.body, variant === "lead" ? 260 : 150))}</p>`;
+    const summary = variant === "latest" ? "" : `<p class="${variant === "lead" ? "lede" : ""}">${esc(excerpt(a.body, variant === "lead" ? 520 : 380, 5))}</p>`;
     const link = variant === "latest" ? "" : sourceLink(a);
     return `<article class="${className}" data-id="${esc(a.id)}" role="button" tabindex="0">
       <div class="meta">${badge(a)}</div>
@@ -176,19 +176,18 @@ import {
       ${summary}${link}
     </article>`;
   }
-  function feedRow(a, isCommunity = false) {
-    const first = isCommunity
-      ? `<span class="origin-label">${communityOrigin(a) === "reddit" ? "Reddit" : "국내"}</span>`
-      : `<span class="sector">${esc(a.sector || "반도체")}</span>`;
-    const source = isCommunity ? (a.community_name || a.source_name || "커뮤니티") : (a.source_name || "출처 미상");
-    const summary = isCommunity ? (a.reaction_summary || excerpt(a.body, 150)) : excerpt(a.body, 150);
-    const date = `${isCommunity && a.date_is_estimated ? "수집 " : ""}${fmt(a.created_at, true)}`;
-    return `<article class="feed-row" data-id="${esc(a.id)}" role="button" tabindex="0">
-      <div class="meta">${first}</div>
-      <div class="feed-source">${esc(source)}<br>${esc(date)}</div>
-      <div class="feed-title">${esc(a.headline)}</div>
-      <div class="feed-summary">${esc(summary)}</div>
-    </article>`;
+  // Everything outside the TOP 10 is published as a headline that links
+  // straight to the original article.
+  function titleRow(a) {
+    const href = safeUrl(a.source_url);
+    const tag = href ? "a" : "div";
+    const attrs = href ? ` href="${esc(href)}" target="_blank" rel="noopener"` : "";
+    return `<${tag} class="feed-row"${attrs}>
+      <div class="meta"><span class="sector">${esc(a.sector || "반도체")}</span></div>
+      <div class="feed-source">${esc(a.source_name || "출처 미상")}<br>${esc(fmt(a.created_at, true))}</div>
+      <div class="feed-title">${esc(a.headline || "제목 없음")}</div>
+      <div class="feed-link">원문 보기 →</div>
+    </${tag}>`;
   }
   function communityCard(a, variant = "item") {
     if (!a) return `<div class="empty">해당 출처의 반응이 없습니다.</div>`;
@@ -248,12 +247,17 @@ import {
       ? `${para(data.daily_summary)}<span class="summary-note">중요도 점수 상위 10개 기사 기준</span>`
       : `<p>오늘의 주요 기사를 정리 중입니다.</p><span class="summary-note">중요도 점수 상위 10개 기사 기준</span>`;
     const rows = sortRows(visibleArticles());
-    const top = rows[0];
-    const rest = rows.slice(1);
-    $("top").innerHTML = storyCard(top, "lead");
-    $("main").innerHTML = rest.slice(0, 3).map((a) => storyCard(a, "secondary")).join("") || `<div class="empty">이 섹터의 추가 브리핑이 없습니다.</div>`;
-    $("side").innerHTML = rest.slice(3, 9).map((a) => storyCard(a, "latest")).join("") || `<div class="empty">추가 뉴스가 없습니다.</div>`;
-    $("more-news").innerHTML = rest.slice(9).map((a) => feedRow(a)).join("") || `<div class="empty">표시할 추가 뉴스가 없습니다.</div>`;
+    // 전체 탭은 데일리 TOP 10을, 섹터 탭은 그 섹터에서 요약된 10개를 카드로 보여준다.
+    const dailyIds = new Set(Array.isArray(data.daily_summary_article_ids) ? data.daily_summary_article_ids : []);
+    const summarized = rows.filter((a) => a.summary_method === "llm" && (activeSector === "전체" ? dailyIds.has(a.id) : true));
+    const summarizedIds = new Set(summarized.map((a) => a.id));
+    const rest = rows.filter((a) => !summarizedIds.has(a.id));
+    $("top").innerHTML = summarized.length
+      ? storyCard(summarized[0], "lead")
+      : `<div class="empty">이 섹터에 요약된 뉴스가 없습니다.</div>`;
+    $("main").innerHTML = summarized.slice(1, 4).map((a) => storyCard(a, "secondary")).join("") || `<div class="empty">이 섹터의 추가 브리핑이 없습니다.</div>`;
+    $("side").innerHTML = summarized.slice(4, 10).map((a) => storyCard(a, "latest")).join("") || `<div class="empty">추가 뉴스가 없습니다.</div>`;
+    $("more-news").innerHTML = rest.map(titleRow).join("") || `<div class="empty">표시할 추가 뉴스가 없습니다.</div>`;
   }
   function renderCommunity() {
     renderFilters();

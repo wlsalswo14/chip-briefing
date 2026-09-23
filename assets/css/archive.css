@@ -249,6 +249,21 @@
 
 .archive-ranked-item:hover { background: var(--hover); }
 
+a.archive-more-row {
+  color: inherit;
+  text-decoration: none;
+}
+
+a.archive-more-row:hover { background: var(--hover); }
+
+a.archive-more-row:hover h3 { color: var(--accent); }
+
+.archive-more-link {
+  color: var(--muted);
+  font-family: var(--sans);
+  font-size: 11px;
+}
+
 .archive-rank {
   color: var(--ink);
   font-family: var(--serif);

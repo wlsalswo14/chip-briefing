@@ -68,18 +68,20 @@ function rankedArticle(article, index) {
     <span class="archive-rank">${index + 1}</span>
     <span class="archive-ranked-copy">
       <h3>${esc(article.headline || "제목 없음")}</h3>
-      <p>${esc(excerpt(article.body, 190) || "기사 요약을 준비 중입니다.")}</p>
+      <p>${esc(excerpt(article.body, 420, 5) || "기사 요약을 준비 중입니다.")}</p>
     </span>
     <span class="archive-ranked-meta">${articleMeta(article)}</span>
   </button>`;
 }
 
 function moreArticle(article) {
-  return `<button class="archive-more-row" type="button" data-article-id="${esc(article.id)}" aria-label="${esc(article.headline)} 자세히 보기">
+  const href = safeUrl(article.source_url);
+  const attrs = href ? ` href="${esc(href)}" target="_blank" rel="noopener"` : "";
+  return `<a class="archive-more-row"${attrs}>
     <span class="archive-more-meta">${articleMeta(article)}</span>
     <h3>${esc(article.headline || "제목 없음")}</h3>
-    <p>${esc(excerpt(article.body, 160) || "기사 요약을 준비 중입니다.")}</p>
-  </button>`;
+    <span class="archive-more-link">원문 보기 →</span>
+  </a>`;
 }
 
 function rankedCommunityItem(item, index) {
