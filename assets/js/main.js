@@ -111,6 +111,15 @@ import {
   function briefingDate(iso) {
     return formatBriefingDate(iso, "short");
   }
+  function shortSourceName(value) {
+    return String(value || "출처 미상").replace(/\s*(Search|RSS)$/i, "").trim();
+  }
+  function thumbnailCell(a) {
+    const fallback = `<span class="summary-thumb-fallback"><span class="ph-sector">${esc(a.sector || "반도체")}</span><span class="ph-source">${esc(shortSourceName(a.source_name))}</span></span>`;
+    const src = safeUrl(a.image_url);
+    if (!src) return `<span class="summary-thumb-cell is-broken">${fallback}</span>`;
+    return `<span class="summary-thumb-cell"><img class="summary-thumb" src="${esc(src)}" alt="" loading="lazy" onerror="this.parentElement.classList.add('is-broken');this.remove()">${fallback}</span>`;
+  }
   function summaryTopTenItem(a, index) {
     const score = Number(a.importance_score || a.importance || 0);
     return `<button class="summary-top10-item" type="button" data-summary-article="${esc(a.id)}" aria-label="${index + 1}위 ${esc(a.headline)} 자세히 보기">
@@ -120,6 +129,7 @@ import {
         <h3>${esc(a.headline || "제목 없음")}</h3>
         <p>${esc(excerpt(a.body, 170) || "기사 요약을 준비 중입니다.")}</p>
       </span>
+      ${thumbnailCell(a)}
     </button>`;
   }
   function openDailySummary() {

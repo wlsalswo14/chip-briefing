@@ -26,3 +26,7 @@ api키.txt
 *.jpg
 *.zip
 *.txt
+
+# TOP10 thumbnails are part of the published site, so keep them tracked
+!assets/thumbs/
+!assets/thumbs/**

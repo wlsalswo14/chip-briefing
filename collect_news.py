@@ -31,6 +31,9 @@ SOURCES_PATH = ROOT / "sources.json"
 ARTICLES_PATH = ROOT / "articles.json"
 ARCHIVE_DIR = ROOT / "archive"
 ARCHIVE_INDEX_PATH = ARCHIVE_DIR / "index.json"
+THUMB_DIR = ROOT / "assets" / "thumbs"
+THUMB_MAX_PX = 320
+THUMB_QUALITY = 82
 
 
 def load_dotenv():
@@ -298,6 +301,103 @@ def extract_article_text(url: str) -> str:
     if not joined:
         joined = clean_text(text)
     return joined[:7000]
+
+
+OG_IMAGE_PATTERNS = (
+    r'<meta[^>]+(?:property|name)=["\']og:image(?::url)?["\'][^>]+content=["\']([^"\']+)',
+    r'<meta[^>]+content=["\']([^"\']+)["\'][^>]+(?:property|name)=["\']og:image(?::url)?["\']',
+    r'<meta[^>]+name=["\']twitter:image["\'][^>]+content=["\']([^"\']+)',
+)
+
+
+def extract_og_image(page_html: str) -> str:
+    """Representative image URL declared by an article page."""
+    for pattern in OG_IMAGE_PATTERNS:
+        match = re.search(pattern, page_html or "", re.I)
+        if match:
+            value = html.unescape(match.group(1).strip())
+            if value.startswith("http"):
+                return value
+    return ""
+
+
+def mobile_blog_url(url: str) -> str:
+    """Naver's desktop blog page is a frameset; the mobile page carries og:image."""
+    match = re.search(r"blog\.naver\.com/([^/?#]+)/(\d+)", url or "")
+    if match:
+        return f"https://m.blog.naver.com/{match.group(1)}/{match.group(2)}"
+    return ""
+
+
+def discover_article_image(url: str) -> str:
+    for candidate in (mobile_blog_url(url), url):
+        if not candidate:
+            continue
+        try:
+            image = extract_og_image(request_text(candidate))
+        except Exception:
+            continue
+        if image:
+            return image
+    return ""
+
+
+def store_thumbnail(article_id: str, image_url: str, day_key: str) -> str:
+    """Keep a small local copy of a thumbnail.
+
+    Naver's image CDN answers 403 to other referers and publisher originals are
+    often several hundred KB, so images are downscaled and served from this
+    site instead of being hotlinked.
+    """
+    try:
+        req = urllib.request.Request(image_url, headers={"User-Agent": USER_AGENT})
+        with urllib.request.urlopen(req, timeout=TIMEOUT) as res:
+            raw = res.read(6_000_000)
+    except Exception:
+        return ""
+    if not raw:
+        return ""
+    folder = THUMB_DIR / day_key
+    folder.mkdir(parents=True, exist_ok=True)
+    stem = re.sub(r"[^A-Za-z0-9_-]", "", article_id or "") or "thumb"
+    target = folder / f"{stem}.jpg"
+    try:
+        import io as _io
+        from PIL import Image
+
+        with Image.open(_io.BytesIO(raw)) as img:
+            img = img.convert("RGB")
+            img.thumbnail((THUMB_MAX_PX, THUMB_MAX_PX))
+            img.save(target, "JPEG", quality=THUMB_QUALITY, optimize=True)
+    except Exception:
+        # Without Pillow (or for exotic formats) keep the original bytes.
+        if raw[:4] == b"\x89PNG":
+            target = folder / f"{stem}.png"
+        target.write_bytes(raw)
+    return f"assets/thumbs/{day_key}/{target.name}"
+
+
+def attach_daily_images(items: list[dict], logs: list[str]) -> None:
+    """Give every Daily TOP 10 entry a thumbnail."""
+    kst = dt.timezone(dt.timedelta(hours=9))
+    day_key = dt.datetime.now(kst).strftime("%Y-%m-%d")
+    stored = 0
+    missing = 0
+    for item in items:
+        if item.get("image_url"):
+            continue
+        try:
+            remote = discover_article_image(item.get("source_url", ""))
+            local = store_thumbnail(item.get("id", ""), remote, day_key) if remote else ""
+        except Exception:
+            # A thumbnail is a nice-to-have; never let it break the run.
+            local = ""
+        if local:
+            item["image_url"] = local
+            stored += 1
+        else:
+            missing += 1
+    logs.append(f"top10 images: stored {stored}, no image for {missing} (of {len(items)})")
 
 
 def parse_date(value: str | None) -> str:
@@ -1971,6 +2071,7 @@ def main() -> int:
         return 2
     ranked = enrich_with_llm_summaries(ranked, logs)
     ranked = sort_by_importance(ranked, MAX_ITEMS, assign_placement=True)
+    attach_daily_images(select_daily_summary_items(ranked), logs)
     community_items, community_sentiment = enrich_community_reactions(community_items, logs)
     logs.append(
         "community top 10: "

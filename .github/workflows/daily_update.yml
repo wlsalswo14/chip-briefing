@@ -25,6 +25,9 @@ jobs:
         with:
           python-version: '3.10'
 
+      - name: Install image dependency
+        run: python -m pip install --quiet --disable-pip-version-check pillow
+
       - name: Run collector
         env:
           CHIP_BRIEFING_LLM_API_KEY: ${{ secrets.GEMINI_API }}
@@ -58,7 +61,7 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add articles.json archive/
+          git add articles.json archive/ assets/thumbs/
           if ! git diff --cached --quiet; then
             git commit -m "Auto-update briefing: $(date -u +'%Y-%m-%d %H:%M:%S') UTC"
             git push
