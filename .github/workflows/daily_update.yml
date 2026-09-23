@@ -2,8 +2,8 @@ name: Daily Chip Briefing Update
 
 on:
   schedule:
-    # Runs at 21:48 UTC (06:48 KST) every day
-    - cron: '48 21 * * *'
+    # Starts at 20:00 UTC (05:00 KST) so the briefing is ready by ~06:00 KST.
+    - cron: '0 20 * * *'
   workflow_dispatch: # Allows manual trigger from GitHub Actions tab
 
 permissions:
@@ -37,6 +37,7 @@ jobs:
           CHIP_BRIEFING_LLM_TIMEOUT: "90"
           CHIP_BRIEFING_LLM_BUDGET_SECONDS: "7200"
           CHIP_BRIEFING_DAILY_SUMMARY_MAX_ITEMS: "10"
+          CHIP_BRIEFING_WINDOW_END_HOUR: "5"
           CHIP_BRIEFING_MAX_COMMUNITY_ITEMS: "10"
           CHIP_BRIEFING_COMMUNITY_CANDIDATE_LIMIT: "20"
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}

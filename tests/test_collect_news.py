@@ -57,11 +57,17 @@ class CommunityParserTests(unittest.TestCase):
 
 
 class CommunityWindowTests(unittest.TestCase):
-    def test_briefing_window_ends_at_latest_seoul_0700(self):
+    def test_briefing_window_ends_at_the_scheduled_seoul_hour(self):
         kst = dt.timezone(dt.timedelta(hours=9))
-        start, end = collector.briefing_window(dt.datetime(2026, 8, 23, 7, 30, tzinfo=kst))
-        self.assertEqual(start, dt.datetime(2026, 8, 22, 7, 0, tzinfo=kst))
-        self.assertEqual(end, dt.datetime(2026, 8, 23, 7, 0, tzinfo=kst))
+        start, end = collector.briefing_window(dt.datetime(2026, 8, 23, 5, 30, tzinfo=kst))
+        self.assertEqual(start, dt.datetime(2026, 8, 22, 5, 0, tzinfo=kst))
+        self.assertEqual(end, dt.datetime(2026, 8, 23, 5, 0, tzinfo=kst))
+
+    def test_briefing_window_before_the_run_hour_uses_the_previous_day(self):
+        kst = dt.timezone(dt.timedelta(hours=9))
+        start, end = collector.briefing_window(dt.datetime(2026, 8, 23, 4, 0, tzinfo=kst))
+        self.assertEqual(start, dt.datetime(2026, 8, 21, 5, 0, tzinfo=kst))
+        self.assertEqual(end, dt.datetime(2026, 8, 22, 5, 0, tzinfo=kst))
 
     def test_estimated_date_item_bypasses_exact_window(self):
         item = collector.make_article(

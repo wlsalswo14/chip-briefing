@@ -92,6 +92,9 @@ LLM_MAX_ITEMS = int(os.environ.get("CHIP_BRIEFING_LLM_MAX_ITEMS", str(MAX_ITEMS)
 LLM_TIMEOUT = int(os.environ.get("CHIP_BRIEFING_LLM_TIMEOUT", "90"))
 LLM_BUDGET_SECONDS = int(os.environ.get("CHIP_BRIEFING_LLM_BUDGET_SECONDS", "7200"))
 DAILY_SUMMARY_MAX_ITEMS = int(os.environ.get("CHIP_BRIEFING_DAILY_SUMMARY_MAX_ITEMS", "10"))
+# The daily briefing covers the 24 hours ending at this Seoul hour, which is
+# also when the scheduled run starts.
+WINDOW_END_HOUR = int(os.environ.get("CHIP_BRIEFING_WINDOW_END_HOUR", "5"))
 
 EDITORIAL_PRIORITY_PROMPT = """
 You are the semiconductor briefing editor. Read the article context and assign importance_score by editorial impact, not by simple keyword matching.
@@ -1522,7 +1525,7 @@ def enrich_community_reactions(items: list[dict], logs: list[str]) -> tuple[list
 def briefing_window(now: dt.datetime | None = None) -> tuple[dt.datetime, dt.datetime]:
     kst = dt.timezone(dt.timedelta(hours=9))
     now = (now or dt.datetime.now(kst)).astimezone(kst)
-    window_end = now.replace(hour=7, minute=0, second=0, microsecond=0)
+    window_end = now.replace(hour=WINDOW_END_HOUR, minute=0, second=0, microsecond=0)
     if now < window_end:
         window_end -= dt.timedelta(days=1)
     return window_end - dt.timedelta(days=1), window_end
@@ -1639,6 +1642,34 @@ def select_sector_candidates(articles: list[dict], per_sector: int = DAILY_SUMMA
         rows = [article for article in articles if article.get("sector") == sector]
         picked.extend(sorted(rows, key=top_candidate_key, reverse=True)[:per_sector])
     return picked
+
+
+def fill_sector_gaps(articles: list[dict], logs: list[str], per_sector: int = DAILY_SUMMARY_MAX_ITEMS) -> None:
+    """Top every sector back up to ten summaries.
+
+    Model failures (or an article the model re-labelled) leave gaps, so the next
+    best article of that sector is summarized instead of publishing a short tab.
+    """
+    counts: dict[str, int] = {}
+    for article in articles:
+        if article.get("summary_method") == "llm":
+            counts[article.get("sector", "")] = counts.get(article.get("sector", ""), 0) + 1
+    top_up: list[dict] = []
+    for sector in SECTOR_NAMES:
+        need = per_sector - counts.get(sector, 0)
+        if need <= 0:
+            continue
+        pool = [
+            article
+            for article in articles
+            if article.get("sector") == sector and article.get("summary_method") != "llm"
+        ]
+        pool.sort(key=top_candidate_key, reverse=True)
+        top_up.extend(pool[:need])
+    if not top_up:
+        return
+    logs.append(f"sector top-up: summarizing {len(top_up)} more articles to refill short sectors")
+    enrich_with_llm_summaries(top_up, logs)
 
 
 def summarize_with_llm(article: dict, source_text: str) -> tuple[str, str | None, list[str] | None, int | None]:
@@ -2166,6 +2197,7 @@ def main() -> int:
     # headline with a link to the original article.
     top_candidates = select_sector_candidates(ranked, DAILY_SUMMARY_MAX_ITEMS)
     enrich_with_llm_summaries(top_candidates, logs)
+    fill_sector_gaps(ranked, logs)
     ranked = sort_by_importance(ranked, MAX_ITEMS, assign_placement=True)
     attach_daily_images(select_daily_summary_items(ranked), logs)
     community_items, community_sentiment = enrich_community_reactions(community_items, logs)
