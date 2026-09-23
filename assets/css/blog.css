@@ -11,7 +11,12 @@
 }
 
 * { box-sizing: border-box; }
-html { color-scheme: light; scroll-behavior: smooth; }
+html {
+  color-scheme: light;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
 body {
   margin: 0;
   background: var(--blog-bg);
@@ -19,6 +24,7 @@ body {
   font-family: var(--blog-sans);
   line-height: 1.65;
   text-rendering: optimizeLegibility;
+  overflow-x: hidden;
 }
 a { color: inherit; }
 a:focus-visible,
@@ -70,6 +76,9 @@ button:focus-visible {
   font-size: 13px;
 }
 .blog-site-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
   text-decoration: none;
   text-underline-offset: 4px;
 }
@@ -254,6 +263,8 @@ button:focus-visible {
   font-weight: 600;
   line-height: 1.17;
   letter-spacing: -.045em;
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 .blog-article-page .manifesto-sub {
   margin: 0;
@@ -342,13 +353,35 @@ button:focus-visible {
   color: var(--blog-ink);
 }
 .blog-article-page .manifesto-sign {
+  display: flex;
+  flex-wrap: wrap;
   justify-content: flex-start;
+  align-items: center;
+  gap: 6px;
   margin-top: 42px;
   padding-top: 0;
   border-top: 0;
   color: var(--blog-faint);
   font-family: var(--blog-sans);
   font-size: 11px;
+}
+.blog-article-page .manifesto-sign a,
+.blog-footer-contact a {
+  color: inherit;
+  text-decoration: none;
+  text-underline-offset: 3px;
+}
+.blog-article-page .manifesto-sign a:hover,
+.blog-footer-contact a:hover {
+  color: var(--blog-ink);
+  text-decoration: underline;
+}
+[data-copy-email] {
+  cursor: copy;
+}
+[data-copy-email].is-copied {
+  color: var(--blog-ink);
+  text-decoration: none;
 }
 .blog-article-page > .site-footer {
   width: min(var(--blog-width), calc(100% - 48px));
@@ -371,20 +404,37 @@ button:focus-visible {
     width: min(100% - 32px, var(--blog-width));
   }
   .blog-site-header {
-    min-height: 72px;
-    align-items: flex-start;
-    padding: 22px 0 16px;
+    min-height: 0;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 4px;
+    padding: 18px 0 10px;
+  }
+  .blog-brand {
+    font-size: 17px;
   }
   .blog-site-nav {
-    gap: 14px;
+    width: 100%;
+    gap: 18px;
+    overflow-x: auto;
+    padding-bottom: 2px;
     font-size: 11px;
+    white-space: nowrap;
+    scrollbar-width: none;
   }
-  .blog-site-nav a:nth-child(2) { display: none; }
+  .blog-site-nav::-webkit-scrollbar { display: none; }
+  .blog-site-nav a {
+    flex: 0 0 auto;
+    min-height: 36px;
+  }
   .blog-intro {
     padding: 58px 0 68px;
   }
   .blog-intro h1 {
-    font-size: clamp(2.25rem, 11vw, 3.4rem);
+    font-size: clamp(2rem, 9.5vw, 2.6rem);
+    line-height: 1.22;
+    word-break: keep-all;
   }
   .blog-intro > p:last-child {
     margin-top: 26px;
@@ -413,7 +463,8 @@ button:focus-visible {
     padding-bottom: 26px;
   }
   .blog-article-page .manifesto-head h1 {
-    font-size: clamp(2.2rem, 11vw, 3.15rem);
+    font-size: clamp(2rem, 9.3vw, 2.55rem);
+    line-height: 1.22;
   }
   .blog-article-page .manifesto-sub {
     font-size: 15px;
@@ -421,6 +472,8 @@ button:focus-visible {
   .blog-article-page .manifesto p {
     font-size: 16px;
     line-height: 1.9;
+    word-break: keep-all;
+    overflow-wrap: break-word;
   }
   .blog-article-page .manifesto-lead {
     font-size: 19px !important;
