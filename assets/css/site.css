@@ -689,41 +689,27 @@
     line-height: 1.5;
   }
   .manifesto-close p:last-child { margin-bottom: 0; color: var(--accent); }
-  .manifesto-invite {
-    margin-top: 46px;
-    padding: 26px 22px;
-    border: 1px solid var(--rule);
-    background: var(--wash);
-    text-align: center;
-  }
-  .manifesto .manifesto-invite p { margin: 0; }
-  .manifesto-invite > p:first-child {
-    font-family: var(--serif);
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 1.55;
-  }
-  .manifesto .manifesto-invite-sub {
-    margin-top: 8px;
+  /* 조용한 서명 — 글의 끝을 방해하지 않도록 작고 흐리게 */
+  .manifesto-sign {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+    margin-top: 40px;
+    padding-top: 16px;
+    border-top: 1px solid var(--rule);
     color: var(--muted);
     font-family: var(--sans);
-    font-size: 12px;
-    line-height: 1.6;
+    font-size: 11px;
+    letter-spacing: .01em;
   }
-  .manifesto .manifesto-invite-contact {
-    margin-top: 18px;
-    padding-top: 15px;
-    border-top: 1px solid var(--rule);
-    font-family: var(--sans);
-    font-size: 13px;
-  }
-  .manifesto-invite-contact a {
-    color: var(--accent);
+  .manifesto-sign a {
+    color: var(--muted);
     text-decoration: none;
-    border-bottom: 1px solid rgba(139, 30, 45, .35);
   }
-  .manifesto-invite-contact a:hover { border-bottom-color: var(--accent); }
-  .manifesto-invite-contact span { margin: 0 9px; color: var(--rule); }
+  .manifesto-sign a:hover { color: var(--accent); }
+  .manifesto-sign span { color: var(--rule); }
 
   @media (max-width: 900px) {
     .news-grid,
@@ -780,11 +766,7 @@
     .manifesto-lead { font-size: 18px !important; line-height: 1.5 !important; }
     .manifesto-marker { margin: 40px 0 16px; }
     .manifesto-close p { font-size: 20px; }
-    .manifesto-invite { padding: 20px 16px; }
-    .manifesto-invite > p:first-child { font-size: 16px; }
-    .manifesto .manifesto-invite-contact { font-size: 12px; }
-    .manifesto-invite-contact span { display: block; height: 0; overflow: hidden; margin: 0; }
-    .manifesto-invite-contact a { display: block; padding: 4px 0; }
+    .manifesto-sign { margin-top: 32px; font-size: 10px; }
   }
   @media (prefers-reduced-motion: reduce) {
     * { scroll-behavior: auto !important; transition: none !important; }
