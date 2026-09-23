@@ -766,7 +766,18 @@
     .manifesto-lead { font-size: 18px !important; line-height: 1.5 !important; }
     .manifesto-marker { margin: 40px 0 16px; }
     .manifesto-close p { font-size: 20px; }
-    .manifesto-sign { margin-top: 32px; font-size: 10px; }
+    /* 모바일에서는 서명이 더 흐리게 보이도록 */
+    .manifesto-sign {
+      flex-wrap: nowrap;
+      gap: 6px;
+      margin-top: 22px;
+      padding-top: 0;
+      border-top: 0;
+      color: #a6a6a6;
+      font-size: 9px;
+    }
+    .manifesto-sign a { color: #a6a6a6; }
+    .manifesto-sign span { color: #dedede; }
   }
   @media (prefers-reduced-motion: reduce) {
     * { scroll-behavior: auto !important; transition: none !important; }
