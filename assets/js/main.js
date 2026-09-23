@@ -120,7 +120,7 @@ import {
       <span>
         <span class="summary-item-meta"><span class="score">중요도 ${score || "-"}</span><span>${esc(a.sector || "반도체")}</span><span>${esc(a.source_name || "출처 미상")}</span><span>${esc(fmt(a.created_at, true))}</span></span>
         <h3>${esc(a.headline || "제목 없음")}</h3>
-        <p>${esc(excerpt(a.body, 170) || "기사 요약을 준비 중입니다.")}</p>
+        <p>${esc(excerpt(a.body, 420, 5) || "기사 요약을 준비 중입니다.")}</p>
       </span>
       ${thumbnailCell(a)}
     </button>`;
@@ -191,6 +191,7 @@ import {
         <span class="summary-item-meta"><span class="score">W${score || "-"}</span>${communityMeta(a)}</span>
         <h3>${esc(topic)}</h3>
         <span class="community-post-headline">게시글 · ${esc(a.headline || "제목 없음")}</span>
+        <p>${esc(excerpt(a.body, 420, 5) || "요약을 준비 중입니다.")}</p>
       </span>
     </button>`;
   }

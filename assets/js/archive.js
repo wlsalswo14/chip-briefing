@@ -91,7 +91,7 @@ function rankedCommunityItem(item, index) {
     <span class="archive-ranked-copy">
       <h3>${esc(topic)}</h3>
       <span class="archive-community-headline">게시글 · ${esc(item.headline || "제목 없음")}</span>
-      <p><strong>반응</strong> · ${esc(item.reaction_summary || "뚜렷한 반응을 확인하지 못했습니다.")}</p>
+      <p>${esc(excerpt(item.body, 420, 5) || item.reaction_summary || "뚜렷한 반응을 확인하지 못했습니다.")}</p>
     </span>
     <span class="archive-ranked-meta">${communityMeta(item)}</span>
   </button>`;

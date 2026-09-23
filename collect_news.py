@@ -95,6 +95,9 @@ DAILY_SUMMARY_MAX_ITEMS = int(os.environ.get("CHIP_BRIEFING_DAILY_SUMMARY_MAX_IT
 # The daily briefing covers the 24 hours ending at this Seoul hour, which is
 # also when the scheduled run starts.
 WINDOW_END_HOUR = int(os.environ.get("CHIP_BRIEFING_WINDOW_END_HOUR", "5"))
+# Community posts are summarized in one model call, so the pool is kept small
+# enough that five lines per post fit in a single response.
+COMMUNITY_PROMPT_MAX_ITEMS = int(os.environ.get("CHIP_BRIEFING_COMMUNITY_PROMPT_MAX_ITEMS", "12"))
 
 EDITORIAL_PRIORITY_PROMPT = """
 You are the semiconductor briefing editor. Read the article context and assign importance_score by editorial impact, not by simple keyword matching.
@@ -1402,7 +1405,7 @@ def enrich_community_reactions(items: list[dict], logs: list[str]) -> tuple[list
     items = exclude_photo_community_items(items, logs)
     items = rank_community_items(
         items,
-        max(MAX_COMMUNITY_ITEMS, COMMUNITY_CANDIDATE_LIMIT),
+        max(MAX_COMMUNITY_ITEMS, COMMUNITY_PROMPT_MAX_ITEMS),
         source_cap=max(4, COMMUNITY_CANDIDATE_LIMIT * 2 // 5),
     )
     if not items:
@@ -1440,8 +1443,10 @@ def enrich_community_reactions(items: list[dict], logs: list[str]) -> tuple[list
         "community consensus. If it only shares a link or information without a stance, explicitly say in Korean "
         "that it is information-sharing and no clear positive/negative reaction is visible. Do not state rumors as facts. "
         "Set is_image_post=true when the metadata strongly indicates a photo, screenshot, image, meme, or gallery post; "
-        "such an item must not affect the summary. Write topic in concise Korean and reaction_summary as one concrete "
-        "Korean sentence explaining what reaction is shown toward that topic. Score 1-5: 5 only when both chip design "
+        "such an item must not affect the summary. Write topic in concise Korean. For every item write summary_lines as "
+        "exactly five Korean lines, in the same style as a news summary: what the post claims or shares, the concrete "
+        "facts, numbers, products or companies it mentions, and the stance or tone it shows. Also write "
+        "reaction_summary as one short Korean sentence that condenses those five lines. Score 1-5: 5 only when both chip design "
         "and a frontier semiconductor company are central to the post rather than passing mentions; 4 for either chip "
         "design or a frontier semiconductor company; "
         "3 for frontier process, memory, or packaging; 2 for ordinary semiconductor discussion; 1 for low-information, "
@@ -1450,7 +1455,8 @@ def enrich_community_reactions(items: list[dict], logs: list[str]) -> tuple[list
         "Rapidus, Rebellions, FuriosaAI, and DeepX. community_summary_lines must contain 2-3 Korean lines describing "
         "the dominant high-ranked topics and the reactions shown, excluding image posts. "
         "Schema: {\"community_summary_lines\":[\"...\"],\"items\":[{\"id\":\"...\",\"topic\":\"...\","
-        "\"reaction_summary\":\"...\",\"community_score\":5,\"is_image_post\":false}]}"
+        "\"summary_lines\":[\"1\",\"2\",\"3\",\"4\",\"5\"],\"reaction_summary\":\"...\",\"community_score\":5,"
+        "\"is_image_post\":false}]}"
     )
     is_native_gemini = "generativelanguage.googleapis.com" in LLM_BASE_URL and "gemma" in LLM_MODEL.lower()
 
@@ -1465,7 +1471,7 @@ def enrich_community_reactions(items: list[dict], logs: list[str]) -> tuple[list
                 "contents": [{"role": "user", "parts": [{"text": user_text}]}],
                 "generationConfig": {
                     "temperature": 0.2,
-                    "maxOutputTokens": 4000,
+                    "maxOutputTokens": 6000,
                     "responseMimeType": "application/json",
                 },
             }
@@ -1476,7 +1482,7 @@ def enrich_community_reactions(items: list[dict], logs: list[str]) -> tuple[list
             payload = {
                 "model": LLM_MODEL,
                 "temperature": 0.2,
-                "max_tokens": 4000,
+                "max_tokens": 6000,
                 "messages": [{"role": "user", "content": user_text}],
             }
         try:
@@ -1501,10 +1507,20 @@ def enrich_community_reactions(items: list[dict], logs: list[str]) -> tuple[list
             row = by_id.get(str(item.get("id", "")), {})
             topic = clean_text(str(row.get("topic", "")))
             summary = clean_text(str(row.get("reaction_summary", "")))
+            lines = row.get("summary_lines")
+            if isinstance(lines, list):
+                body = "\n".join(clean_text(str(line)) for line in lines if clean_text(str(line)))
+                if body:
+                    item["body"] = body[:900]
+                    item["summary_method"] = "llm"
+                    item["summary_version"] = SUMMARY_PROMPT_VERSION
             if topic:
                 item["topic"] = topic[:90]
             if summary:
                 item["reaction_summary"] = summary
+            elif item.get("summary_method") == "llm":
+                # Keep the archive's one-line reaction in step with the summary.
+                item["reaction_summary"] = (item.get("body") or "").split("\n")[0]
             if row.get("community_score") is not None:
                 item["community_score"] = clamp_importance_score(
                     row.get("community_score"),
