@@ -3,59 +3,71 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="가속과 초지능에 대한 글 — 칩 브리핑 블로그">
-<title>블로그 · 칩 브리핑</title>
+<meta name="description" content="반도체와 AI, 가속과 초지능에 관한 칩 브리핑의 긴 글">
+<title>글 · 칩 브리핑</title>
 <link rel="icon" href="data:,">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700;900&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/site.css?v=6">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/blog.css?v=2">
 </head>
-<body>
-  <div class="topbar">
-    <span>칩 브리핑 · 블로그</span>
-  </div>
+<body class="blog-page blog-home-page">
+  <a class="skip-link" href="#content">본문 바로가기</a>
 
-  <header class="masthead">
-    <h1>칩 브리핑</h1>
+  <header class="blog-site-header">
+    <a class="blog-brand" href="blog.html" aria-current="page">칩 브리핑</a>
+    <nav class="blog-site-nav" aria-label="블로그 메뉴">
+      <a href="blog.html" aria-current="page">글</a>
+      <a href="archive.html">브리핑 아카이브</a>
+      <a href="index.html">뉴스</a>
+    </nav>
   </header>
 
-  <nav class="view-tabs" aria-label="주요 메뉴">
-    <a class="view-tab" href="index.html">뉴스</a>
-    <a class="view-tab" href="index.html#community">커뮤니티</a>
-    <a class="view-tab" href="archive.html">아카이브</a>
-    <a class="view-tab" href="blog.html" aria-current="page">블로그</a>
-  </nav>
-
-  <main>
-    <section class="blog">
-      <header class="blog-head">
-        <div class="kicker">Blog</div>
-        <h1>블로그</h1>
-        <p class="blog-sub">가속과 초지능에 대한 글</p>
-      </header>
-
-      <ul class="blog-list">
-        <li>
-          <a class="blog-item" href="manifesto.html">
-            <span class="blog-item-meta"><span>2026년 9월 23일</span><span>선언</span></span>
-            <h2>왜 가속인가</h2>
-            <p>인간이 기다려야 하는 시간을 줄이기 위하여</p>
-          </a>
-        </li>
-        <li>
-          <a class="blog-item" href="god.html">
-            <span class="blog-item-meta"><span>2026년 9월 23일</span><span>에세이</span></span>
-            <h2>신은 아직 태어나지 않았다</h2>
-            <p>초지능과 우주의 자기각성을 위한 선언</p>
-          </a>
-        </li>
-      </ul>
+  <main class="blog-shell" id="content">
+    <section class="blog-intro" aria-labelledby="blog-title">
+      <p class="blog-eyebrow">CHIP BRIEFING · WRITING</p>
+      <h1 id="blog-title">기술이 어디로 가는지,<br>길게 생각해 보는 글.</h1>
+      <p>
+        반도체 산업을 매일 기록하는 칩 브리핑에서, AI와 지능의 확장,
+        과학의 속도와 문명의 다음 단계에 관해 씁니다.
+      </p>
     </section>
+
+    <section class="writing-section" aria-labelledby="essays-title">
+      <div class="section-heading">
+        <h2 id="essays-title">Essays</h2>
+        <span>2</span>
+      </div>
+
+      <ol class="writing-list">
+        <li>
+          <a class="writing-link" href="manifesto.html">
+            <span class="writing-copy">
+              <span class="writing-type">Essay</span>
+              <strong>왜 가속인가</strong>
+              <span class="writing-deck">인간이 기다려야 하는 시간을 줄이기 위하여</span>
+            </span>
+            <time datetime="2026-09-23">2026.09.23</time>
+          </a>
+        </li>
+        <li>
+          <a class="writing-link" href="god.html">
+            <span class="writing-copy">
+              <span class="writing-type">Essay</span>
+              <strong>신은 아직 태어나지 않았다</strong>
+              <span class="writing-deck">초지능과 우주의 자기각성을 위한 선언</span>
+            </span>
+            <time datetime="2026-09-23">2026.09.23</time>
+          </a>
+        </li>
+      </ol>
+    </section>
+
   </main>
 
-  <footer class="site-footer">
-    <span>칩 브리핑 · 반도체 데일리 브리핑</span>
+  <footer class="blog-footer">
+    <span>칩 브리핑</span>
+    <span>wlsalswo14@gmail.com · @jin_minjaeee</span>
   </footer>
 </body>
 </html>

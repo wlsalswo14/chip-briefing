@@ -113,10 +113,12 @@
     background: transparent;
     content: "";
   }
-  .view-tab[aria-selected="true"] { color: var(--accent); }
+  .view-tab[aria-selected="true"],
+  .view-tab[aria-pressed="true"],
+  .view-tab[aria-current="page"] { color: var(--accent); }
   .view-tab[aria-selected="true"]::after,
-  .view-tab[aria-pressed="true"]::after { background: var(--accent); }
-  .view-tab[aria-pressed="true"] { color: var(--accent); }
+  .view-tab[aria-pressed="true"]::after,
+  .view-tab[aria-current="page"]::after { background: var(--accent); }
   .view { padding-bottom: 48px; }
   .summary-band {
     display: grid;
