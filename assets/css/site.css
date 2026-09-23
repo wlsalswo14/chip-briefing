@@ -179,6 +179,8 @@
     line-height: 1.8;
     white-space: pre-line;
   }
+  /* 제목 없이 요약만 있는 밴드(커뮤니티)는 폭 전체를 쓴다 */
+  .summary-band .summary-copy:only-child { grid-column: 1 / -1; }
   .summary-note {
     display: block;
     margin-top: 6px;
