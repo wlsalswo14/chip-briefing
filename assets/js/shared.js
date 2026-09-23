@@ -76,6 +76,10 @@ export async function loadJson(path) {
 
 export function sortByImportance(items) {
   return items.slice().sort((a, b) => {
+    // Entries with a generated summary always outrank raw RSS snippets so the
+    // main slots never show an unsummarized headline.
+    const summaryDifference = (b.summary_method === "llm" ? 1 : 0) - (a.summary_method === "llm" ? 1 : 0);
+    if (summaryDifference) return summaryDifference;
     const importanceDifference = Number(b.importance_score || b.importance || 0)
       - Number(a.importance_score || a.importance || 0);
     if (importanceDifference) return importanceDifference;

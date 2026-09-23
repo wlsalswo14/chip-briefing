@@ -89,7 +89,7 @@ def rotate_llm_key():
 LLM_MODEL = os.environ.get("CHIP_BRIEFING_LLM_MODEL", "")
 LLM_MAX_ITEMS = int(os.environ.get("CHIP_BRIEFING_LLM_MAX_ITEMS", str(MAX_ITEMS)))
 LLM_TIMEOUT = int(os.environ.get("CHIP_BRIEFING_LLM_TIMEOUT", "90"))
-LLM_BUDGET_SECONDS = int(os.environ.get("CHIP_BRIEFING_LLM_BUDGET_SECONDS", "3600"))
+LLM_BUDGET_SECONDS = int(os.environ.get("CHIP_BRIEFING_LLM_BUDGET_SECONDS", "7200"))
 DAILY_SUMMARY_MAX_ITEMS = int(os.environ.get("CHIP_BRIEFING_DAILY_SUMMARY_MAX_ITEMS", "10"))
 
 EDITORIAL_PRIORITY_PROMPT = """
@@ -1133,6 +1133,15 @@ def clamp_importance_score(value: object, default: int = 2) -> int:
     return max(1, min(5, score))
 
 
+def has_llm_summary(article: dict) -> int:
+    """1 when the entry carries a real generated summary.
+
+    Raw RSS snippets (a failed or never-attempted summary) must never outrank a
+    real summary, otherwise the TOP 10 shows unsummarized headlines.
+    """
+    return 1 if article.get("summary_method") == "llm" and (article.get("body") or "").strip() else 0
+
+
 def fallback_importance_score(article: dict, source_text: str = "") -> int:
     text = f"{article.get('headline', '')} {article.get('body', '')} {source_text}".lower()
     score = 2
@@ -1174,7 +1183,11 @@ def sort_by_importance(articles: list[dict], limit: int | None = None, assign_pl
         )
     sorted_articles = sorted(
         articles,
-        key=lambda a: (a.get("importance_score", 0), a.get("created_at", "")),
+        key=lambda a: (
+            has_llm_summary(a),
+            a.get("importance_score", 0),
+            a.get("created_at", ""),
+        ),
         reverse=True,
     )
     if limit is not None:
@@ -1761,78 +1774,106 @@ def enrich_with_llm_summaries(articles: list[dict], logs: list[str]) -> list[dic
     enriched = 0
     cache_hits = 0
     deadline = time.monotonic() + LLM_BUDGET_SECONDS
-    total_to_process = len(articles[:LLM_MAX_ITEMS])
-    for i, article in enumerate(articles[:LLM_MAX_ITEMS]):
-        art_id = article.get("id")
-        cached = cache.get(art_id) or cache_by_title.get(summary_cache_key(article.get("headline")))
-        if cached:
-            article["body"] = cached["body"]
-            article["summary_method"] = "llm"
-            article["summary_model"] = cached["summary_model"]
-            if cached.get("sector"):
-                article["sector"] = cached["sector"]
-            if cached.get("llm_keywords"):
-                article["llm_keywords"] = cached["llm_keywords"]
-            article["importance_score"] = clamp_importance_score(
-                cached.get("importance_score"),
-                fallback_importance_score(article),
-            )
-            cache_hits += 1
-            continue
+    queue = list(articles[:LLM_MAX_ITEMS])
+    total_to_process = len(queue)
+    attempted = 0
+    exhausted = False
 
-        if time.monotonic() > deadline:
-            logs.append(
-                f"llm budget of {LLM_BUDGET_SECONDS}s exhausted after "
-                f"{enriched + cache_hits} articles; {total_to_process - i} articles "
-                "keep their raw snippets"
-            )
-            break
-
-        try:
-            print(f"[{i+1}/{total_to_process}] 요약 중: {article.get('headline', '')[:55]}...", flush=True)
-        except UnicodeEncodeError:
-            try:
-                safe_headline = article.get('headline', '')[:55].encode('ascii', errors='replace').decode('ascii')
-                print(f"[{i+1}/{total_to_process}] 요약 중: {safe_headline}...", flush=True)
-            except Exception:
-                print(f"[{i+1}/{total_to_process}] 요약 중: (인코딩 에러 발생 기사)...", flush=True)
-        source_text = extract_article_text(article.get("source_url", ""))
-        if len(source_text) < 300:
-            source_text = f"{article.get('headline', '')}\n\n{article.get('body', '')}"
-        try:
-            summary, sector, keywords, importance_score = summarize_with_llm(article, source_text)
-            if summary:
-                article["body"] = summary
+    # Two passes: the model host throws transient "high demand" errors, so
+    # anything that failed once is retried after the rest of the list is done.
+    for attempt_pass in range(2):
+        failed: list[dict] = []
+        for article in queue:
+            art_id = article.get("id")
+            cached = cache.get(art_id) or cache_by_title.get(summary_cache_key(article.get("headline")))
+            if cached:
+                article["body"] = cached["body"]
                 article["summary_method"] = "llm"
-                article["summary_model"] = LLM_MODEL
+                article["summary_model"] = cached["summary_model"]
+                if cached.get("sector"):
+                    article["sector"] = cached["sector"]
+                if cached.get("llm_keywords"):
+                    article["llm_keywords"] = cached["llm_keywords"]
                 article["importance_score"] = clamp_importance_score(
-                    importance_score,
-                    fallback_importance_score(article, source_text),
+                    cached.get("importance_score"),
+                    fallback_importance_score(article),
                 )
-                if sector:
-                    article["sector"] = sector
-                if keywords:
-                    article["llm_keywords"] = keywords
-                enriched += 1
-                time.sleep(4.0)
-            else:
-                article["summary_method"] = "snippet"
-                article["importance_score"] = fallback_importance_score(article, source_text)
-                logs.append(
-                    f"llm empty summary: {article.get('headline', '')[:60]} "
-                    "(model returned no visible text)"
-                )
-        except Exception as exc:
-            article["summary_method"] = "snippet"
-            article["importance_score"] = fallback_importance_score(article)
-            err_msg = f"{type(exc).__name__}: {exc}"
-            if hasattr(exc, "read"):
+                cache_hits += 1
+                continue
+
+            if time.monotonic() > deadline:
+                exhausted = True
+                break
+
+            attempted += 1
+            try:
+                print(f"[{attempted}/{total_to_process}] 요약 중: {article.get('headline', '')[:55]}...", flush=True)
+            except UnicodeEncodeError:
                 try:
-                    err_msg += f" - {exc.read().decode('utf-8', errors='replace')}"
+                    safe_headline = article.get('headline', '')[:55].encode('ascii', errors='replace').decode('ascii')
+                    print(f"[{attempted}/{total_to_process}] 요약 중: {safe_headline}...", flush=True)
                 except Exception:
-                    pass
-            logs.append(f"llm skip article: {article.get('headline', '')[:60]} ({type(exc).__name__})")
-            print(f"Error summarizing: {err_msg}", flush=True)
+                    print(f"[{attempted}/{total_to_process}] 요약 중: (인코딩 에러 발생 기사)...", flush=True)
+            source_text = extract_article_text(article.get("source_url", ""))
+            if len(source_text) < 300:
+                source_text = f"{article.get('headline', '')}\n\n{article.get('body', '')}"
+            try:
+                summary, sector, keywords, importance_score = summarize_with_llm(article, source_text)
+                if summary:
+                    article["body"] = summary
+                    article["summary_method"] = "llm"
+                    article["summary_model"] = LLM_MODEL
+                    article["importance_score"] = clamp_importance_score(
+                        importance_score,
+                        fallback_importance_score(article, source_text),
+                    )
+                    if sector:
+                        article["sector"] = sector
+                    if keywords:
+                        article["llm_keywords"] = keywords
+                    # A summary shorter than the requested three lines is
+                    # retried once; the shorter text stays as the fallback.
+                    if len([line for line in summary.split("\n") if line.strip()]) < 3 and attempt_pass == 0:
+                        failed.append(article)
+                        logs.append(
+                            f"llm short summary: {article.get('headline', '')[:60]} "
+                            "(fewer than 3 lines, retrying)"
+                        )
+                    else:
+                        enriched += 1
+                    time.sleep(4.0)
+                else:
+                    article["summary_method"] = "snippet"
+                    article["importance_score"] = fallback_importance_score(article, source_text)
+                    failed.append(article)
+                    logs.append(
+                        f"llm empty summary: {article.get('headline', '')[:60]} "
+                        "(model returned no visible text)"
+                    )
+            except Exception as exc:
+                article["summary_method"] = "snippet"
+                article["importance_score"] = fallback_importance_score(article)
+                failed.append(article)
+                err_msg = f"{type(exc).__name__}: {exc}"
+                if hasattr(exc, "read"):
+                    try:
+                        err_msg += f" - {exc.read().decode('utf-8', errors='replace')}"
+                    except Exception:
+                        pass
+                logs.append(f"llm skip article: {article.get('headline', '')[:60]} ({type(exc).__name__})")
+                print(f"Error summarizing: {err_msg}", flush=True)
+
+        if exhausted or attempt_pass == 1 or not failed:
+            break
+        queue = failed
+        logs.append(f"llm retry pass: retrying {len(failed)} articles that failed on the first pass")
+
+    unprocessed = sum(1 for a in articles[:LLM_MAX_ITEMS] if not a.get("summary_method"))
+    if exhausted:
+        logs.append(
+            f"llm budget of {LLM_BUDGET_SECONDS}s exhausted; "
+            f"{unprocessed} articles keep their raw snippets"
+        )
     for article in articles:
         if not article.get("importance_score"):
             article["importance_score"] = fallback_importance_score(article)
@@ -1841,10 +1882,15 @@ def enrich_with_llm_summaries(articles: list[dict], logs: list[str]) -> list[dic
 
 
 def select_daily_summary_items(items: list[dict], limit: int = DAILY_SUMMARY_MAX_ITEMS) -> list[dict]:
-    """Return the canonical Daily Summary ranking used by JSON and every UI."""
+    """Return the canonical Daily Summary ranking used by JSON and every UI.
+
+    Articles with a generated summary always come first so the Daily TOP 10
+    never shows a raw headline feed entry.
+    """
     return sorted(
         items,
         key=lambda item: (
+            has_llm_summary(item),
             clamp_importance_score(item.get("importance_score"), 1),
             item.get("created_at", ""),
         ),

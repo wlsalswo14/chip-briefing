@@ -222,6 +222,46 @@ class SummaryFormattingTests(unittest.TestCase):
             summary = collector.generate_collection_summary(items, [], "daily")
         self.assertEqual(summary.split("\n"), ["· 첫 번째 기사", "· 두 번째 기사"])
 
+    def test_daily_top10_prefers_summarized_articles_over_raw_snippets(self):
+        items = [
+            {
+                "headline": "스니펫만 있는 기사",
+                "body": "원문 일부만 있는 문장",
+                "summary_method": "snippet",
+                "importance_score": 5,
+                "created_at": "2026-09-23T10:00:00+09:00",
+            },
+            {
+                "headline": "요약된 기사",
+                "body": "첫째 줄\n둘째 줄\n셋째 줄",
+                "summary_method": "llm",
+                "importance_score": 2,
+                "created_at": "2026-09-23T09:00:00+09:00",
+            },
+        ]
+        selected = collector.select_daily_summary_items(items, limit=1)
+        self.assertEqual(selected[0]["headline"], "요약된 기사")
+
+    def test_sort_by_importance_puts_summarized_articles_first(self):
+        items = [
+            {
+                "headline": "스니펫 기사",
+                "body": "원문",
+                "summary_method": "snippet",
+                "importance_score": 5,
+                "created_at": "2026-09-23T10:00:00+09:00",
+            },
+            {
+                "headline": "요약 기사",
+                "body": "첫째 줄\n둘째 줄",
+                "summary_method": "llm",
+                "importance_score": 1,
+                "created_at": "2026-09-23T09:00:00+09:00",
+            },
+        ]
+        ordered = collector.sort_by_importance(items)
+        self.assertEqual([item["headline"] for item in ordered], ["요약 기사", "스니펫 기사"])
+
 
 class ModelRetryTests(unittest.TestCase):
     def test_post_json_retries_once_on_transient_503(self):
