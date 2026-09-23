@@ -1,26 +1,26 @@
 {
   "schema_version": 7,
-  "generated_at": "2026-09-23T11:59:01+09:00",
-  "daily_summary": "- 삼성전자가 내년 HBM4/4E 생산량을 올해의 2배로 확대하고 웨이퍼 투입량을 25만 장으로 늘리며 추격 중이며, SK하이닉스의 공장 확대와 더불어 중국 CXMT의 범용 D램 점유율 상승(9.5%)이 나타나고 있습니다.\n- TSMC는 차세대 A14 공정(2세대 GAA 적용)으로 내년 1분기 인텔 14A와 격돌하며, 애플 A20 칩에 2나노(N2) 공정을 채택하는 등 초미세 공정 주도권 경쟁이 심화되고 있습니다.\n- 엔비디아는 Blackwell 및 Vera Rubin의 NVLink 대역폭을 극대화하기 위해 클러스터 토폴로지를 자동 탐색하고 최적화하는 오픈소스 툴킷 'Topograph'를 공개했습니다.\n- 시장에서는 HBM 및 AI 테마로 삼성전자와 원익홀딩스 등의 거래량이 급증했으며, 심텍·대덕전자 등 온디바이스 AI 관련 기판 업체들에 대한 관심이 높아지는 추세입니다.",
+  "generated_at": "2026-09-23T14:34:29+09:00",
+  "daily_summary": "· [AI 슈퍼사이클 나비효과]上 삼성의 맹추격… HBM 왕좌 바뀌나\n· Topology-Aware Workload Scheduling with NVIDIA Topograph\n· 말레이시아 AI 패키징 투자 확대, 한국 HBM 관련 수출 급증\n· 한미 반도체 , FC 본더 75 첫 출하로 AI 패키징 장비 사업 확대\n· Comparison of TSMC CoWoS-S, CoWoS-R, and CoWoS-L\n· GUC Announces 2nm 16 Gbps HBM4E IP\n· 한미 반도체 , AI 반도체 2.5D 패키징 장비 'FC 본더 75' 출하\n· 삼성·SK하이닉스 3분기 영업익 190조 전망…다음 승부는 HBM4\n· 한미 반도체 , AI 시스템 반도체 용 'FC 본더 75' 첫 출하\n· AI 칩 하나로 연결하는 장비, 한미 반도체 글로벌 첫 출하",
   "daily_summary_article_ids": [
     "art-2a37d96f66bbfd",
-    "art-f6f5289324950c",
-    "art-98aa561f87bc34",
     "art-4ef001001f5ea7",
-    "art-144850cf2dfd17",
-    "art-d04e3f05adc382",
-    "art-39c2192b514f4e",
-    "art-32152c2d1d6dad",
-    "art-66dfcf5d89643b",
-    "art-a66fe13ff0e088"
+    "art-1810fd48188a5e",
+    "art-d954695515bf23",
+    "art-fb70e68526a498",
+    "art-f86928c5b7ea51",
+    "art-2e6881cc89673a",
+    "art-f431a50830dced",
+    "art-1f667744d659dc",
+    "art-2847094a83215d"
   ],
-  "community_summary": "EUV 노광 장비: EUV 노광 장비에 대해 게시글은 ‘ASML 극자외선( EUV ) 노광기. ASML 부진은 실적에서도 드러난다. ASML 의 2분기 순장비매출에서 유럽이 차지한 비중은 없었다. 지난해 유럽·중동·아프리카(EMEA) 비중이 1%였던 것과 비교된다. 상반기 ASML 장비의 최대 시장은...’라는 관점이나 정보를 공유했다.\n2022170981 오경식 26.09.22 \" TSMC , 2028년까지 AI칩 패키징 독주\": 2022170981 오경식 26.09.22 \" TSMC , 2028년까지 AI칩 패키징 독주\"에 대해 게시글은 ‘첨부파일 2022170981 오경식 2026.09.22 TSMC , 2028년까지 AI칩 패키징 독주.docx 본문 요약 : 트렌드포스는 TSMC 의 CoWoS-L이 기술 성숙도와 수율 우위를 바탕으로 2028년까지 AI 칩 패키징 의 주류 자리를 유지할 것으로 전망...’라는 관점이나 정보를 공유했다.\n대만, TSMC 중심 첨단 패키징 단지 착공…2029년 가동: 대만, TSMC 중심 첨단 패키징 단지 착공…2029년 가동 관련 정보 공유가 중심이며, 제공된 문구에서는 뚜렷한 찬반 반응이 확인되지 않았다.",
-  "community_sentiment": "EUV 노광 장비: EUV 노광 장비에 대해 게시글은 ‘ASML 극자외선( EUV ) 노광기. ASML 부진은 실적에서도 드러난다. ASML 의 2분기 순장비매출에서 유럽이 차지한 비중은 없었다. 지난해 유럽·중동·아프리카(EMEA) 비중이 1%였던 것과 비교된다. 상반기 ASML 장비의 최대 시장은...’라는 관점이나 정보를 공유했다.\n2022170981 오경식 26.09.22 \" TSMC , 2028년까지 AI칩 패키징 독주\": 2022170981 오경식 26.09.22 \" TSMC , 2028년까지 AI칩 패키징 독주\"에 대해 게시글은 ‘첨부파일 2022170981 오경식 2026.09.22 TSMC , 2028년까지 AI칩 패키징 독주.docx 본문 요약 : 트렌드포스는 TSMC 의 CoWoS-L이 기술 성숙도와 수율 우위를 바탕으로 2028년까지 AI 칩 패키징 의 주류 자리를 유지할 것으로 전망...’라는 관점이나 정보를 공유했다.\n대만, TSMC 중심 첨단 패키징 단지 착공…2029년 가동: 대만, TSMC 중심 첨단 패키징 단지 착공…2029년 가동 관련 정보 공유가 중심이며, 제공된 문구에서는 뚜렷한 찬반 반응이 확인되지 않았다.",
+  "community_summary": "마이크론 실적 잘 나오면 하이닉스 도 오를까요? 반대일 수 있습니다: 마이크론 실적 잘 나오면 하이닉스 도 오를까요? 반대일 수 있습니다에 대해 게시글은 ‘마이크론 실적이 좋아도 하이닉스 는 빠질 수 있습니다 좋은 실적이... 삼성전자와 SK하이닉스 에도 분명한 호재입니다. 둘째, 마이크론이 HBM 4에서 실제 매출을 만들고 있다는 뜻일 수 있습니다. 그러면 SK 하이닉을...’라는 관점이나 정보를 공유했다.\n오늘의 예상 대장테마 · 종목 (9/23): 오늘의 예상 대장테마 · 종목 (9/23)에 대해 게시글은 ‘간밤 해외·국내 이슈로 본 오늘 예상 대장테마와 주도주 [1위] HBM (고대역폭메모리) + CXL(컴퓨트익스프레스링크) (美 이슈) 로젠블랫 \"낸드는 AI 핵심\" → 테크윙 · 파두 · 네오셈 · 피에스케이 · SK하이닉스 [2위]...’라는 관점이나 정보를 공유했다.\n“ 하이닉스 주주들 젠슨 황에 절할 판” 주가 다시 띄울 ‘초대형 카드’ ....: “ 하이닉스 주주들 젠슨 황에 절할 판” 주가 다시 띄울 ‘초대형 카드’ ....에 대해 게시글은 ‘반대로 SK하이닉스 가 HBM 4 기술 격차를 유지한다면 AI 반도체 성장의 수혜가 다시 부각될 수 있습니다. 젠슨 황의 한마디만 따라가기보다 엔비디아 로드맵과 실제 GPU 출하, HBM 4 공급 구도를 차례로 확인할 필요가...’라는 관점이나 정보를 공유했다.",
+  "community_sentiment": "마이크론 실적 잘 나오면 하이닉스 도 오를까요? 반대일 수 있습니다: 마이크론 실적 잘 나오면 하이닉스 도 오를까요? 반대일 수 있습니다에 대해 게시글은 ‘마이크론 실적이 좋아도 하이닉스 는 빠질 수 있습니다 좋은 실적이... 삼성전자와 SK하이닉스 에도 분명한 호재입니다. 둘째, 마이크론이 HBM 4에서 실제 매출을 만들고 있다는 뜻일 수 있습니다. 그러면 SK 하이닉을...’라는 관점이나 정보를 공유했다.\n오늘의 예상 대장테마 · 종목 (9/23): 오늘의 예상 대장테마 · 종목 (9/23)에 대해 게시글은 ‘간밤 해외·국내 이슈로 본 오늘 예상 대장테마와 주도주 [1위] HBM (고대역폭메모리) + CXL(컴퓨트익스프레스링크) (美 이슈) 로젠블랫 \"낸드는 AI 핵심\" → 테크윙 · 파두 · 네오셈 · 피에스케이 · SK하이닉스 [2위]...’라는 관점이나 정보를 공유했다.\n“ 하이닉스 주주들 젠슨 황에 절할 판” 주가 다시 띄울 ‘초대형 카드’ ....: “ 하이닉스 주주들 젠슨 황에 절할 판” 주가 다시 띄울 ‘초대형 카드’ ....에 대해 게시글은 ‘반대로 SK하이닉스 가 HBM 4 기술 격차를 유지한다면 AI 반도체 성장의 수혜가 다시 부각될 수 있습니다. 젠슨 황의 한마디만 따라가기보다 엔비디아 로드맵과 실제 GPU 출하, HBM 4 공급 구도를 차례로 확인할 필요가...’라는 관점이나 정보를 공유했다.",
   "community_top10_ids": [
-    "art-39dc011ae309b1",
-    "art-504c4930d3f625",
-    "art-5d9d79f799992c",
-    "art-be8cf8c57ceff6",
+    "art-f96b2dfcd8b15d",
+    "art-5cf6697eea2f79",
+    "art-3d2e297e607b4a",
+    "art-bdd16e0f4bd2ba",
     "art-f6f199c758771d",
     "art-3dd1dc0591d80d",
     "art-a62353d86c9f1b",
@@ -37,7 +37,7 @@
   ],
   "collector": {
     "name": "collect_news.py",
-    "source_count": 84,
+    "source_count": 85,
     "community_count": 10,
     "notes": "Metadata/link collection only; article full text is not stored. LLM summaries are generated transiently when configured.",
     "summary_methods": [
@@ -46,6 +46,18 @@
     ],
     "summary_model": "gemma-4-31b-it",
     "logs": [
+      "rss skip: The Elec https://www.thelec.net/rss.xml (HTTPError)",
+      "rss skip: The Elec https://www.thelec.net/feed.xml (HTTPError)",
+      "rss skip: DIGITIMES https://www.digitimes.com/rss (HTTPError)",
+      "google news ok: semiconductor HBM OR HBM4 OR HBM4E (10)",
+      "google news ok: semiconductor CoWoS advanced packaging hybrid bonding (9)",
+      "google news ok: semiconductor High NA EUV GAA 2nm (9)",
+      "google news ok: AI accelerator ASIC GPU NPU semiconductor (8)",
+      "google news ok: 반도체 HBM OR 패키징 OR EUV OR 파운드리 (10)",
+      "naver ok: Naver News Search 반도체 HBM (10)",
+      "naver ok: Naver News Search HBM4 HBM4E (10)",
+      "naver ok: Naver News Search 반도체 패키징 CoWoS (10)",
+      "naver ok: Naver News Search EUV High NA (10)",
       "naver ok: Naver News Search 2나노 공정 GAA (10)",
       "naver ok: Naver News Search AI 반도체 ASIC NPU (10)",
       "naver ok: Naver News Search 삼성전자 파운드리 (10)",
@@ -79,7 +91,7 @@
       "dcinside ok: 삼성전자 파운드리 (25)",
       "dcinside ok: SK하이닉스 HBM (25)",
       "dcinside ok: TSMC ASML (25)",
-      "clien ok: 모두의공원 (598 from 20 pages)",
+      "clien ok: 모두의공원 (593 from 20 pages)",
       "clien ok: 주식한당 (30 from 1 pages)",
       "clien ok: AI당 (30 from 1 pages)",
       "naver web community ok: 에펨코리아 HBM HBM4 (5)",
@@ -96,43 +108,31 @@
       "reddit skip: REDDIT_DATA_API_APPROVED is not true",
       "x skip: disabled by configuration; Reddit-only community mode",
       "community history dedupe: skipped 27 estimated-date items seen in prior 7 days",
-      "cache load: 11 summaries by id, 11 by headline",
-      "llm skip article: Accelerating a ROS 2 Node with an AI Agent and NVIDIA Isaac  (TimeoutError)",
-      "llm skip article: [AI 슈퍼사이클 나비효과]上 삼성의 맹추격… HBM 왕좌 바뀌나 (HTTPError)",
-      "llm skip article: TSMC ‘A14’ 승부수…인텔 14A와 내년 1분기 맞붙는다 (HTTPError)",
-      "llm skip article: 유럽 시총 1위 ASML , 정작 ‘안방’에선 한 대도 못 팔았다 (HTTPError)",
-      "llm skip article: [스냅드래곤 서밋] '단가'의 경제학 (HTTPError)",
-      "llm skip article: Wafer-Scale Sub-5nm Channel Monolayer MoS2 Transistors (CMU, (TimeoutError)",
-      "llm skip article: The State of the U.S. Semiconductor Manufacturing Workforce  (TimeoutError)",
-      "llm skip article: [총수家] 일론 머스크 테슬라 CEO ⑬ㅣ땅속 터널부터 무인 로보택시까지... (HTTPError)",
+      "cache load: 0 summaries by id, 0 by headline",
       "llm skip article: [단독] 구글, 엔비디아 GPU 독점 구도에 도전…빅테크 AI 인프라 격전지... (HTTPError)",
-      "llm skip article: [현장] 멜콘 “반도체 미세화가 기회”…EUV 넘어 HBM·글로벌로 - 스트레이트뉴스 (TimeoutError)",
-      "llm skip article: 멜콘 \"IPO 후 생산능력 두배\" (TimeoutError)",
-      "llm skip article: [알림] 선단공정과 패키징 을 넘다… 반도체 '검사·계측' 미래를 엿보다 (TimeoutError)",
       "llm skip article: [IPO] 김성일 멜콘 대표 \" EUV 넘어 HBM까지\"...정밀 환경제어로 코스닥 출... (HTTPError)",
-      "llm skip article: AI 칩 하나로 연결하는 장비, 한미 반도체 글로벌 첫 출하 (TimeoutError)",
-      "llm skip article: 멜콘, 다음 달 15일 코스닥 상장…\"국내 넘어 해외 반도체 시장 공략\" (TimeoutError)",
-      "llm skip article: 'AI 감속론'에도 반도체는 질주… HBM 수출·실물 수요 뜨겁다 (HTTPError)",
-      "llm skip article: 한미 반도체 , 2.5D 지원 첨단 패키징 장비 'FC 본더 75' 첫 출하 (TimeoutError)",
-      "llm skip article: 한미반도체, 2.5D 지원 첨단 패키징 장비 'FC 본더 75' 첫 출하 - zdnet.co.kr (TimeoutError)",
-      "llm skip article: From Test Compression To Hierarchical Connectivity: Scaling  (TimeoutError)",
-      "llm skip article: D램 늘려도 부족하다…공급난 장기화에 삼성전자 몸값 재평가 (TimeoutError)",
-      "llm skip article: 멜콘, 상장 후 EUV · High - NA 고도화…HBM·패키징으로 적용처 확대[IPO출사... (TimeoutError)",
-      "llm skip article: 한미반도체, GPU·메모리 연결하는 AI 반도체 패키징 장비 첫 출하 - 조선일보 (HTTPError)",
-      "llm skip article: 한미 반도체 , AI 반도체 용 첨단 패키징 장비 글로벌 고객사에 출하 (HTTPError)",
-      "llm skip article: 한미반도체, AI 시스템반도체용 ‘FC 본더 75’ 첫 출하…2.5D 패키징 공략 - 헤럴드경제 (TimeoutError)",
-      "llm skip article: 한미반도체, AI 반도체 2.5D 패키징 장비 'FC 본더 75' 첫 출하 - 전자신문 (TimeoutError)",
-      "llm budget of 3600s exhausted after 28 articles; 31 articles keep their raw snippets",
-      "llm ok: summarized 21 articles, reused 7 cached summaries (total 84)",
+      "llm skip article: 삼성전자, HBM4 수요에 4나노 증설 검토 보도 (HTTPError)",
+      "llm skip article: '울트라'까지 엑시노스 확대하나…삼성, 갤럭시S27 AP 전략 변화 (HTTPError)",
+      "llm skip article: D램 늘려도 부족하다…공급난 장기화에 삼성전자 몸값 재평가 (HTTPError)",
+      "llm skip article: 한미반도체, ‘FC 본더 75’ 첫 출하…HBM 넘어 AI 시스템반도체로 - 더스탁(The Stock) (TimeoutError)",
+      "llm skip article: 260923 대만 산업 동향 (HTTPError)",
+      "llm retry pass: retrying 7 articles that failed on the first pass",
+      "llm skip article: [단독] 구글, 엔비디아 GPU 독점 구도에 도전…빅테크 AI 인프라 격전지... (HTTPError)",
+      "llm skip article: 삼성전자, HBM4 수요에 4나노 증설 검토 보도 (HTTPError)",
+      "llm skip article: 한미반도체, ‘FC 본더 75’ 첫 출하…HBM 넘어 AI 시스템반도체로 - 더스탁(The Stock) (HTTPError)",
+      "llm skip article: 260923 대만 산업 동향 (HTTPError)",
+      "llm ok: summarized 36 articles, reused 0 cached summaries (total 40)",
+      "top10 images: stored 9, no image for 1 (of 10)",
       "community reaction summary skip: TimeoutError",
-      "community top 10: 1:4:naver_cafe, 2:4:naver_cafe, 3:4:naver_cafe, 4:4:naver_cafe, 5:4:dcinside, 6:4:dcinside, 7:4:dcinside, 8:4:dcinside, 9:3:fmkorea, 10:2:clien"
+      "community top 10: 1:4:naver_cafe, 2:4:naver_cafe, 3:4:naver_cafe, 4:4:naver_cafe, 5:4:dcinside, 6:4:dcinside, 7:4:dcinside, 8:4:dcinside, 9:3:fmkorea, 10:2:clien",
+      "daily summary skip: TimeoutError"
     ]
   },
   "articles": [
     {
       "id": "art-2a37d96f66bbfd",
       "headline": "[AI 슈퍼사이클 나비효과]上 삼성의 맹추격… HBM 왕좌 바뀌나",
-      "body": "내년 HBM4 와 차세대 HBM4E 생산량을 올해의 2배 수준으로 끌어올리는 방안을 추진하는 것으로 알려졌다. HBM 용 웨이퍼 투입량은 올해 월 18만장에서 내년 25만장으로 약 40% 늘리고 이 가운데 HBM4 계열 비중도 40%에서 80...",
+      "body": "삼성전자가 내년 HBM4 및 HBM4E 생산량을 올해의 2배로 확대하고, HBM 웨이퍼 투입량을 월 18만장에서 25만장으로 늘릴 계획이다.\n삼성전자의 HBM4 양산 수율이 60% 미만에서 최근 80% 수준으로 개선되었으며, 4나노 파운드리 생산능력 중 월 1.5만장을 HBM4 베이스다이에 배정했다.\nSK하이닉스는 청주 M15X의 웨이퍼 투입량을 월 1만장에서 8만장으로 확대하고, 용인 반도체 클러스터 첫 팹의 가동 시점을 내년으로 앞당기는 방안을 추진 중이다.\n엔비디아의 차세대 AI 가속기 '루빈 울트라'에는 패키지당 16개의 HBM4E가 탑재될 예정이며, HBM4 가격은 올해보다 약 65% 상승할 것으로 전망된다.\n마이크론은 연말까지 HBM 웨이퍼 생산능력을 월 10만장 수준으로 확대하고, 중국 CXMT는 HBM3E 소량 생산 및 내년 대량 생산을 목표로 하고 있다.",
       "sector": "소자",
       "category": "news",
       "trust": "medium",
@@ -145,49 +145,23 @@
       "matched_keywords": [
         "HBM"
       ],
-      "summary_method": "snippet",
-      "importance_score": 5
-    },
-    {
-      "id": "art-f6f5289324950c",
-      "headline": "TSMC ‘A14’ 승부수…인텔 14A와 내년 1분기 맞붙는다",
-      "body": "A14는 TSMC의 차세대 핵심 공정 으로, 2세대 게이트올어라운드( GAA ) 나노 시트 트랜지스터와 새로운 나노 플렉스 프로 표준셀 아키텍처가 적용된다. 현재 양산이 진행 중인 2나노 공정 (N2)의 후속 세대다....",
-      "sector": "공정",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-09-23T06:00:00+09:00",
-      "placement": "main",
-      "source_name": "Naver News Search",
-      "source_url": "https://www.dt.co.kr/article/12085526?ref=naver",
-      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "GAA"
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "summary_version": 2,
+      "importance_score": 5,
+      "llm_keywords": [
+        "HBM4",
+        "HBM4E",
+        "루빈 울트라",
+        "베이스다이",
+        "수율"
       ],
-      "summary_method": "snippet",
-      "importance_score": 5
-    },
-    {
-      "id": "art-98aa561f87bc34",
-      "headline": "[스냅드래곤 서밋] '단가'의 경제학",
-      "body": "당장 애플은 아이폰18 시리즈에 실릴 A20 칩에 TSMC 2나노 기본 공정인 N2를 채택해 초기 생산 능력의 절반... 퀄컴은 웨이퍼 생산과 조립 테스트 첨단 패키징 메모리 등 반도체 산업 전반의 투입 비용이 폭넓게 오르고...",
-      "sector": "설계",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-09-23T05:34:00+09:00",
-      "placement": "main",
-      "source_name": "Naver News Search",
-      "source_url": "https://www.econovill.com/news/articleView.html?idxno=751489",
-      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
-      "raw_source_type": "api",
-      "matched_keywords": [],
-      "summary_method": "snippet",
-      "importance_score": 5
+      "image_url": "assets/thumbs/2026-09-23/art-2a37d96f66bbfd.jpg"
     },
     {
       "id": "art-4ef001001f5ea7",
       "headline": "Topology-Aware Workload Scheduling with NVIDIA Topograph",
-      "body": "NVIDIA가 클러스터 토폴로지를 자동 탐색하여 Kubernetes, Slurm, Slinky 등 워크로드 매니저에 최적화된 배치 정보를 제공하는 오픈소스 툴킷 'Topograph'를 공개함\nBlackwell(GB200/GB300)의 1.8TB/s 및 Vera Rubin의 3.6TB/s NVLink 대역폭과 최대 800Gb/s의 Quantum InfiniBand 성능을 극대화하기 위해 통신 지역성을 최적화함\nGoogle Cloud, Lambda, OCI 등 주요 클라우드 API 및 온프레미스 InfiniBand(ibnetdiscover), NetQ 시스템과 통합되어 실시간 하드웨어 연결 맵을 생성함\nNVIDIA DSX OS의 동적 자원 할당(DRA) 및 KAI 스케줄러와 연동되어 AI 팩토리 인프라 내에서 토폴로지 인식 갱 스케줄링(Gang Scheduling)을 지원함",
+      "body": "NVIDIA가 클러스터 토폴로지를 자동으로 탐색해 GPU 워크로드 배치를 최적화하는 오픈소스 툴킷 'Topograph'를 공개함\nTopograph는 클라우드 API 및 온프레미스 시스템에서 하드웨어 연결 상태를 수집해 Kubernetes 노드 레이블, Slurm 설정, Slinky ConfigMaps 형식으로 변환해 제공함\nBlackwell(GB200/GB300)의 NVLink 대역폭 1.8TB/s 및 차세대 Vera Rubin의 3.6TB/s, Quantum InfiniBand의 800Gb/s 성능을 효율적으로 활용하도록 지원함\nGoogle Cloud, Lambda, Nebius, Nscale, OCI 등 주요 클라우드 제공업체와 통합되어 토폴로지 인식 스케줄링을 가능하게 함\nKubernetes 1.27 이상 환경에서 fabric.topograph.run/tier 및 accelerator.topograph.run/domain 레이블을 통해 계층적 네트워크 및 가속기 도메인을 매핑함",
       "sector": "설계",
       "category": "news",
       "trust": "high",
@@ -202,81 +176,969 @@
       ],
       "summary_method": "llm",
       "summary_model": "gemma-4-31b-it",
+      "summary_version": 2,
       "importance_score": 5,
       "llm_keywords": [
-        "Topograph",
+        "NVIDIA Topograph",
         "NVLink",
-        "AI Factory",
         "Topology-Aware Scheduling",
-        "Blackwell",
-        "Vera Rubin"
+        "AI Factory",
+        "Kubernetes"
+      ],
+      "image_url": "assets/thumbs/2026-09-23/art-4ef001001f5ea7.jpg"
+    },
+    {
+      "id": "art-1810fd48188a5e",
+      "headline": "말레이시아 AI 패키징 투자 확대, 한국 HBM 관련 수출 급증",
+      "body": "말레이시아가 AI 반도체 첨단 패키징의 새로운 생산 거점으로 부상함\n한국의 HBM 관련 품목의 말레이시아향 수출액이 빠르게 증가하는 추세임\n올해 8월 기준 말레이시아향 수출액이 전년 동기 대비 466.6% 급증함\n말레이시아 내 AI 패키징 투자 확대가 한국 HBM 공급망 수출 경로에 영향을 미침\n확인된 내용은 말레이시아 후공정 인프라 확충에 따른 한국 반도체 소자 수출 증가임",
+      "sector": "패키징",
+      "category": "analysis",
+      "trust": "low",
+      "created_at": "2026-09-23T00:00:00+09:00",
+      "placement": "main",
+      "source_name": "Naver Blog Search",
+      "source_url": "https://blog.naver.com/innowellnews/224420870164",
+      "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "HBM"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "summary_version": 2,
+      "importance_score": 5,
+      "llm_keywords": [
+        "HBM",
+        "말레이시아",
+        "첨단 패키징",
+        "수출 급증"
+      ],
+      "image_url": "assets/thumbs/2026-09-23/art-1810fd48188a5e.jpg"
+    },
+    {
+      "id": "art-d954695515bf23",
+      "headline": "한미 반도체 , FC 본더 75 첫 출하로 AI 패키징 장비 사업 확대",
+      "body": "한미반도체가 시스템 반도체 후공정용 'FC 본더 75'를 최초로 출하함\n기존 HBM용 TC 본더 중심에서 시스템 반도체 패키징 장비로 제품군을 확장함\nAI 가속기의 칩 크기 증가와 HBM 탑재량 확대에 따른 대형 패키징 장비 수요에 대응함\nFC 본더 75는 고성능 시스템 반도체의 칩-to-칩 연결을 처리하는 후공정 장비임\n이번 출하를 통해 AI 가속기 및 시스템 반도체 패키징 장비 시장으로 사업 영역을 넓힘",
+      "sector": "패키징",
+      "category": "analysis",
+      "trust": "low",
+      "created_at": "2026-09-23T00:00:00+09:00",
+      "placement": "main",
+      "source_name": "Naver Blog Search",
+      "source_url": "https://blog.naver.com/innowellnews/224420867701",
+      "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "HBM"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "summary_version": 2,
+      "importance_score": 5,
+      "llm_keywords": [
+        "한미반도체",
+        "FC 본더 75",
+        "AI 가속기",
+        "시스템 반도체",
+        "후공정 장비"
+      ],
+      "image_url": "assets/thumbs/2026-09-23/art-d954695515bf23.jpg"
+    },
+    {
+      "id": "art-fb70e68526a498",
+      "headline": "Comparison of TSMC CoWoS-S, CoWoS-R, and CoWoS-L",
+      "body": "TSMC CoWoS-S는 실리콘 인터포저를 통해 고밀도 배선과 낮은 지연시간을 구현하며, 고성능 메모리 인터페이스가 필요한 하이엔드 제품에 적용됨\nCoWoS-S는 인터포저 크기가 리소그래피 레티클 한계를 초과할 경우 마스크 스티칭 공정이 필요하며, 이로 인해 제조 복잡도와 비용이 증가함\nCoWoS-R은 실리콘 인터포저 대신 구리 배선과 폴리머 유전체 기반의 RDL(재배선층) 인터포저를 사용하며 2023년부터 양산을 시작함\nCoWoS-L은 RDL 인터포저 내에 국소 실리콘 인터커넥트(LSI) 브릿지를 선택적으로 배치한 하이브리드 구조로 2024년부터 양산됨\nCoWoS-L은 LSI를 통해 핵심 영역의 연결 밀도를 높이고 RDL로 패키지 확장성을 확보하여 차세대 대형 AI 가속기에 최적화됨",
+      "sector": "패키징",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-09-22T22:00:21+09:00",
+      "placement": "main",
+      "source_name": "SemiWiki",
+      "source_url": "https://semiwiki.com/semiconductor-manufacturers/tsmc/371790-comparison-of-tsmc-cowos-s-cowos-r-and-cowos-l",
+      "source_note": "rss_or_html",
+      "raw_source_type": "rss",
+      "matched_keywords": [
+        "CoWoS",
+        "substrate",
+        "advanced packaging"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "summary_version": 2,
+      "importance_score": 5,
+      "llm_keywords": [
+        "CoWoS",
+        "TSMC",
+        "LSI",
+        "RDL",
+        "AI 가속기"
+      ],
+      "image_url": "assets/thumbs/2026-09-23/art-fb70e68526a498.jpg"
+    },
+    {
+      "id": "art-f86928c5b7ea51",
+      "headline": "GUC Announces 2nm 16 Gbps HBM4E IP",
+      "body": "GUC가 2nm 공정 기반의 HBM4E PHY 및 컨트롤러 IP를 발표함\n해당 IP는 16Gbps의 데이터 전송 속도를 지원함\n설계 준비가 완료된(design-ready) 상태의 IP로 제공됨\n현재 고객사의 AI ASIC 설계에 채택되어 적용 중임\n차세대 고대역폭 메모리(HBM4E) 인터페이스를 위한 설계 솔루션임",
+      "sector": "설계",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-09-22T22:00:00+09:00",
+      "placement": "main",
+      "source_name": "EE Times",
+      "source_url": "https://www.eetimes.com/guc-announces-2nm-16-gbps-hbm4e-ip",
+      "source_note": "rss_or_html",
+      "raw_source_type": "rss",
+      "matched_keywords": [
+        "2nm"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "summary_version": 2,
+      "importance_score": 5,
+      "llm_keywords": [
+        "GUC",
+        "HBM4E",
+        "2nm",
+        "AI ASIC"
       ]
     },
     {
-      "id": "art-144850cf2dfd17",
-      "headline": "온디바이스 AI 관련주, 심텍·대덕전자·노타 옥석 가릴 수 있을까",
-      "body": "엔비디아나 HBM 같은 거대한 AI 반도체 이야기에 가려져 잘 안 보였지만, 최근 온디바이스 AI 기대감이 살아나면서 관련 종목들이 한꺼번에 들썩였거든요. 특히 반도체 기판 업체 심텍이 하루 16%대 상승을...",
-      "sector": "소자",
-      "category": "analysis",
-      "trust": "low",
-      "created_at": "2026-09-23T00:00:00+09:00",
+      "id": "art-2e6881cc89673a",
+      "headline": "한미 반도체 , AI 반도체 2.5D 패키징 장비 'FC 본더 75' 출하",
+      "body": "한미반도체가 2.5D AI 반도체 패키징을 지원하는 'FC 본더 75' 장비를 글로벌 고객사에 첫 출하함\n해당 장비는 75mm×75mm 크기의 대형 인터포저 패키징을 지원하여 기존 범용 크기(20mm×20mm)보다 넓은 면적 처리가 가능함\n초대형 다이(Die)와 CPU, GPU, HBM 등 여러 반도체를 하나의 패키지에 집적하는 멀티칩 구현을 지원함\n올해 FC 본더 3.5, 2.5D TC 본더 40 C2S/C2W를 출시했으며, 향후 2.5D TC 본더 120 출시를 앞두고 있음\n미국 내 AI 빅테크 및 파운드리, OSAT 수요 대응을 위해 10월 현지 법인 '한미USA'를 설립하고 2028년 본격 가동할 계획임",
+      "sector": "패키징",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-09-22T19:10:00+09:00",
       "placement": "main",
-      "source_name": "Naver Blog Search",
-      "source_url": "https://blog.naver.com/moneytechtree/224420696863",
-      "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
+      "source_name": "Naver News Search",
+      "source_url": "https://daily.hankooki.com/news/articleView.html?idxno=1409127",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "CoWoS",
+        "2.5D"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "summary_version": 2,
+      "importance_score": 5,
+      "llm_keywords": [
+        "FC 본더 75",
+        "2.5D 패키징",
+        "인터포저",
+        "한미반도체",
+        "AI 반도체"
+      ],
+      "image_url": "assets/thumbs/2026-09-23/art-2e6881cc89673a.jpg"
+    },
+    {
+      "id": "art-f431a50830dced",
+      "headline": "삼성·SK하이닉스 3분기 영업익 190조 전망…다음 승부는 HBM4",
+      "body": "삼성전자(111.7조 원)와 SK하이닉스(78.1조 원)의 3분기 합산 영업이익 전망치가 약 190조 원으로 집계됨\n삼성전자는 1c D램과 4나노 파운드리 베이스 다이를 적용해 핀당 11.7Gbps 속도의 12단 HBM4 양산 및 출하를 시작함\nSK하이닉스는 12단 HBM4를 양산 중이며, 16단 제품은 고객사 인증 단계에 진입했다고 밝힘\n삼성전자는 HBM4E부터 칩 간 구리를 직접 접합하는 하이브리드 본딩 기술을 일부 적용할 계획임\nTSMC의 CoWoS 생산능력이 올해 말 월 12만~13만 장 수준에 이를 전망이나 리드타임은 50주 이상 발생 중임",
+      "sector": "소자",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-09-22T18:47:00+09:00",
+      "placement": "side",
+      "source_name": "Naver News Search",
+      "source_url": "https://www.ppss.kr/news/articleView.html?idxno=312197",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
+      "matched_keywords": [],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "summary_version": 2,
+      "importance_score": 5,
+      "llm_keywords": [
+        "HBM4",
+        "하이브리드 본딩",
+        "CoWoS",
+        "16단 HBM",
+        "1c D램"
+      ],
+      "image_url": "assets/thumbs/2026-09-23/art-f431a50830dced.jpg"
+    },
+    {
+      "id": "art-1f667744d659dc",
+      "headline": "한미 반도체 , AI 시스템 반도체 용 'FC 본더 75' 첫 출하",
+      "body": "한미반도체가 AI 시스템 반도체 2.5D 패키징을 지원하는 'FC 본더 75'를 글로벌 고객사에 첫 출하했다.\nFC 본더 75는 75mm×75mm 크기의 대형 인터포저 패키징을 지원하여 초대형 다이와 멀티칩 집적을 가능하게 한다.\n올해 FC 본더 3.5, 2.5D TC 본더 40 C2S 및 40 C2W를 출시했으며, 향후 2.5D TC 본더 120 출시를 앞두고 있다.\n글로벌 파운드리 및 OSAT 업체에 2.5D 패키징 장비 4종을 양산용으로 공급 중이다.\n오는 10월 미국 법인 '한미USA'를 설립하여 2028년 가동 목표로 미국 내 빅테크, 파운드리, OSAT 수요에 대응할 계획이다.",
+      "sector": "패키징",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-09-22T18:34:00+09:00",
+      "placement": "side",
+      "source_name": "Naver News Search",
+      "source_url": "https://www.econovill.com/news/articleView.html?idxno=751600",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "CoWoS",
+        "2.5D"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "summary_version": 2,
+      "importance_score": 5,
+      "llm_keywords": [
+        "FC 본더 75",
+        "2.5D 패키징",
+        "인터포저",
+        "한미반도체",
+        "AI 반도체"
+      ],
+      "image_url": "assets/thumbs/2026-09-23/art-1f667744d659dc.jpg"
+    },
+    {
+      "id": "art-2847094a83215d",
+      "headline": "AI 칩 하나로 연결하는 장비, 한미 반도체 글로벌 첫 출하",
+      "body": "한미반도체가 최대 75mm×75mm 대형 인터포저 처리가 가능한 2.5D 패키징 장비 'FC 본더 75'를 글로벌 고객사에 첫 출하함.\n해당 장비는 기존 범용 패키지 크기(20mm×20mm)보다 넓은 면적을 처리하여 GPU와 HBM을 하나의 패키지로 묶는 AI 반도체 생산에 활용됨.\n올해 'FC 본더 3.5', '2.5D TC 본더 40 C2S', '2.5D TC 본더 40 C2W'를 출시했으며 '2.5D TC 본더 120' 출시를 앞두고 있음.\n오는 10월 미국 현지 법인 '한미USA'를 설립해 AI 빅테크, 파운드리, OSAT, 메모리 업체 등의 수요에 대응할 계획임.\nHBM용 TC 본더에 이어 AI 시스템반도체용 2.5D 패키징 장비 시장으로 공급 영역을 확장함.",
+      "sector": "패키징",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-09-22T16:36:00+09:00",
+      "placement": "side",
+      "source_name": "Naver News Search",
+      "source_url": "https://www.mk.co.kr/article/12159495",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "CoWoS",
+        "2.5D"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "summary_version": 2,
+      "importance_score": 5,
+      "llm_keywords": [
+        "FC 본더 75",
+        "2.5D 패키징",
+        "인터포저",
+        "한미USA",
+        "AI 반도체"
+      ],
+      "image_url": "assets/thumbs/2026-09-23/art-2847094a83215d.jpg"
+    },
+    {
+      "id": "art-7be72604e0cb96",
+      "headline": "'AI 감속론'에도 반도체는 질주… HBM 수출·실물 수요 뜨겁다",
+      "body": "삼성전자 HBM4 매출이 3분기 전분기 대비 3배 이상 증가하고 하반기 전체 HBM 매출의 60% 이상을 차지할 것으로 전망됨\nSK하이닉스는 하반기 HBM4 생산량을 확대하며 주요 고객사 약 10곳과 장기공급계약을 체결함\nAMD의 2분기 데이터센터 매출은 67억 달러(전년比 107%↑), 엔비디아의 최근 분기 데이터센터 매출은 890억 달러(전년比 117%↑)를 기록함\n앤트로픽이 AMD로부터 최대 2GW 규모의 차세대 AI 가속기를 도입하기로 결정함\n이달 1~20일 한국 반도체 수출액은 341억 달러로 전년 동기 대비 259.4% 증가하며 역대 최대치를 기록함",
+      "sector": "소자",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-09-22T16:28:00+09:00",
+      "placement": "side",
+      "source_name": "Naver News Search",
+      "source_url": "https://www.pointdaily.co.kr/news/articleView.html?idxno=320251",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "Arm"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "summary_version": 2,
+      "importance_score": 5,
+      "llm_keywords": [
+        "HBM4",
+        "AI 가속기",
+        "데이터센터 매출",
+        "반도체 수출"
+      ]
+    },
+    {
+      "id": "art-62f4cb1c07f50e",
+      "headline": "한미 반도체 , 2.5D 지원 첨단 패키징 장비 'FC 본더 75' 첫 출하",
+      "body": "한미반도체가 AI 반도체용 대면적 2.5D 패키징 장비 'FC 본더 75'를 글로벌 고객사에 첫 출하함\nFC 본더 75는 75mm × 75mm 크기의 대형 인터포저 패키징을 지원하여 초대형 다이와 멀티칩 집적을 가능하게 함\n기존 범용 반도체 패키징 처리 면적인 20mm × 20mm 대비 처리 가능 면적을 대폭 확대함\n올해 FC 본더 3.5, 2.5D TC 본더 40 C2S 및 C2W를 출시했으며, 향후 2.5D TC 본더 120 출시를 앞두고 있음\n미국 내 AI 빅테크, 파운드리, OSAT 수요 대응을 위해 10월 미국 현지 법인 '한미USA'를 설립할 예정임",
+      "sector": "패키징",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-09-22T16:02:00+09:00",
+      "placement": "side",
+      "source_name": "Naver News Search",
+      "source_url": "https://zdnet.co.kr/view?no=20260922153758",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "CoWoS",
+        "2.5D"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "summary_version": 2,
+      "importance_score": 5,
+      "llm_keywords": [
+        "FC 본더 75",
+        "2.5D 패키징",
+        "인터포저",
+        "한미반도체",
+        "AI 반도체"
+      ]
+    },
+    {
+      "id": "art-3b26c751667fb6",
+      "headline": "D램 늘려도 부족하다…공급난 장기화에 삼성전자 몸값 재평가",
+      "body": "삼성전자 D램 웨이퍼 월 생산능력이 올해와 내년 각각 전년 대비 14%, 16% 증가할 전망이다.\n전체 D램 생산능력 중 HBM 비중이 지난해 27%에서 올해 33%, 내년 40%까지 확대될 것으로 예상된다.\n서버용 고용량 DDR5의 리드타임이 정상 수준인 6주에서 최대 52주까지 늘어난 것으로 파악됐다.\n3분기 HBM4 매출이 전분기 대비 3배 이상 증가하고, 하반기 HBM 매출의 60% 이상을 HBM4가 차지할 전망이다.\n내년 HBM4E 양산 확대로 HBM4 매출 비중이 80%까지 상승하며, 2027년 HBM 시장 점유율 1위 달성이 전망된다.",
+      "sector": "소자",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-09-22T15:44:00+09:00",
+      "placement": "side",
+      "source_name": "Naver News Search",
+      "source_url": "https://www.mediapen.com/news/view/1125405",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
       "raw_source_type": "api",
       "matched_keywords": [
         "HBM"
       ],
-      "importance_score": 5
+      "summary_method": "llm",
+      "importance_score": 5,
+      "summary_model": "gemma-4-31b-it",
+      "summary_version": 2,
+      "llm_keywords": [
+        "삼성전자",
+        "HBM4",
+        "HBM4E",
+        "DDR5",
+        "D램 생산능력"
+      ]
     },
     {
-      "id": "art-d04e3f05adc382",
-      "headline": "2026.09.23 반도체 뉴스 / CXMT 범용 D램 점유율 9.5% / D램·낸드 동행 깨져....",
-      "body": "반도체 뉴스 11건을 정리했습니다. **◆ 삼성·SK하이닉스 D램이 HBM 에 묶인 사이, 中 CXMT 범용 D램 침투 가속** ・트렌드포스 기준 CXMT의 글로벌 D램 매출 점유율은 1분기 7.6% → 2분기 9.5%로 한...",
-      "sector": "소자",
-      "category": "analysis",
-      "trust": "low",
-      "created_at": "2026-09-23T00:00:00+09:00",
-      "placement": "main",
-      "source_name": "Naver Blog Search",
-      "source_url": "https://blog.naver.com/cavmedic/224420690311",
-      "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
+      "id": "art-9a6e98c1699d78",
+      "headline": "한미반도체, GPU·메모리 연결하는 AI 반도체 패키징 장비 첫 출하 - 조선일보",
+      "body": "한미반도체가 GPU와 메모리를 연결하는 AI 반도체 패키징 장비를 최초로 출하함\n해당 장비는 AI 가속기의 핵심인 GPU와 메모리 간의 물리적 연결을 지원하는 패키징 공정에 사용됨\n이번 출하를 통해 AI 반도체용 첨단 패키징 솔루션의 실제 공급이 시작됨\n확인된 내용은 GPU-메모리 연결용 패키징 장비의 첫 출하 사실임\n구체적인 장비 모델명, 고객사, 출하 수량 등 세부 제원은 기사 내에 명시되지 않음",
+      "sector": "패키징",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-09-22T15:34:04+09:00",
+      "placement": "side",
+      "source_name": "Google News RSS",
+      "source_url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNQU80SUI1Uk5CbEREUDlFaFBkNEZrbEdpMDdYbk8zNGNwbVNJcUQ1WWtKTHVtSzFWSXdKRTBIeDJQR1ZRVUxmYjR6VEJ0Q2dUbF9reDcyeGJhNXJZOG1JZ0E0MkVXeHh4c0FkLXQ1WVM3cVlGNU52VVZRbmZKUnUzdlpSbw?oc=5",
+      "source_note": "Google News search RSS result; original publisher link is retained where available.",
+      "raw_source_type": "rss",
+      "matched_keywords": [
+        "GPU"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "summary_version": 2,
+      "importance_score": 5,
+      "llm_keywords": [
+        "한미반도체",
+        "AI 패키징 장비",
+        "GPU",
+        "메모리 연결"
+      ]
+    },
+    {
+      "id": "art-7cf5d84fe934ed",
+      "headline": "한미 반도체 , AI 반도체 용 첨단 패키징 장비 글로벌 고객사에 출하",
+      "body": "한미반도체가 AI 시스템반도체 2.5D 패키징용 '플립칩(FC) 본더 75'를 글로벌 고객사에 첫 출하함\nFC 본더 75는 가로·세로 75mm×75mm 크기의 대형 인터포저 패키징을 지원하며, 기존 범용 패키지(20mm×20mm)보다 넓은 면적 처리가 가능함\n해당 장비는 CPU, GPU, HBM을 인터포저 위에 집적해 데이터 전송 거리 단축 및 대역폭을 높이는 2.5D 패키징 공정에 사용됨\n올해 'FC 본더 3.5', '2.5D TC 본더 40 C2S/C2W'를 출시했으며, 대형 패키지용 '2.5D TC 본더 120' 출시를 앞두고 있음\n10월 미국 현지 법인 '한미USA'를 설립하여 미국 빅테크 및 파운드리 기업의 첨단 패키징 투자 수요에 대응할 계획임",
+      "sector": "패키징",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-09-22T15:06:00+09:00",
+      "placement": "side",
+      "source_name": "Naver News Search",
+      "source_url": "https://www.hankookilbo.com/news/article/A2026092211290000415?did=NA",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "CoWoS",
+        "2.5D"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "summary_version": 2,
+      "importance_score": 5,
+      "llm_keywords": [
+        "FC 본더 75",
+        "2.5D 패키징",
+        "인터포저",
+        "한미반도체",
+        "AI 가속기"
+      ]
+    },
+    {
+      "id": "art-29e0b2d88bb492",
+      "headline": "AI 반도체 패키징 증설 몰리는 말레이시아… 韓 HBM 관련 수출 1년 새 4.7배 증가 - 조선비즈 - Chosunbiz",
+      "body": "말레이시아 내 AI 반도체 패키징 설비 증설 집중\n한국의 HBM 관련 반도체 수출 규모가 1년 새 4.7배 증가\nAI 반도체 후공정 거점으로서 말레이시아의 역할 확대\nHBM 수요 급증이 한국의 관련 제품 수출 실적 상승으로 연결\nAI 가속기 생산을 위한 글로벌 패키징 인프라 확충 추세 확인",
+      "sector": "패키징",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-09-22T10:51:00+09:00",
+      "placement": "side",
+      "source_name": "Google News RSS",
+      "source_url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPVmIzU3RselhQU1gySms3dGJidVZ5YUt6SFRkV29maXdlT28tX1U4cmRYbWFidUR4RWlFZG5HX0NXNnQzaURNeTlDTTZXZUdaNmlBYnpRMXJKNzJuVmhxbDNZRXhacXNObktEV2xnV2pjbU9FU3hBZW1NREp4T1psWWVB0gGWAUFVX3lxTE9TSndIejFMejgwWl9ycjFaMm1HclZPakpXVk8wT1hxWndscWJ4OEZTRVdyOFV0dDBGb1N6amZsUkhkTlZJZzRuUnMtSVJZM1JuZmZBaUlpVm1ZRFA2MDAwei15TlA5SXUtMnctZTdrR3p4NXp5UUJIc1ZlWXpPRUJQeklhLWRPWlFGbkRtOEtnODJibVMwZw?oc=5",
+      "source_note": "Google News search RSS result; original publisher link is retained where available.",
+      "raw_source_type": "rss",
+      "matched_keywords": [
+        "HBM"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "summary_version": 2,
+      "importance_score": 5,
+      "llm_keywords": [
+        "HBM",
+        "말레이시아",
+        "AI 패키징"
+      ]
+    },
+    {
+      "id": "art-67e15ec0f7a9fd",
+      "headline": "한미반도체, HBM 다음은 'AI 패키징'…FC 본더 75 첫 출하 - 블로터",
+      "body": "한미반도체가 AI 패키징 공정용 'FC 본더 75' 제품을 최초로 출하함\n기존 HBM용 TC 본더 중심에서 AI 패키징 전반으로 장비 포트폴리오를 확장함\nFC 본더 75는 플립칩(Flip Chip) 본딩 기술을 적용한 패키징 장비임\nAI 가속기 및 고성능 컴퓨팅(HPC) 구현을 위한 AI 패키징 시장 공략을 본격화함\nHBM 공급망 내 입지를 바탕으로 차세대 AI 반도체 패키징 솔루션 공급을 추진함",
+      "sector": "패키징",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-09-22T10:15:31+09:00",
+      "placement": "side",
+      "source_name": "Google News RSS",
+      "source_url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE84TGRHN3dEanJZUU9UZmNwdmRmbEljY1I5b3paQ3BXbXY5ZEZ2SGttSC1JS1VVNzRqczZ6UHBhRWdrX0xPTlhWeWJLbG9TLVo4N1RqcDI0VndlR2gxUGdmN2oyeno4UzZUNUVaX9IBbEFVX3lxTE84TGRHN3dEanJZUU9UZmNwdmRmbEljY1I5b3paQ3BXbXY5ZEZ2SGttSC1JS1VVNzRqczZ6UHBhRWdrX0xPTlhWeWJLbG9TLVo4N1RqcDI0VndlR2gxUGdmN2oyeno4UzZUNUVaXw?oc=5",
+      "source_note": "Google News search RSS result; original publisher link is retained where available.",
+      "raw_source_type": "rss",
+      "matched_keywords": [
+        "HBM"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "summary_version": 2,
+      "importance_score": 5,
+      "llm_keywords": [
+        "한미반도체",
+        "FC 본더 75",
+        "AI 패키징",
+        "플립칩"
+      ]
+    },
+    {
+      "id": "art-2dd01b6d69c5ff",
+      "headline": "Concurrent HBM And Host Memory Access Improves LLM Inference Throughput (Georgia Tech, Nvidia, Stanford)",
+      "body": "조지아 공대, 엔비디아, 스탠퍼드 연구진이 HBM과 호스트 메모리에 동시 접근해 LLM 추론 속도를 높이는 런타임 시스템 'BOOST'를 발표함\n커널 수정 없이 GPU 메모리 계층의 결합 대역폭을 활용하며, 커널 액세스 패턴 기반의 웨이브 인식(wave-aware) 페이지 할당 및 데이터 관리를 수행함\n정적 모델 가중치에는 모듈로 기반 페이지 배치를 적용해 액세스 비율 편차를 제거하고, 동적 KV(Key-Value) 쌍에는 웨이브 인식 프리 페이지 풀을 적용함\nvLLM에 통합하여 Grace Hopper 시스템에서 평가한 결과, 동일 배치 크기에서 출력 토큰당 시간(TPOT)을 HBM 전용 대비 4.3% 개선함\n고처리량 서빙 환경에서 평균 처리량을 31% 향상시켰으며, 이는 기존 프리페칭(prefetching) 방식 대비 15% 높은 성능임",
+      "sector": "설계",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-09-22T08:13:37+09:00",
+      "placement": "side",
+      "source_name": "Semiconductor Engineering",
+      "source_url": "https://semiengineering.com/concurrent-hbm-and-host-memory-access-improves-llm-inference-throughput-georgia-tech-nvidia-stanford",
+      "source_note": "rss_or_html",
+      "raw_source_type": "rss",
+      "matched_keywords": [
+        "GPU"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "summary_version": 2,
+      "importance_score": 5,
+      "llm_keywords": [
+        "BOOST",
+        "LLM 추론",
+        "HBM",
+        "Grace Hopper",
+        "vLLM"
+      ]
+    },
+    {
+      "id": "art-f6f5289324950c",
+      "headline": "TSMC ‘A14’ 승부수…인텔 14A와 내년 1분기 맞붙는다",
+      "body": "TSMC A14 공정이 2027년 1분기 신주 팹20에서 파일럿 생산에 진입할 가능성이 제기됨\nA14는 2세대 GAA 나노시트 트랜지스터와 나노플렉스 프로(NanoFlex Pro) 표준셀 아키텍처를 적용함\nN2 공정 대비 동일 전력에서 성능 10~15% 향상, 동일 성능에서 전력 소모 25~30% 절감, 로직 집적도 20% 향상을 목표로 함\n현재 A14 성능은 목표치의 약 90% 수준이며, 256Mb SRAM의 양품 비율이 90%에 근접한 것으로 알려짐\n신주 팹20과 타이중 팹25를 중심으로 합산 월 6만~7만장의 A14 생산능력을 확보할 계획임",
+      "sector": "공정",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-09-23T06:00:00+09:00",
+      "placement": "side",
+      "source_name": "Naver News Search",
+      "source_url": "https://www.dt.co.kr/article/12085526?ref=naver",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "GAA"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "summary_version": 2,
+      "importance_score": 4,
+      "llm_keywords": [
+        "TSMC A14",
+        "GAA",
+        "나노플렉스 프로",
+        "인텔 14A",
+        "파운드리 로드맵"
+      ]
+    },
+    {
+      "id": "art-ec64cf1fb01ec2",
+      "headline": "[현장] 멜콘 \"반도체 미세화가 기회\"… EUV 넘어 HBM·글로벌로",
+      "body": "멜콘이 High-NA EUV용 온·습도 제어 장비(THC) 개발을 완료하고 국내 고객사 생산라인 적용 및 평가를 진행 중이다.\nASML의 평가를 거쳐 2025년 초고순도 공기 공급 장비(XPS)의 적격 공급업체 자격을 확보했다.\nHBM 테스트용 칠러 및 환경제어 장비를 개발해 평가 중이며, 하이브리드 본딩용 THC 개발을 완료해 현장 평가를 진행하고 있다.\n국내 선단공정 THC 시장 점유율 100%를 달성했으며, 마이크론 업체 등록 완료 및 TSMC 장비 평가를 추진하며 고객사를 다변화하고 있다.\nTHC 생산능력을 300대에서 400대로, XPS를 80대에서 100대로 확대하고 10월 1~2일 일반청약을 통해 코스닥 상장을 추진한다.",
+      "sector": "공정",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-09-22T17:44:00+09:00",
+      "placement": "side",
+      "source_name": "Naver News Search",
+      "source_url": "https://www.straightnews.co.kr/news/articleView.html?idxno=311839",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "EUV"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "summary_version": 2,
+      "importance_score": 4,
+      "llm_keywords": [
+        "High-NA EUV",
+        "HBM",
+        "하이브리드 본딩",
+        "THC",
+        "XPS"
+      ]
+    },
+    {
+      "id": "art-4199fd3aab0638",
+      "headline": "멜콘, 상장 후 EUV · High - NA 고도화…HBM·패키징으로 적용처 확대[IPO출사...",
+      "body": "멜콘이 국내 초정밀 온·습도 조절장비(THC) 시장 점유율 71% 및 EUV 등 선단공정 점유율 100%를 확보했다.\n도쿄일렉트론(TEL) 트랙 장비용 THC와 ASML 노광장비용 초고순도 공기 공급장치(XPS)를 공급하며, XPS는 ASML 적격 공급업체로 등록됐다.\n실시간 온도 제어가 가능한 High-NA EUV용 THC 개발을 완료했으며, 상장 후 THC 생산능력을 연간 225대에서 400대로 확대할 계획이다.\nHBM 제조용 하이브리드 본더(Hybrid Bonder)용 THC 개발을 완료해 테스트 중이며, 웨이퍼 검사용 프로버 칠러(Prober Chiller)를 개발하고 있다.\n10월 15일 코스닥 상장을 예정하고 있으며, 공모 예정 금액은 268억~308억 원 규모다.",
+      "sector": "공정",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-09-22T15:37:00+09:00",
+      "placement": "side",
+      "source_name": "Naver News Search",
+      "source_url": "https://www.edaily.co.kr/News/Read?newsId=04122966645582744&mediaCodeNo=257",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "EUV"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "summary_version": 2,
+      "importance_score": 4,
+      "llm_keywords": [
+        "멜콘",
+        "High-NA EUV",
+        "HBM",
+        "THC",
+        "ASML"
+      ]
+    },
+    {
+      "id": "art-3b49a375317ed1",
+      "headline": "TSMC, 1.4나노 A14 내년 1분기 시험생산…삼성전자와 고객 확보전 본격화",
+      "body": "TSMC가 1.4나노(A14) 공정 시험생산을 2027년 1분기 신주 Fab20에서 시작하고, 2028년 양산을 목표로 함.\n타이중 Fab25 P1 라인은 2027년 4월 공사 완료 후 이르면 같은 해 3분기부터 A14 시험생산에 돌입할 계획임.\n2024년 2분기부터 '사이버셔틀(MPW)' 서비스를 A14 공정에 적용해 고객사의 설계 및 IP 적합성 검증을 조기 착수함.\nA14는 2세대 나노시트 구조를 적용해 N2 대비 성능 10~15% 향상, 전력 소모 25~30% 절감, 논리 밀도 20% 이상 개선을 목표로 함.\n256Mb SRAM 시험칩 수율과 트랜지스터 성능이 내부 목표치의 약 90% 수준에 도달했으며, 마벨(Marvell) 등이 AI 칩 적용을 협의 중임.",
+      "sector": "공정",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-09-22T15:20:00+09:00",
+      "placement": "side",
+      "source_name": "Naver News Search",
+      "source_url": "https://www.joongangenews.com/news/articleView.html?idxno=550133",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
       "raw_source_type": "api",
       "matched_keywords": [
         "HBM"
       ],
-      "importance_score": 5
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "summary_version": 2,
+      "importance_score": 4,
+      "llm_keywords": [
+        "A14",
+        "1.4나노",
+        "나노시트",
+        "사이버셔틀",
+        "TSMC"
+      ]
     },
     {
-      "id": "art-39c2192b514f4e",
-      "headline": "삼성전자 전일 거래량 급증 분석 HBM AI 반도체 테마 일정 체크(20260923....",
-      "body": "단순 주가 변동을 넘어, 9월 22일 거래량이 급증한 핵심 배경과 삼성전자가 속해 있는 AI 반도체 · HBM 테마, 그리고 꼭 체크해두어야 할 향후 주요 일정을 알기 쉽게 정리해 드립니다. 오늘 포스팅을 통해...",
-      "sector": "소자",
-      "category": "analysis",
-      "trust": "low",
-      "created_at": "2026-09-23T00:00:00+09:00",
-      "placement": "main",
-      "source_name": "Naver Blog Search",
-      "source_url": "https://blog.naver.com/edenhil/224420598370",
-      "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
+      "id": "art-9f3e38f3a0375b",
+      "headline": "멜콘 \"삼전닉스 찍고 TSMC에 반도체 장비 공급\" [IPO톡톡]",
+      "body": "멜콘이 기업공개(IPO)를 통해 약 268억~308억 원의 공모자금을 확보할 계획이다.\n확보한 자금을 차세대 High-NA EUV용 THC(열제어 장치) 개발에 투입한다.\nHigh-NA EUV는 기존 EUV 대비 해상도와 정밀도를 높인 차세대 노광 공정 기술이다.\n현재 삼성전자와 SK하이닉스에 반도체 장비를 공급 중이다.\n향후 해외 고객사 확장을 통해 TSMC로의 장비 공급을 추진한다.",
+      "sector": "공정",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-09-22T15:09:00+09:00",
+      "placement": "side",
+      "source_name": "Naver News Search",
+      "source_url": "http://www.wowtv.co.kr/NewsCenter/News/Read?articleId=A202609220138&t=NN",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
       "raw_source_type": "api",
       "matched_keywords": [
-        "HBM"
+        "EUV"
       ],
-      "importance_score": 5
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "summary_version": 2,
+      "importance_score": 4,
+      "llm_keywords": [
+        "멜콘",
+        "High-NA EUV",
+        "THC",
+        "TSMC",
+        "IPO"
+      ]
     },
     {
-      "id": "art-32152c2d1d6dad",
-      "headline": "923 매매결과",
-      "body": "하이닉스 hbm 공장확대 호재 로보티즈 삼성 +정부로봇사업 확대 호재 거기다 전일 미장상승 반도체 섹터 상승 하이닉스 adr 상승 삼성 특별배당 등등 여러가지 좋은점들이 겹친거같다 아직 갈길이 멀구나 라는...",
+      "id": "art-6610e080017ba4",
+      "headline": "'울트라'까지 엑시노스 확대하나…삼성, 갤럭시S27 AP 전략 변화",
+      "body": "엑시노스 2700은 삼성 파운드리의 2세대 2나노 GAA 공정인 SF2P 기반으로 제작될 전망임\n칩셋 내부 사양으로 10코어 CPU와 Xclipse 970 GPU가 탑재될 예정임\n갤럭시 S27 및 S27+ 모델에 엑시노스 2700이 적용될 가능성이 거론됨\n기존 전략과 달리 갤럭시 S27 울트라 모델까지 엑시노스 탑재 범위를 확대하는 방안이 검토됨\n삼성전자가 차기 플래그십 스마트폰 시리즈의 AP 공급 전략을 변경하여 자체 칩 비중을 높이려는 움직임을 보임",
+      "sector": "설계",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-09-22T08:56:00+09:00",
+      "placement": "side",
+      "source_name": "Naver News Search",
+      "source_url": "https://kbench.com?q=node%2F282075",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "GAA"
+      ],
+      "summary_method": "llm",
+      "importance_score": 4,
+      "summary_model": "gemma-4-31b-it",
+      "summary_version": 2,
+      "llm_keywords": [
+        "엑시노스 2700",
+        "SF2P",
+        "2나노 GAA",
+        "갤럭시 S27"
+      ]
+    },
+    {
+      "id": "art-b889bce6fed960",
+      "headline": "High-Intensity Rowhammer Attack On GPUs Leveraging Non-uniform Hammering (U. of Toronto)",
+      "body": "토론토 대학교 연구진이 NVIDIA GPU의 ECC 보호를 무력화하는 고강도 Rowhammer 공격 기법인 'GPUThor'를 발표함\nGPU의 메모리 액세스 병합(coalescing) 동작을 역공학하여 공격 대상 행을 더 강하게 활성화하는 비균일 해머링 패턴을 구현함\nDRAM 내부 완화 조치가 적용되는 리프레시 시점을 식별해 리프레시 간격을 우회하는 더 긴 공격 패턴을 구축함\n기존 ECC 보호 및 DRAM 내장 완화 기술을 회피하여 해머링 강도를 증폭시키는 메커니즘을 입증함\n해당 연구 결과는 arXiv 프리프린트(arXiv:2609.16546)를 통해 기술 논문으로 공개됨",
+      "sector": "설계",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-09-23T01:30:25+09:00",
+      "placement": "side",
+      "source_name": "Semiconductor Engineering",
+      "source_url": "https://semiengineering.com/high-intensity-rowhammer-attack-on-gpus-leveraging-non-uniform-hammering-u-of-toronto",
+      "source_note": "rss_or_html",
+      "raw_source_type": "rss",
+      "matched_keywords": [
+        "GPU"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "summary_version": 2,
+      "importance_score": 3,
+      "llm_keywords": [
+        "GPUThor",
+        "Rowhammer",
+        "NVIDIA GPU",
+        "ECC",
+        "메모리 보안"
+      ]
+    },
+    {
+      "id": "art-4877741994c965",
+      "headline": "Accelerating a ROS 2 Node with an AI Agent and NVIDIA Isaac ROS",
+      "body": "NVIDIA가 ROS Lyrical에 rosidl::Buffer 추상화 및 CUDA 버퍼 백엔드를 기여하여 ROS 2 노드 간 GPU 데이터 제로 카피(Zero-copy) 전송을 구현함\nNVIDIA Isaac ROS 5.0의 모든 노드에 CUDA 버퍼 백엔드를 적용해 CPU 메모리 복사 및 직렬화 과정 없이 데이터 이동 효율을 개선함\nAI 코딩 에이전트의 'migrate-node-to-rosidl-buffer' 기술을 통해 기존 CUDA 가속 노드를 CUDA 버퍼 백엔드 기반으로 자동 리팩토링하는 워크플로우를 제공함\n해당 최적화 워크로드는 NVIDIA Jetson AGX Thor 플랫폼에 배포 가능하며, TensorRT 기반의 Depth Anything 3(DA3) 노드 등에 적용됨\n최적화 경로 활성화를 위해 동일 호스트, CUDA 장치, 리눅스 사용자 및 rmw_fastrtps_cpp 또는 rmw_zenoh_cpp와 같은 지원 RMW 구현이 필요함",
+      "sector": "설계",
+      "category": "news",
+      "trust": "high",
+      "created_at": "2026-09-22T21:00:00+09:00",
+      "placement": "side",
+      "source_name": "NVIDIA Developer Blog",
+      "source_url": "https://developer.nvidia.com/blog/accelerating-a-ros-2-node-with-an-ai-agent-and-nvidia-isaac-ros",
+      "source_note": "rss_or_html",
+      "raw_source_type": "rss",
+      "matched_keywords": [
+        "GPU"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "summary_version": 2,
+      "importance_score": 3,
+      "llm_keywords": [
+        "Isaac ROS 5.0",
+        "Jetson AGX Thor",
+        "Zero-copy",
+        "ROS 2 Lyrical",
+        "CUDA Buffer"
+      ]
+    },
+    {
+      "id": "art-a8f0e46f54aef6",
+      "headline": "[알림] 선단공정과 패키징 을 넘다… 반도체 '검사·계측' 미래를 엿보다",
+      "body": "SEMI는 검사·계측 분야가 AI 반도체의 수율, 비용, 성능 및 양산 속도를 결정하는 핵심 요소가 될 것으로 전망함\nAI 가속기와 HBM의 고단가 특성으로 인해 단순 불량 검출에서 고가 양품 선별 및 품질 보장 단계로 검증 체계가 전환됨\nTSMC는 CoWoS 크기가 포토마스크의 3배 이상으로 확대됨에 따라 개별 부품 품질을 자동차 규격 수준으로 높여야 한다고 분석함\nTSMC는 칩, 패키지, PCB, 방열 설계를 양산 전부터 통합 최적화하는 STCO(System-Technology Co-Optimization) 방식의 필요성을 제시함\n전·후공정 전반에서 발생하는 실질적인 생산 병목현상이 검사, 계측, 테스트 단계에서 집중적으로 발생하고 있음",
+      "sector": "공정",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-09-22T16:54:00+09:00",
+      "placement": "side",
+      "source_name": "Naver News Search",
+      "source_url": "https://www.thelec.kr/news/articleView.html?idxno=62663",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "CoWoS",
+        "substrate"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "summary_version": 2,
+      "importance_score": 3,
+      "llm_keywords": [
+        "검사계측",
+        "STCO",
+        "CoWoS",
+        "AI반도체수율",
+        "SEMI"
+      ]
+    },
+    {
+      "id": "art-c7c1a00f275c11",
+      "headline": "멜콘, EUV · High - NA 대응 강화···내달 코스닥 상장",
+      "body": "멜콘이 차세대 노광 기술인 High-NA EUV용 THC(온습도 제어 시스템) 개발을 완료하고 실시간 능동 제어 시스템을 구현함\nEUV 선단공정 내 국내 THC 시장점유율 100%를 확보했으며, XPS(초고순도 공기 공급 시스템)는 ASML 적격 공급업체로 등록됨\nHBM 제조용 하이브리드 본더 THC 개발을 완료해 테스트를 진행 중이며, 웨이퍼 검사용 프로버 칠러와 낸드용 THC를 개발 중임\nEUV 수요 확대에 대응해 THC 연간 생산능력을 400대, XPS 생산능력을 100대까지 확대할 계획임\n지난해 매출 418억원, 영업이익 62억원을 기록했으며 10월 15일 코스닥 상장 예정임",
+      "sector": "공정",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-09-22T16:48:00+09:00",
+      "placement": "side",
+      "source_name": "Naver News Search",
+      "source_url": "http://www.finomy.com/news/articleView.html?idxno=262185",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "EUV"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "summary_version": 2,
+      "importance_score": 3,
+      "llm_keywords": [
+        "High-NA EUV",
+        "THC",
+        "하이브리드 본더",
+        "ASML",
+        "멜콘"
+      ]
+    },
+    {
+      "id": "art-6cae654d80cc5c",
+      "headline": "[IPO] 김성일 멜콘 대표 \" EUV 넘어 HBM까지\"...정밀 환경제어로 코스닥 출...",
+      "body": "초정밀 환경제어 시스템 기업 멜콘이 High-NA EUV 및 HBM 패키징 공정 확대를 목표로 코스닥 상장을 추진한다.\n주력 제품인 THC(온습도 조절장비)는 국내 시장 점유율 71%이며, 2025년 기준 국내 EUV 선단공정 점유율 100%를 확보했다.\nASML 노광장비용 XPS(초고순도 공기 공급시스템)를 2022년 국산화하고 2023년 ASML 적격 공급업체로 등록됐다.\nHBM 제조용 하이브리드 본더용 THC 개발을 완료해 테스트 중이며, 테스트 공정용 프로버 칠러와 낸드용 THC를 개발하고 있다.\n생산능력을 THC 225대에서 400대로, XPS 70대에서 100대로 확대하여 선단공정 수요에 대응할 계획이다.",
+      "sector": "공정",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-09-22T16:44:00+09:00",
+      "placement": "side",
+      "source_name": "Naver News Search",
+      "source_url": "https://www.pinpointnews.co.kr/news/articleView.html?idxno=489730",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "EUV"
+      ],
+      "summary_method": "llm",
+      "importance_score": 3,
+      "summary_model": "gemma-4-31b-it",
+      "summary_version": 2,
+      "llm_keywords": [
+        "멜콘",
+        "High-NA EUV",
+        "HBM",
+        "THC",
+        "XPS"
+      ]
+    },
+    {
+      "id": "art-70a37ee8661bb4",
+      "headline": "Chip Industry Technical Paper Roundup: Sept. 22",
+      "body": "2.5D 및 3D IC를 위한 AI 기반 열 모델링 기술 연구 논문 공개\n칩렛(Chiplet)과 AI 가속기의 공동 설계(Co-design) 방법론 제시\nBEOL(Back End of Line)의 열전도도 분석 및 개선 관련 기술 내용 포함\n에이전트 기반 DRC(Design Rule Check) 수정 및 밀집 레이아웃 라우팅을 위한 강화학습(RL) 적용 연구 발표\n디지털 EDA를 위한 LLM 오케스트레이션 및 뉴로모픽 컴퓨팅용 칩렛 인터커넥트 기술 다룸",
+      "sector": "설계",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-09-22T16:01:29+09:00",
+      "placement": "side",
+      "source_name": "Semiconductor Engineering",
+      "source_url": "https://semiengineering.com/chip-industry-technical-paper-roundup-sept-22",
+      "source_note": "rss_or_html",
+      "raw_source_type": "rss",
+      "matched_keywords": [
+        "2.5D",
+        "chiplet"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "summary_version": 2,
+      "importance_score": 3,
+      "llm_keywords": [
+        "AI 열 모델링",
+        "칩렛",
+        "EDA",
+        "2.5D/3D IC",
+        "LLM"
+      ]
+    },
+    {
+      "id": "art-2059c791541de8",
+      "headline": "[속보] 삼성전자 주가 흐름 바뀌나…목표주가 63만원 나온 이유",
+      "body": "특정 증권사 보고서가 삼성전자의 목표 주가를 63만 원으로 제시함\n주가 흐름을 결정할 핵심 변수로 HBM4 및 메모리 반도체 업황을 지목함\n단순한 메모리 가격 변동 이상의 HBM4 시장 영향력을 분석의 핵심으로 설정함\n확인된 내용은 증권사의 주가 전망이며 구체적인 HBM4 기술 사양이나 일정은 포함되지 않음\n해당 분석은 2026년 9월 23일 기준의 시장 상황을 바탕으로 작성된 것으로 기술됨",
       "sector": "소자",
       "category": "analysis",
       "trust": "low",
       "created_at": "2026-09-23T00:00:00+09:00",
       "placement": "side",
       "source_name": "Naver Blog Search",
-      "source_url": "https://blog.naver.com/dlgsutp2003/224420667589",
+      "source_url": "https://blog.naver.com/u___bkim/224420859397",
+      "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "HBM"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "summary_version": 2,
+      "importance_score": 2,
+      "llm_keywords": [
+        "삼성전자",
+        "HBM4"
+      ]
+    },
+    {
+      "id": "art-e35f629898a5a5",
+      "headline": "\" 삼성전자 빈틈 제대로 파고들었다...\" DB하이텍 주가 13만원 넘자 증....",
+      "body": "삼성전자와 TSMC 등 대형 파운드리 업체들이 첨단 12인치 공정에 역량을 집중함\nDB하이텍은 8인치 파운드리를 주력 사업으로 운영하고 있음\n대형 업체의 12인치 투자 집중으로 인해 8인치 파운드리 공급 능력이 제한된 상황임\nDB하이텍이 8인치 파운드리 시장의 공급 부족 틈새를 공략하고 있음\n확인된 내용은 대형 파운드리와 DB하이텍의 공정 규모별 전략 차이에 국한됨",
+      "sector": "공정",
+      "category": "analysis",
+      "trust": "low",
+      "created_at": "2026-09-23T00:00:00+09:00",
+      "placement": "side",
+      "source_name": "Naver Blog Search",
+      "source_url": "https://blog.naver.com/wjr97217/224419938375",
+      "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
+      "raw_source_type": "api",
+      "matched_keywords": [],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "summary_version": 2,
+      "importance_score": 2,
+      "llm_keywords": [
+        "DB하이텍",
+        "8인치 파운드리"
+      ]
+    },
+    {
+      "id": "art-8cc7b28282a8eb",
+      "headline": "[현장] 멜콘 “반도체 미세화가 기회”…EUV 넘어 HBM·글로벌로 - 스트레이트뉴스",
+      "body": "멜콘이 반도체 미세화 공정 추세를 주요 사업 기회로 정의함\n기존 EUV 관련 사업 영역을 넘어 사업 포트폴리오 확장을 추진함\nHBM(고대역폭메모리) 관련 시장 진출 및 대응을 목표로 함\n글로벌 시장 진출을 통한 사업 영역 확대를 계획함\n구체적인 제품 사양, 공정 노드, 투자 규모 등 세부 내용은 확인되지 않음",
+      "sector": "공정",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-09-22T17:42:56+09:00",
+      "placement": "side",
+      "source_name": "Google News RSS",
+      "source_url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE11NFViS3JKS2JQbmhBbnRjSGtkYjBlNUp4eVBBSDdoV21xelZGSXNZLTF0UmV1aVpGckx0MnpWR3FqaU43cDlZWDdIWmdObEFQVW4tR1hrYXp0NkswS05DeV9GNjlGRzZlS0EzMHdDcUx0dEXSAXdBVV95cUxNLTY0OGVpWGk3ZXpJVnNoQnh0c1I0Rmhub3ViRTBrTFJWbmRHMFpLZEVrcm4ySHktV3NKckhSNTBQWEdyN0xYbldCS2hJZWZlMUMwX1JSbFBPWnl2MVpwbWRadV9MQl9sbkV5LThlWDl6RTQ4SWVyUQ?oc=5",
+      "source_note": "Google News search RSS result; original publisher link is retained where available.",
+      "raw_source_type": "rss",
+      "matched_keywords": [
+        "EUV"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "summary_version": 2,
+      "importance_score": 2,
+      "llm_keywords": [
+        "멜콘",
+        "EUV",
+        "HBM"
+      ]
+    },
+    {
+      "id": "art-475c06e0e68d7d",
+      "headline": "[시론] 대만이 ‘AI 인프라 강국’ 된 비결",
+      "body": "대만 정부는 1970년대 공업기술연구원(ITRI)을 통해 미국 RCA의 반도체 설계 및 제조 기술을 도입하고 전문 인력을 양성함\n1980년 UMC 설립에 이어 1987년 고객사와 경쟁하지 않는 '퓨어 플레이 파운드리' 모델의 TSMC가 출범함\n대만 AI 인프라 생태계는 미디어텍(설계), 패키징·테스트 기업, 폭스콘·콴타·위스트론·인벤텍(서버 및 시스템 제조)으로 구성됨\nAI 칩 구현을 위해 GPU와 고대역폭메모리(HBM)를 효율적으로 연결하는 TSMC의 CoWoS 등 첨단 패키징 기술이 활용됨\n엔비디아, AMD, 퀄컴, 미디어텍 등 팹리스 기업들이 TSMC의 파운드리 분업 구조를 기반으로 성장함",
+      "sector": "패키징",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-09-23T06:02:00+09:00",
+      "placement": "side",
+      "source_name": "Naver News Search",
+      "source_url": "https://www.etoday.co.kr/news/view/2628789",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "CoWoS"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "summary_version": 2,
+      "importance_score": 1,
+      "llm_keywords": [
+        "TSMC",
+        "CoWoS",
+        "AI 인프라",
+        "퓨어 플레이 파운드리",
+        "대만 반도체 생태계"
+      ]
+    },
+    {
+      "id": "art-2d26f38978ce64",
+      "headline": "쿠팡이 HBM 반도체 관련주라고요? 직접 확인해보니 충격적입니다·슈....",
+      "body": "쿠팡과 HBM 반도체 슈퍼사이클의 연관성을 분석하는 블로그 게시물임\nHBM 슈퍼사이클이 시장에 미치는 영향에 대해 의문을 제기함\n쿠팡의 물류 시스템과 반도체 기술 간의 차이점을 언급함\nAI 반도체 투자 시 고려해야 할 체크리스트 내용을 포함함\n구체적인 기술 사양, 제품 출시, 공정 변경 등 확인된 반도체 산업 팩트는 없음",
+      "sector": "소자",
+      "category": "analysis",
+      "trust": "low",
+      "created_at": "2026-09-23T00:00:00+09:00",
+      "placement": "side",
+      "source_name": "Naver Blog Search",
+      "source_url": "https://blog.naver.com/sharejoa/224420871108",
+      "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "HBM"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "summary_version": 2,
+      "importance_score": 1,
+      "llm_keywords": [
+        "쿠팡",
+        "HBM"
+      ]
+    },
+    {
+      "id": "art-38c6a392775a80",
+      "headline": "삼성전자 주가, 이제 HBM4와 파운드리 가 핵심인 이유",
+      "body": "삼성전자 주가 상승의 핵심 동력으로 HBM4와 파운드리 사업의 실적 증명을 제시함\n범용 메모리 가격 상승보다 HBM4 및 파운드리 성과가 주가에 더 큰 영향을 미칠 것으로 분석함\n해당 내용은 특정 보고서를 기반으로 작성된 투자 분석 자료임\nHBM4의 세부 기술 사양이나 구체적인 양산 일정에 대한 언급은 없음\n파운드리 사업의 공정 노드나 고객사 확보 등 구체적인 실행 계획은 포함되지 않음",
+      "sector": "소자",
+      "category": "analysis",
+      "trust": "low",
+      "created_at": "2026-09-23T00:00:00+09:00",
+      "placement": "side",
+      "source_name": "Naver Blog Search",
+      "source_url": "https://blog.naver.com/duk111/224420574043",
+      "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
+      "raw_source_type": "api",
+      "matched_keywords": [],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "summary_version": 2,
+      "importance_score": 1,
+      "llm_keywords": [
+        "삼성전자",
+        "HBM4",
+        "파운드리"
+      ]
+    },
+    {
+      "id": "art-c7eabbb6bd1169",
+      "headline": "오킨스전자 주가 전망과 검사용 소켓 실적 분석",
+      "body": "오킨스전자 주가 전망과 검사용 소켓 실적 분석 주제와 소재 이 글은 반도체 후공정 검사 부품 기업인 오킨스전자의 2026년 상반기 실적과 주가 전망을 분석한 글입니다. 번인 소켓, HBM 용 마그네틱 콜렛...",
+      "sector": "소자",
+      "category": "analysis",
+      "trust": "low",
+      "created_at": "2026-09-23T00:00:00+09:00",
+      "placement": "side",
+      "source_name": "Naver Blog Search",
+      "source_url": "https://blog.naver.com/frimanlo/224420855571",
       "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
       "raw_source_type": "api",
       "matched_keywords": [
@@ -285,16 +1147,16 @@
       "importance_score": 5
     },
     {
-      "id": "art-66dfcf5d89643b",
-      "headline": "원익홀딩스 급등…지금 무슨 일? HBM ·AI가 다시 주목!",
-      "body": "반도체 · HBM 사이클이 중요한 이유 원익홀딩스의 사업에서 반도체 관련 비중은 상당합니다. 기업 분석 자료에 따르면 가스 부문이 연결 매출의 약 61.5%, 반도체 장비 부문이 약 **32.9%**를 차지하고 있습니다....",
+      "id": "art-a2df39a2b2dc67",
+      "headline": "[속보] 삼성전자 주가 흐름 바뀌나? 목표주가 63만원 나온 이유",
+      "body": "HBM 생산에 반도체 생산능력이 투입되면서 범용 D램 생산능력이 상대적으로 제한될 수 있습니다. 여기에 AI 추론 서비스가 확산되면서 고용량 메모리 수요까지 증가한다면 시장에서 예상하는 것보다 메모리...",
       "sector": "소자",
       "category": "analysis",
       "trust": "low",
       "created_at": "2026-09-23T00:00:00+09:00",
       "placement": "side",
       "source_name": "Naver Blog Search",
-      "source_url": "https://blog.naver.com/quntum2030/224420648792",
+      "source_url": "https://blog.naver.com/thisisblog-/224420851176",
       "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
       "raw_source_type": "api",
       "matched_keywords": [
@@ -303,16 +1165,70 @@
       "importance_score": 5
     },
     {
-      "id": "art-a66fe13ff0e088",
-      "headline": "반도체 , 그것이 알고 싶다 - 10편 썼으니 이제 요점만 정리해봅시다",
-      "body": "SK하이닉스 = 메모리 반도체 ⑤ HBM 이 대체 뭐였지? HBM . High Bandwidth Memory 우리말로 고대역폭 메모리입니다. 여러 DRAM 다이를 수직으로 쌓아 집적하고 넓은 인터페이스를 이용해 프로세서와 많은 데이터를...",
+      "id": "art-800ee58f8b10ad",
+      "headline": "20260921 - 반도체 (시그네틱스,티이엠씨,와이씨,SFA 반도체 ,하나마이크....",
+      "body": "27 pt) - 삼성전자의 천안·온양 후공정(OSAT) 라인 HBM 전용 전환 및 범용 물량 외주화 확대 발표 - 미... 기업 재무자산(Treasury) 비트코인 보유 및 결제·환전 인프라 구축 - 반도체 : 시그네틱스, 티이엠씨...",
       "sector": "소자",
       "category": "analysis",
       "trust": "low",
       "created_at": "2026-09-23T00:00:00+09:00",
       "placement": "side",
       "source_name": "Naver Blog Search",
-      "source_url": "https://blog.naver.com/moneywhykr/224420647785",
+      "source_url": "https://blog.naver.com/monstereyes/224420847574",
+      "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "HBM"
+      ],
+      "importance_score": 5
+    },
+    {
+      "id": "art-f24c0d5f537c72",
+      "headline": "미국 반도체 랠리 이후 한국 AI 반도체 수혜주 재점검｜ HBM ·CXL·유리....",
+      "body": "최근에는 AMD의 서버 CPU, 메타의 AI 에이전트 서비스, 메모리 반도체 , HBM , 첨단 패키징, 데이터센터 전력 인프라까지 관심 범위가 넓어지고 있기 때문입니다. 실제로 메타의 AI 에이전트 '뮤즈'가 출시 직후...",
+      "sector": "소자",
+      "category": "analysis",
+      "trust": "low",
+      "created_at": "2026-09-23T00:00:00+09:00",
+      "placement": "side",
+      "source_name": "Naver Blog Search",
+      "source_url": "https://blog.naver.com/yosu7448/224420764630",
+      "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "HBM"
+      ],
+      "importance_score": 5
+    },
+    {
+      "id": "art-4a1eb1384d2674",
+      "headline": "삼성전자 63만원 전망 나왔다…증권사가 갑자기 눈높이 확 높인 이....",
+      "body": "“ 반도체 사이클 이제 끝난 것 아니야?” HBM 경쟁과 중국 업체들의 추격, 메모리 가격 피크아웃 이야기가 동시에 나오면서 삼성전자 주주들의 고민도 깊어졌다. 그런데 9월 들어 분위기가 또 달라졌다....",
+      "sector": "소자",
+      "category": "analysis",
+      "trust": "low",
+      "created_at": "2026-09-23T00:00:00+09:00",
+      "placement": "side",
+      "source_name": "Naver Blog Search",
+      "source_url": "https://blog.naver.com/kyodangsense/224420814263",
+      "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "HBM"
+      ],
+      "importance_score": 5
+    },
+    {
+      "id": "art-ea153e9a867470",
+      "headline": "알리바바 신형 AI칩 Zhenwu V900 공개, 삼성전자·SK하이닉스, 엔비디아....",
+      "body": "최근 중국 최대 DRAM 업체 CXMT가 HBM 3E 소규모 생산에 들어갔고, 알리바바 반도체 자회사 T-Head가 실제 채택 테스트까지 진행하고 있다는 보도가 나왔기 때문입니다. 결론부터 말하면, 엔비디아에는...",
+      "sector": "소자",
+      "category": "analysis",
+      "trust": "low",
+      "created_at": "2026-09-23T00:00:00+09:00",
+      "placement": "side",
+      "source_name": "Naver Blog Search",
+      "source_url": "https://blog.naver.com/sweetday5076/224420829535",
       "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
       "raw_source_type": "api",
       "matched_keywords": [
@@ -322,75 +1238,23 @@
       "importance_score": 5
     },
     {
-      "id": "art-83783d87f33fdf",
-      "headline": "\"SK하이닉스\" 역대급 성과급 규모와 주가 전망·배당 투자 분석",
-      "body": "#SK하이닉스 #SK하이닉스성과급 #SK하이닉스주가 #주가전망 # 반도체 주 # HBM #AI 반도체 #배당투자 #주식전망 #테크주 #실적발표 #초과이익분배금 #재테크 #경제공부 #주식정보 #투자전략 #기업분석 #주식초보...",
-      "sector": "소자",
+      "id": "art-a96efc88693a69",
+      "headline": "260923 대만 산업 동향",
+      "body": "[ 반도체 & 첨단 패키징 ] TSMC, CoWoS 병목 해결 위해 가오슝에 Advanced Packaging 검증 허브 구축 * 3줄 핵심 요약: • TSMC가 남부 가오슝에 첨단 패키징 (Advanced Packaging) 기술 검증 전용 허브를 새롭게...",
+      "sector": "패키징",
       "category": "analysis",
       "trust": "low",
       "created_at": "2026-09-23T00:00:00+09:00",
       "placement": "side",
       "source_name": "Naver Blog Search",
-      "source_url": "https://blog.naver.com/modern_archive28/224420647590",
+      "source_url": "https://blog.naver.com/choimtst/224420711913",
       "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
       "raw_source_type": "api",
       "matched_keywords": [
-        "HBM"
+        "CoWoS",
+        "advanced packaging"
       ],
-      "importance_score": 5
-    },
-    {
-      "id": "art-95591a255cecd2",
-      "headline": "삼성전자 점유율 33%까지 급등… HBM 시장 판도가 달라진다“AI가 메모....",
-      "body": "삼성전자가 HBM 왕좌를 다시 노린다…AI 슈퍼사이클에 메모리 경쟁이 더 뜨거워졌다 요즘 반도체 시장을 보면 정말 재미있는 변화가 나타나고 있습니다. 불과 얼마 전까지만 해도 HBM 시장에서는...",
-      "sector": "소자",
-      "category": "analysis",
-      "trust": "low",
-      "created_at": "2026-09-23T00:00:00+09:00",
-      "placement": "side",
-      "source_name": "Naver Blog Search",
-      "source_url": "https://blog.naver.com/sromis00/224420642068",
-      "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "HBM"
-      ],
-      "importance_score": 5
-    },
-    {
-      "id": "art-afd3b4cb849bf6",
-      "headline": "AI 반도체 는 어떻게 만들어지고 검사될까?",
-      "body": "HBM ·CXL·SoCAMM 등 AI 반도체 기술 지도가 궁금하다면? → AI 반도체 관련주 총정리 ①｜ HBM ·GDDR7·CXL·SoCAMM #AI 반도체 # 반도체 장비 # 반도체 공정 # 반도체 후공정 # 반도체 관련주",
-      "sector": "소자",
-      "category": "analysis",
-      "trust": "low",
-      "created_at": "2026-09-23T00:00:00+09:00",
-      "placement": "side",
-      "source_name": "Naver Blog Search",
-      "source_url": "https://blog.naver.com/zipcore/224420635121",
-      "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "HBM"
-      ],
-      "importance_score": 5
-    },
-    {
-      "id": "art-1682cb56badd3d",
-      "headline": "AI 반도체 호황에 빨간불? 글로벌 데이터센터 규제 확산이 부르는 나....",
-      "body": "최근 1~2년 동안 인공지능(AI) 열풍이 불면서 엔비디아를 비롯해 고대역폭메모리( HBM )를 만드는 국내 반도체 기업들까지 눈부신 성장을 보여주었죠. 시장에서는 \"앞으로도 AI 칩 수요는 끝없이 늘어날 것\"이라는...",
-      "sector": "소자",
-      "category": "analysis",
-      "trust": "low",
-      "created_at": "2026-09-23T00:00:00+09:00",
-      "placement": "side",
-      "source_name": "Naver Blog Search",
-      "source_url": "https://blog.naver.com/wvncco970/224420635093",
-      "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "HBM"
-      ],
+      "summary_method": "snippet",
       "importance_score": 5
     },
     {
@@ -448,38 +1312,6 @@
       "importance_score": 5
     },
     {
-      "id": "art-e35f629898a5a5",
-      "headline": "\" 삼성전자 빈틈 제대로 파고들었다...\" DB하이텍 주가 13만원 넘자 증....",
-      "body": "삼성전자 와 TSMC 등 대형 파운드리 업체들은 막대한 투자를 요구하는 첨단 12인치 공정에 역량을 집중하고 있다. 그러는 사이 DB하이텍의 주력인 8인치 파운드리 는 공급 능력이 제한되는 상황을 맞았다....",
-      "sector": "설계",
-      "category": "analysis",
-      "trust": "low",
-      "created_at": "2026-09-23T00:00:00+09:00",
-      "placement": "side",
-      "source_name": "Naver Blog Search",
-      "source_url": "https://blog.naver.com/wjr97217/224419938375",
-      "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
-      "raw_source_type": "api",
-      "matched_keywords": [],
-      "importance_score": 5
-    },
-    {
-      "id": "art-38c6a392775a80",
-      "headline": "삼성전자 주가, 이제 HBM4와 파운드리 가 핵심인 이유",
-      "body": "한 줄 결론: 삼성전자 의 다음 주가 동력은 범용 메모리 가격 상승보다 HBM4와 파운드리 의 실적 증명에 달려 있습니다. 투자자 유의사항 이 글은 보고서를 바탕으로 작성된 분석 자료이며, 투자 권유 목적이...",
-      "sector": "설계",
-      "category": "analysis",
-      "trust": "low",
-      "created_at": "2026-09-23T00:00:00+09:00",
-      "placement": "side",
-      "source_name": "Naver Blog Search",
-      "source_url": "https://blog.naver.com/duk111/224420574043",
-      "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
-      "raw_source_type": "api",
-      "matched_keywords": [],
-      "importance_score": 5
-    },
-    {
       "id": "art-bc39dd5b500e95",
       "headline": "\" 삼성전자 아니라고?\" 중국발 파운드리 품귀에 관심 쏠린 주식은 따....",
       "body": "TSMC나 삼성전자 같은 대형 파운드리 업체들은 첨단 공정과 12인치 쪽에 투자를 집중해왔어요. 그런데 8인치에서 만들어야 하는 반도체 수요는 계속 남아 있습니다. 최근에는 여기에 AI 데이터센터와 로봇 쪽...",
@@ -514,16 +1346,16 @@
       "importance_score": 5
     },
     {
-      "id": "art-68c53c69a78ee0",
-      "headline": "오늘의 주요뉴스(2026.09.23)",
-      "body": "#코스피7017 #이재명유엔총회연설 #삼성 SK하이닉스HBM #추석고속도로통행료면제 #서울아파트전세값급등 #대전아파트값상승률1위 #기준금리인상전망 #송파구실거래가 #오퍼스5.5출시 #GPT6아스트라...",
+      "id": "art-b5c91250814299",
+      "headline": "\"역시 국민주는 삼성전자\" 2027년 HBM 시장 SK하이닉스 제친다",
+      "body": "솔직히 얼마 전까지만 해도 HBM 이야기가 나오면 삼성전자보다 SK하이닉스 부터 떠올랐는데요. 그래서 저도 처음에는 “갑자기 1위 전망은 너무 앞서가는 것 아닌가?” 싶었습니다. 그런데 리포트를...",
       "sector": "소자",
       "category": "analysis",
       "trust": "low",
       "created_at": "2026-09-23T00:00:00+09:00",
       "placement": "side",
       "source_name": "Naver Blog Search",
-      "source_url": "https://blog.naver.com/okdobo1/224420686923",
+      "source_url": "https://blog.naver.com/bomod/224420794049",
       "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
       "raw_source_type": "api",
       "matched_keywords": [
@@ -532,70 +1364,16 @@
       "importance_score": 5
     },
     {
-      "id": "art-d9ac656ada4122",
-      "headline": "5년 만의 왕좌 교체?…삼성전자, 2027년 HBM 1위 전망 쏟아진다",
-      "body": "삼성전자 HBM 시장 1위 전망\" #삼성전자 # HBM # HBM 4 # SK하이닉스 #반도체 #메모리반도체 #UBS #번스타인 #대신증권 #메모리왕좌 #AI반도체 #전영현 #DS부문 #반도체투자 #경제뉴스 #재테크 #2027년전망",
-      "sector": "소자",
-      "category": "analysis",
-      "trust": "low",
-      "created_at": "2026-09-23T00:00:00+09:00",
-      "placement": "side",
-      "source_name": "Naver Blog Search",
-      "source_url": "https://blog.naver.com/poowoo12/224420640898",
-      "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "HBM"
-      ],
-      "importance_score": 5
-    },
-    {
-      "id": "art-4f7ecfea926db6",
-      "headline": "SK하이닉스 심층 분석",
-      "body": "개요 및 최근 실적 동향 SK하이닉스 는 글로벌 AI 시장의 폭발적인 성장에 힘입어 메모리 반도체 산업의 핵심 주도권을 확보했습니다. 특히 HBM (고대역폭 메모리) 분야에서의 기술적 선점과 양산...",
-      "sector": "소자",
-      "category": "analysis",
-      "trust": "low",
-      "created_at": "2026-09-23T00:00:00+09:00",
-      "placement": "side",
-      "source_name": "Naver Blog Search",
-      "source_url": "https://blog.naver.com/mosnsnmo/224420630830",
-      "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "HBM"
-      ],
-      "importance_score": 5
-    },
-    {
-      "id": "art-e375826b2358c8",
-      "headline": "SK하이닉스 주식 전망",
-      "body": "SK하이닉스 가을 주식 동향 총정리! HBM 독주와 가을 찬바람 속 투자 전망은? 안녕하세요! 오늘은 반도체 대장주 중 하나인 SK하이닉스 의 2026년 가을 주식 동향 및 관전 포인트를 깔끔하게 정리해 드립니다....",
-      "sector": "소자",
-      "category": "analysis",
-      "trust": "low",
-      "created_at": "2026-09-23T00:00:00+09:00",
-      "placement": "side",
-      "source_name": "Naver Blog Search",
-      "source_url": "https://blog.naver.com/mosn98a/224420627836",
-      "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "HBM"
-      ],
-      "importance_score": 5
-    },
-    {
-      "id": "art-1d68d5b6c860b1",
-      "headline": "나비타스가 매그나칩에 직접 투자한 이유, SiC 전력반도체가 뭐길래?",
-      "body": "요즘 반도체 뉴스를 보면 GPU나 HBM 이야기가 워낙 많습니다. 저도 AI 관련 내용을 계속 찾아보다 보니 자연스럽게 엔비디아나 삼성전자, SK하이닉스 쪽을 먼저 보게 되는데요. 그런데 이번에는 조금 다른...",
+      "id": "art-b4663e69da88f2",
+      "headline": "\" HBM 만들수록 D램이 부족하다?\" 삼성전자· SK하이닉스 에 벌어진 뜻밖....",
+      "body": "요즘 D램이 부족한 이유를 단순히 \"삼성전자와 SK하이닉스 가 HBM 만 만들어서\" 라고 설명하면 정확하지 않습니다. AI 서버 자체가 HBM 과 일반 서버 메모리를 동시에 엄청나게 필요로 하기 때문입니다. GPU...",
       "sector": "설계",
       "category": "analysis",
       "trust": "low",
       "created_at": "2026-09-23T00:00:00+09:00",
       "placement": "side",
       "source_name": "Naver Blog Search",
-      "source_url": "https://blog.naver.com/80namju/224420600066",
+      "source_url": "https://blog.naver.com/surfingorange/224420781625",
       "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
       "raw_source_type": "api",
       "matched_keywords": [
@@ -604,16 +1382,124 @@
       "importance_score": 5
     },
     {
-      "id": "art-b6dfe5195bc7f4",
-      "headline": "세계 HBM 4 점유율 구도 총정리｜ SK하이닉스 ·삼성전자·마이크론 3파....",
-      "body": "기업 2026년 2분기 HBM 점유율 SK하이닉스 50% 삼성전자 33% 마이크론 18% SK하이닉스 가 여전히 1위를 유지하고 있지만, 주목할 부분은 삼성전자의 상승입니다. 삼성전자는 2026년 1분기 21%에서 2분기 33%로...",
+      "id": "art-c409e6e8907220",
+      "headline": "마이크론 실적 발표, 왜 삼성전자· SK하이닉스 투자자도 볼까? HBM 과 D....",
+      "body": "두고, 발표 뒤 회사가 실제로 한 설명과 비교해 보면 어떨까요? 자료: 마이크론 실적 발표 일정 및 직전 실적 자료, 삼성전자· SK하이닉스 2026년 2분기 발표 자료 #마이크론실적 #삼성전자 # SK하이닉스 # HBM 4 #D램",
       "sector": "소자",
       "category": "analysis",
       "trust": "low",
       "created_at": "2026-09-23T00:00:00+09:00",
       "placement": "side",
       "source_name": "Naver Blog Search",
-      "source_url": "https://blog.naver.com/2wins09/224420243592",
+      "source_url": "https://blog.naver.com/4sevendays/224420779717",
+      "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "HBM"
+      ],
+      "importance_score": 5
+    },
+    {
+      "id": "art-a94f0c1918fbb0",
+      "headline": "HBM 관련주 주목, SK하이닉스 가 442억원 주문한 반도체 장비주는?",
+      "body": "[삼성전자· SK하이닉스 HBM 투자가 장비업계로] AI 시장이 성장하면서 삼성전자와 SK하이닉스 의 HBM 투자가 빠르게 확대되고 있습니다. HBM 은 AI 가속기에 필요한 고성능 메모리로, 글로벌 AI 데이터센터 투자가...",
+      "sector": "소자",
+      "category": "analysis",
+      "trust": "low",
+      "created_at": "2026-09-23T00:00:00+09:00",
+      "placement": "side",
+      "source_name": "Naver Blog Search",
+      "source_url": "https://blog.naver.com/xomoney/224419486561",
+      "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "HBM"
+      ],
+      "importance_score": 5
+    },
+    {
+      "id": "art-e5a668d649fdf9",
+      "headline": "SK하이닉스 전일 거래량 급증 분석 HBM 3E AI 반도체 컨퍼런스 일정 점....",
+      "body": "오늘 스터디 한 줄 요약 한 줄 요약: 9월 22일 SK하이닉스 는 HBM 3E 모멘텀과 대량 거래량으로 강력한 수급을 형성했으며, 10월 AI 반도체 컨퍼런스 및 3분기 실적 발표 일정을 중심으로 추적 관찰할 필요가...",
+      "sector": "소자",
+      "category": "analysis",
+      "trust": "low",
+      "created_at": "2026-09-23T00:00:00+09:00",
+      "placement": "side",
+      "source_name": "Naver Blog Search",
+      "source_url": "https://blog.naver.com/edenhil/224420622927",
+      "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "HBM"
+      ],
+      "importance_score": 5
+    },
+    {
+      "id": "art-591b9cd12f78dd",
+      "headline": "SK하이닉스 주가 HBM 4 잘 팔리는데 시장이 겁내는 한 가지",
+      "body": "결국 SK하이닉스 주가의 중심에는 HBM 4가 있습니다 HBM 4는 더 이상 “개발 중인 미래 제품”만은 아닙니다. SK하이닉스 는 올해 2분기 실적 발표에서 HBM 4 양산 출하를 시작했고 하반기부터 생산을 본격...",
+      "sector": "소자",
+      "category": "analysis",
+      "trust": "low",
+      "created_at": "2026-09-23T00:00:00+09:00",
+      "placement": "side",
+      "source_name": "Naver Blog Search",
+      "source_url": "https://blog.naver.com/zkfldb888/224420718598",
+      "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "HBM"
+      ],
+      "importance_score": 5
+    },
+    {
+      "id": "art-06bb48851e066d",
+      "headline": "\"200만원 그냥 갈 줄 알았는데...\" SK하이닉스 에 삼성전자가 던진 '새 ....",
+      "body": "SK하이닉스 HBM 부문의 영업이익률 가정 역시 기존 80% 수준에서 60% 수준으로 낮춰 잡았다. 주목할 부분은 240만원이라는 숫자 자체가 아니다. 현재 주가보다 여전히 높은 수준이기 때문이다. 시장이...",
+      "sector": "소자",
+      "category": "analysis",
+      "trust": "low",
+      "created_at": "2026-09-23T00:00:00+09:00",
+      "placement": "side",
+      "source_name": "Naver Blog Search",
+      "source_url": "https://blog.naver.com/zfz84550/224420121503",
+      "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "HBM"
+      ],
+      "importance_score": 5
+    },
+    {
+      "id": "art-e29b0819a92a95",
+      "headline": "메리츠 ELS 640회 — 반도체에서 지수로 분산하기",
+      "body": "지금까지는 SK하이닉스 와 Micron처럼 AI· HBM 관련 반도체를 기초자산으로 하는 상품을 여러 차례 선택했습니다. 그런데 이번 주에는 조금 다른 선택을 해봤습니다. 이번에는 반도체가 아니라 글로벌...",
+      "sector": "소자",
+      "category": "analysis",
+      "trust": "low",
+      "created_at": "2026-09-23T00:00:00+09:00",
+      "placement": "side",
+      "source_name": "Naver Blog Search",
+      "source_url": "https://blog.naver.com/red31431/224420705652",
+      "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "HBM"
+      ],
+      "importance_score": 5
+    },
+    {
+      "id": "art-d04e3f05adc382",
+      "headline": "2026.09.23 반도체 뉴스 / CXMT 범용 D램 점유율 9.5% / D램·낸드 동행 깨져....",
+      "body": "**◆ 삼성· SK하이닉스 D램이 HBM 에 묶인 사이, 中 CXMT 범용 D램 침투 가속** ・트렌드포스 기준... ・CXMT는 저가 공세 대신 이익률을 택해, 애플과의 단가 협상에서 삼성· SK 와 비슷하거나 더...",
+      "sector": "소자",
+      "category": "analysis",
+      "trust": "low",
+      "created_at": "2026-09-23T00:00:00+09:00",
+      "placement": "side",
+      "source_name": "Naver Blog Search",
+      "source_url": "https://blog.naver.com/cavmedic/224420690311",
       "source_note": "Useful for Korean commentary. Treat as lower trust unless author is known.",
       "raw_source_type": "api",
       "matched_keywords": [
@@ -658,161 +1544,6 @@
       "importance_score": 5
     },
     {
-      "id": "art-fb70e68526a498",
-      "headline": "Comparison of TSMC CoWoS-S, CoWoS-R, and CoWoS-L",
-      "body": "TSMC의 CoWoS-S는 실리콘 인터포저를 통해 고밀도 배선과 낮은 지연 시간을 구현하며, 고성능 메모리 인터페이스가 필수적인 하이엔드 제품에 적용된다.\nCoWoS-R은 실리콘 인터포저를 RDL(재배선층) 인터포저로 대체하여 패키지 확장성과 유연성을 높였으며, 2023년부터 양산을 시작했다.\nCoWoS-L은 RDL 기반 인터포저에 국소 실리콘 인터커넥트(LSI)를 결합한 하이브리드 구조를 채택했으며, 2024년부터 양산에 돌입했다.\nCoWoS-L은 실리콘 수준의 연결 밀도와 RDL의 확장성을 동시에 제공하여, 다수의 칩렛과 HBM 스택이 포함되는 차세대 대형 AI 가속기에 최적화되었다.",
-      "sector": "패키징",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-09-22T22:00:21+09:00",
-      "placement": "side",
-      "source_name": "SemiWiki",
-      "source_url": "https://semiwiki.com/semiconductor-manufacturers/tsmc/371790-comparison-of-tsmc-cowos-s-cowos-r-and-cowos-l",
-      "source_note": "rss_or_html",
-      "raw_source_type": "rss",
-      "matched_keywords": [
-        "CoWoS",
-        "substrate",
-        "advanced packaging"
-      ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "llm_keywords": [
-        "CoWoS",
-        "TSMC",
-        "RDL",
-        "LSI",
-        "AI 가속기"
-      ],
-      "importance_score": 5
-    },
-    {
-      "id": "art-f86928c5b7ea51",
-      "headline": "GUC Announces 2nm 16 Gbps HBM4E IP",
-      "body": "GUC가 2nm 공정 기반의 HBM4E PHY 및 컨트롤러 IP를 발표함\n해당 IP는 16Gbps의 데이터 전송 속도를 지원함\n현재 고객사의 AI ASIC 설계에 채택되어 적용 중임",
-      "sector": "설계",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-09-22T22:00:00+09:00",
-      "placement": "side",
-      "source_name": "EE Times",
-      "source_url": "https://www.eetimes.com/guc-announces-2nm-16-gbps-hbm4e-ip",
-      "source_note": "rss_or_html",
-      "raw_source_type": "rss",
-      "matched_keywords": [
-        "2nm"
-      ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "llm_keywords": [
-        "GUC",
-        "HBM4E",
-        "2nm",
-        "AI ASIC",
-        "PHY/Controller IP"
-      ],
-      "importance_score": 5
-    },
-    {
-      "id": "art-4877741994c965",
-      "headline": "Accelerating a ROS 2 Node with an AI Agent and NVIDIA Isaac ROS",
-      "body": "GPU acceleration can speed up compute-intensive robotics workloads, but a fast CUDA kernel alone does not guarantee a fast ROS 2 graph. As messages move between...",
-      "sector": "설계",
-      "category": "news",
-      "trust": "high",
-      "created_at": "2026-09-22T21:00:00+09:00",
-      "placement": "side",
-      "source_name": "NVIDIA Developer Blog",
-      "source_url": "https://developer.nvidia.com/blog/accelerating-a-ros-2-node-with-an-ai-agent-and-nvidia-isaac-ros",
-      "source_note": "rss_or_html",
-      "raw_source_type": "rss",
-      "matched_keywords": [
-        "GPU"
-      ],
-      "summary_method": "snippet",
-      "importance_score": 5
-    },
-    {
-      "id": "art-2e6881cc89673a",
-      "headline": "한미 반도체 , AI 반도체 2.5D 패키징 장비 'FC 본더 75' 출하",
-      "body": "한미반도체가 75mm×75mm 크기의 대형 인터포저 패키징을 지원하는 AI 반도체 2.5D 패키징 장비 'FC 본더 75'를 글로벌 고객사에 첫 출하함\n해당 장비는 기존 범용 패키징 크기(20mm×20mm)보다 넓은 면적을 처리하여 초대형 다이(Die)와 CPU, GPU, HBM 등의 멀티칩 집적을 가능하게 함\n올해 'FC 본더 3.5', '2.5D TC 본더 40 C2S/C2W'를 출시했으며, 향후 '2.5D TC 본더 120' 출시를 앞두고 있음\n미국 내 AI 빅테크, 파운드리, OSAT 수요 대응을 위해 10월 현지 법인 '한미USA'를 설립하고 2028년 본격 가동할 계획임",
-      "sector": "패키징",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-09-22T19:10:00+09:00",
-      "placement": "side",
-      "source_name": "Naver News Search",
-      "source_url": "https://daily.hankooki.com/news/articleView.html?idxno=1409127",
-      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "CoWoS",
-        "2.5D"
-      ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "llm_keywords": [
-        "FC 본더 75",
-        "2.5D 패키징",
-        "인터포저",
-        "한미반도체",
-        "멀티칩 집적"
-      ],
-      "importance_score": 5
-    },
-    {
-      "id": "art-f431a50830dced",
-      "headline": "삼성·SK하이닉스 3분기 영업익 190조 전망…다음 승부는 HBM4",
-      "body": "삼성전자가 10나노급 1c D램과 4나노 파운드리 베이스 다이를 적용한 12단 HBM4를 양산 및 출하했으며, 핀당 11.7Gbps의 동작 속도를 구현함\nSK하이닉스는 12단 HBM4를 양산 중이며, 48GB 용량의 16단 HBM4 제품은 고객사 인증 단계를 진행 중임\n삼성전자는 HBM4E부터 기존 범프 연결 방식 대신 구리와 구리를 직접 접합하는 하이브리드 본딩 기술을 일부 적용할 계획임\nTSMC의 CoWoS 생산능력이 올해 말 월 12만~13만 장 수준에 이를 전망이며, 주문 적체로 인해 50주 이상의 리드타임이 발생하고 있음\n2분기 매출 기준 HBM 시장 점유율은 SK하이닉스 50%, 삼성전자 33%로 집계됨",
-      "sector": "소자",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-09-22T18:47:00+09:00",
-      "placement": "side",
-      "source_name": "Naver News Search",
-      "source_url": "https://www.ppss.kr/news/articleView.html?idxno=312197",
-      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
-      "raw_source_type": "api",
-      "matched_keywords": [],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "llm_keywords": [
-        "HBM4",
-        "하이브리드 본딩",
-        "CoWoS",
-        "16단 HBM",
-        "1c D램"
-      ],
-      "importance_score": 5
-    },
-    {
-      "id": "art-1f667744d659dc",
-      "headline": "한미 반도체 , AI 시스템 반도체 용 'FC 본더 75' 첫 출하",
-      "body": "한미반도체가 AI 시스템 반도체 2.5D 패키징을 지원하는 'FC 본더 75'를 글로벌 고객사에 첫 출하함\nFC 본더 75는 75mm×75mm 크기의 대형 인터포저 패키징을 지원하여 기존 범용 크기(20mm×20mm)보다 넓은 면적의 초대형 다이 및 멀티칩 집적이 가능함\nFC 본더 3.5, 2.5D TC 본더 40 C2S/C2W를 순차 출시했으며, 향후 '2.5D TC 본더 120' 출시를 앞두고 있음\n오는 10월 미국 법인 '한미USA'를 설립하여 2028년 본격 가동을 목표로 미국 내 빅테크, 파운드리, OSAT 수요에 대응할 계획임",
-      "sector": "패키징",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-09-22T18:34:00+09:00",
-      "placement": "side",
-      "source_name": "Naver News Search",
-      "source_url": "https://www.econovill.com/news/articleView.html?idxno=751600",
-      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "CoWoS",
-        "2.5D"
-      ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "importance_score": 5,
-      "llm_keywords": [
-        "FC 본더 75",
-        "2.5D 패키징",
-        "인터포저",
-        "한미반도체"
-      ]
-    },
-    {
       "id": "art-5b48d902d33697",
       "headline": "[단독] 구글, 엔비디아 GPU 독점 구도에 도전…빅테크 AI 인프라 격전지...",
       "body": "TPU는 특정 연산 방식에 특화된 AI 반도체 ( ASIC )라는 점에서 범용 AI 반도체 인 그래픽처리장치(GPU)와... 리사 수 CEO가 올해 3월 한국을 방문한 후 AMD는 자사 중앙처리장치(CPU), GPU를 국산 신경망처리장치( NPU )와 결합하는...",
@@ -835,106 +1566,9 @@
       "importance_score": 5
     },
     {
-      "id": "art-8cc7b28282a8eb",
-      "headline": "[현장] 멜콘 “반도체 미세화가 기회”…EUV 넘어 HBM·글로벌로 - 스트레이트뉴스",
-      "body": "[현장] 멜콘 “반도체 미세화가 기회”…EUV 넘어 HBM·글로벌로 스트레이트뉴스",
-      "sector": "공정",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-09-22T17:42:56+09:00",
-      "placement": "side",
-      "source_name": "Google News RSS",
-      "source_url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE11NFViS3JKS2JQbmhBbnRjSGtkYjBlNUp4eVBBSDdoV21xelZGSXNZLTF0UmV1aVpGckx0MnpWR3FqaU43cDlZWDdIWmdObEFQVW4tR1hrYXp0NkswS05DeV9GNjlGRzZlS0EzMHdDcUx0dEXSAXdBVV95cUxNLTY0OGVpWGk3ZXpJVnNoQnh0c1I0Rmhub3ViRTBrTFJWbmRHMFpLZEVrcm4ySHktV3NKckhSNTBQWEdyN0xYbldCS2hJZWZlMUMwX1JSbFBPWnl2MVpwbWRadV9MQl9sbkV5LThlWDl6RTQ4SWVyUQ?oc=5",
-      "source_note": "Google News search RSS result; original publisher link is retained where available.",
-      "raw_source_type": "rss",
-      "matched_keywords": [
-        "EUV"
-      ],
-      "summary_method": "snippet",
-      "importance_score": 5
-    },
-    {
-      "id": "art-a8f0e46f54aef6",
-      "headline": "[알림] 선단공정과 패키징 을 넘다… 반도체 '검사·계측' 미래를 엿보다",
-      "body": "어드밴스드 패키징 도 다르지 않습니다. 미세공정으로 반도체 성능을 높이기 어려우니 후공정에서... 어드밴스드 패키징 에서 가장 앞서 있다고 평가받는 TSMC도 마찬가지입니다. CoWoS (Chip-on-Wafer-on-Substrate) 크기가...",
-      "sector": "패키징",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-09-22T16:54:00+09:00",
-      "placement": "side",
-      "source_name": "Naver News Search",
-      "source_url": "https://www.thelec.kr/news/articleView.html?idxno=62663",
-      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "CoWoS",
-        "substrate"
-      ],
-      "summary_method": "snippet",
-      "importance_score": 5
-    },
-    {
-      "id": "art-6cae654d80cc5c",
-      "headline": "[IPO] 김성일 멜콘 대표 \" EUV 넘어 HBM까지\"...정밀 환경제어로 코스닥 출...",
-      "body": "기존 극자외선( EUV ) 포토공정에서 확보한 기술 경쟁력을 차세대 High - NA EUV 로 끌어올리는 동시에 고대역폭메모리(HBM)를 포함한 테스트·패키징 공정까지 적용 범위를 넓혀 새로운 성장축을 구축한다는 전략이다....",
-      "sector": "공정",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-09-22T16:44:00+09:00",
-      "placement": "side",
-      "source_name": "Naver News Search",
-      "source_url": "https://www.pinpointnews.co.kr/news/articleView.html?idxno=489730",
-      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "EUV"
-      ],
-      "summary_method": "snippet",
-      "importance_score": 5
-    },
-    {
-      "id": "art-2847094a83215d",
-      "headline": "AI 칩 하나로 연결하는 장비, 한미 반도체 글로벌 첫 출하",
-      "body": "2.5D 패키징 은 GPU와 HBM 등 여러 반도체 를 인터포저 위에 배치해 하나의 패키지로 연결하는 기술이다. 대표적으로 TSMC의 ‘칩 온 웨이퍼 온 서브스트레이트( CoWoS )’가 있다. 한미 반도체 는 관련 장비 제품군도...",
-      "sector": "패키징",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-09-22T16:36:00+09:00",
-      "placement": "side",
-      "source_name": "Naver News Search",
-      "source_url": "https://www.mk.co.kr/article/12159495",
-      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "CoWoS",
-        "2.5D"
-      ],
-      "summary_method": "snippet",
-      "importance_score": 5
-    },
-    {
-      "id": "art-7be72604e0cb96",
-      "headline": "'AI 감속론'에도 반도체는 질주… HBM 수출·실물 수요 뜨겁다",
-      "body": "삼성전자 HBM4E . 사진=삼성전자 인공지능(AI)의 발전 속도를 늦춰야 한다는 '감속론'이 실리콘밸리를... 인텔과 ARM 등 반도체주도 동반 상승하며 필라델피아반도체지수는 4 .3% 올랐다. 불과 일주일 전 AI의 급격한...",
-      "sector": "설계",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-09-22T16:28:00+09:00",
-      "placement": "side",
-      "source_name": "Naver News Search",
-      "source_url": "https://www.pointdaily.co.kr/news/articleView.html?idxno=320251",
-      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "Arm"
-      ],
-      "summary_method": "snippet",
-      "importance_score": 5
-    },
-    {
       "id": "art-357e09ed6b7e4b",
       "headline": "삼성전자, HBM4 수요에 4나노 증설 검토 보도",
-      "body": "삼성전자가 HBM4 로직 베이스 다이 수요 대응을 위해 4나노 파운드리 생산능력 확대를 검토 중임\n삼성전자 HBM4는 10나노급 6세대 1c DRAM과 4나노 공정 기반의 로직 베이스 다이로 구성됨\n현재 4나노 생산라인 가동률이 높은 상태이며, 전체 생산능력의 절반 이상이 HBM4 베이스 다이에 배정된 것으로 알려짐\nHBM4E에도 4나노 베이스 다이를 적용하고, 차세대 HBM5에는 GAA 구조의 2나노 공정 적용을 검토하고 있음",
+      "body": "높은 상태이며, 생산능력의 절반 이상이 HBM4 베이스 다이에 배정된 것으로 전해졌다. 삼성전자는 HBM4E 에도 4나노 베이스 다이를 적용하고, HBM 5에는 GAA 구조의 2나노 공정을 적용하는 방안도 검토하고 있다.",
       "sector": "공정",
       "category": "news",
       "trust": "medium",
@@ -947,251 +1581,26 @@
       "matched_keywords": [
         "GAA"
       ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "importance_score": 5,
-      "llm_keywords": [
-        "HBM4",
-        "4나노",
-        "베이스 다이",
-        "1c DRAM",
-        "GAA"
-      ]
-    },
-    {
-      "id": "art-62f4cb1c07f50e",
-      "headline": "한미 반도체 , 2.5D 지원 첨단 패키징 장비 'FC 본더 75' 첫 출하",
-      "body": "이에 패키징 장비 또한 고사양화가 요구되고 있으며, 파운드리와 반도체 외주 패키지(OSAT) 기업들로부터 수요가 증가하고 있는 추세다. 2.5D 패키징 기술로는 TSMC의 CoWoS 가 대표적이다. 향후 TSMC는 패키징 ...",
-      "sector": "패키징",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-09-22T16:02:00+09:00",
-      "placement": "side",
-      "source_name": "Naver News Search",
-      "source_url": "https://zdnet.co.kr/view?no=20260922153758",
-      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "CoWoS",
-        "2.5D"
-      ],
       "summary_method": "snippet",
       "importance_score": 5
     },
     {
-      "id": "art-3b26c751667fb6",
-      "headline": "D램 늘려도 부족하다…공급난 장기화에 삼성전자 몸값 재평가",
-      "body": "내년 HBM4E 양산 확대에 따라 HBM4 매출 비중은 올해 40%에서 내년 80%로 높아지고, HBM4 매출 역시 올해보다 2배 이상 증가할 것으로 전망했다. 대신증권도 메모리 업사이클의 추가 확장과 HBM 경쟁력 개선에 주목했다....",
+      "id": "art-0b59b5204a8282",
+      "headline": "한미반도체, ‘FC 본더 75’ 첫 출하…HBM 넘어 AI 시스템반도체로 - 더스탁(The Stock)",
+      "body": "한미반도체, ‘FC 본더 75’ 첫 출하…HBM 넘어 AI 시스템반도체로 더스탁(The Stock)",
       "sector": "소자",
       "category": "news",
       "trust": "medium",
-      "created_at": "2026-09-22T15:44:00+09:00",
+      "created_at": "2026-09-22T09:31:07+09:00",
       "placement": "side",
-      "source_name": "Naver News Search",
-      "source_url": "https://www.mediapen.com/news/view/1125405",
-      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
-      "raw_source_type": "api",
+      "source_name": "Google News RSS",
+      "source_url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE91RnhSZ1JIN0w4NlBhQTFzcm8wQmdIVTZkUVBCUmhySGZoVklIZlVrbTZEQTJUN2ZtZ2Nkb0stbUlNT0toV2JsTHg5a3BDVzZmbXlGN0JEMDVGcjNzMHE2XzU1YlVWd04xUXc?oc=5",
+      "source_note": "Google News search RSS result; original publisher link is retained where available.",
+      "raw_source_type": "rss",
       "matched_keywords": [
         "HBM"
       ],
       "summary_method": "snippet",
-      "importance_score": 5
-    },
-    {
-      "id": "art-4199fd3aab0638",
-      "headline": "멜콘, 상장 후 EUV · High - NA 고도화…HBM·패키징으로 적용처 확대[IPO출사...",
-      "body": "국내 초정밀 온·습도 조절장비(THC) 시장에서 약 70%의 점유율을 확보한 가운데 상장 후 극자외선( EUV )과 차세대 High - NA EUV 용 제품을 고도화하고 신규 성장동력을 확보한다는 전략이다. 22일 서울 여의도...",
-      "sector": "공정",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-09-22T15:37:00+09:00",
-      "placement": "side",
-      "source_name": "Naver News Search",
-      "source_url": "https://www.edaily.co.kr/News/Read?newsId=04122966645582744&mediaCodeNo=257",
-      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "EUV"
-      ],
-      "summary_method": "snippet",
-      "importance_score": 5
-    },
-    {
-      "id": "art-9a6e98c1699d78",
-      "headline": "한미반도체, GPU·메모리 연결하는 AI 반도체 패키징 장비 첫 출하 - 조선일보",
-      "body": "한미반도체, GPU·메모리 연결하는 AI 반도체 패키징 장비 첫 출하 조선일보",
-      "sector": "설계",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-09-22T15:34:04+09:00",
-      "placement": "side",
-      "source_name": "Google News RSS",
-      "source_url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNQU80SUI1Uk5CbEREUDlFaFBkNEZrbEdpMDdYbk8zNGNwbVNJcUQ1WWtKTHVtSzFWSXdKRTBIeDJQR1ZRVUxmYjR6VEJ0Q2dUbF9reDcyeGJhNXJZOG1JZ0E0MkVXeHh4c0FkLXQ1WVM3cVlGNU52VVZRbmZKUnUzdlpSbw?oc=5",
-      "source_note": "Google News search RSS result; original publisher link is retained where available.",
-      "raw_source_type": "rss",
-      "matched_keywords": [
-        "GPU"
-      ],
-      "summary_method": "snippet",
-      "importance_score": 5
-    },
-    {
-      "id": "art-3b49a375317ed1",
-      "headline": "TSMC, 1.4나노 A14 내년 1분기 시험생산…삼성전자와 고객 확보전 본격화",
-      "body": "TSMC가 1.4나노(A14) 공정 시험생산을 2027년 1분기 신주 Fab20에서 시작하고, 2028년 양산을 목표로 함\n2024년 2분기부터 '사이버셔틀(MPW)' 서비스를 A14 공정에 적용해 고객사의 설계 검증 및 IP 최적화를 조기 진행 중\nA14는 2세대 나노시트 구조를 적용해 N2 대비 전력 소모 25~30% 감소, 논리회로 밀도 20% 이상 향상을 목표로 함\n256Mb SRAM 시험칩 수율 90% 근접 및 트랜지스터 성능 목표치 90% 수준을 달성하며 공정 개발 진척\n마벨(Marvell) 등 AI 데이터센터 고객사와 협의 중이며, 2027년까지 12개 이상의 HBM을 탑재하는 대형 CoWoS 양산을 추진함",
-      "sector": "공정",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-09-22T15:20:00+09:00",
-      "placement": "side",
-      "source_name": "Naver News Search",
-      "source_url": "https://www.joongangenews.com/news/articleView.html?idxno=550133",
-      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "HBM"
-      ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "importance_score": 5,
-      "llm_keywords": [
-        "TSMC",
-        "A14",
-        "1.4나노",
-        "나노시트",
-        "CoWoS"
-      ]
-    },
-    {
-      "id": "art-67ccc4638ebfb3",
-      "headline": "삼성전자, 내년 HBM4 세계 1위 전망…범용 D램 공급 줄어 가격 더 오르나",
-      "body": "KB증권은 삼성전자의 내년 HBM4 시장 점유율을 44%로 추정하며 세계 1위 달성을 전망함\n삼성전자 HBM 매출 내 HBM4 계열 비중이 올해 40%에서 내년 80%까지 확대될 것으로 예상됨\n전체 D램 생산능력 중 HBM 비중이 올해 33%에서 내년 40%로 증가하며 범용 D램 비중은 59%로 낮아질 전망임\n서버용 고용량 DDR5 리드타임이 최대 52주까지 늘어났으며, 범용 D램 가격의 두 자릿수 상승이 예상됨",
-      "sector": "소자",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-09-22T15:18:00+09:00",
-      "placement": "side",
-      "source_name": "Naver News Search",
-      "source_url": "https://www.ddaily.co.kr/page/view/2026092214394805073",
-      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "HBM"
-      ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "importance_score": 5,
-      "llm_keywords": [
-        "삼성전자",
-        "HBM4",
-        "HBM4E",
-        "범용 D램",
-        "DDR5"
-      ]
-    },
-    {
-      "id": "art-d01e600ac5e64e",
-      "headline": "한미반도체, AI 반도체용 첨단 패키징 장비 글로벌 고객사에 출하 - hankookilbo.com",
-      "body": "한미반도체가 AI 반도체 생산에 사용되는 첨단 패키징 장비를 글로벌 고객사에 출하함",
-      "sector": "패키징",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-09-22T15:06:00+09:00",
-      "placement": "side",
-      "source_name": "Google News RSS",
-      "source_url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE5GVVJNdG1vRVVueDNVRWw4cUlMUVJleDlJc2lvU1BWZjVWVTJEMFBRTlBnb3kxQlRDeGFZU25NR3V3TER5eC13SXdaTG1lRVRZbWJZS0RhejNaeEN1bjVTUEFIeEszcnQyeWRsdXBuSGNJaGfSAXNBVV95cUxORlVSTXRtb0VVbngzVUVsOHFJTFFSZXg5SXNpb1NQVmY1VlUyRDBQUU5QZ295MUJUQ3hhWVNuTUd1d0xEeXgtd0l3WkxtZUVUWW1iWUtEYXozWnhDdW41U1BBSHhLM3J0MnlkbHVwbkhjSWhn?oc=5",
-      "source_note": "Google News search RSS result; original publisher link is retained where available.",
-      "raw_source_type": "rss",
-      "matched_keywords": [],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "importance_score": 5,
-      "llm_keywords": [
-        "한미반도체",
-        "AI 반도체",
-        "패키징 장비"
-      ]
-    },
-    {
-      "id": "art-7cf5d84fe934ed",
-      "headline": "한미 반도체 , AI 반도체 용 첨단 패키징 장비 글로벌 고객사에 출하",
-      "body": "시장에서는 TSMC의 CoWoS 가 대표적인 2.5D 패키징 기술로 자리 잡았다. AI 반도체 수요 확대에 따라 파운드리와 반도체 외주 패키지·테스트 업체들의 대형 인터포저 기반 패키징 수요도 확대 중이다. 한미 반도체 는...",
-      "sector": "패키징",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-09-22T15:06:00+09:00",
-      "placement": "side",
-      "source_name": "Naver News Search",
-      "source_url": "https://www.hankookilbo.com/news/article/A2026092211290000415?did=NA",
-      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "CoWoS",
-        "2.5D"
-      ],
-      "summary_method": "snippet",
-      "importance_score": 5
-    },
-    {
-      "id": "art-5d4cabb3e39a6d",
-      "headline": "한미반도체, AI 2.5D 패키징용 `FC 본더 75` 첫 출하 - ddaily.co.kr",
-      "body": "한미반도체가 AI 2.5D 패키징 공정용 'FC 본더 75' 장비를 최초로 출하함\n해당 장비는 AI 가속기 제조를 위한 2.5D 패키징 공정에 적용될 예정임",
-      "sector": "패키징",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-09-22T13:47:26+09:00",
-      "placement": "side",
-      "source_name": "Google News RSS",
-      "source_url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE1NZXM2Q1dqandvd0RaYzBmMnVWUkMzZlhjUmZFMnpaTzVod09xMTQ1UXRJcWV5QkhMVVltNFltSXBEM3pGaGlBQzd2dXA3TFk2TGJMUnhDSE9tN0pGVlViMjJBUTI?oc=5",
-      "source_note": "Google News search RSS result; original publisher link is retained where available.",
-      "raw_source_type": "rss",
-      "matched_keywords": [
-        "2.5D"
-      ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "llm_keywords": [
-        "한미반도체",
-        "FC 본더 75",
-        "2.5D 패키징",
-        "AI 가속기"
-      ],
-      "importance_score": 5
-    },
-    {
-      "id": "art-6610e080017ba4",
-      "headline": "'울트라'까지 엑시노스 확대하나…삼성, 갤럭시S27 AP 전략 변화",
-      "body": "엑시노스 2700은 삼성 파운드리의 2세대 2나노 GAA 공정 인 SF2P를 기반으로 제작될 전망이다. 10코어 CPU와 Xclipse 970 GPU를 탑재하며, 갤럭시 S27과 S27+에도 적용될 가능성이 거론되고 있다. 삼성전자가 엑시노스 탑재...",
-      "sector": "공정",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-09-22T08:56:00+09:00",
-      "placement": "side",
-      "source_name": "Naver News Search",
-      "source_url": "https://kbench.com?q=node%2F282075",
-      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "GAA"
-      ],
-      "importance_score": 5
-    },
-    {
-      "id": "art-2dd01b6d69c5ff",
-      "headline": "Concurrent HBM And Host Memory Access Improves LLM Inference Throughput (Georgia Tech, Nvidia, Stanford)",
-      "body": "Researchers at Georgia Tech, Nvidia Research, and Stanford University published a technical paper titled “BOOST: Concurrent Access to Host Memory and HBM to Accelerate LLM Inference.” Abstract Excerpt: “This paper presents BOOST, the first runtime system that provides concurrent and proportional access to both GPU memo...",
-      "sector": "설계",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-09-22T08:13:37+09:00",
-      "placement": "side",
-      "source_name": "Semiconductor Engineering",
-      "source_url": "https://semiengineering.com/concurrent-hbm-and-host-memory-access-improves-llm-inference-throughput-georgia-tech-nvidia-stanford",
-      "source_note": "rss_or_html",
-      "raw_source_type": "rss",
-      "matched_keywords": [
-        "GPU"
-      ],
       "importance_score": 5
     },
     {
@@ -1211,7 +1620,24 @@
         "EUV",
         "3nm"
       ],
-      "summary_method": "snippet",
+      "importance_score": 4
+    },
+    {
+      "id": "art-3cbdb8063f7f28",
+      "headline": "[美·中 정상회담] AI·칩·로봇·희토류 '新 지렛대' 쥔 채 백악관서 마...",
+      "body": "중국은 네덜란드 ASML 의 극자외선( EUV ) 노광 장비 차단이라는 절대적 열세를 독자 시스템 아키텍처로 정면 돌파하고 있다. 화웨이는 최근 단일 통합 컴퓨터처럼 작동하는 '최대 100만 개 프로세서 연결 시스템'을...",
+      "sector": "공정",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-09-23T05:26:00+09:00",
+      "placement": "side",
+      "source_name": "Naver News Search",
+      "source_url": "https://www.g-enews.com/view.php?ud=2026092217482720530c8c1c064d_1",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "EUV"
+      ],
       "importance_score": 4
     },
     {
@@ -1230,7 +1656,6 @@
       "matched_keywords": [
         "EUV"
       ],
-      "summary_method": "snippet",
       "importance_score": 4
     },
     {
@@ -1250,31 +1675,22 @@
       "importance_score": 4
     },
     {
-      "id": "art-ec64cf1fb01ec2",
-      "headline": "[현장] 멜콘 \"반도체 미세화가 기회\"… EUV 넘어 HBM·글로벌로",
-      "body": "포토공정용 온·습도 제어 장비(THC)와 초고순도 공기 공급 장비(XPS)를 공급하며, 2025년 선단공정 내 THC 국내 점유율 100%를 기록함\n2025년 말 High-NA EUV용 THC 개발을 완료하고 현재 국내 고객사 생산라인 적용 및 평가를 진행 중임\nHBM 테스트용 칠러 및 환경제어 장비를 개발 중이며, 하이브리드 본딩용 THC 개발 완료 후 현장 평가를 수행하고 있음\n2025년 ASML 적격 공급업체 자격을 확보했으며, 마이크론 업체 등록 완료 및 TSMC 장비 평가를 추진 중임\nIPO를 통해 THC 생산능력을 300대에서 400대로, XPS 생산능력을 80대에서 100대로 확대할 계획임",
+      "id": "art-4e98b315bc3e28",
+      "headline": "내달 상장 앞둔 멜콘 \" EUV 공정 확대, 매출 기여\"",
+      "body": "THC는 도쿄일렉트론(TEL)의 트랙 장비에, XPS는 ASML 의 노광장비 스캐너에 각각 적용된다. 김 대표는 \" EUV 용 제품은 기존 장비보다 공급 수량이 늘어나는 데다 가격도 1.5~2배가량 높다\"며 \" EUV 공정이 확대되면 매출에도...",
       "sector": "공정",
       "category": "news",
       "trust": "medium",
-      "created_at": "2026-09-22T17:44:00+09:00",
+      "created_at": "2026-09-22T18:58:00+09:00",
       "placement": "side",
       "source_name": "Naver News Search",
-      "source_url": "https://www.straightnews.co.kr/news/articleView.html?idxno=311839",
+      "source_url": "https://www.fnnews.com/news/202609221857088838",
       "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
       "raw_source_type": "api",
       "matched_keywords": [
         "EUV"
       ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "importance_score": 4,
-      "llm_keywords": [
-        "High-NA EUV",
-        "하이브리드 본딩",
-        "THC",
-        "XPS",
-        "HBM"
-      ]
+      "importance_score": 4
     },
     {
       "id": "art-ea39881361662c",
@@ -1292,7 +1708,6 @@
       "matched_keywords": [
         "EUV"
       ],
-      "summary_method": "snippet",
       "importance_score": 4
     },
     {
@@ -1311,112 +1726,79 @@
       "matched_keywords": [
         "EUV"
       ],
-      "summary_method": "snippet",
       "importance_score": 4
     },
     {
-      "id": "art-9f3e38f3a0375b",
-      "headline": "멜콘 \"삼전닉스 찍고 TSMC에 반도체 장비 공급\" [IPO톡톡]",
-      "body": "멜콘이 IPO를 통해 약 268억~308억 원의 공모자금을 확보할 계획이다.\n확보한 자금을 차세대 High-NA EUV용 THC(온습도 제어 장치) 개발에 투입한다.\n삼성전자와 SK하이닉스에 이어 TSMC 등 해외 고객사로 공급망을 확장하는 것을 목표로 한다.",
+      "id": "art-f7b263050d3e31",
+      "headline": "'공정의 빈틈' 메우는 멜콘, 코스닥 발판으로 EUV 정조준 [현장+]",
+      "body": "지난해 말 개발을 완료한 High - NA EUV 대응 THC는 공정 상태를 실시간으로 파악해 내부 온도 변화를 선제적으로 제어한다. 적용 범위는 테스트·패키징 분야까지 넓힌다. 웨이퍼 검사에 쓰이는 프로버 칠러를 개발...",
       "sector": "공정",
       "category": "news",
       "trust": "medium",
-      "created_at": "2026-09-22T15:09:00+09:00",
+      "created_at": "2026-09-22T15:50:00+09:00",
       "placement": "side",
       "source_name": "Naver News Search",
-      "source_url": "http://www.wowtv.co.kr/NewsCenter/News/Read?articleId=A202609220138&t=NN",
+      "source_url": "https://www.bloter.net/news/articleView.html?idxno=674247",
       "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
       "raw_source_type": "api",
       "matched_keywords": [
         "EUV"
       ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "llm_keywords": [
-        "멜콘",
-        "High-NA EUV",
-        "THC",
-        "IPO"
+      "importance_score": 4
+    },
+    {
+      "id": "art-ec20c0451faa3d",
+      "headline": "[현장] \"반도체 시대, 초정밀 환경제어 '멜콘' 손에\"...IPO 자신감",
+      "body": "회사는 반도체 포토공정에서 쌓은 초정밀 온·습도 제어와 공기 정제 기술을 바탕으로 차세대 극자외선( High - NA EUV ) 공정에 대응하고 신규 시장으로 사업영역을 넓히겠다는 포부를 밝혔다. 김성일 멜콘 대표이사는...",
+      "sector": "공정",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-09-22T15:42:00+09:00",
+      "placement": "side",
+      "source_name": "Naver News Search",
+      "source_url": "https://www.financialpost.co.kr/news/articleView.html?idxno=277073",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "EUV"
       ],
       "importance_score": 4
     },
     {
-      "id": "art-4f6b803b13db08",
-      "headline": "HBM 키우자 D램 품귀...“삼성전자, 재고 열흘치도 없어” [오늘, 이 종목...",
-      "body": "삼성전자의 HBM 생산능력 확대 영향으로 서버용 고용량 DDR5 리드타임이 최대 52주까지 확대되었으며, D램 재고는 10일분 미만으로 분석됨\nD램 생산능력 중 HBM 할당 비중이 2025년 27%에서 2027년 40%로 확대되고, 범용 D램 비중은 73%에서 59%로 축소될 전망임\n범용 D램 공급 제약으로 인해 올해 3분기와 4분기 가격이 두 자릿수 상승률을 기록할 것으로 예상됨\n삼성전자 HBM4 매출은 3분기 전 분기 대비 3배 이상 증가하고, 2027년에는 차세대 HBM4E 양산이 본격화될 것으로 전망됨",
-      "sector": "소자",
+      "id": "art-1f0ccd1db7e570",
+      "headline": "[더벨][멜콘 IPO] \"미세공정 선제 대응, 글로벌 장비사 로드맵 맞춰 1년...",
+      "body": "멜콘은 지난해 말 차세대 High - NA EUV 대응 THC 개발을 완료하고 자체 검증을 진행하고 있다. THC 매출에서 EUV 용 제품이 차지하는 비중은 2023년 20.6%에서 지난해 41%까지 상승했다. 글로벌 생산시설 확대에 대응하기 위한...",
+      "sector": "공정",
       "category": "news",
       "trust": "medium",
-      "created_at": "2026-09-22T15:06:00+09:00",
+      "created_at": "2026-09-22T15:38:00+09:00",
       "placement": "side",
       "source_name": "Naver News Search",
-      "source_url": "https://www.mk.co.kr/article/12159350",
+      "source_url": "https://www.thebell.co.kr/free/content/ArticleView.asp?key=202609221445304440105840",
       "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
       "raw_source_type": "api",
       "matched_keywords": [
-        "HBM"
+        "EUV"
       ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "importance_score": 4,
-      "llm_keywords": [
-        "HBM",
-        "DDR5",
-        "삼성전자",
-        "리드타임",
-        "범용 D램"
-      ]
+      "importance_score": 4
     },
     {
-      "id": "art-29e0b2d88bb492",
-      "headline": "AI 반도체 패키징 증설 몰리는 말레이시아… 韓 HBM 관련 수출 1년 새 4.7배 증가 - 조선비즈 - Chosunbiz",
-      "body": "말레이시아 내 AI 반도체 패키징 시설 증설이 집중되는 추세임\n한국의 HBM 관련 수출액이 1년 전 대비 4.7배 증가함",
-      "sector": "패키징",
+      "id": "art-90209deb0349f1",
+      "headline": "300mm 공공팹 한국 300평, 뉴욕은 3700평...국회서 '국가반도체연구소 대...",
+      "body": "NY Creates는 뉴욕주 10억달러와 산업계 90억달러 등 약 14조원으로 새 팹을 세웠고, 올해 7월 High - NA EUV 노광장비를 들여와 연말 완전 가동을 목표로 하고 있다. NNFC가 추진 중인 첨단패키징 공공 인프라 구축 사업비는...",
+      "sector": "공정",
       "category": "news",
       "trust": "medium",
-      "created_at": "2026-09-22T10:51:00+09:00",
+      "created_at": "2026-09-22T15:26:00+09:00",
       "placement": "side",
-      "source_name": "Google News RSS",
-      "source_url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPVmIzU3RselhQU1gySms3dGJidVZ5YUt6SFRkV29maXdlT28tX1U4cmRYbWFidUR4RWlFZG5HX0NXNnQzaURNeTlDTTZXZUdaNmlBYnpRMXJKNzJuVmhxbDNZRXhacXNObktEV2xnV2pjbU9FU3hBZW1NREp4T1psWWVB0gGWAUFVX3lxTE9TSndIejFMejgwWl9ycjFaMm1HclZPakpXVk8wT1hxWndscWJ4OEZTRVdyOFV0dDBGb1N6amZsUkhkTlZJZzRuUnMtSVJZM1JuZmZBaUlpVm1ZRFA2MDAwei15TlA5SXUtMnctZTdrR3p4NXp5UUJIc1ZlWXpPRUJQeklhLWRPWlFGbkRtOEtnODJibVMwZw?oc=5",
-      "source_note": "Google News search RSS result; original publisher link is retained where available.",
-      "raw_source_type": "rss",
+      "source_name": "Naver News Search",
+      "source_url": "https://www.thepublic.kr/news/articleView.html?idxno=319710",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
       "matched_keywords": [
-        "HBM"
+        "EUV"
       ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "importance_score": 4,
-      "llm_keywords": [
-        "HBM",
-        "말레이시아",
-        "반도체 패키징"
-      ]
-    },
-    {
-      "id": "art-0b59b5204a8282",
-      "headline": "한미반도체, ‘FC 본더 75’ 첫 출하…HBM 넘어 AI 시스템반도체로 - 더스탁(The Stock)",
-      "body": "한미반도체가 신규 장비인 'FC 본더 75'를 처음으로 출하함\n해당 장비의 적용 대상을 기존 HBM에서 AI 시스템반도체 영역으로 확대함\nAI 시스템반도체 패키징 공정 시장 진출을 본격화함",
-      "sector": "패키징",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-09-22T09:31:07+09:00",
-      "placement": "side",
-      "source_name": "Google News RSS",
-      "source_url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE91RnhSZ1JIN0w4NlBhQTFzcm8wQmdIVTZkUVBCUmhySGZoVklIZlVrbTZEQTJUN2ZtZ2Nkb0stbUlNT0toV2JsTHg5a3BDVzZmbXlGN0JEMDVGcjNzMHE2XzU1YlVWd04xUXc?oc=5",
-      "source_note": "Google News search RSS result; original publisher link is retained where available.",
-      "raw_source_type": "rss",
-      "matched_keywords": [
-        "HBM"
-      ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "importance_score": 4,
-      "llm_keywords": [
-        "한미반도체",
-        "FC 본더 75",
-        "AI 시스템반도체",
-        "패키징"
-      ]
+      "importance_score": 4
     },
     {
       "id": "art-def29f82b6f068",
@@ -1432,113 +1814,7 @@
       "source_note": "rss_or_html",
       "raw_source_type": "rss",
       "matched_keywords": [],
-      "summary_method": "snippet",
       "importance_score": 3
-    },
-    {
-      "id": "art-b889bce6fed960",
-      "headline": "High-Intensity Rowhammer Attack On GPUs Leveraging Non-uniform Hammering (U. of Toronto)",
-      "body": "토론토 대학교 연구진이 NVIDIA GPU의 ECC(오류 정정 코드) 보호를 무력화하는 고강도 Rowhammer 공격 기법인 'GPUThor'를 발표함\nGPU의 메모리 액세스 병합(memory-access coalescing) 동작을 역공학하여 공격 행(aggressor row)을 더 강하게 활성화하는 비균일 해머링 패턴을 구현함\nDRAM 내부 완화 조치가 적용되는 리프레시 시점을 식별하고 이를 벗어나는 긴 공격 패턴을 구축해 방어 체계를 우회함",
-      "sector": "설계",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-09-23T01:30:25+09:00",
-      "placement": "side",
-      "source_name": "Semiconductor Engineering",
-      "source_url": "https://semiengineering.com/high-intensity-rowhammer-attack-on-gpus-leveraging-non-uniform-hammering-u-of-toronto",
-      "source_note": "rss_or_html",
-      "raw_source_type": "rss",
-      "matched_keywords": [
-        "GPU"
-      ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "importance_score": 3,
-      "llm_keywords": [
-        "GPUThor",
-        "Rowhammer",
-        "NVIDIA GPU",
-        "ECC",
-        "메모리 보안"
-      ]
-    },
-    {
-      "id": "art-d1d809069c4f28",
-      "headline": "Weebit Nano’s FY26 ESG Performance: Technical Progress and Strategic Importance",
-      "body": "Weebit Nano의 ReRAM을 첨단 공정 노드에서 임베디드 플래시를 대체하는 저전력·고성능 비휘발성 메모리로 정의하고 엣지 AI 프로세서, 차량용 전자제품, 뉴로모픽 컴퓨팅 적용을 추진함\nReRAM 공정은 표준 제조 재료를 사용하고 희토류 원소를 배제하며, 기존 메모리 기술 대비 생산 단계 수를 줄여 제조 효율을 높임\n파운드리 및 IDM 대상 IP 라이선스 사업 모델을 운영하며, 70건 이상의 특허 출원과 ISO 27001 인증 추진을 통해 설계 자산 보호 체계를 강화함\n2026 회계연도 기준 Scope 1 및 2 온실가스 배출량은 62.78톤(CO2e)이며, 2027년 1월 재생에너지 공급 오피스로의 이전을 계획함",
-      "sector": "소자",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-09-23T00:00:41+09:00",
-      "placement": "side",
-      "source_name": "SemiWiki",
-      "source_url": "https://semiwiki.com/ip/weebit-nano/373596-weebit-nanos-fy26-esg-performance-technical-progress-and-strategic-importance",
-      "source_note": "rss_or_html",
-      "raw_source_type": "rss",
-      "matched_keywords": [
-        "ReRAM"
-      ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "importance_score": 3,
-      "llm_keywords": [
-        "ReRAM",
-        "Weebit Nano",
-        "임베디드 비휘발성 메모리",
-        "엣지 AI",
-        "IP 라이선싱"
-      ]
-    },
-    {
-      "id": "art-444d96ee86bd89",
-      "headline": "SKC, 앱솔릭스 유상증자 추가 청약…AI 반도체 패키징 경쟁력 강화 - 철강금속신문",
-      "body": "SKC가 자회사 앱솔릭스의 유상증자에 참여하여 추가 청약을 진행함\n이번 자금 조달은 AI 반도체 패키징 분야의 경쟁력 강화를 목적으로 함",
-      "sector": "패키징",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-09-22T17:21:45+09:00",
-      "placement": "side",
-      "source_name": "Google News RSS",
-      "source_url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE5EMXdNVXVlOEd0WUZQT2tHX1l0YnU5YXJwZ1JCcV80bXhNc1RaTHFoaEFUWmY3THRjQkt4LWw5Skc0NzBKNHZKcTVRdEFvODFjc3cyVURDWmZEd1RURXdRYzhQaTB3LTNLb2c?oc=5",
-      "source_note": "Google News search RSS result; original publisher link is retained where available.",
-      "raw_source_type": "rss",
-      "matched_keywords": [],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "importance_score": 3,
-      "llm_keywords": [
-        "SKC",
-        "앱솔릭스",
-        "유상증자",
-        "AI 패키징"
-      ]
-    },
-    {
-      "id": "art-c7c1a00f275c11",
-      "headline": "멜콘, EUV · High - NA 대응 강화···내달 코스닥 상장",
-      "body": "차세대 노광 기술인 High-NA EUV용 THC(온습도 제어 시스템) 개발을 완료하고 실시간 능동 제어 시스템을 구현함\nHBM 제조용 하이브리드 본더 THC 개발을 완료하여 테스트를 진행 중이며, 낸드용 THC 및 테스트 공정용 프로버 칠러를 개발 중임\n초고순도 공기 공급 장치인 XPS를 2022년 국산화하고 지난해 ASML의 적격 공급업체로 등록됨\n국내 EUV 선단공정 THC 시장 점유율 100%를 확보했으며, THC 연간 400대, XPS 100대 규모로 생산능력을 확대할 계획임",
-      "sector": "공정",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-09-22T16:48:00+09:00",
-      "placement": "side",
-      "source_name": "Naver News Search",
-      "source_url": "http://www.finomy.com/news/articleView.html?idxno=262185",
-      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "EUV"
-      ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "importance_score": 3,
-      "llm_keywords": [
-        "High-NA EUV",
-        "THC",
-        "HBM",
-        "하이브리드 본더",
-        "ASML"
-      ]
     },
     {
       "id": "art-d46dad11e18b76",
@@ -1554,117 +1830,7 @@
       "source_note": "rss_or_html",
       "raw_source_type": "rss",
       "matched_keywords": [],
-      "summary_method": "snippet",
       "importance_score": 3
-    },
-    {
-      "id": "art-70a37ee8661bb4",
-      "headline": "Chip Industry Technical Paper Roundup: Sept. 22",
-      "body": "2.5D/3D IC를 위한 AI 열 모델링 및 BEOL(후공정 배선) 열전도도 관련 기술 논문 공개\n칩렛(Chiplet)과 AI 가속기 공동 설계 및 뉴로모픽 컴퓨팅용 칩렛 인터커넥트 연구 포함\n강화학습(RL) 기반 밀집 레이아웃 라우팅 및 디지털 EDA를 위한 LLM 오케스트레이션 기술 다룸\n에이전트 기반 DRC(Design Rule Check) 수정 등 AI를 활용한 설계 자동화 연구 발표",
-      "sector": "설계",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-09-22T16:01:29+09:00",
-      "placement": "side",
-      "source_name": "Semiconductor Engineering",
-      "source_url": "https://semiengineering.com/chip-industry-technical-paper-roundup-sept-22",
-      "source_note": "rss_or_html",
-      "raw_source_type": "rss",
-      "matched_keywords": [
-        "2.5D",
-        "chiplet"
-      ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "importance_score": 3,
-      "llm_keywords": [
-        "AI EDA",
-        "칩렛",
-        "2.5D/3D IC",
-        "열 모델링"
-      ]
-    },
-    {
-      "id": "art-f7b263050d3e31",
-      "headline": "'공정의 빈틈' 메우는 멜콘, 코스닥 발판으로 EUV 정조준 [현장+]",
-      "body": "멜콘이 기업공개(IPO)를 통해 온·습도 조절장비(THC) 연산 400대, 초고순도 공기 공급장치(XPS) 연산 100대 규모로 생산 능력을 확대한다.\nTEL 트랙 장비용 THC는 지난해 EUV 등 선단공정 제품 시장 점유율 100%를 기록했으며, ASML 스캐너용 XPS는 2022년 국산화 후 ASML 적격 공급업체 등록을 완료했다.\n지난해 말 High-NA EUV 대응 THC 개발을 완료하여 공정 상태 실시간 파악 및 선제적 온도 제어 기능을 구현했다.\nHBM 제조용 하이브리드 본더용 THC의 성능 평가를 진행 중이며, 웨이퍼 검사용 프로버 칠러를 개발하며 적용 범위를 패키징 및 테스트 분야로 확장하고 있다.",
-      "sector": "공정",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-09-22T15:50:00+09:00",
-      "placement": "side",
-      "source_name": "Naver News Search",
-      "source_url": "https://www.bloter.net/news/articleView.html?idxno=674247",
-      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "EUV"
-      ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "importance_score": 3,
-      "llm_keywords": [
-        "멜콘",
-        "EUV",
-        "High-NA EUV",
-        "THC",
-        "XPS",
-        "HBM"
-      ]
-    },
-    {
-      "id": "art-ec20c0451faa3d",
-      "headline": "[현장] \"반도체 시대, 초정밀 환경제어 '멜콘' 손에\"...IPO 자신감",
-      "body": "도쿄일렉트론(TEL) 도포·현상장비용 온·습도 조절장비(THC)와 ASML 노광장비용 공기 정제 시스템(XPS)을 공급하는 멜콘이 코스닥 상장을 추진한다.\n지난해 말 차세대 High-NA EUV 대응 THC 개발을 완료했으며, 선단공정용 THC의 국내 시장 점유율은 100%를 기록했다.\nHBM 제조용 하이브리드 본더용 THC 개발 후 테스트를 진행 중이며, 웨이퍼 검사용 프로버 칠러와 낸드용 THC를 개발하고 있다.\nEUV 수요 대응을 위해 THC 연간 생산능력을 400대, XPS를 100대까지 확대하고 IPO를 통해 최대 308억원을 조달할 계획이다.",
-      "sector": "공정",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-09-22T15:42:00+09:00",
-      "placement": "side",
-      "source_name": "Naver News Search",
-      "source_url": "https://www.financialpost.co.kr/news/articleView.html?idxno=277073",
-      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "EUV"
-      ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "importance_score": 3,
-      "llm_keywords": [
-        "멜콘",
-        "High-NA EUV",
-        "HBM",
-        "하이브리드 본더",
-        "THC"
-      ]
-    },
-    {
-      "id": "art-90209deb0349f1",
-      "headline": "300mm 공공팹 한국 300평, 뉴욕은 3700평...국회서 '국가반도체연구소 대...",
-      "body": "대전 지역을 중심으로 20나노급 반도체 제조·검증이 가능한 300mm 팹과 첨단패키징 테스트베드를 갖춘 '국가 반도체 연구소' 구축 논의가 진행됨\n국내 나노종합기술원(NNFC)의 300mm 클린룸 규모는 300평으로, 미국 NY Creates(3,700평)와 벨기에 imec(2,500평) 대비 현저히 낮은 수준임\n미국 NY Creates는 약 14조 원을 투입해 새 팹을 건설했으며, 올해 7월 High-NA EUV 노광장비를 도입해 연말 완전 가동을 목표로 함\n국내 공공 팹이 100~150mm 소구경에 머물러 있어, 산업 표준인 300mm 공정으로의 기술 이전 및 수율 검증에 한계가 있는 상황임\n제안된 연구소의 핵심 역할은 300mm 실증 인프라 구축, 옹스트롬급·3D 적층 실증 팹 운영, 전·후공정 통합 플랫폼 제공임",
-      "sector": "공정",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-09-22T15:26:00+09:00",
-      "placement": "side",
-      "source_name": "Naver News Search",
-      "source_url": "https://www.thepublic.kr/news/articleView.html?idxno=319710",
-      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "EUV"
-      ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "importance_score": 3,
-      "llm_keywords": [
-        "국가반도체연구소",
-        "300mm 팹",
-        "NY Creates",
-        "imec",
-        "High-NA EUV"
-      ]
     },
     {
       "id": "art-168248f9d1c248",
@@ -1680,7 +1846,24 @@
       "source_note": "rss_or_html",
       "raw_source_type": "rss",
       "matched_keywords": [],
-      "summary_method": "snippet",
+      "importance_score": 2
+    },
+    {
+      "id": "art-d1d809069c4f28",
+      "headline": "Weebit Nano’s FY26 ESG Performance: Technical Progress and Strategic Importance",
+      "body": "Weebit Nano’s FY26 ESG Report shows how sustainability, governance and operational resilience are becoming integrated into the company’s commercialisation of resistive random-access memory (ReRAM). This integration matters because Weebit’s value is not derived from manufacturing and selling finished chips directly.… Re...",
+      "sector": "소자",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-09-23T00:00:41+09:00",
+      "placement": "side",
+      "source_name": "SemiWiki",
+      "source_url": "https://semiwiki.com/ip/weebit-nano/373596-weebit-nanos-fy26-esg-performance-technical-progress-and-strategic-importance",
+      "source_note": "rss_or_html",
+      "raw_source_type": "rss",
+      "matched_keywords": [
+        "ReRAM"
+      ],
       "importance_score": 2
     },
     {
@@ -1716,30 +1899,19 @@
       "importance_score": 2
     },
     {
-      "id": "art-4e98b315bc3e28",
-      "headline": "내달 상장 앞둔 멜콘 \" EUV 공정 확대, 매출 기여\"",
-      "body": "멜콘이 10월 15일 코스닥 상장을 통해 EUV 첨단 공정 대응 역량 강화 및 반도체 테스트·패키징 공정으로 사업 영역을 확대한다.\n도쿄일렉트론(TEL) 트랙 장비에 적용되는 온·습도 조절 장치(THC)와 ASML 노광장비 스캐너에 적용되는 고순도 공기 공급 장치(XPS)를 공급한다.\nEUV용 제품은 기존 장비 대비 공급 수량이 많고 단가가 1.5~2배 높아 매출 기여도가 높을 것으로 분석된다.\n2024년 매출 251억원에서 2025년 418억원으로 66.5% 증가했으며, 2026년 상반기 영업이익률은 16%대를 기록했다.",
-      "sector": "공정",
+      "id": "art-444d96ee86bd89",
+      "headline": "SKC, 앱솔릭스 유상증자 추가 청약…AI 반도체 패키징 경쟁력 강화 - 철강금속신문",
+      "body": "SKC, 앱솔릭스 유상증자 추가 청약…AI 반도체 패키징 경쟁력 강화 철강금속신문",
+      "sector": "설계",
       "category": "news",
       "trust": "medium",
-      "created_at": "2026-09-22T18:58:00+09:00",
+      "created_at": "2026-09-22T17:21:45+09:00",
       "placement": "side",
-      "source_name": "Naver News Search",
-      "source_url": "https://www.fnnews.com/news/202609221857088838",
-      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "EUV"
-      ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "llm_keywords": [
-        "멜콘",
-        "EUV",
-        "ASML",
-        "도쿄일렉트론",
-        "환경제어장비"
-      ],
+      "source_name": "Google News RSS",
+      "source_url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE5EMXdNVXVlOEd0WUZQT2tHX1l0YnU5YXJwZ1JCcV80bXhNc1RaTHFoaEFUWmY3THRjQkt4LWw5Skc0NzBKNHZKcTVRdEFvODFjc3cyVURDWmZEd1RURXdRYzhQaTB3LTNLb2c?oc=5",
+      "source_note": "Google News search RSS result; original publisher link is retained where available.",
+      "raw_source_type": "rss",
+      "matched_keywords": [],
       "importance_score": 2
     },
     {
@@ -1758,13 +1930,28 @@
       "matched_keywords": [
         "2.5D"
       ],
-      "summary_method": "snippet",
+      "importance_score": 2
+    },
+    {
+      "id": "art-d01e600ac5e64e",
+      "headline": "한미반도체, AI 반도체용 첨단 패키징 장비 글로벌 고객사에 출하 - 한국일보",
+      "body": "한미반도체, AI 반도체용 첨단 패키징 장비 글로벌 고객사에 출하 한국일보",
+      "sector": "설계",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-09-22T15:06:00+09:00",
+      "placement": "side",
+      "source_name": "Google News RSS",
+      "source_url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE5GVVJNdG1vRVVueDNVRWw4cUlMUVJleDlJc2lvU1BWZjVWVTJEMFBRTlBnb3kxQlRDeGFZU25NR3V3TER5eC13SXdaTG1lRVRZbWJZS0RhejNaeEN1bjVTUEFIeEszcnQyeWRsdXBuSGNJaGfSAXNBVV95cUxORlVSTXRtb0VVbngzVUVsOHFJTFFSZXg5SXNpb1NQVmY1VlUyRDBQUU5QZ295MUJUQ3hhWVNuTUd1d0xEeXgtd0l3WkxtZUVUWW1iWUtEYXozWnhDdW41U1BBSHhLM3J0MnlkbHVwbkhjSWhn?oc=5",
+      "source_note": "Google News search RSS result; original publisher link is retained where available.",
+      "raw_source_type": "rss",
+      "matched_keywords": [],
       "importance_score": 2
     },
     {
       "id": "art-e854151fbac2ab",
-      "headline": "한미반도체, AI 시스템반도체용 ‘FC 본더 75’ 첫 출하…2.5D 패키징 공략 - 헤럴드경제",
-      "body": "한미반도체, AI 시스템반도체용 ‘FC 본더 75’ 첫 출하…2.5D 패키징 공략 헤럴드경제",
+      "headline": "한미반도체, AI 시스템반도체용 ‘FC 본더 75’ 첫 출하…2.5D 패키징 공략 - mbiz.heraldcorp.com",
+      "body": "한미반도체, AI 시스템반도체용 ‘FC 본더 75’ 첫 출하…2.5D 패키징 공략 mbiz.heraldcorp.com",
       "sector": "패키징",
       "category": "news",
       "trust": "medium",
@@ -1777,7 +1964,6 @@
       "matched_keywords": [
         "2.5D"
       ],
-      "summary_method": "snippet",
       "importance_score": 2
     },
     {
@@ -1796,7 +1982,6 @@
       "matched_keywords": [
         "2.5D"
       ],
-      "summary_method": "snippet",
       "importance_score": 2
     },
     {
@@ -1814,192 +1999,117 @@
       "raw_source_type": "rss",
       "matched_keywords": [],
       "importance_score": 2
-    },
-    {
-      "id": "art-475c06e0e68d7d",
-      "headline": "[시론] 대만이 ‘AI 인프라 강국’ 된 비결",
-      "body": "대만 AI 인프라 생태계는 TSMC의 파운드리, 패키징 기업, 폭스콘·콴타·위스트론·인벤텍 등 서버 제조사로 구성됨\nTSMC는 고객사와 경쟁하지 않는 '퓨어 플레이 파운드리' 모델을 통해 엔비디아, AMD, 퀄컴, 미디어텍 등 팹리스 기업의 성장을 지원함\nAI 칩 생산을 위해 GPU와 HBM을 효율적으로 연결하는 TSMC의 CoWoS 등 첨단 패키징 기술이 활용됨",
-      "sector": "패키징",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-09-23T06:02:00+09:00",
-      "placement": "side",
-      "source_name": "Naver News Search",
-      "source_url": "https://www.etoday.co.kr/news/view/2628789",
-      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "CoWoS"
-      ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "importance_score": 1,
-      "llm_keywords": [
-        "TSMC",
-        "CoWoS",
-        "AI 인프라",
-        "퓨어 플레이 파운드리"
-      ]
-    },
-    {
-      "id": "art-3cbdb8063f7f28",
-      "headline": "[美·中 정상회담] AI·칩·로봇·희토류 '新 지렛대' 쥔 채 백악관서 마...",
-      "body": "미국과 중국 정상이 백악관에서 정상회담을 가질 예정임\nAI, 반도체, 로봇, 희토류 등이 주요 의제로 다뤄질 전망임\n기사 본문에 구체적인 합의 사항이나 기술적 세부 내용은 포함되지 않음",
-      "sector": "공정",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-09-23T05:26:00+09:00",
-      "placement": "side",
-      "source_name": "Naver News Search",
-      "source_url": "https://www.g-enews.com/view.php?ud=2026092217482720530c8c1c064d_1",
-      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "EUV"
-      ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "importance_score": 1,
-      "llm_keywords": [
-        "미중정상회담",
-        "반도체",
-        "AI",
-        "희토류"
-      ]
-    },
-    {
-      "id": "art-1f0ccd1db7e570",
-      "headline": "[더벨][멜콘 IPO] \"미세공정 선제 대응, 글로벌 장비사 로드맵 맞춰 1년...",
-      "body": "제공된 텍스트가 웹페이지 리다이렉트 스크립트로 구성되어 있어 기사 본문의 구체적인 내용을 확인할 수 없음\n기사 제목을 통해 멜콘(Melcon)의 IPO 추진 및 미세공정 선제 대응 관련 내용임을 확인 가능\n글로벌 장비사 로드맵에 맞춘 대응 전략이 언급되었으나 세부 기술 사양이나 일정 등 구체적인 팩트는 확인되지 않음",
-      "sector": "공정",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-09-22T15:38:00+09:00",
-      "placement": "side",
-      "source_name": "Naver News Search",
-      "source_url": "https://www.thebell.co.kr/free/content/ArticleView.asp?key=202609221445304440105840",
-      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "EUV"
-      ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "importance_score": 1,
-      "llm_keywords": [
-        "멜콘",
-        "IPO",
-        "미세공정"
-      ]
     }
   ],
   "community_items": [
     {
-      "id": "art-39dc011ae309b1",
-      "headline": "EUV 노광 장비",
-      "body": "ASML 극자외선( EUV ) 노광기. ASML 부진은 실적에서도 드러난다. ASML 의 2분기 순장비매출에서 유럽이 차지한 비중은 없었다. 지난해 유럽·중동·아프리카(EMEA) 비중이 1%였던 것과 비교된다. 상반기 ASML 장비의 최대 시장은...",
-      "sector": "공정",
+      "id": "art-f96b2dfcd8b15d",
+      "headline": "마이크론 실적 잘 나오면 하이닉스 도 오를까요? 반대일 수 있습니다",
+      "body": "마이크론 실적이 좋아도 하이닉스 는 빠질 수 있습니다 좋은 실적이... 삼성전자와 SK하이닉스 에도 분명한 호재입니다. 둘째, 마이크론이 HBM 4에서 실제 매출을 만들고 있다는 뜻일 수 있습니다. 그러면 SK 하이닉을...",
+      "sector": "소자",
       "category": "community",
       "trust": "low",
-      "created_at": "2026-09-23T10:54:25+09:00",
-      "source_name": "Naver Cafe · 플렉서블 디스플레이",
-      "source_url": "https://cafe.naver.com/nobleinvesment/526830",
-      "source_note": "Official Naver Cafe Search API for practitioner discussion and sentiment tracking.",
-      "raw_source_type": "community",
-      "matched_keywords": [
-        "EUV"
-      ],
-      "community_origin": "domestic",
-      "community_name": "플렉서블 디스플레이",
-      "date_is_estimated": true,
-      "collected_at": "2026-09-23T10:54:25+09:00",
-      "community_score": 4,
-      "priority_reasons": [
-        "프론티어 기업",
-        "첨단 기술"
-      ],
-      "topic": "EUV 노광 장비",
-      "reaction_summary": "EUV 노광 장비에 대해 게시글은 ‘ASML 극자외선( EUV ) 노광기. ASML 부진은 실적에서도 드러난다. ASML 의 2분기 순장비매출에서 유럽이 차지한 비중은 없었다. 지난해 유럽·중동·아프리카(EMEA) 비중이 1%였던 것과 비교된다. 상반기 ASML 장비의 최대 시장은...’라는 관점이나 정보를 공유했다.",
-      "community_rank": 1
-    },
-    {
-      "id": "art-504c4930d3f625",
-      "headline": "2022170981 오경식 26.09.22 \" TSMC , 2028년까지 AI칩 패키징 독주\"",
-      "body": "첨부파일 2022170981 오경식 2026.09.22 TSMC , 2028년까지 AI칩 패키징 독주.docx 본문 요약 : 트렌드포스는 TSMC 의 CoWoS-L이 기술 성숙도와 수율 우위를 바탕으로 2028년까지 AI 칩 패키징 의 주류 자리를 유지할 것으로 전망했다....",
-      "sector": "패키징",
-      "category": "community",
-      "trust": "low",
-      "created_at": "2026-09-23T10:54:24+09:00",
-      "source_name": "Naver Cafe · KUSEM",
-      "source_url": "https://cafe.naver.com/kusemiconductor/1294",
-      "source_note": "Official Naver Cafe Search API for practitioner discussion and sentiment tracking.",
-      "raw_source_type": "community",
-      "matched_keywords": [
-        "CoWoS"
-      ],
-      "community_origin": "domestic",
-      "community_name": "KUSEM",
-      "date_is_estimated": true,
-      "collected_at": "2026-09-23T10:54:24+09:00",
-      "community_score": 4,
-      "priority_reasons": [
-        "프론티어 기업",
-        "첨단 기술"
-      ],
-      "topic": "2022170981 오경식 26.09.22 \" TSMC , 2028년까지 AI칩 패키징 독주\"",
-      "reaction_summary": "2022170981 오경식 26.09.22 \" TSMC , 2028년까지 AI칩 패키징 독주\"에 대해 게시글은 ‘첨부파일 2022170981 오경식 2026.09.22 TSMC , 2028년까지 AI칩 패키징 독주.docx 본문 요약 : 트렌드포스는 TSMC 의 CoWoS-L이 기술 성숙도와 수율 우위를 바탕으로 2028년까지 AI 칩 패키징 의 주류 자리를 유지할 것으로 전망...’라는 관점이나 정보를 공유했다.",
-      "community_rank": 2
-    },
-    {
-      "id": "art-5d9d79f799992c",
-      "headline": "대만, TSMC 중심 첨단 패키징 단지 착공…2029년 가동",
-      "body": "https://naver.me/GkIGnWH5",
-      "sector": "설계",
-      "category": "community",
-      "trust": "low",
-      "created_at": "2026-09-23T10:54:24+09:00",
-      "source_name": "Naver Cafe · 로버스터 박사의 멀티 볼린저밴드 투자기법",
-      "source_url": "https://cafe.naver.com/robuster/115755",
-      "source_note": "Official Naver Cafe Search API for practitioner discussion and sentiment tracking.",
-      "raw_source_type": "community",
-      "matched_keywords": [],
-      "community_origin": "domestic",
-      "community_name": "로버스터 박사의 멀티 볼린저밴드 투자기법",
-      "date_is_estimated": true,
-      "collected_at": "2026-09-23T10:54:24+09:00",
-      "community_score": 4,
-      "priority_reasons": [
-        "프론티어 기업",
-        "첨단 기술"
-      ],
-      "topic": "대만, TSMC 중심 첨단 패키징 단지 착공…2029년 가동",
-      "reaction_summary": "대만, TSMC 중심 첨단 패키징 단지 착공…2029년 가동 관련 정보 공유가 중심이며, 제공된 문구에서는 뚜렷한 찬반 반응이 확인되지 않았다.",
-      "community_rank": 3
-    },
-    {
-      "id": "art-be8cf8c57ceff6",
-      "headline": "대만, TSMC 중심 88.7헥타르 첨단 패키징 단지 착공…엔비디아·AMD AI칩 병목 ....",
-      "body": "한눈에 정리 구분 내용 산업단지 대만 가오슝 백푸 산업단지 전체 면적 약 88.7헥타르 산업용 부지 약 53.6헥타르 핵심 분야 첨단 패키징 장비·소재 TSMC 시설 기술 검증·인재교육 운영 목표 2029년 4분기 주요 기술...",
-      "sector": "설계",
-      "category": "community",
-      "trust": "low",
-      "created_at": "2026-09-23T10:54:24+09:00",
+      "created_at": "2026-09-23T13:42:57+09:00",
       "source_name": "Naver Cafe · 쫑쓰형의 코인기지",
-      "source_url": "https://cafe.naver.com/jjongss/208",
+      "source_url": "https://cafe.naver.com/jjongss/223",
       "source_note": "Official Naver Cafe Search API for practitioner discussion and sentiment tracking.",
       "raw_source_type": "community",
-      "matched_keywords": [],
+      "matched_keywords": [
+        "HBM"
+      ],
       "community_origin": "domestic",
       "community_name": "쫑쓰형의 코인기지",
       "date_is_estimated": true,
-      "collected_at": "2026-09-23T10:54:24+09:00",
+      "collected_at": "2026-09-23T13:42:57+09:00",
       "community_score": 4,
       "priority_reasons": [
-        "프론티어 기업",
-        "첨단 기술"
+        "프론티어 기업"
       ],
-      "topic": "대만, TSMC 중심 88.7헥타르 첨단 패키징 단지 착공…엔비디아·AMD AI칩 병목 ....",
-      "reaction_summary": "대만, TSMC 중심 88.7헥타르 첨단 패키징 단지 착공…엔비디아·AMD AI칩 병목 ....에 대해 게시글은 ‘한눈에 정리 구분 내용 산업단지 대만 가오슝 백푸 산업단지 전체 면적 약 88.7헥타르 산업용 부지 약 53.6헥타르 핵심 분야 첨단 패키징 장비·소재 TSMC 시설 기술 검증·인재교육 운영 목표 2029년 4분기 주요 기술...’라는 관점이나 정보를 공유했다.",
+      "topic": "마이크론 실적 잘 나오면 하이닉스 도 오를까요? 반대일 수 있습니다",
+      "reaction_summary": "마이크론 실적 잘 나오면 하이닉스 도 오를까요? 반대일 수 있습니다에 대해 게시글은 ‘마이크론 실적이 좋아도 하이닉스 는 빠질 수 있습니다 좋은 실적이... 삼성전자와 SK하이닉스 에도 분명한 호재입니다. 둘째, 마이크론이 HBM 4에서 실제 매출을 만들고 있다는 뜻일 수 있습니다. 그러면 SK 하이닉을...’라는 관점이나 정보를 공유했다.",
+      "community_rank": 1
+    },
+    {
+      "id": "art-5cf6697eea2f79",
+      "headline": "오늘의 예상 대장테마 · 종목 (9/23)",
+      "body": "간밤 해외·국내 이슈로 본 오늘 예상 대장테마와 주도주 [1위] HBM (고대역폭메모리) + CXL(컴퓨트익스프레스링크) (美 이슈) 로젠블랫 \"낸드는 AI 핵심\" → 테크윙 · 파두 · 네오셈 · 피에스케이 · SK하이닉스 [2위]...",
+      "sector": "소자",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-09-23T13:42:57+09:00",
+      "source_name": "Naver Cafe · 차트분석남 공식카페 - 20년 내공 고퀄 차트분석",
+      "source_url": "https://cafe.naver.com/chabunnam/10389",
+      "source_note": "Official Naver Cafe Search API for practitioner discussion and sentiment tracking.",
+      "raw_source_type": "community",
+      "matched_keywords": [
+        "HBM"
+      ],
+      "community_origin": "domestic",
+      "community_name": "차트분석남 공식카페 - 20년 내공 고퀄 차트분석",
+      "date_is_estimated": true,
+      "collected_at": "2026-09-23T13:42:57+09:00",
+      "community_score": 4,
+      "priority_reasons": [
+        "설계 주제",
+        "프론티어 기업"
+      ],
+      "topic": "오늘의 예상 대장테마 · 종목 (9/23)",
+      "reaction_summary": "오늘의 예상 대장테마 · 종목 (9/23)에 대해 게시글은 ‘간밤 해외·국내 이슈로 본 오늘 예상 대장테마와 주도주 [1위] HBM (고대역폭메모리) + CXL(컴퓨트익스프레스링크) (美 이슈) 로젠블랫 \"낸드는 AI 핵심\" → 테크윙 · 파두 · 네오셈 · 피에스케이 · SK하이닉스 [2위]...’라는 관점이나 정보를 공유했다.",
+      "community_rank": 2
+    },
+    {
+      "id": "art-3d2e297e607b4a",
+      "headline": "“ 하이닉스 주주들 젠슨 황에 절할 판” 주가 다시 띄울 ‘초대형 카드’ ....",
+      "body": "반대로 SK하이닉스 가 HBM 4 기술 격차를 유지한다면 AI 반도체 성장의 수혜가 다시 부각될 수 있습니다. 젠슨 황의 한마디만 따라가기보다 엔비디아 로드맵과 실제 GPU 출하, HBM 4 공급 구도를 차례로 확인할 필요가...",
+      "sector": "설계",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-09-23T13:42:57+09:00",
+      "source_name": "Naver Cafe · 최신 트랜드 정보 큐레이션",
+      "source_url": "https://cafe.naver.com/2012newyear/3252",
+      "source_note": "Official Naver Cafe Search API for practitioner discussion and sentiment tracking.",
+      "raw_source_type": "community",
+      "matched_keywords": [
+        "GPU"
+      ],
+      "community_origin": "domestic",
+      "community_name": "최신 트랜드 정보 큐레이션",
+      "date_is_estimated": true,
+      "collected_at": "2026-09-23T13:42:57+09:00",
+      "community_score": 4,
+      "priority_reasons": [
+        "설계 주제",
+        "프론티어 기업"
+      ],
+      "topic": "“ 하이닉스 주주들 젠슨 황에 절할 판” 주가 다시 띄울 ‘초대형 카드’ ....",
+      "reaction_summary": "“ 하이닉스 주주들 젠슨 황에 절할 판” 주가 다시 띄울 ‘초대형 카드’ ....에 대해 게시글은 ‘반대로 SK하이닉스 가 HBM 4 기술 격차를 유지한다면 AI 반도체 성장의 수혜가 다시 부각될 수 있습니다. 젠슨 황의 한마디만 따라가기보다 엔비디아 로드맵과 실제 GPU 출하, HBM 4 공급 구도를 차례로 확인할 필요가...’라는 관점이나 정보를 공유했다.",
+      "community_rank": 3
+    },
+    {
+      "id": "art-bdd16e0f4bd2ba",
+      "headline": "“ SK하이닉스 190만원 앞두고 진짜 승부 시작” 40조 끝나도 ‘다음 매수세’....",
+      "body": "HBM 시장에서 SK하이닉스 가 확보한 높은 점유율도 여전히 강한 경쟁력입니다. 여기에 일반 D램과 낸드플래시 가격 회복까지 더해지고 있습니다. HBM 만 강한 것이 아니라 기존 메모리의 수익성도 함께 좋아질 경우 이익...",
+      "sector": "소자",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-09-23T13:42:57+09:00",
+      "source_name": "Naver Cafe · 최신 트랜드 정보 큐레이션",
+      "source_url": "https://cafe.naver.com/2012newyear/3246",
+      "source_note": "Official Naver Cafe Search API for practitioner discussion and sentiment tracking.",
+      "raw_source_type": "community",
+      "matched_keywords": [
+        "HBM"
+      ],
+      "community_origin": "domestic",
+      "community_name": "최신 트랜드 정보 큐레이션",
+      "date_is_estimated": true,
+      "collected_at": "2026-09-23T13:42:57+09:00",
+      "community_score": 4,
+      "priority_reasons": [
+        "프론티어 기업"
+      ],
+      "topic": "“ SK하이닉스 190만원 앞두고 진짜 승부 시작” 40조 끝나도 ‘다음 매수세’....",
+      "reaction_summary": "“ SK하이닉스 190만원 앞두고 진짜 승부 시작” 40조 끝나도 ‘다음 매수세’....에 대해 게시글은 ‘HBM 시장에서 SK하이닉스 가 확보한 높은 점유율도 여전히 강한 경쟁력입니다. 여기에 일반 D램과 낸드플래시 가격 회복까지 더해지고 있습니다. HBM 만 강한 것이 아니라 기존 메모리의 수익성도 함께 좋아질 경우 이익...’라는 관점이나 정보를 공유했다.",
       "community_rank": 4
     },
     {
@@ -2108,7 +2218,7 @@
       "sector": "소자",
       "category": "community",
       "trust": "low",
-      "created_at": "2026-09-23T10:54:58+09:00",
+      "created_at": "2026-09-23T13:43:33+09:00",
       "source_name": "FMKorea",
       "source_url": "https://www.fmkorea.com/10257448478",
       "source_note": "Discover public FMKorea links through the official Naver Web Search API because FMKorea disallows generic bots on native search paths.",
@@ -2120,7 +2230,7 @@
       "community_origin": "domestic",
       "community_name": "에펨코리아",
       "date_is_estimated": true,
-      "collected_at": "2026-09-23T10:54:58+09:00",
+      "collected_at": "2026-09-23T13:43:33+09:00",
       "has_image": false,
       "community_score": 3,
       "priority_reasons": [
