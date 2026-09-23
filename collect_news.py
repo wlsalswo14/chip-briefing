@@ -85,7 +85,8 @@ def rotate_llm_key():
 
 LLM_MODEL = os.environ.get("CHIP_BRIEFING_LLM_MODEL", "")
 LLM_MAX_ITEMS = int(os.environ.get("CHIP_BRIEFING_LLM_MAX_ITEMS", str(MAX_ITEMS)))
-LLM_TIMEOUT = int(os.environ.get("CHIP_BRIEFING_LLM_TIMEOUT", "45"))
+LLM_TIMEOUT = int(os.environ.get("CHIP_BRIEFING_LLM_TIMEOUT", "90"))
+LLM_BUDGET_SECONDS = int(os.environ.get("CHIP_BRIEFING_LLM_BUDGET_SECONDS", "3600"))
 DAILY_SUMMARY_MAX_ITEMS = int(os.environ.get("CHIP_BRIEFING_DAILY_SUMMARY_MAX_ITEMS", "10"))
 
 EDITORIAL_PRIORITY_PROMPT = """
@@ -172,6 +173,18 @@ def clean_text(value: str) -> str:
     return value
 
 
+def clean_multiline(value: str) -> str:
+    """Tidy spacing but keep the model's line breaks.
+
+    clean_text() flattens every newline, which turned multi-line summaries
+    into one long paragraph, so summaries use this variant instead.
+    """
+    value = html.unescape(value or "")
+    value = re.sub(r"<[^>]+>", " ", value)
+    lines = [re.sub(r"[ \t]+", " ", line).strip() for line in value.splitlines()]
+    return "\n".join(line for line in lines if line)
+
+
 def request_json(url: str, headers: dict[str, str] | None = None) -> object:
     req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, **(headers or {})})
     with urllib.request.urlopen(req, timeout=TIMEOUT) as res:
@@ -223,6 +236,24 @@ def post_json(url: str, payload: dict, headers: dict[str, str] | None = None, ti
                     print(f"Rate limited (429). Retrying in {delay:.1f}s...")
                     time.sleep(delay)
                     continue
+            if exc.code in (500, 502, 503, 504) and attempt == 0:
+                # "High demand" capacity errors from the model host usually
+                # clear up within seconds, so retry once before giving up.
+                print(f"Transient HTTP {exc.code} from model host. Retrying once in 5s...")
+                time.sleep(5.0)
+                continue
+            raise
+        except TimeoutError:
+            # The model host is too slow right now; a retry would only double
+            # the wait for the same result, so fail fast and move on.
+            raise
+        except urllib.error.URLError as exc:
+            if isinstance(exc.reason, TimeoutError):
+                raise
+            if attempt == 0:
+                print(f"{type(exc).__name__} on model call. Retrying once in 5s...")
+                time.sleep(5.0)
+                continue
             raise
 
 
@@ -440,6 +471,18 @@ def canonical_url(url: str) -> str:
         return urllib.parse.urlunsplit((parsed.scheme, parsed.netloc.lower(), parsed.path.rstrip("/"), urllib.parse.urlencode(query), ""))
     except Exception:
         return url
+
+
+def summary_cache_key(title: str) -> str:
+    """Headline-based cache key.
+
+    stable_id() hashes the source URL, but aggregator links (Google News,
+    Naver) are re-issued with a new URL every day, so URL-keyed caches never
+    hit. The headline stays comparable, so summaries are reused by headline.
+    """
+    value = clean_text(title or "").lower()
+    value = re.sub(r"[\s\W_]+", "", value)
+    return value[:120]
 
 
 def source_to_rss_urls(source: dict) -> list[str]:
@@ -1588,43 +1631,62 @@ def enrich_with_llm_summaries(articles: list[dict], logs: list[str]) -> list[dic
             article["importance_score"] = fallback_importance_score(article)
         return articles
 
-    # Load cache of previous summaries from articles.json
+    # Load cache of previous summaries from articles.json. Lookups fall back to
+    # the headline because aggregator URLs are re-issued every day.
     cache = {}
+    cache_by_title = {}
     if ARTICLES_PATH.exists():
         try:
             prev_data = json.loads(ARTICLES_PATH.read_text(encoding="utf-8"))
             for art in prev_data.get("articles", []):
                 if art.get("id") and art.get("summary_method") == "llm":
-                    cache[art["id"]] = {
+                    entry = {
                         "body": art.get("body"),
                         "sector": art.get("sector"),
                         "llm_keywords": art.get("llm_keywords"),
                         "summary_model": art.get("summary_model"),
                         "importance_score": art.get("importance_score"),
                     }
-            logs.append(f"cache load: loaded {len(cache)} existing summaries from articles.json")
+                    cache[art["id"]] = entry
+                    title_key = summary_cache_key(art.get("headline"))
+                    if title_key:
+                        cache_by_title.setdefault(title_key, entry)
+            logs.append(
+                f"cache load: {len(cache)} summaries by id, "
+                f"{len(cache_by_title)} by headline"
+            )
         except Exception as exc:
             logs.append(f"cache load failed: {type(exc).__name__}: {exc}")
 
     enriched = 0
     cache_hits = 0
+    deadline = time.monotonic() + LLM_BUDGET_SECONDS
     total_to_process = len(articles[:LLM_MAX_ITEMS])
     for i, article in enumerate(articles[:LLM_MAX_ITEMS]):
         art_id = article.get("id")
-        if art_id in cache:
-            article["body"] = cache[art_id]["body"]
+        cached = cache.get(art_id) or cache_by_title.get(summary_cache_key(article.get("headline")))
+        if cached:
+            article["body"] = cached["body"]
             article["summary_method"] = "llm"
-            article["summary_model"] = cache[art_id]["summary_model"]
-            if cache[art_id].get("sector"):
-                article["sector"] = cache[art_id]["sector"]
-            if cache[art_id].get("llm_keywords"):
-                article["llm_keywords"] = cache[art_id]["llm_keywords"]
+            article["summary_model"] = cached["summary_model"]
+            if cached.get("sector"):
+                article["sector"] = cached["sector"]
+            if cached.get("llm_keywords"):
+                article["llm_keywords"] = cached["llm_keywords"]
             article["importance_score"] = clamp_importance_score(
-                cache[art_id].get("importance_score"),
+                cached.get("importance_score"),
                 fallback_importance_score(article),
             )
             cache_hits += 1
             continue
+
+        if time.monotonic() > deadline:
+            logs.append(
+                f"llm budget of {LLM_BUDGET_SECONDS}s exhausted after "
+                f"{enriched + cache_hits} articles; {total_to_process - i} articles "
+                "keep their raw snippets"
+            )
+            break
 
         try:
             print(f"[{i+1}/{total_to_process}] 요약 중: {article.get('headline', '')[:55]}...", flush=True)
@@ -1656,6 +1718,10 @@ def enrich_with_llm_summaries(articles: list[dict], logs: list[str]) -> list[dic
             else:
                 article["summary_method"] = "snippet"
                 article["importance_score"] = fallback_importance_score(article, source_text)
+                logs.append(
+                    f"llm empty summary: {article.get('headline', '')[:60]} "
+                    "(model returned no visible text)"
+                )
         except Exception as exc:
             article["summary_method"] = "snippet"
             article["importance_score"] = fallback_importance_score(article)
@@ -1691,7 +1757,13 @@ def generate_collection_summary(items: list[dict], logs: list[str], kind: str) -
     if not selected:
         return ""
 
-    fallback = " / ".join(clean_text(item.get("headline", "")) for item in selected if item.get("headline"))
+    # One headline per line: para() renders each as its own paragraph, so even
+    # this degraded output reads as a list instead of one run-on line.
+    fallback = "\n".join(
+        f"· {clean_text(item.get('headline', ''))}"
+        for item in selected
+        if item.get("headline")
+    )
     if not llm_is_configured():
         return fallback
 
@@ -1729,7 +1801,7 @@ def generate_collection_summary(items: list[dict], logs: list[str], kind: str) -
             endpoint = f"{base_path}/models/{LLM_MODEL}:generateContent?key={current_key}"
             payload = {
                 "contents": [{"role": "user", "parts": [{"text": user_text}]}],
-                "generationConfig": {"temperature": 0.2, "maxOutputTokens": 700},
+                "generationConfig": {"temperature": 0.2, "maxOutputTokens": 4000},
             }
         else:
             endpoint = LLM_BASE_URL + "/chat/completions"
@@ -1738,17 +1810,27 @@ def generate_collection_summary(items: list[dict], logs: list[str], kind: str) -
             payload = {
                 "model": LLM_MODEL,
                 "temperature": 0.2,
-                "max_tokens": 700,
+                "max_tokens": 4000,
                 "messages": [{"role": "user", "content": user_text}],
             }
         data = post_json(endpoint, payload, headers=headers, timeout=LLM_TIMEOUT)
         if is_native_gemini:
-            parts = data["candidates"][0]["content"]["parts"]
-            text = "".join([p["text"] for p in parts if not p.get("thought")])
+            candidate = data["candidates"][0]
+            parts = candidate.get("content", {}).get("parts", [])
+            # A thinking model can spend the entire token budget on reasoning
+            # and return no visible answer. That used to fail silently, so the
+            # empty result is logged with the finish reason now.
+            text = "".join([p.get("text", "") for p in parts if not p.get("thought")])
+            finish_reason = candidate.get("finishReason") or ""
         else:
-            text = data["choices"][0]["message"]["content"]
-        text = clean_text(text)
-        return text or fallback
+            choice = data["choices"][0]
+            text = choice.get("message", {}).get("content") or ""
+            finish_reason = choice.get("finish_reason") or ""
+        text = clean_multiline(text)
+        if not text:
+            logs.append(f"{kind} summary empty (finishReason={finish_reason or 'unknown'})")
+            return fallback
+        return text
     except Exception as exc:
         logs.append(f"{kind} summary skip: {type(exc).__name__}")
         return fallback

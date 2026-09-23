@@ -46,9 +46,17 @@ export function fmtUpdated(iso) {
   return `${formatBriefingDate(iso)} · ${fmt(iso, true)} KST 업데이트`;
 }
 
-export function excerpt(value, limit = 150) {
-  const clean = String(value ?? "").split(/\n+/)[0].replace(/\s+/g, " ").trim();
-  return clean.length > limit ? `${clean.slice(0, limit).trim()}...` : clean;
+export function excerpt(value, limit = 150, maxLines = 3) {
+  // Multi-line summaries are kept multi-line; only the total length is capped.
+  const lines = String(value ?? "")
+    .split(/\n+/)
+    .map((line) => line.replace(/\s+/g, " ").trim())
+    .filter(Boolean)
+    .slice(0, maxLines);
+  const joined = lines.join("\n");
+  if (joined.length <= limit) return joined;
+  const cut = joined.slice(0, limit).replace(/\s+\S*$/, "").trim();
+  return `${cut}...`;
 }
 
 export function para(value) {

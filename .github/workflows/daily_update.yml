@@ -31,6 +31,8 @@ jobs:
           CHIP_BRIEFING_LLM_BASE_URL: https://generativelanguage.googleapis.com/v1beta/openai
           CHIP_BRIEFING_LLM_MODEL: gemma-4-31b-it
           CHIP_BRIEFING_LLM_MAX_ITEMS: "100"
+          CHIP_BRIEFING_LLM_TIMEOUT: "90"
+          CHIP_BRIEFING_LLM_BUDGET_SECONDS: "3600"
           CHIP_BRIEFING_DAILY_SUMMARY_MAX_ITEMS: "10"
           CHIP_BRIEFING_MAX_COMMUNITY_ITEMS: "10"
           CHIP_BRIEFING_COMMUNITY_CANDIDATE_LIMIT: "20"

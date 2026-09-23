@@ -177,6 +177,7 @@
     font-family: var(--serif);
     font-size: 15px;
     line-height: 1.8;
+    white-space: pre-line;
   }
   .summary-note {
     display: block;
@@ -267,6 +268,7 @@
     font-family: var(--serif);
     font-size: 16px;
     line-height: 1.75;
+    white-space: pre-line;
   }
   .story-secondary,
   .community-item {
@@ -299,6 +301,7 @@
     color: var(--muted);
     font-size: 13px;
     line-height: 1.65;
+    white-space: pre-line;
   }
   .latest-item {
     padding: 9px 6px 10px;
@@ -372,6 +375,7 @@
     color: var(--muted);
     font-size: 11px;
     line-height: 1.55;
+    white-space: pre-line;
   }
   .community-lead { padding: 6px 8px 24px; }
   .community-disclaimer {
@@ -494,6 +498,7 @@
     font-family: var(--serif);
     font-size: 13px;
     line-height: 1.6;
+    white-space: pre-line;
   }
   .community-top-section {
     width: min(920px, 100%);

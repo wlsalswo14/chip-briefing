@@ -2,6 +2,7 @@ import datetime as dt
 import json
 import tempfile
 import unittest
+import urllib.error
 from pathlib import Path
 from unittest import mock
 
@@ -183,6 +184,66 @@ class CommunityWindowTests(unittest.TestCase):
         self.assertEqual(request.call_count, 3)
         self.assertEqual(len(items), 3)
         self.assertIn("3 pages", logs[0])
+
+
+class _FakeResponse:
+    def __init__(self, payload: bytes):
+        self._payload = payload
+
+    def read(self) -> bytes:
+        return self._payload
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *exc_info):
+        return False
+
+
+class SummaryFormattingTests(unittest.TestCase):
+    def test_clean_multiline_keeps_line_breaks(self):
+        self.assertEqual(
+            collector.clean_multiline("첫째 줄\n\n둘째 줄   셋째\n"),
+            "첫째 줄\n둘째 줄 셋째",
+        )
+
+    def test_summary_cache_key_ignores_punctuation_and_case(self):
+        self.assertEqual(
+            collector.summary_cache_key("SK하이닉스, HBM4 양산 시작!"),
+            collector.summary_cache_key("sk하이닉스 HBM4 양산 시작"),
+        )
+
+    def test_daily_summary_fallback_lists_headlines_on_their_own_lines(self):
+        items = [
+            {"headline": "첫 번째 기사", "body": "요약", "importance_score": 5},
+            {"headline": "두 번째 기사", "body": "요약", "importance_score": 4},
+        ]
+        with mock.patch.object(collector, "LLM_BASE_URL", ""):
+            summary = collector.generate_collection_summary(items, [], "daily")
+        self.assertEqual(summary.split("\n"), ["· 첫 번째 기사", "· 두 번째 기사"])
+
+
+class ModelRetryTests(unittest.TestCase):
+    def test_post_json_retries_once_on_transient_503(self):
+        error = urllib.error.HTTPError("https://example.test", 503, "busy", {}, None)
+        ok = _FakeResponse(b'{"candidates": []}')
+        with (
+            mock.patch.object(collector.urllib.request, "urlopen", side_effect=[error, ok]) as urlopen,
+            mock.patch.object(collector.time, "sleep"),
+        ):
+            data = collector.post_json("https://example.test", {"model": "test"}, timeout=1)
+        self.assertEqual(data, {"candidates": []})
+        self.assertEqual(urlopen.call_count, 2)
+
+    def test_post_json_gives_up_after_one_retry(self):
+        error = urllib.error.HTTPError("https://example.test", 503, "busy", {}, None)
+        with (
+            mock.patch.object(collector.urllib.request, "urlopen", side_effect=[error, error]) as urlopen,
+            mock.patch.object(collector.time, "sleep"),
+        ):
+            with self.assertRaises(urllib.error.HTTPError):
+                collector.post_json("https://example.test", {"model": "test"}, timeout=1)
+        self.assertEqual(urlopen.call_count, 2)
 
 
 if __name__ == "__main__":
