@@ -1,6 +1,13 @@
 {
-  "updated_at": "2026-09-23T14:54:50+09:00",
+  "updated_at": "2026-09-24T08:15:13+09:00",
   "items": [
+    {
+      "date": "2026-09-24",
+      "generated_at": "2026-09-24T08:15:13+09:00",
+      "file": "archive/2026-09-24.json",
+      "article_count": 53,
+      "top_headline": "Validate GPU Cluster Readiness Before AI Workloads Land"
+    },
     {
       "date": "2026-09-23",
       "generated_at": "2026-09-23T14:54:50+09:00",
