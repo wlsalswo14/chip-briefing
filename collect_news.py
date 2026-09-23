@@ -1476,7 +1476,13 @@ def enrich_community_reactions(items: list[dict], logs: list[str]) -> tuple[list
                 "max_tokens": 4000,
                 "messages": [{"role": "user", "content": user_text}],
             }
-        data = post_json(endpoint, payload, headers=headers, timeout=LLM_TIMEOUT)
+        try:
+            data = post_json(endpoint, payload, headers=headers, timeout=LLM_TIMEOUT)
+        except Exception:
+            # This is a single call for the whole briefing, so give the model
+            # host a second chance before falling back to a headline list.
+            time.sleep(5.0)
+            data = post_json(endpoint, payload, headers=headers, timeout=LLM_TIMEOUT)
         if is_native_gemini:
             parts = data["candidates"][0]["content"]["parts"]
             content = "".join([p["text"] for p in parts if not p.get("thought")])
@@ -1865,7 +1871,10 @@ def enrich_with_llm_summaries(articles: list[dict], logs: list[str]) -> list[dic
                         fallback_importance_score(article, source_text),
                     )
                     if sector:
-                        article["sector"] = sector
+                        # Keep the collected sector for the tab grouping; the
+                        # model's own view is stored separately so the sector
+                        # lists stay at the intended ten per sector.
+                        article["llm_sector"] = sector
                     if keywords:
                         article["llm_keywords"] = keywords
                     # A summary shorter than the requested five lines is

@@ -250,7 +250,9 @@ import {
     // 전체 탭은 데일리 TOP 10을, 섹터 탭은 그 섹터에서 요약된 10개를 카드로 보여준다.
     const dailyIds = new Set(Array.isArray(data.daily_summary_article_ids) ? data.daily_summary_article_ids : []);
     const summarized = rows.filter((a) => a.summary_method === "llm" && (activeSector === "전체" ? dailyIds.has(a.id) : true));
-    const summarizedIds = new Set(summarized.map((a) => a.id));
+    // 10개를 넘는 요약분은 아래 목록으로 내려보낸다.
+    const shownSummaries = summarized.slice(0, 10);
+    const summarizedIds = new Set(shownSummaries.map((a) => a.id));
     const rest = rows.filter((a) => !summarizedIds.has(a.id));
     $("top").innerHTML = summarized.length
       ? storyCard(summarized[0], "lead")
