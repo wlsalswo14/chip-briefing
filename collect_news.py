@@ -2137,7 +2137,7 @@ def generate_collection_summary(items: list[dict], logs: list[str], kind: str) -
         return fallback
 
 
-def build_health(logs: list[str], article_count: int = 0) -> dict:
+def build_health(logs: list[str], article_count: int = 0, community_count: int = 0) -> dict:
     """Report whether today's briefing came out clean.
 
     The site shows a notice while a degraded run is being retried, so this
@@ -2145,11 +2145,13 @@ def build_health(logs: list[str], article_count: int = 0) -> dict:
     """
     reasons: list[str] = []
     failed_articles = sum(1 for line in logs if line.startswith("llm skip article"))
-    failed_batches = sum(1 for line in logs if line.startswith("community reaction summary skip"))
+    failed_posts = sum(1 for line in logs if line.startswith("community reaction summary skip"))
     if any(line.startswith("daily summary skip") for line in logs):
         reasons.append("daily summary failed")
-    if failed_batches:
-        reasons.append("community summary failed")
+    # One stubborn post is not a broken server: the notice is for runs where
+    # enough of the community feed failed that the page shows raw post text.
+    if failed_posts and failed_posts > max(1, community_count * 0.4):
+        reasons.append(f"{failed_posts} of {community_count} community summaries failed")
     if article_count and failed_articles > article_count * 0.4:
         reasons.append(f"{failed_articles} of {article_count} article summaries failed")
     return {"status": "degraded" if reasons else "ok", "reasons": reasons}
@@ -2182,7 +2184,7 @@ def write_articles(
             "notes": "Metadata/link collection only; article full text is not stored. LLM summaries are generated transiently when configured.",
             "summary_methods": summary_methods,
             "summary_model": LLM_MODEL if llm_is_configured() else "",
-            "health": build_health(logs, len(articles)),
+            "health": build_health(logs, len(articles), len(community_items)),
             "logs": logs[-80:],
         },
         "articles": articles,

@@ -482,6 +482,34 @@ class CommunityBatchingTests(unittest.TestCase):
         self.assertFalse(any(item.get("summary_method") == "llm" for item in rows))
 
 
+class HealthReportingTests(unittest.TestCase):
+    """The site notice keys off build_health, so its thresholds matter."""
+
+    def test_one_stubborn_post_does_not_mark_the_whole_run_degraded(self):
+        logs = ["community reaction summary skip: some post (HTTPError: 500)"]
+        health = collector.build_health(logs, article_count=40, community_count=10)
+        self.assertEqual(health["status"], "ok", health)
+
+    def test_a_half_failed_community_feed_is_reported(self):
+        logs = [
+            f"community reaction summary skip: post {index} (TimeoutError: slow)"
+            for index in range(5)
+        ]
+        health = collector.build_health(logs, article_count=40, community_count=10)
+        self.assertEqual(health["status"], "degraded", health)
+        self.assertTrue(any("community summaries failed" in r for r in health["reasons"]), health)
+
+    def test_a_failed_daily_summary_is_always_reported(self):
+        logs = ["daily summary skip: HTTPError"]
+        health = collector.build_health(logs, article_count=40, community_count=10)
+        self.assertEqual(health["status"], "degraded", health)
+        self.assertIn("daily summary failed", health["reasons"])
+
+    def test_a_clean_run_is_ok(self):
+        health = collector.build_health(["naver ok: search (10)"], 40, 10)
+        self.assertEqual(health, {"status": "ok", "reasons": []})
+
+
 class ModelRetryTests(unittest.TestCase):
     def test_post_json_retries_once_on_transient_503(self):
         error = urllib.error.HTTPError("https://example.test", 503, "busy", {}, None)
