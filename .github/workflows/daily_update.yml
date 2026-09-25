@@ -86,7 +86,24 @@ jobs:
           git add articles.json archive/ assets/thumbs/
           if ! git diff --cached --quiet; then
             git commit -m "Auto-update briefing: $(date -u +'%Y-%m-%d %H:%M:%S') UTC"
-            git push
+            # The run takes a while, so the branch can move under it (another
+            # run, or a hand-made commit). Rebase onto the newer tip and retry
+            # instead of losing the whole briefing to one rejected push.
+            pushed=no
+            for attempt in 1 2 3; do
+              if git push; then
+                pushed=yes
+                break
+              fi
+              echo "push rejected (attempt $attempt); rebasing on the newer tip"
+              git fetch origin main
+              git rebase origin/main || { git rebase --abort; exit 1; }
+              sleep 5
+            done
+            if [ "$pushed" != "yes" ]; then
+              echo "Could not push the briefing after three attempts" >&2
+              exit 1
+            fi
           else
             echo "No changes to commit"
           fi
