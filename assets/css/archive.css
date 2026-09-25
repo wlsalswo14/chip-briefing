@@ -232,6 +232,17 @@
   line-height: 1.35;
 }
 
+.archive-more-group + .archive-more-group { margin-top: 20px; }
+.archive-more-group > h3 {
+  margin: 0;
+  padding: 9px 8px;
+  background: var(--wash);
+  border-bottom: 1px solid var(--rule);
+  color: var(--muted);
+  font-family: var(--sans);
+  font-size: 12px;
+}
+
 .archive-ranked-item {
   display: grid;
   width: 100%;

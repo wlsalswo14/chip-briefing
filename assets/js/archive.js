@@ -9,7 +9,9 @@ import {
   safeUrl,
   selectCommunityTopTen,
   selectDailyTopTen,
-} from "./shared.js?v=4";
+  selectDetailedArticles,
+  selectHeadlineArticles,
+} from "./shared.js?v=7";
 
 const state = {
   items: [],
@@ -124,9 +126,13 @@ function renderEdition(data, item) {
   const articles = Array.isArray(data.articles) ? data.articles : [];
   const communityItems = Array.isArray(data.community_items) ? data.community_items : [];
   const communityTopTen = selectCommunityTopTen(data);
-  const topTen = selectDailyTopTen(data);
+  const detailedArticles = selectDetailedArticles(data);
+  const headlineArticles = selectHeadlineArticles(data);
+  const topTen = selectDailyTopTen(data).filter((article) =>
+    detailedArticles.some((detailed) => detailed.id === article.id)
+  );
   const topIds = new Set(topTen.map((article) => article.id));
-  const remaining = articles.filter((article) => !topIds.has(article.id));
+  const remainingDetailed = detailedArticles.filter((article) => !topIds.has(article.id));
 
   state.articlesById = new Map(articles.concat(communityItems).map((article) => [article.id, article]));
   const selectedDate = formatBriefingDate(dateAtNoon(item.date));
@@ -134,7 +140,7 @@ function renderEdition(data, item) {
     ? `${selectedDate} · ${fmt(data.generated_at, true)} KST 업데이트`
     : selectedDate;
   $("archive-day-title").textContent = selectedDate;
-  $("archive-day-count").textContent = `총 ${articles.length.toLocaleString("ko-KR")}개 기사`;
+  $("archive-day-count").textContent = `상세 뉴스 ${detailedArticles.length.toLocaleString("ko-KR")}개 · 제목 뉴스 ${headlineArticles.length.toLocaleString("ko-KR")}개`;
   $("archive-generated-at").textContent = "";
   $("archive-summary-copy").innerHTML = data.daily_summary
     ? `${para(data.daily_summary)}<span class="summary-note">중요도 점수 상위 ${topTen.length}개 기사 기준</span>`
@@ -143,10 +149,21 @@ function renderEdition(data, item) {
   $("archive-top10").innerHTML = topTen.length
     ? topTen.map(rankedArticle).join("")
     : `<div class="empty">이날의 주요 뉴스가 없습니다.</div>`;
-  $("archive-more-title").textContent = remaining.length ? `더 많은 뉴스 · ${remaining.length}` : "더 많은 뉴스";
-  $("archive-more-news").innerHTML = remaining.length
-    ? remaining.map(moreArticle).join("")
-    : `<div class="empty">추가 뉴스가 없습니다.</div>`;
+  const moreGroups = [];
+  if (remainingDetailed.length) {
+    moreGroups.push(`<div class="archive-more-group">
+      <h3>추가 요약 뉴스 · ${remainingDetailed.length}</h3>
+      ${remainingDetailed.map((article, index) => rankedArticle(article, topTen.length + index)).join("")}
+    </div>`);
+  }
+  if (headlineArticles.length) {
+    moreGroups.push(`<div class="archive-more-group">
+      <h3>제목 뉴스 · ${headlineArticles.length}</h3>
+      ${headlineArticles.map(moreArticle).join("")}
+    </div>`);
+  }
+  $("archive-more-title").textContent = `상세 뉴스 ${detailedArticles.length}개 · 제목 뉴스 ${headlineArticles.length}개`;
+  $("archive-more-news").innerHTML = moreGroups.join("") || `<div class="empty">추가 뉴스가 없습니다.</div>`;
 
   const hasCommunity = Boolean(data.community_summary || data.community_sentiment) || communityItems.length > 0;
   $("archive-community-section").hidden = !hasCommunity;

@@ -226,8 +226,8 @@ class SummaryFormattingTests(unittest.TestCase):
 
     def test_daily_summary_fallback_lists_headlines_on_their_own_lines(self):
         items = [
-            {"headline": "첫 번째 기사", "body": "요약", "importance_score": 5},
-            {"headline": "두 번째 기사", "body": "요약", "importance_score": 4},
+            {"headline": "첫 번째 기사", "body": "요약", "summary_method": "llm", "importance_score": 5},
+            {"headline": "두 번째 기사", "body": "요약", "summary_method": "llm", "importance_score": 4},
         ]
         with mock.patch.object(collector, "LLM_BASE_URL", ""):
             summary = collector.generate_collection_summary(items, [], "daily")
@@ -253,6 +253,53 @@ class SummaryFormattingTests(unittest.TestCase):
         selected = collector.select_daily_summary_items(items, limit=1)
         self.assertEqual(selected[0]["headline"], "요약된 기사")
 
+    def test_daily_top10_never_fills_with_headline_only_rows(self):
+        items = [
+            {
+                "headline": "요약 기사",
+                "body": "요약",
+                "summary_method": "llm",
+                "importance_score": 1,
+                "created_at": "2026-09-25T09:00:00+09:00",
+            }
+        ] + [
+            {
+                "headline": f"제목 뉴스 {index}",
+                "body": "수집 스니펫",
+                "summary_method": "snippet",
+                "publication_mode": "headline",
+                "importance_score": 5,
+                "created_at": "2026-09-25T10:00:00+09:00",
+            }
+            for index in range(12)
+        ]
+
+        selected = collector.select_daily_summary_items(items, limit=10)
+        self.assertEqual([item["headline"] for item in selected], ["요약 기사"])
+
+    def test_daily_top10_uses_full_gemma_importance_after_summary(self):
+        items = [
+            {
+                "headline": "제목 점수는 높지만 본문 영향도는 낮은 기사",
+                "body": "요약",
+                "summary_method": "llm",
+                "title_importance_score": 5,
+                "importance_score": 2,
+                "created_at": "2026-09-25T10:00:00+09:00",
+            },
+            {
+                "headline": "본문 영향도가 높은 기사",
+                "body": "요약",
+                "summary_method": "llm",
+                "title_importance_score": 1,
+                "importance_score": 5,
+                "created_at": "2026-09-25T09:00:00+09:00",
+            },
+        ]
+
+        selected = collector.select_daily_summary_items(items, limit=1)
+        self.assertEqual(selected[0]["headline"], "본문 영향도가 높은 기사")
+
     def test_sort_by_importance_puts_summarized_articles_first(self):
         items = [
             {
@@ -273,32 +320,558 @@ class SummaryFormattingTests(unittest.TestCase):
         ordered = collector.sort_by_importance(items)
         self.assertEqual([item["headline"] for item in ordered], ["요약 기사", "스니펫 기사"])
 
-    def test_sector_candidates_pick_ten_per_sector(self):
+    def test_title_candidate_ranking_uses_gemma_score_not_keyword_fallback(self):
         items = [
             {
-                "headline": "설계 기사 %d" % index,
-                "body": "설계 공정 소자 패키징",
+                "id": "high-gemma",
+                "headline": "일반 반도체 소식",
+                "body": "키워드 없음",
                 "sector": "설계",
-                "trust": "medium",
-                "category": "news",
-                "created_at": "2026-09-23T%02d:00:00+09:00" % (index % 24),
-            }
-            for index in range(12)
-        ]
-        items.append(
+                "title_sector": "설계",
+                "sector_method": "llm_title",
+                "title_importance_score": 5,
+                "title_classification_version": collector.TITLE_CLASSIFICATION_VERSION,
+                "created_at": "2026-09-25T09:00:00+09:00",
+            },
             {
-                "headline": "공정 기사",
-                "body": "공정",
-                "sector": "공정",
+                "id": "keyword-heavy",
+                "headline": "GPU NPU ASIC HBM CoWoS EUV",
+                "body": "키워드가 매우 많음",
+                "sector": "설계",
+                "title_sector": "설계",
+                "sector_method": "llm_title",
+                "title_importance_score": 2,
+                "title_classification_version": collector.TITLE_CLASSIFICATION_VERSION,
+                "created_at": "2026-09-25T10:00:00+09:00",
+            },
+        ]
+
+        picked = collector.title_candidates_for_sector(items, "설계")
+
+        self.assertEqual([item["id"] for item in picked], ["high-gemma", "keyword-heavy"])
+
+    def test_news_candidates_reach_gemma_without_keyword_relevance_filter(self):
+        article = {
+            "id": "generic-title",
+            "headline": "새로운 기술 협력 발표",
+            "body": "구체적인 산업 키워드가 없는 검색 결과",
+            "source_url": "https://example.com/generic",
+            "trust": "medium",
+            "category": "news",
+            "created_at": collector.now_iso(),
+            "date_is_estimated": True,
+        }
+
+        self.assertEqual(collector.dedupe_rank([dict(article)], limit=None), [])
+        kept = collector.dedupe_rank(
+            [dict(article)],
+            limit=None,
+            require_relevance=False,
+        )
+        self.assertEqual([item["id"] for item in kept], ["generic-title"])
+
+    def test_news_title_dedupe_removes_cross_api_duplicates(self):
+        base = {
+            "headline": "동일한 반도체 기사 제목",
+            "body": "snippet",
+            "trust": "medium",
+            "category": "news",
+            "created_at": collector.now_iso(),
+            "date_is_estimated": True,
+        }
+        rows = [
+            {**base, "id": "google", "source_url": "https://news.google.com/article/1"},
+            {**base, "id": "naver", "source_url": "https://publisher.example.com/article/1"},
+        ]
+
+        kept = collector.dedupe_rank(
+            rows,
+            limit=None,
+            require_relevance=False,
+            dedupe_titles=True,
+        )
+        self.assertEqual(len(kept), 1)
+
+
+class ProductAnnouncementCategoryTests(unittest.TestCase):
+    def test_new_product_announcement_is_a_fifth_category_with_ten_slots(self):
+        self.assertEqual(collector.SECTOR_NAMES[-1], "신제품/발표")
+        self.assertEqual(len(collector.SECTOR_NAMES), 5)
+        self.assertEqual(
+            collector.DETAILED_SUMMARY_TARGET,
+            collector.SECTOR_SUMMARY_TARGET * len(collector.SECTOR_NAMES),
+        )
+        self.assertEqual(len(collector.SUPPLEMENTAL_SECTOR_QUERIES["신제품/발표"]), 3)
+
+    def test_title_gemma_can_route_a_chip_launch_to_new_product_category(self):
+        item = {
+            "id": "launch",
+            "headline": "엔비디아, 차세대 AI 칩과 랙 플랫폼 공개",
+            "body": "수집 스니펫",
+            "source_url": "https://example.com/launch",
+            "sector": "설계",
+            "sector_method": "heuristic",
+            "created_at": "2026-09-25T10:00:00+09:00",
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            cache_path = Path(directory) / "missing-articles.json"
+            with (
+                mock.patch.object(collector, "ARTICLES_PATH", cache_path),
+                mock.patch.object(collector, "LLM_BASE_URL", "https://example.test/v1"),
+                mock.patch.object(collector, "LLM_MODEL", "gemma-test"),
+                mock.patch.object(
+                    collector,
+                    "classify_title_batch_with_llm",
+                    return_value=[
+                        {
+                            "id": "launch",
+                            "relevant": True,
+                            "sector": "신제품/발표",
+                            "importance_score": 5,
+                        }
+                    ],
+                ),
+            ):
+                collector.organize_title_only_with_llm([item], [])
+
+        self.assertEqual(item["sector"], "신제품/발표")
+        self.assertEqual(item["title_sector"], "신제품/발표")
+        self.assertTrue(collector.is_title_classified(item))
+        self.assertEqual(collector.title_sector_counts([item])["신제품/발표"], 1)
+
+    def test_full_summary_gemma_accepts_new_product_category(self):
+        response = {
+            "summary_lines": ["첫째", "둘째", "셋째", "넷째", "다섯째"],
+            "sector": "신제품/발표",
+            "keywords": ["AI 칩", "랙 플랫폼"],
+            "importance_score": 5,
+        }
+        captured = {}
+
+        def fake_post_json(url, payload, headers=None, timeout=None):
+            captured["system"] = payload["systemInstruction"]["parts"][0]["text"]
+            return {
+                "candidates": [
+                    {"content": {"parts": [{"text": json.dumps(response, ensure_ascii=False)}]}}
+                ]
+            }
+
+        article = {
+            "headline": "새 AI 칩과 랙 플랫폼 공개",
+            "source_name": "테스트",
+            "source_url": "https://example.com/product",
+            "sector": "설계",
+        }
+        with (
+            mock.patch.object(
+                collector,
+                "LLM_BASE_URL",
+                "https://generativelanguage.googleapis.com/v1beta/openai",
+            ),
+            mock.patch.object(collector, "LLM_MODEL", "gemma-4-31b-it"),
+            mock.patch.object(collector, "LLM_API_KEYS", ["test-key"]),
+            mock.patch.object(collector, "post_json", side_effect=fake_post_json),
+        ):
+            summary, sector, keywords, importance = collector.summarize_with_llm(
+                article,
+                "새 칩과 AI 서버 랙 플랫폼의 사양과 출시 일정을 공개했다.",
+            )
+
+        self.assertEqual(sector, "신제품/발표")
+        self.assertEqual(len(summary.split("\n")), 5)
+        self.assertEqual(keywords, ["AI 칩", "랙 플랫폼"])
+        self.assertEqual(importance, 5)
+        self.assertIn("신제품/발표", captured["system"])
+        self.assertIn("소프트웨어", captured["system"])
+        self.assertIn("데이터센터 인프라", captured["system"])
+
+
+class DetailedSummaryTargetTests(unittest.TestCase):
+    def _title_items(self, counts=None):
+        counts = counts or {sector: 12 for sector in collector.SECTOR_NAMES}
+        rows = []
+        number = 0
+        for sector in collector.SECTOR_NAMES:
+            for index in range(counts.get(sector, 0)):
+                rows.append(
+                    {
+                        "id": f"news-{number:03d}",
+                        "headline": f"{sector} 뉴스 {index}",
+                        "body": "수집 스니펫",
+                        "sector": sector,
+                        "title_sector": sector,
+                        "sector_method": "llm_title",
+                        "title_importance_score": 5 - (index % 5),
+                        "title_classification_version": collector.TITLE_CLASSIFICATION_VERSION,
+                        "trust": "medium",
+                        "category": "news",
+                        "source_name": "테스트",
+                        "source_url": f"https://example.com/{number}",
+                        "created_at": f"2026-09-25T{number % 24:02d}:00:00+09:00",
+                    }
+                )
+                number += 1
+        return rows
+
+    def _run(self, items, summarizer, target):
+        with tempfile.TemporaryDirectory() as directory:
+            cache_path = Path(directory) / "missing-articles.json"
+            with (
+                mock.patch.object(collector, "ARTICLES_PATH", cache_path),
+                mock.patch.object(collector, "LLM_BASE_URL", "https://example.test/v1"),
+                mock.patch.object(collector, "LLM_MODEL", "gemma-test"),
+                mock.patch.object(collector, "LLM_MAX_ITEMS", 100),
+                mock.patch.object(collector, "extract_article_text", return_value="기사 본문 " * 100),
+                mock.patch.object(collector, "summarize_with_llm", side_effect=summarizer) as summarize,
+                mock.patch.object(collector.time, "sleep"),
+                mock.patch("builtins.print"),
+            ):
+                collector.enrich_with_llm_summaries(items, [], target=target)
+        return summarize
+
+    def test_ten_summaries_are_published_per_gemma_title_sector(self):
+        items = self._title_items()
+        summary = "첫째\n둘째\n셋째\n넷째\n다섯째"
+        calls = 0
+
+        with tempfile.TemporaryDirectory() as directory:
+            cache_path = Path(directory) / "missing-articles.json"
+            with (
+                mock.patch.object(collector, "ARTICLES_PATH", cache_path),
+                mock.patch.object(collector, "LLM_BASE_URL", "https://example.test/v1"),
+                mock.patch.object(collector, "LLM_MODEL", "gemma-test"),
+                mock.patch.object(collector, "LLM_MAX_ITEMS", 100),
+                mock.patch.object(collector, "extract_article_text", return_value="기사 본문 " * 100),
+                mock.patch.object(
+                    collector,
+                    "summarize_with_llm",
+                    return_value=(summary, "패키징", ["HBM", "CoWoS"], 4),
+                ) as summarize,
+                mock.patch.object(collector.time, "sleep"),
+                mock.patch("builtins.print"),
+            ):
+                for sector in collector.SECTOR_NAMES:
+                    pool = collector.title_candidates_for_sector(items, sector)
+                    collector.enrich_with_llm_summaries(pool, [], target=10)
+                calls = summarize.call_count
+
+        detailed = collector.select_detailed_summary_items(items)
+        counts = {
+            sector: sum(1 for item in detailed if item["sector"] == sector)
+            for sector in collector.SECTOR_NAMES
+        }
+        expected = collector.SECTOR_SUMMARY_TARGET * len(collector.SECTOR_NAMES)
+        self.assertEqual(len(detailed), expected)
+        self.assertEqual(counts, {sector: 10 for sector in collector.SECTOR_NAMES})
+        self.assertEqual(calls, expected)
+        self.assertTrue(all(item["sector_method"] == "llm_title" for item in detailed))
+        self.assertTrue(all(item["summary_sector"] == "패키징" for item in detailed))
+
+    def test_failed_summaries_fall_through_to_next_candidate_in_same_sector(self):
+        items = self._title_items({"설계": 13, "공정": 0, "소자": 0, "패키징": 0})
+        calls = {"count": 0}
+        summary = "첫째\n둘째\n셋째\n넷째\n다섯째"
+
+        def flaky_summary(article, source_text):
+            calls["count"] += 1
+            if calls["count"] <= 3:
+                raise RuntimeError("temporary model failure")
+            return summary, "설계", ["ASIC"], 3
+
+        summarize = self._run(items, flaky_summary, target=10)
+        detailed = collector.select_detailed_summary_items(items)
+
+        self.assertEqual(len(detailed), 10)
+        self.assertTrue(all(item["sector"] == "설계" for item in detailed))
+        self.assertEqual(summarize.call_count, 13)
+
+    def test_underfilled_sector_reduces_target_instead_of_adding_title_only_news(self):
+        counts = {"설계": 10, "공정": 7, "소자": 10, "패키징": 10, "신제품/발표": 10}
+        items = self._title_items(counts)
+        for item in items:
+            item["body"] = "첫째\n둘째\n셋째\n넷째\n다섯째"
+            item["summary_method"] = "llm"
+            item["summary_version"] = collector.SUMMARY_PROMPT_VERSION
+            item["summary_model"] = "gemma-test"
+            item["importance_score"] = item["title_importance_score"]
+
+        detailed = collector.select_detailed_summary_items(items)
+        self.assertEqual(collector.expected_detailed_summary_target(items), 47)
+        self.assertEqual(len(detailed), 47)
+        self.assertEqual(collector.select_headline_only_items(items, detailed), [])
+
+    def test_candidates_beyond_ten_are_published_as_headline_only_links(self):
+        counts = {sector: 10 for sector in collector.SECTOR_NAMES}
+        counts["설계"] = 13
+        items = self._title_items(counts)
+        for sector in collector.SECTOR_NAMES:
+            for item in collector.title_candidates_for_sector(items, sector)[:10]:
+                item["body"] = "첫째\n둘째\n셋째\n넷째\n다섯째"
+                item["summary_method"] = "llm"
+                item["summary_version"] = collector.SUMMARY_PROMPT_VERSION
+                item["summary_model"] = "gemma-test"
+                item["importance_score"] = item["title_importance_score"]
+
+        detailed = collector.select_detailed_summary_items(items)
+        headline_only = collector.select_headline_only_items(items, detailed)
+
+        self.assertEqual(len(detailed), 50)
+        self.assertEqual(len(headline_only), 3)
+        self.assertTrue(all(item["sector"] == "설계" for item in headline_only))
+        self.assertTrue(all(item["publication_mode"] == "headline" for item in headline_only))
+        self.assertTrue(all(item.get("summary_method") != "llm" for item in headline_only))
+
+
+class SupplementalCollectionTests(unittest.TestCase):
+    def _article(self, sector, index):
+        return {
+            "id": f"{sector}-{index}",
+            "headline": f"{sector} 기사 {index}",
+            "source_url": f"https://example.com/{sector}/{index}",
+            "body": "snippet",
+            "sector": sector,
+            "title_sector": sector,
+            "sector_method": "llm_title",
+            "title_importance_score": 3,
+            "title_classification_version": collector.TITLE_CLASSIFICATION_VERSION,
+            "created_at": "2026-09-25T10:00:00+09:00",
+        }
+
+    def test_no_supplemental_api_call_when_all_sectors_already_have_ten(self):
+        initial = []
+        for sector in collector.SECTOR_NAMES:
+            initial.extend(self._article(sector, index) for index in range(10))
+
+        with (
+            mock.patch.object(
+                collector,
+                "dedupe_rank",
+                side_effect=lambda rows, limit=None, require_relevance=True, dedupe_titles=False: rows,
+            ),
+            mock.patch.object(collector, "organize_title_only_with_llm", side_effect=lambda rows, logs: rows),
+            mock.patch.object(collector, "collect_sector_supplements") as supplemental,
+        ):
+            rows, rounds = collector.collect_until_sector_targets(initial, [], [], max_rounds=3)
+
+        self.assertEqual(rounds, 0)
+        self.assertEqual(collector.title_sector_counts(rows), {sector: 10 for sector in collector.SECTOR_NAMES})
+        supplemental.assert_not_called()
+
+    def test_only_missing_sector_is_collected_and_loop_stops_when_filled(self):
+        initial = []
+        for sector in collector.SECTOR_NAMES:
+            count = 8 if sector == "패키징" else 10
+            initial.extend(self._article(sector, index) for index in range(count))
+        additions = [self._article("패키징", 100), self._article("패키징", 101)]
+
+        with (
+            mock.patch.object(
+                collector,
+                "dedupe_rank",
+                side_effect=lambda rows, limit=None, require_relevance=True, dedupe_titles=False: rows,
+            ),
+            mock.patch.object(collector, "organize_title_only_with_llm", side_effect=lambda rows, logs: rows),
+            mock.patch.object(
+                collector,
+                "collect_sector_supplements",
+                return_value=(additions, ["supplemental"]),
+            ) as supplemental,
+        ):
+            rows, rounds = collector.collect_until_sector_targets(initial, [], [], max_rounds=3)
+
+        self.assertEqual(rounds, 1)
+        self.assertEqual(collector.title_sector_counts(rows)["패키징"], 10)
+        supplemental.assert_called_once_with(["패키징"], 1, [])
+
+    def test_additional_collection_is_capped_at_three_rounds(self):
+        initial = []
+        for sector in ("설계", "공정", "소자"):
+            initial.extend(self._article(sector, index) for index in range(10))
+
+        def add_one(missing, round_number, naver_sources):
+            return [self._article("패키징", 100 + round_number)], []
+
+        with (
+            mock.patch.object(
+                collector,
+                "dedupe_rank",
+                side_effect=lambda rows, limit=None, require_relevance=True, dedupe_titles=False: rows,
+            ),
+            mock.patch.object(collector, "organize_title_only_with_llm", side_effect=lambda rows, logs: rows),
+            mock.patch.object(collector, "collect_sector_supplements", side_effect=add_one) as supplemental,
+        ):
+            rows, rounds = collector.collect_until_sector_targets(initial, [], [], max_rounds=3)
+
+        self.assertEqual(rounds, 3)
+        self.assertEqual(supplemental.call_count, 3)
+        self.assertEqual(collector.title_sector_counts(rows)["패키징"], 3)
+
+    def test_each_round_uses_a_different_sector_query_and_news_api_only(self):
+        news_source = {"endpoint": "https://openapi.naver.com/v1/search/news.json"}
+        blog_source = {"endpoint": "https://openapi.naver.com/v1/search/blog.json"}
+        google_calls = []
+        naver_calls = []
+
+        def fake_google(queries, per_query=10, log_prefix="google news"):
+            google_calls.append(list(queries))
+            return [], []
+
+        def fake_naver(sources, queries, display=10, start=1, log_prefix="naver"):
+            naver_calls.append((list(sources), list(queries), display, start))
+            return [], []
+
+        with (
+            mock.patch.object(collector, "collect_google_news", side_effect=fake_google),
+            mock.patch.object(collector, "collect_naver", side_effect=fake_naver),
+        ):
+            collector.collect_sector_supplements(["공정"], 1, [news_source, blog_source])
+            collector.collect_sector_supplements(["공정"], 2, [news_source, blog_source])
+
+        self.assertNotEqual(google_calls[0], google_calls[1])
+        self.assertEqual(naver_calls[0][0], [news_source])
+        self.assertEqual(naver_calls[1][0], [news_source])
+        self.assertEqual(naver_calls[0][2], collector.SUPPLEMENTAL_QUERY_RESULT_LIMIT)
+
+
+class TitleOnlyOrganizationTests(unittest.TestCase):
+    def test_headline_only_articles_are_sent_to_gemma_without_body_or_source(self):
+        items = [
+            {
+                "id": f"headline-{index}",
+                "headline": f"HBM 제목 {index}",
+                "body": f"SECRET BODY {index}",
+                "source_name": f"SECRET SOURCE {index}",
+                "source_url": f"https://example.com/{index}",
+                "sector": "설계",
+                "sector_method": "heuristic",
                 "trust": "medium",
                 "category": "news",
-                "created_at": "2026-09-23T09:00:00+09:00",
+                "created_at": "2026-09-25T10:00:00+09:00",
             }
-        )
-        picked = collector.select_sector_candidates(items, per_sector=10)
-        self.assertEqual(len([item for item in picked if item["sector"] == "설계"]), 10)
-        self.assertEqual(len([item for item in picked if item["sector"] == "공정"]), 1)
-        self.assertEqual(len(picked), 11)
+            for index in range(3)
+        ]
+        prompts = []
+
+        def fake_post_json(url, payload, headers=None, timeout=None):
+            prompt = payload["contents"][0]["parts"][0]["text"]
+            prompts.append(prompt)
+            ids = re.findall(r'"id": "(headline-\d+)"', prompt)
+            response = {
+                "items": [
+                    {"id": article_id, "relevant": True, "sector": "소자", "importance_score": 4}
+                    for article_id in ids
+                ]
+            }
+            return {
+                "candidates": [
+                    {"content": {"parts": [{"text": json.dumps(response, ensure_ascii=False)}]}}
+                ]
+            }
+
+        with tempfile.TemporaryDirectory() as directory:
+            cache_path = Path(directory) / "missing-articles.json"
+            with (
+                mock.patch.object(collector, "ARTICLES_PATH", cache_path),
+                mock.patch.object(
+                    collector,
+                    "LLM_BASE_URL",
+                    "https://generativelanguage.googleapis.com/v1beta/openai",
+                ),
+                mock.patch.object(collector, "LLM_MODEL", "gemma-4-31b-it"),
+                mock.patch.object(collector, "LLM_API_KEYS", ["test-key"]),
+                mock.patch.object(collector, "TITLE_CLASSIFICATION_BATCH_SIZE", 20),
+                mock.patch.object(collector, "post_json", side_effect=fake_post_json),
+            ):
+                collector.organize_title_only_with_llm(items, [])
+
+        self.assertEqual(len(prompts), 1)
+        self.assertNotIn("SECRET BODY", prompts[0])
+        self.assertNotIn("SECRET SOURCE", prompts[0])
+        self.assertTrue(all(item["sector"] == "소자" for item in items))
+        self.assertTrue(all(item["title_sector"] == "소자" for item in items))
+        self.assertTrue(all(item["sector_method"] == "llm_title" for item in items))
+        self.assertTrue(all(item["importance_method"] == "llm_title" for item in items))
+        self.assertTrue(all(item["importance_score"] == 4 for item in items))
+        self.assertTrue(all(item["title_importance_score"] == 4 for item in items))
+        self.assertTrue(all(item["title_relevant"] is True for item in items))
+        self.assertFalse(any(item.get("summary_method") == "llm" for item in items))
+
+    def test_gemma_irrelevant_titles_do_not_count_toward_sector_target(self):
+        item = {
+            "id": "irrelevant",
+            "headline": "일반 기업 행사 안내",
+            "body": "반도체와 무관한 내용",
+            "source_url": "https://example.com/irrelevant",
+            "sector": "설계",
+            "sector_method": "heuristic",
+            "created_at": "2026-09-25T10:00:00+09:00",
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            cache_path = Path(directory) / "missing-articles.json"
+            with (
+                mock.patch.object(collector, "ARTICLES_PATH", cache_path),
+                mock.patch.object(collector, "LLM_BASE_URL", "https://example.test/v1"),
+                mock.patch.object(collector, "LLM_MODEL", "gemma-test"),
+                mock.patch.object(
+                    collector,
+                    "classify_title_batch_with_llm",
+                    return_value=[
+                        {
+                            "id": "irrelevant",
+                            "relevant": "false",
+                            "sector": "설계",
+                            "importance_score": 5,
+                        }
+                    ],
+                ),
+            ):
+                collector.organize_title_only_with_llm([item], [])
+
+        self.assertFalse(item["title_relevant"])
+        self.assertFalse(collector.is_title_classified(item))
+        self.assertEqual(collector.title_sector_counts([item])["설계"], 0)
+
+    def test_detailed_summary_articles_are_not_reprocessed_as_headline_only(self):
+        items = [
+            {
+                "id": "detailed",
+                "headline": "상세 기사",
+                "body": "요약",
+                "summary_method": "llm",
+                "summary_version": collector.SUMMARY_PROMPT_VERSION,
+                "sector": "패키징",
+                "sector_method": "llm",
+                "importance_score": 5,
+                "created_at": "2026-09-25T10:00:00+09:00",
+            },
+            {
+                "id": "headline",
+                "headline": "제목 기사",
+                "body": "수집 스니펫",
+                "sector": "설계",
+                "sector_method": "heuristic",
+                "created_at": "2026-09-25T09:00:00+09:00",
+            },
+        ]
+
+        def fake_batch(batch):
+            self.assertEqual([article["id"] for article in batch], ["headline"])
+            return [{"id": "headline", "sector": "공정", "importance_score": 3}]
+
+        with tempfile.TemporaryDirectory() as directory:
+            cache_path = Path(directory) / "missing-articles.json"
+            with (
+                mock.patch.object(collector, "ARTICLES_PATH", cache_path),
+                mock.patch.object(collector, "LLM_BASE_URL", "https://example.test/v1"),
+                mock.patch.object(collector, "LLM_MODEL", "gemma-test"),
+                mock.patch.object(collector, "classify_title_batch_with_llm", side_effect=fake_batch) as classify,
+            ):
+                collector.organize_title_only_with_llm(items, [])
+
+        self.assertEqual(classify.call_count, 1)
+        self.assertEqual(items[0]["sector_method"], "llm")
+        self.assertEqual(items[1]["sector"], "공정")
+        self.assertEqual(items[1]["sector_method"], "llm_title")
 
 
 class CommunityBatchingTests(unittest.TestCase):
@@ -513,6 +1086,127 @@ class HealthReportingTests(unittest.TestCase):
         health = collector.build_health(["naver ok: search (10)"], 40, 10)
         self.assertEqual(health, {"status": "ok", "reasons": []})
 
+    def test_fewer_than_50_detailed_summaries_marks_the_run_degraded(self):
+        health = collector.build_health(
+            ["llm ok: partial"],
+            article_count=70,
+            community_count=10,
+            summary_count=49,
+            summary_target=50,
+        )
+        self.assertEqual(health["status"], "degraded", health)
+        self.assertIn("49 of 50 detailed summaries ready", health["reasons"])
+
+    def test_underfilled_sector_is_healthy_when_dynamic_target_is_met(self):
+        health = collector.build_health(
+            ["sector candidate final: 공정=7"],
+            article_count=47,
+            community_count=10,
+            summary_count=47,
+            summary_target=47,
+        )
+        self.assertEqual(health, {"status": "ok", "reasons": []})
+
+
+class PublicationPayloadTests(unittest.TestCase):
+    def test_payload_contains_detailed_and_overflow_headline_articles(self):
+        counts = {"설계": 10, "공정": 7, "소자": 10, "패키징": 10, "신제품/발표": 10}
+        headline_counts = {"설계": 4, "공정": 0, "소자": 2, "패키징": 1, "신제품/발표": 3}
+        articles = []
+        number = 0
+        for sector, count in counts.items():
+            for index in range(count):
+                articles.append(
+                    {
+                        "id": f"published-{number}",
+                        "headline": f"{sector} 상세 {index}",
+                        "body": "첫째\n둘째\n셋째\n넷째\n다섯째",
+                        "summary_method": "llm",
+                        "summary_version": collector.SUMMARY_PROMPT_VERSION,
+                        "summary_model": "gemma-test",
+                        "sector": sector,
+                        "title_sector": sector,
+                        "sector_method": "llm_title",
+                        "title_importance_score": 3,
+                        "importance_score": 3,
+                        "created_at": "2026-09-25T10:00:00+09:00",
+                        "source_url": f"https://example.com/published/{number}",
+                    }
+                )
+                number += 1
+        for sector, count in headline_counts.items():
+            for index in range(count):
+                articles.append(
+                    {
+                        "id": f"headline-{number}",
+                        "headline": f"{sector} 제목 {index}",
+                        "body": "수집 스니펫",
+                        "summary_method": "snippet",
+                        "publication_mode": "headline",
+                        "sector": sector,
+                        "title_sector": sector,
+                        "sector_method": "llm_title",
+                        "title_importance_score": 2,
+                        "importance_score": 2,
+                        "title_relevant": True,
+                        "title_classification_version": collector.TITLE_CLASSIFICATION_VERSION,
+                        "created_at": "2026-09-25T09:00:00+09:00",
+                        "source_url": f"https://example.com/headline/{number}",
+                    }
+                )
+                number += 1
+
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / "articles.json"
+            with (
+                mock.patch.object(collector, "ARTICLES_PATH", output),
+                mock.patch.object(collector, "write_archive_snapshot"),
+            ):
+                collector.write_articles(
+                    articles,
+                    [],
+                    summary_target=47,
+                    candidate_count=78,
+                    sector_candidate_counts={"설계": 14, "공정": 7, "소자": 12, "패키징": 11, "신제품/발표": 13},
+                    supplemental_rounds=3,
+                )
+            payload = json.loads(output.read_text(encoding="utf-8"))
+
+        self.assertEqual(payload["schema_version"], 12)
+        self.assertEqual(len(payload["articles"]), 57)
+        self.assertEqual(len(payload["summary_article_ids"]), 47)
+        self.assertEqual(len(payload["headline_article_ids"]), 10)
+        self.assertTrue(
+            all(
+                item["summary_method"] == "llm"
+                for item in payload["articles"]
+                if item["id"] in payload["summary_article_ids"]
+            )
+        )
+        self.assertTrue(
+            all(
+                item["publication_mode"] == "headline"
+                for item in payload["articles"]
+                if item["id"] in payload["headline_article_ids"]
+            )
+        )
+        self.assertEqual(payload["collector"]["summary_target"], 47)
+        self.assertEqual(payload["collector"]["summary_count"], 47)
+        self.assertEqual(payload["collector"]["headline_count"], 10)
+        self.assertEqual(payload["collector"]["candidate_count"], 78)
+        self.assertEqual(payload["sectors"], list(collector.SECTOR_NAMES))
+        self.assertEqual(payload["collector"]["sector_summary_counts"], counts)
+        self.assertEqual(payload["collector"]["sector_headline_counts"], headline_counts)
+        self.assertEqual(payload["collector"]["supplemental_rounds"], 3)
+        self.assertEqual(payload["collector"]["health"]["status"], "ok")
+        self.assertTrue(
+            all(
+                article_id in payload["summary_article_ids"]
+                for article_id in payload["daily_summary_article_ids"]
+            )
+        )
+        self.assertNotIn("title_organized_count", payload["collector"])
+
 
 class CommunityPostReadTests(unittest.TestCase):
     """Only the sites that allow a crawler get their post text read."""
@@ -690,6 +1384,31 @@ class RetryGuardTests(unittest.TestCase):
         }
         retry, reason = self._decide(payload, self._kst(6, 0))
         self.assertEqual(retry, "yes", reason)
+
+    def test_a_briefing_with_fewer_than_50_summaries_is_rebuilt(self):
+        payload = {
+            "generated_at": "2026-09-25T04:30:00+09:00",
+            "collector": {
+                "summary_target": 50,
+                "summary_count": 49,
+                "health": {"status": "ok", "reasons": []},
+            },
+        }
+        retry, reason = self._decide(payload, self._kst(6, 0))
+        self.assertEqual(retry, "yes", reason)
+        self.assertIn("49/50", reason)
+
+    def test_a_healthy_underfilled_sector_briefing_is_left_alone(self):
+        payload = {
+            "generated_at": "2026-09-25T04:30:00+09:00",
+            "collector": {
+                "summary_target": 47,
+                "summary_count": 47,
+                "health": {"status": "ok", "reasons": []},
+            },
+        }
+        retry, reason = self._decide(payload, self._kst(6, 0))
+        self.assertEqual(retry, "no", reason)
 
 
 class ModelRetryTests(unittest.TestCase):

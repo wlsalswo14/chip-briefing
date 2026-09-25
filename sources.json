@@ -144,7 +144,8 @@
       "삼성전자 파운드리",
       "SK하이닉스 HBM",
       "TSMC 패키징",
-      "ASML EUV"
+      "ASML EUV",
+      "반도체 신제품 칩 소프트웨어 AI 서버 발표"
     ],
     "en": [
       "HBM OR HBM4 OR HBM4E",
@@ -152,6 +153,7 @@
       "High NA EUV OR GAA OR nanosheet OR 2nm",
       "AI accelerator OR ASIC OR GPU OR NPU",
       "EDA OR chiplet OR interconnect",
+      "semiconductor product launch OR chip launch OR SDK OR AI server platform",
       "TSMC OR Samsung Foundry OR SK hynix OR ASML OR Micron"
     ]
   },
@@ -159,6 +161,7 @@
     "설계": ["ASIC", "GPU", "NPU", "TPU", "RISC-V", "Arm", "EDA", "IP", "chiplet architecture", "interconnect", "NoC", "설계", "팹리스", "아키텍처", "칩렛", "가속기", "AI칩"],
     "공정": ["EUV", "High NA", "GAA", "nanosheet", "2nm", "3nm", "yield", "lithography", "etch", "deposition", "metrology", "파운드리", "수율", "노광", "식각", "증착", "박막", "웨이퍼", "미세화", "포토레지스트", "나노시트", "2나노", "3나노", "5나노", "1.4나노"],
     "소자": ["DRAM", "NAND", "HBM", "MRAM", "ReRAM", "CXL memory", "transistor", "cell", "leakage", "retention", "D램", "디램", "낸드", "메모리", "트랜지스터", "메모리 셀"],
-    "패키징": ["CoWoS", "2.5D", "3D packaging", "interposer", "hybrid bonding", "bump", "substrate", "chiplet", "advanced packaging", "패키징", "코워스", "본딩", "TSV", "인터포저", "유리기판", "범프", "어드밴스드 패키징", "OSAT"]
+    "패키징": ["CoWoS", "2.5D", "3D packaging", "interposer", "hybrid bonding", "bump", "substrate", "chiplet", "advanced packaging", "패키징", "코워스", "본딩", "TSV", "인터포저", "유리기판", "범프", "어드밴스드 패키징", "OSAT"],
+    "신제품/발표": ["product launch", "chip launch", "new processor", "SDK", "compiler", "AI server", "rack-scale", "data center platform", "신제품", "신규 칩", "AI 서버", "데이터센터 인프라", "소프트웨어 플랫폼", "정식 출시"]
   }
 }

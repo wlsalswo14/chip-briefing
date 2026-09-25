@@ -18,7 +18,7 @@ archive/YYYY-MM-DD.json    날짜별 브리핑 스냅샷
 collect_news.py            수집·중복 제거·요약·점수화 파이프라인
 ```
 
-HTML에는 뉴스 데이터가 중복 삽입되지 않습니다. 메인과 아카이브는 각각 JSON을 불러옵니다. 뉴스 TOP 10은 `daily_summary_article_ids`, 커뮤니티 TOP 10은 `community_top10_ids`를 우선 사용하며 오래된 스냅샷에서는 점수와 최신순으로 보완합니다.
+HTML에는 뉴스 데이터가 중복 삽입되지 않습니다. 메인과 아카이브는 각각 JSON을 불러옵니다. 수집된 뉴스 제목은 먼저 Gemma가 설계·공정·소자·패키징·신제품/발표로 분류하고 제목 중요도를 매깁니다. `신제품/발표`에는 새 칩·제품·장비·SW·SDK·컴파일러·플랫폼·AI 서버·랙·데이터센터 인프라·솔루션의 출시, 공개, 발표 또는 제품 로드맵 뉴스가 들어갑니다. 10개 미만인 카테고리가 있으면 해당 카테고리 전용 검색어로 Naver News API와 Google News RSS에서 최대 3회 추가 수집합니다. 이후 Gemma 제목 중요도 순으로 카테고리별 최대 10개를 본문 요약하고 `summary_article_ids`에 저장합니다. 같은 카테고리의 후보가 10개를 넘으면 상세 요약에 들지 않은 나머지를 `headline_article_ids`에 저장해 제목과 원문 링크만 표시합니다. 후보가 10개 이하인 카테고리는 제목 전용 뉴스로 채우지 않습니다. Daily Summary TOP 10은 상세 기사 중 본문 기반 중요도와 최신순으로 선정하고, 커뮤니티 TOP 10은 `community_top10_ids`를 사용합니다.
 
 ## 로컬 실행
 
@@ -37,7 +37,7 @@ python -m http.server 4173 --bind 127.0.0.1
 python collect_news.py
 ```
 
-환경 변수 예시는 `.env.example`을 참고합니다. 실제 키와 Secret은 저장소에 커밋하지 않습니다. Reddit 수집에는 `REDDIT_CLIENT_ID`, `REDDIT_CLIENT_SECRET`, `REDDIT_USER_AGENT`가 필요합니다.
+환경 변수 예시는 `.env.example`을 참고합니다. 실제 키와 Secret은 저장소에 커밋하지 않습니다. 제목 분류는 기본 20개 배치로 처리하고, 부족 카테고리 추가 수집은 기본 3회, API 검색 결과는 쿼리당 기본 20개입니다. 5개 카테고리의 상세 목표는 각각 10개이므로 정상적인 최대 상세 기사 수는 50개입니다. 후보가 10개를 넘는 카테고리의 초과분은 요약하지 않고 제목-only 원문 링크로 게시합니다. 추가 수집 후 실제 후보가 더 적으면 상세 목표값도 그 수만큼 낮아집니다. 후보가 충분한데 본문 요약 실패로 목표를 못 채운 실행만 `degraded` 상태로 기록되어 다음 자동 실행에서 재시도됩니다. Reddit 수집에는 `REDDIT_CLIENT_ID`, `REDDIT_CLIENT_SECRET`, `REDDIT_USER_AGENT`가 필요합니다.
 
 커뮤니티 수집 경로는 다음과 같습니다.
 

@@ -87,8 +87,65 @@ export function sortByImportance(items) {
   });
 }
 
-export function selectDailyTopTen(data) {
+export function selectDetailedArticles(data) {
   const articles = Array.isArray(data.articles) ? data.articles : [];
+  const byId = new Map(articles.map((article) => [article.id, article]));
+  const preferredIds = Array.isArray(data.summary_article_ids) ? data.summary_article_ids : [];
+  const selected = [];
+  const seen = new Set();
+
+  for (const id of preferredIds) {
+    const article = byId.get(id);
+    if (article && article.summary_method === "llm" && !seen.has(id)) {
+      selected.push(article);
+      seen.add(id);
+    }
+  }
+  for (const article of sortByImportance(articles.filter((item) => item.summary_method === "llm"))) {
+    if (!seen.has(article.id)) {
+      selected.push(article);
+      seen.add(article.id);
+    }
+  }
+
+  const configuredTarget = Number(data.collector?.summary_target || 0);
+  return configuredTarget > 0 ? selected.slice(0, configuredTarget) : selected;
+}
+
+export function selectHeadlineArticles(data) {
+  const articles = Array.isArray(data.articles) ? data.articles : [];
+  const byId = new Map(articles.map((article) => [article.id, article]));
+  const preferredIds = Array.isArray(data.headline_article_ids) ? data.headline_article_ids : [];
+  const selected = [];
+  const seen = new Set();
+
+  for (const id of preferredIds) {
+    const article = byId.get(id);
+    if (article && article.summary_method !== "llm" && !seen.has(id)) {
+      selected.push(article);
+      seen.add(id);
+    }
+  }
+  const fallback = articles
+    .filter((article) => article.publication_mode === "headline")
+    .sort((a, b) => {
+      const scoreDifference = Number(b.title_importance_score || b.importance_score || 0)
+        - Number(a.title_importance_score || a.importance_score || 0);
+      if (scoreDifference) return scoreDifference;
+      return String(b.created_at || "").localeCompare(String(a.created_at || ""));
+    });
+  for (const article of fallback) {
+    if (!seen.has(article.id)) {
+      selected.push(article);
+      seen.add(article.id);
+    }
+  }
+  return selected;
+}
+
+export function selectDailyTopTen(data) {
+  const articles = (Array.isArray(data.articles) ? data.articles : [])
+    .filter((article) => article.summary_method === "llm");
   const byId = new Map(articles.map((article) => [article.id, article]));
   const preferredIds = Array.isArray(data.daily_summary_article_ids) ? data.daily_summary_article_ids : [];
   const selected = [];

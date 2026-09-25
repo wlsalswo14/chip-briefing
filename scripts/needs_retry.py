@@ -33,14 +33,19 @@ def decide(now: dt.datetime | None = None) -> tuple[str, str]:
 
     generated = str(data.get("generated_at") or "")
     today = now.strftime("%Y-%m-%d")
-    health = (data.get("collector") or {}).get("health") or {}
+    collector = data.get("collector") or {}
+    health = collector.get("health") or {}
     status = str(health.get("status") or "ok")
+    summary_target = int(collector.get("summary_target") or 0)
+    summary_count = int(collector.get("summary_count") or 0)
 
     if generated[:10] != today:
         return "yes", f"오늘 브리핑이 아직 없음 (마지막: {generated[:10] or '알 수 없음'})"
+    if summary_target and summary_count < summary_target:
+        return "yes", f"상세 요약 부족 ({summary_count}/{summary_target})"
     if not health:
         # 이전 버전이 만든 데이터: 로그에서 실패 흔적을 찾는다.
-        logs = (data.get("collector") or {}).get("logs") or []
+        logs = collector.get("logs") or []
         broken = [
             str(line)
             for line in logs

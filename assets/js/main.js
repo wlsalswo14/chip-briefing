@@ -10,8 +10,10 @@ import {
   safeUrl,
   selectCommunityTopTen,
   selectDailyTopTen,
+  selectDetailedArticles,
+  selectHeadlineArticles,
   sortByImportance,
-} from "./shared.js?v=4";
+} from "./shared.js?v=7";
 
 (async function () {
 
@@ -29,7 +31,7 @@ import {
     return;
   }
 
-  const sectors = ["전체"].concat(data.sectors || ["설계", "공정", "소자", "패키징"]);
+  const sectors = ["전체"].concat(data.sectors || ["설계", "공정", "소자", "패키징", "신제품/발표"]);
   const communityFilters = [
     { key: "all", label: "전체" },
     { key: "domestic", label: "국내 커뮤니티" },
@@ -44,6 +46,10 @@ import {
   let summaryReturnItem = null;
   let summaryReturnScrollTop = 0;
   const articles = Array.isArray(data.articles) ? data.articles : [];
+  const detailedArticles = selectDetailedArticles(data);
+  const detailedIds = new Set(detailedArticles.map((article) => article.id));
+  const headlineArticles = selectHeadlineArticles(data);
+  const headlineIds = new Set(headlineArticles.map((article) => article.id));
   const communityItems = selectCommunityTopTen(data);
   const byId = Object.fromEntries(articles.concat(communityItems).map((a) => [a.id, a]));
   $("updated").textContent = fmtUpdated(data.generated_at);
@@ -188,16 +194,15 @@ import {
     if (!a) return `<div class="empty">표시할 뉴스가 없습니다.</div>`;
     const className = variant === "lead" ? "story story-lead" : variant === "latest" ? "story latest-item" : "story story-secondary";
     const heading = variant === "lead" ? "h2" : "h3";
-    const summary = variant === "latest" ? "" : `<p class="${variant === "lead" ? "lede" : ""}">${esc(excerpt(a.body, variant === "lead" ? 520 : 380, 5))}</p>`;
-    const link = variant === "latest" ? "" : sourceLink(a);
+    const summaryLimit = variant === "lead" ? 520 : variant === "latest" ? 180 : 380;
+    const summaryLines = variant === "latest" ? 2 : 5;
+    const summary = `<p class="${variant === "lead" ? "lede" : ""}">${esc(excerpt(a.body, summaryLimit, summaryLines))}</p>`;
     return `<article class="${className}" data-id="${esc(a.id)}" role="button" tabindex="0">
       <div class="meta">${badge(a)}</div>
       <${heading}>${esc(a.headline)}</${heading}>
-      ${summary}${link}
+      ${summary}${sourceLink(a)}
     </article>`;
   }
-  // Everything outside the TOP 10 is published as a headline that links
-  // straight to the original article.
   function titleRow(a) {
     const href = safeUrl(a.source_url);
     const tag = href ? "a" : "div";
@@ -208,6 +213,19 @@ import {
       <div class="feed-title">${esc(a.headline || "제목 없음")}</div>
       <div class="feed-link">원문 보기 →</div>
     </${tag}>`;
+  }
+  function summaryRow(a) {
+    const score = Number(a.importance_score || a.importance || 0);
+    const scoreLabel = score ? `<span class="weight">W${score}</span>` : "";
+    return `<article class="feed-row summary-feed-row" data-id="${esc(a.id)}" role="button" tabindex="0">
+      <div class="meta"><span class="sector">${esc(a.sector || "반도체")}</span>${scoreLabel}</div>
+      <div class="feed-source">${esc(a.source_name || "출처 미상")}<br>${esc(fmt(a.created_at, true))}</div>
+      <div>
+        <div class="feed-title">${esc(a.headline || "제목 없음")}</div>
+        <div class="feed-summary">${esc(excerpt(a.body, 520, 5))}</div>
+      </div>
+      <div class="feed-link">${sourceLink(a)}</div>
+    </article>`;
   }
   function communityTopTenItem(a, index) {
     const score = Number(a.community_score || 0);
@@ -243,19 +261,33 @@ import {
       ? `${para(data.daily_summary)}<span class="summary-note">중요도 점수 상위 10개 기사 기준</span>`
       : `<p>오늘의 주요 기사를 정리 중입니다.</p><span class="summary-note">중요도 점수 상위 10개 기사 기준</span>`;
     const rows = sortRows(visibleArticles());
-    // 전체 탭은 데일리 TOP 10을, 섹터 탭은 그 섹터에서 요약된 10개를 카드로 보여준다.
-    const dailyIds = new Set(Array.isArray(data.daily_summary_article_ids) ? data.daily_summary_article_ids : []);
-    const summarized = rows.filter((a) => a.summary_method === "llm" && (activeSector === "전체" ? dailyIds.has(a.id) : true));
-    // 10개를 넘는 요약분은 아래 목록으로 내려보낸다.
+    const summarized = rows.filter((article) => detailedIds.has(article.id));
+    const headlineOnly = rows.filter((article) => headlineIds.has(article.id));
     const shownSummaries = summarized.slice(0, 10);
-    const summarizedIds = new Set(shownSummaries.map((a) => a.id));
-    const rest = rows.filter((a) => !summarizedIds.has(a.id));
-    $("top").innerHTML = summarized.length
-      ? storyCard(summarized[0], "lead")
+    const extraSummaries = summarized.slice(10);
+
+    $("top").innerHTML = shownSummaries.length
+      ? storyCard(shownSummaries[0], "lead")
       : `<div class="empty">이 섹터에 요약된 뉴스가 없습니다.</div>`;
-    $("main").innerHTML = summarized.slice(1, 4).map((a) => storyCard(a, "secondary")).join("") || `<div class="empty">이 섹터의 추가 브리핑이 없습니다.</div>`;
-    $("side").innerHTML = summarized.slice(4, 10).map((a) => storyCard(a, "latest")).join("") || `<div class="empty">추가 뉴스가 없습니다.</div>`;
-    $("more-news").innerHTML = rest.map(titleRow).join("") || `<div class="empty">표시할 추가 뉴스가 없습니다.</div>`;
+    $("main").innerHTML = shownSummaries.slice(1, 4).map((a) => storyCard(a, "secondary")).join("") || `<div class="empty">이 섹터의 추가 브리핑이 없습니다.</div>`;
+    $("side").innerHTML = shownSummaries.slice(4, 10).map((a) => storyCard(a, "latest")).join("") || `<div class="empty">추가 뉴스가 없습니다.</div>`;
+
+    const groups = [];
+    if (extraSummaries.length) {
+      groups.push(`<div class="more-news-group">
+        <h3>추가 요약 뉴스 · ${extraSummaries.length}</h3>
+        ${extraSummaries.map(summaryRow).join("")}
+      </div>`);
+    }
+    if (headlineOnly.length) {
+      groups.push(`<div class="more-news-group">
+        <h3>제목 뉴스 · ${headlineOnly.length}</h3>
+        ${headlineOnly.map(titleRow).join("")}
+      </div>`);
+    }
+    const scope = activeSector === "전체" ? "전체" : activeSector;
+    $("more-news-title").textContent = `${scope} 뉴스 · 요약 ${summarized.length}개 · 제목 ${headlineOnly.length}개`;
+    $("more-news").innerHTML = groups.join("") || `<div class="empty">표시할 추가 뉴스가 없습니다.</div>`;
   }
   function renderCommunity() {
     renderFilters();
