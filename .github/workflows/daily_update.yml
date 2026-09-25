@@ -2,8 +2,10 @@ name: Daily Chip Briefing Update
 
 on:
   schedule:
-    # Starts at 20:00 UTC (05:00 KST) so the briefing is ready by ~06:00 KST.
-    - cron: '0 20 * * *'
+    # Starts at 17:47 UTC (02:47 KST). GitHub fires scheduled runs 40-170
+    # minutes late on this repo, and the run itself takes 20-70 minutes, so the
+    # briefing is built around 04:00-06:00 KST instead of showing up at 09:00.
+    - cron: '47 17 * * *'
     # Hourly check: runs the collector again only when today's briefing is
     # missing or degraded, so a bad hour on the model host is retried.
     - cron: '0 * * * *'
@@ -52,7 +54,7 @@ jobs:
           CHIP_BRIEFING_LLM_TIMEOUT: "90"
           CHIP_BRIEFING_LLM_BUDGET_SECONDS: "7200"
           CHIP_BRIEFING_DAILY_SUMMARY_MAX_ITEMS: "10"
-          CHIP_BRIEFING_WINDOW_END_HOUR: "5"
+          CHIP_BRIEFING_WINDOW_END_HOUR: "2"
           CHIP_BRIEFING_MAX_COMMUNITY_ITEMS: "10"
           CHIP_BRIEFING_COMMUNITY_CANDIDATE_LIMIT: "20"
           CHIP_BRIEFING_COMMUNITY_BATCH_SIZE: "4"

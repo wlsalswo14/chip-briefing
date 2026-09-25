@@ -94,7 +94,7 @@ LLM_BUDGET_SECONDS = int(os.environ.get("CHIP_BRIEFING_LLM_BUDGET_SECONDS", "720
 DAILY_SUMMARY_MAX_ITEMS = int(os.environ.get("CHIP_BRIEFING_DAILY_SUMMARY_MAX_ITEMS", "10"))
 # The daily briefing covers the 24 hours ending at this Seoul hour, which is
 # also when the scheduled run starts.
-WINDOW_END_HOUR = int(os.environ.get("CHIP_BRIEFING_WINDOW_END_HOUR", "5"))
+WINDOW_END_HOUR = int(os.environ.get("CHIP_BRIEFING_WINDOW_END_HOUR", "2"))
 # Community posts are summarized in one model call, so the pool is kept small
 # enough that five lines per post fit in a single response.
 COMMUNITY_PROMPT_MAX_ITEMS = int(os.environ.get("CHIP_BRIEFING_COMMUNITY_PROMPT_MAX_ITEMS", "12"))

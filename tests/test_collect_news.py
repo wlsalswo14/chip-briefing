@@ -1,4 +1,5 @@
 import datetime as dt
+import importlib.util
 import json
 import re
 import tempfile
@@ -60,15 +61,18 @@ class CommunityParserTests(unittest.TestCase):
 class CommunityWindowTests(unittest.TestCase):
     def test_briefing_window_ends_at_the_scheduled_seoul_hour(self):
         kst = dt.timezone(dt.timedelta(hours=9))
-        start, end = collector.briefing_window(dt.datetime(2026, 8, 23, 5, 30, tzinfo=kst))
-        self.assertEqual(start, dt.datetime(2026, 8, 22, 5, 0, tzinfo=kst))
-        self.assertEqual(end, dt.datetime(2026, 8, 23, 5, 0, tzinfo=kst))
+        hour = collector.WINDOW_END_HOUR
+        start, end = collector.briefing_window(dt.datetime(2026, 8, 23, hour, 30, tzinfo=kst))
+        self.assertEqual(start, dt.datetime(2026, 8, 22, hour, 0, tzinfo=kst))
+        self.assertEqual(end, dt.datetime(2026, 8, 23, hour, 0, tzinfo=kst))
 
     def test_briefing_window_before_the_run_hour_uses_the_previous_day(self):
         kst = dt.timezone(dt.timedelta(hours=9))
-        start, end = collector.briefing_window(dt.datetime(2026, 8, 23, 4, 0, tzinfo=kst))
-        self.assertEqual(start, dt.datetime(2026, 8, 21, 5, 0, tzinfo=kst))
-        self.assertEqual(end, dt.datetime(2026, 8, 22, 5, 0, tzinfo=kst))
+        hour = collector.WINDOW_END_HOUR
+        before = dt.datetime(2026, 8, 23, hour, 0, tzinfo=kst) - dt.timedelta(minutes=30)
+        start, end = collector.briefing_window(before)
+        self.assertEqual(start, dt.datetime(2026, 8, 21, hour, 0, tzinfo=kst))
+        self.assertEqual(end, dt.datetime(2026, 8, 22, hour, 0, tzinfo=kst))
 
     def test_estimated_date_item_bypasses_exact_window(self):
         item = collector.make_article(
@@ -595,6 +599,57 @@ class CommunityPostReadTests(unittest.TestCase):
             collector.read_community_posts([item], logs)
         self.assertEqual(item["body"], "검색 스니펫 한 줄")
         self.assertTrue(any("community post skip: clien (TimeoutError)" in line for line in logs), logs)
+
+
+class RetryGuardTests(unittest.TestCase):
+    """The hourly cron must not build today's briefing before its cutoff hour."""
+
+    @classmethod
+    def setUpClass(cls):
+        path = Path(collector.__file__).resolve().parent / "scripts" / "needs_retry.py"
+        spec = importlib.util.spec_from_file_location("needs_retry", path)
+        cls.needs_retry = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(cls.needs_retry)
+
+    def _decide(self, payload, when):
+        with tempfile.TemporaryDirectory() as directory:
+            articles = Path(directory) / "articles.json"
+            articles.write_text(json.dumps(payload), encoding="utf-8")
+            with mock.patch.object(self.needs_retry, "ARTICLES", articles):
+                return self.needs_retry.decide(now=when)
+
+    def _kst(self, hour, minute=0):
+        return dt.datetime(2026, 9, 25, hour, minute, tzinfo=dt.timezone(dt.timedelta(hours=9)))
+
+    def _healthy(self, generated):
+        return {
+            "generated_at": generated,
+            "collector": {"health": {"status": "ok", "reasons": []}},
+        }
+
+    def test_before_the_cutoff_hour_the_guard_waits(self):
+        payload = self._healthy("2026-09-24T07:00:00+09:00")
+        retry, reason = self._decide(payload, self._kst(1, 30))
+        self.assertEqual(retry, "no", reason)
+        self.assertIn("전이라 대기", reason)
+
+    def test_after_the_cutoff_a_missing_briefing_is_rebuilt(self):
+        payload = self._healthy("2026-09-24T07:00:00+09:00")
+        retry, reason = self._decide(payload, self._kst(3, 0))
+        self.assertEqual(retry, "yes", reason)
+
+    def test_a_healthy_briefing_from_today_is_left_alone(self):
+        payload = self._healthy("2026-09-25T04:30:00+09:00")
+        retry, reason = self._decide(payload, self._kst(6, 0))
+        self.assertEqual(retry, "no", reason)
+
+    def test_a_degraded_briefing_is_rebuilt(self):
+        payload = {
+            "generated_at": "2026-09-25T04:30:00+09:00",
+            "collector": {"health": {"status": "degraded", "reasons": ["community summary failed"]}},
+        }
+        retry, reason = self._decide(payload, self._kst(6, 0))
+        self.assertEqual(retry, "yes", reason)
 
 
 class ModelRetryTests(unittest.TestCase):

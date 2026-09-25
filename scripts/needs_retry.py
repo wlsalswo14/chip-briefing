@@ -16,16 +16,23 @@ ARTICLES = ROOT / "articles.json"
 KST = dt.timezone(dt.timedelta(hours=9))
 
 
-def decide() -> tuple[str, str]:
+def decide(now: dt.datetime | None = None) -> tuple[str, str]:
     if os.environ.get("CHIP_BRIEFING_FORCE", "").strip().lower() in {"1", "true", "yes"}:
         return "yes", "수동 실행 (force)"
+    # The briefing window ends at WINDOW_END_HOUR KST. Before that hour there is
+    # no "today" to build yet: a run now would publish yesterday's window under
+    # today's date, and the guard would then leave it alone all day.
+    window_end_hour = int(os.environ.get("CHIP_BRIEFING_WINDOW_END_HOUR", "2") or "2")
+    now = now or dt.datetime.now(KST)
+    if now.hour < window_end_hour:
+        return "no", f"브리핑 기준 시각({window_end_hour}시) 전이라 대기"
     try:
         data = json.loads(ARTICLES.read_text(encoding="utf-8"))
     except Exception as exc:
         return "yes", f"articles.json 읽기 실패 ({type(exc).__name__})"
 
     generated = str(data.get("generated_at") or "")
-    today = dt.datetime.now(KST).strftime("%Y-%m-%d")
+    today = now.strftime("%Y-%m-%d")
     health = (data.get("collector") or {}).get("health") or {}
     status = str(health.get("status") or "ok")
 
