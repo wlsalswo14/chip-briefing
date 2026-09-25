@@ -101,6 +101,10 @@ COMMUNITY_PROMPT_MAX_ITEMS = int(os.environ.get("CHIP_BRIEFING_COMMUNITY_PROMPT_
 # 커뮤니티 요약은 한 번에 다 처리하지 않고 배치로 나눠 호출한다.
 # 한 배치가 실패해도 나머지 글은 요약을 유지한다.
 COMMUNITY_PROMPT_BATCH_SIZE = int(os.environ.get("CHIP_BRIEFING_COMMUNITY_BATCH_SIZE", "4"))
+# The community prompt is the heaviest call of the run, and a model host that
+# is down must not stall the whole job, so it gets its own timeout and budget.
+COMMUNITY_LLM_TIMEOUT = int(os.environ.get("CHIP_BRIEFING_COMMUNITY_TIMEOUT", "150"))
+COMMUNITY_BUDGET_SECONDS = int(os.environ.get("CHIP_BRIEFING_COMMUNITY_BUDGET_SECONDS", "1800"))
 
 EDITORIAL_PRIORITY_PROMPT = """
 You are the semiconductor briefing editor. Read the article context and assign importance_score by editorial impact, not by simple keyword matching.
@@ -1490,11 +1494,11 @@ def enrich_community_reactions(items: list[dict], logs: list[str]) -> tuple[list
                 "messages": [{"role": "user", "content": user_text}],
             }
         try:
-            data = post_json(endpoint, payload, headers=headers, timeout=LLM_TIMEOUT)
+            data = post_json(endpoint, payload, headers=headers, timeout=COMMUNITY_LLM_TIMEOUT)
         except Exception:
             # Give the model host a second chance before giving up on this batch.
             time.sleep(5.0)
-            data = post_json(endpoint, payload, headers=headers, timeout=LLM_TIMEOUT)
+            data = post_json(endpoint, payload, headers=headers, timeout=COMMUNITY_LLM_TIMEOUT)
         if is_native_gemini:
             parts = data["candidates"][0]["content"]["parts"]
             content = "".join([p["text"] for p in parts if not p.get("thought")])
@@ -1507,17 +1511,10 @@ def enrich_community_reactions(items: list[dict], logs: list[str]) -> tuple[list
     batches = [items[index:index + batch_size] for index in range(0, len(items), batch_size)]
     rows_by_id: dict[str, dict] = {}
     summary_lines: list[str] = []
-    failed_batches = 0
-    for index, batch in enumerate(batches, 1):
-        try:
-            parsed = summarize_batch(batch)
-        except Exception as exc:
-            failed_batches += 1
-            logs.append(
-                f"community reaction summary skip: batch {index}/{len(batches)} "
-                f"({type(exc).__name__}: {exc})"
-            )
-            continue
+    failed_items: list[tuple[dict, Exception]] = []
+    deadline = time.monotonic() + COMMUNITY_BUDGET_SECONDS
+
+    def merge(parsed: dict) -> None:
         for row in parsed.get("items", []):
             if isinstance(row, dict) and row.get("id"):
                 rows_by_id[str(row["id"])] = row
@@ -1526,8 +1523,48 @@ def enrich_community_reactions(items: list[dict], logs: list[str]) -> tuple[list
             summary_lines.extend(
                 clean_text(str(line)) for line in parsed_lines if clean_text(str(line))
             )
-    if failed_batches:
-        logs.append(f"community reaction summary: {failed_batches} of {len(batches)} batches failed")
+
+    def attempt(batch: list[dict]) -> None:
+        """Summarize a batch, halving it whenever the model host refuses.
+
+        A batch used to be all or nothing, so two bad calls in a row cost every
+        community summary of the day. Splitting keeps whatever the host will
+        still answer for, and only the posts that never came back are reported
+        as failed.
+        """
+        if time.monotonic() > deadline:
+            failed_items.extend(
+                (item, TimeoutError("community summary budget exhausted")) for item in batch
+            )
+            return
+        try:
+            merge(summarize_batch(batch))
+            return
+        except Exception as exc:
+            if len(batch) <= 1:
+                failed_items.append((batch[0], exc))
+                return
+            mid = max(1, len(batch) // 2)
+            logs.append(
+                f"community reaction summary retry: splitting {len(batch)} posts "
+                f"into {mid}+{len(batch) - mid} ({type(exc).__name__})"
+            )
+            time.sleep(2.0)
+            attempt(batch[:mid])
+            attempt(batch[mid:])
+
+    for batch in batches:
+        attempt(batch)
+
+    for item, exc in failed_items:
+        logs.append(
+            f"community reaction summary skip: {str(item.get('headline', ''))[:40]} "
+            f"({type(exc).__name__}: {exc})"
+        )
+    if failed_items:
+        logs.append(
+            f"community reaction summary: {len(failed_items)} of {len(items)} posts failed"
+        )
 
     for item in items:
         row = rows_by_id.get(str(item.get("id", "")), {})
@@ -2071,7 +2108,13 @@ def generate_collection_summary(items: list[dict], logs: list[str], kind: str) -
                 "max_tokens": 4000,
                 "messages": [{"role": "user", "content": user_text}],
             }
-        data = post_json(endpoint, payload, headers=headers, timeout=LLM_TIMEOUT)
+        try:
+            data = post_json(endpoint, payload, headers=headers, timeout=LLM_TIMEOUT)
+        except Exception:
+            # The model host throws transient 500s, and one more try is cheap
+            # next to losing the whole day's summary.
+            time.sleep(5.0)
+            data = post_json(endpoint, payload, headers=headers, timeout=LLM_TIMEOUT)
         if is_native_gemini:
             candidate = data["candidates"][0]
             parts = candidate.get("content", {}).get("parts", [])

@@ -401,8 +401,85 @@ class CommunityBatchingTests(unittest.TestCase):
         ):
             rows, _ = collector.enrich_community_reactions(items, logs)
 
-        self.assertTrue(any("batch 1/" in line for line in logs), logs)
         self.assertTrue(any(item.get("summary_method") == "llm" for item in rows))
+        self.assertTrue(
+            any(line.startswith("community reaction summary") for line in logs), logs
+        )
+
+    def test_a_failed_batch_is_split_and_most_posts_are_still_saved(self):
+        items = self._items()
+        calls = {"count": 0}
+
+        def flaky_post_json(url, payload, headers=None, timeout=None):
+            calls["count"] += 1
+            # The first batch fails at full size, then answers once split.
+            if calls["count"] <= 2:
+                raise urllib.error.HTTPError("https://example.test", 500, "boom", {}, None)
+            text = payload["contents"][0]["parts"][0]["text"]
+            ids = re.findall(r'"id": "(art-\d+)"', text)
+            rows = [
+                {
+                    "id": article_id,
+                    "topic": "t",
+                    "summary_lines": ["1", "2", "3", "4", "5"],
+                    "reaction_summary": "r",
+                    "community_score": 4,
+                }
+                for article_id in ids
+            ]
+            body = {"community_summary_lines": ["c"], "items": rows}
+            return {
+                "candidates": [
+                    {"content": {"parts": [{"text": json.dumps(body, ensure_ascii=False)}]}}
+                ]
+            }
+
+        logs = []
+        with (
+            mock.patch.object(collector, "post_json", side_effect=flaky_post_json),
+            mock.patch.object(
+                collector, "LLM_BASE_URL", "https://generativelanguage.googleapis.com/v1beta/openai"
+            ),
+            mock.patch.object(collector, "LLM_MODEL", "gemma-4-31b-it"),
+            mock.patch.object(collector, "LLM_API_KEYS", ["test-key"]),
+            mock.patch.object(collector.time, "sleep"),
+        ):
+            rows, _ = collector.enrich_community_reactions(items, logs)
+
+        self.assertTrue(
+            any("community reaction summary retry: splitting" in line for line in logs), logs
+        )
+        self.assertFalse(
+            any(line.startswith("community reaction summary skip") for line in logs), logs
+        )
+        # finalize() keeps only the top posts, so every surviving row must be a
+        # real summary rather than the raw post text.
+        self.assertTrue(rows)
+        for item in rows:
+            self.assertEqual(item.get("summary_method"), "llm", item.get("headline"))
+
+    def test_a_dead_model_host_names_the_posts_it_could_not_summarize(self):
+        items = self._items()
+
+        def dead_post_json(url, payload, headers=None, timeout=None):
+            raise urllib.error.HTTPError("https://example.test", 500, "boom", {}, None)
+
+        logs = []
+        with (
+            mock.patch.object(collector, "post_json", side_effect=dead_post_json),
+            mock.patch.object(
+                collector, "LLM_BASE_URL", "https://generativelanguage.googleapis.com/v1beta/openai"
+            ),
+            mock.patch.object(collector, "LLM_MODEL", "gemma-4-31b-it"),
+            mock.patch.object(collector, "LLM_API_KEYS", ["test-key"]),
+            mock.patch.object(collector.time, "sleep"),
+        ):
+            rows, _ = collector.enrich_community_reactions(items, logs)
+
+        skipped = [line for line in logs if line.startswith("community reaction summary skip")]
+        self.assertEqual(len(skipped), len(items), logs)
+        self.assertTrue(any("12 of 12 posts failed" in line for line in logs), logs)
+        self.assertFalse(any(item.get("summary_method") == "llm" for item in rows))
 
 
 class ModelRetryTests(unittest.TestCase):
