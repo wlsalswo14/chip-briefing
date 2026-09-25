@@ -616,6 +616,19 @@
     font-family: var(--serif);
     font-size: 12px;
   }
+  /* 서버 문제로 브리핑이 불완전할 때 띄우는 안내 */
+  .site-notice {
+    width: min(var(--content), calc(100% - 32px));
+    margin: 16px auto 0;
+    padding: 12px 16px;
+    border-left: 3px solid var(--accent);
+    background: var(--wash);
+    color: #2a2a2a;
+    font-family: var(--sans);
+    font-size: 13px;
+    line-height: 1.7;
+  }
+  .site-notice[hidden] { display: none; }
 
   /* Manifesto page */
   .manifesto {

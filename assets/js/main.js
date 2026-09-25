@@ -48,6 +48,32 @@ import {
   const byId = Object.fromEntries(articles.concat(communityItems).map((a) => [a.id, a]));
   $("updated").textContent = fmtUpdated(data.generated_at);
 
+  // 브리핑이 불완전하거나 오늘 것이 아니면 안내를 띄운다.
+  function renderNotice() {
+    const notice = $("site-notice");
+    if (!notice) return;
+    const health = (data.collector && data.collector.health) || {};
+    const messages = [];
+    // health 필드가 없는 예전 데이터는 로그에서 실패 흔적을 찾는다.
+    const logs = (data.collector && data.collector.logs) || [];
+    const loggedFailure = logs.some((line) =>
+      String(line).startsWith("daily summary skip") || String(line).startsWith("community reaction summary skip")
+    );
+    if ((health.status && health.status !== "ok") || (!health.status && loggedFailure)) {
+      messages.push("서버에 문제가 있어요. 최신 브리핑을 다시 만드는 중입니다 — 잠시 후 새로고침해 주세요.");
+    }
+    const generated = new Date(data.generated_at);
+    if (!Number.isNaN(generated.getTime())) {
+      const today = new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Seoul" });
+      const shown = generated.toLocaleDateString("en-CA", { timeZone: "Asia/Seoul" });
+      if (today !== shown) {
+        messages.push("오늘 브리핑이 아직 준비되지 않았습니다. 이전 브리핑을 보여드립니다.");
+      }
+    }
+    notice.textContent = messages.join(" ");
+    notice.hidden = messages.length === 0;
+  }
+
   function badge(a) {
     const score = Number(a.importance_score || a.importance || 0);
     const scoreLabel = score ? `<span class="weight">W${score}</span>` : "";
@@ -64,7 +90,8 @@ import {
     const origin = communityOrigin(a);
     const label = origin === "reddit" ? "Reddit" : origin === "domestic" ? "국내 커뮤니티" : "글로벌 커뮤니티";
     const place = a.community_name || a.source_name || "커뮤니티";
-    const date = `${a.date_is_estimated ? "수집 " : ""}${fmt(a.created_at, true)}`;
+    // 수집 시각으로 대체된 글은 그렇다고 밝히고, 날짜까지 함께 보여준다.
+    const date = a.date_is_estimated ? `수집 ${fmt(a.created_at)}` : fmt(a.created_at);
     return `<span class="origin-label">${esc(label)}</span><span>${esc(place)}</span><span>${esc(date)}</span>`;
   }
   function sourceLink(a) {
@@ -309,6 +336,7 @@ import {
     if (e.target.id === "reader") closeReader();
   });
   window.addEventListener("hashchange", () => setView(location.hash === "#community" ? "community" : "news", false));
+  renderNotice();
   renderNews();
   renderCommunity();
   setView(activeView, false);

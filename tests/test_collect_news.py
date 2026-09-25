@@ -1,5 +1,6 @@
 import datetime as dt
 import json
+import re
 import tempfile
 import unittest
 import urllib.error
@@ -294,6 +295,114 @@ class SummaryFormattingTests(unittest.TestCase):
         self.assertEqual(len([item for item in picked if item["sector"] == "설계"]), 10)
         self.assertEqual(len([item for item in picked if item["sector"] == "공정"]), 1)
         self.assertEqual(len(picked), 11)
+
+
+class CommunityBatchingTests(unittest.TestCase):
+    def _items(self) -> list[dict]:
+        items = []
+        for source_index in range(3):
+            for index in range(4):
+                number = source_index * 4 + index
+                items.append(
+                    {
+                        "id": "art-%02d" % number,
+                        "headline": "커뮤니티 글 %d" % number,
+                        "body": "본문 스니펫입니다.",
+                        "source_name": "테스트 %d" % source_index,
+                        "source_url": "https://example.com/%d" % number,
+                        "category": "community",
+                        "raw_source_type": "community",
+                        "trust": "low",
+                        "community_score": 3,
+                        "created_at": "2026-09-25T07:00:00+09:00",
+                    }
+                )
+        return items
+
+    def test_community_posts_are_summarized_in_separate_batches(self):
+        items = self._items()
+        prompts = []
+
+        def fake_post_json(url, payload, headers=None, timeout=None):
+            text = payload["contents"][0]["parts"][0]["text"]
+            prompts.append(text)
+            ids = re.findall(r'"id": "(art-\d+)"', text)
+            rows = [
+                {
+                    "id": article_id,
+                    "topic": "주제",
+                    "summary_lines": ["첫째", "둘째", "셋째", "넷째", "다섯째"],
+                    "reaction_summary": "한 줄 요약",
+                    "community_score": 4,
+                }
+                for article_id in ids
+            ]
+            body = {"community_summary_lines": ["커뮤니티 요약"], "items": rows}
+            return {
+                "candidates": [
+                    {"content": {"parts": [{"text": json.dumps(body, ensure_ascii=False)}]}}
+                ]
+            }
+
+        with (
+            mock.patch.object(collector, "post_json", side_effect=fake_post_json),
+            mock.patch.object(
+                collector, "LLM_BASE_URL", "https://generativelanguage.googleapis.com/v1beta/openai"
+            ),
+            mock.patch.object(collector, "LLM_MODEL", "gemma-4-31b-it"),
+            mock.patch.object(collector, "LLM_API_KEYS", ["test-key"]),
+            mock.patch.object(collector.time, "sleep"),
+        ):
+            rows, _ = collector.enrich_community_reactions(items, [])
+
+        self.assertGreater(len(prompts), 1, "요약 요청이 배치로 나뉘어야 한다")
+        summarized = [item for item in rows if item.get("summary_method") == "llm"]
+        self.assertGreaterEqual(len(summarized), 8)
+        for item in summarized:
+            self.assertEqual(len((item.get("body") or "").split("\n")), 5)
+
+    def test_one_failed_batch_does_not_clear_the_others(self):
+        items = self._items()
+        calls = {"count": 0}
+
+        def flaky_post_json(url, payload, headers=None, timeout=None):
+            calls["count"] += 1
+            # 첫 배치는 재시도까지 두 번 모두 실패시킨다.
+            if calls["count"] <= 2:
+                raise urllib.error.HTTPError("https://example.test", 503, "busy", {}, None)
+            text = payload["contents"][0]["parts"][0]["text"]
+            ids = re.findall(r'"id": "(art-\d+)"', text)
+            rows = [
+                {
+                    "id": article_id,
+                    "topic": "주제",
+                    "summary_lines": ["첫째", "둘째", "셋째", "넷째", "다섯째"],
+                    "reaction_summary": "한 줄 요약",
+                    "community_score": 4,
+                }
+                for article_id in ids
+            ]
+            body = {"community_summary_lines": ["커뮤니티 요약"], "items": rows}
+            return {
+                "candidates": [
+                    {"content": {"parts": [{"text": json.dumps(body, ensure_ascii=False)}]}}
+                ]
+            }
+
+        logs = []
+        with (
+            mock.patch.object(collector, "post_json", side_effect=flaky_post_json),
+            mock.patch.object(
+                collector, "LLM_BASE_URL", "https://generativelanguage.googleapis.com/v1beta/openai"
+            ),
+            mock.patch.object(collector, "LLM_MODEL", "gemma-4-31b-it"),
+            mock.patch.object(collector, "LLM_API_KEYS", ["test-key"]),
+            mock.patch.object(collector.time, "sleep"),
+        ):
+            rows, _ = collector.enrich_community_reactions(items, logs)
+
+        self.assertTrue(any("batch 1/" in line for line in logs), logs)
+        self.assertTrue(any(item.get("summary_method") == "llm" for item in rows))
 
 
 class ModelRetryTests(unittest.TestCase):

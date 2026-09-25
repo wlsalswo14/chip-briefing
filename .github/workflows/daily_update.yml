@@ -4,6 +4,9 @@ on:
   schedule:
     # Starts at 20:00 UTC (05:00 KST) so the briefing is ready by ~06:00 KST.
     - cron: '0 20 * * *'
+    # Hourly check: runs the collector again only when today's briefing is
+    # missing or degraded, so a bad hour on the model host is retried.
+    - cron: '0 * * * *'
   workflow_dispatch: # Allows manual trigger from GitHub Actions tab
 
 permissions:
@@ -28,7 +31,12 @@ jobs:
       - name: Install image dependency
         run: python -m pip install --quiet --disable-pip-version-check pillow
 
+      - name: Check if the briefing needs another attempt
+        id: check
+        run: python scripts/needs_retry.py
+
       - name: Run collector
+        if: steps.check.outputs.retry == 'yes'
         env:
           CHIP_BRIEFING_LLM_API_KEY: ${{ secrets.GEMINI_API }}
           CHIP_BRIEFING_LLM_BASE_URL: https://generativelanguage.googleapis.com/v1beta/openai
@@ -52,6 +60,7 @@ jobs:
           python collect_news.py
 
       - name: Send Telegram Archive
+        if: steps.check.outputs.retry == 'yes'
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
@@ -59,6 +68,7 @@ jobs:
           python send_telegram_archive.py
 
       - name: Commit and Push changes
+        if: steps.check.outputs.retry == 'yes'
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"

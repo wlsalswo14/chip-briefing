@@ -98,6 +98,9 @@ WINDOW_END_HOUR = int(os.environ.get("CHIP_BRIEFING_WINDOW_END_HOUR", "5"))
 # Community posts are summarized in one model call, so the pool is kept small
 # enough that five lines per post fit in a single response.
 COMMUNITY_PROMPT_MAX_ITEMS = int(os.environ.get("CHIP_BRIEFING_COMMUNITY_PROMPT_MAX_ITEMS", "12"))
+# 커뮤니티 요약은 한 번에 다 처리하지 않고 배치로 나눠 호출한다.
+# 한 배치가 실패해도 나머지 글은 요약을 유지한다.
+COMMUNITY_PROMPT_BATCH_SIZE = int(os.environ.get("CHIP_BRIEFING_COMMUNITY_BATCH_SIZE", "4"))
 
 EDITORIAL_PRIORITY_PROMPT = """
 You are the semiconductor briefing editor. Read the article context and assign importance_score by editorial impact, not by simple keyword matching.
@@ -1424,19 +1427,6 @@ def enrich_community_reactions(items: list[dict], logs: list[str]) -> tuple[list
     if not llm_is_configured():
         return finalize(items)
 
-    prompt_items = [
-        {
-            "id": item.get("id", ""),
-            "title": item.get("headline", ""),
-            "source": item.get("source_name", ""),
-            "snippet": item.get("body", ""),
-            "url": item.get("source_url", ""),
-            "initial_score": item.get("community_score", 0),
-            "priority_reasons": item.get("priority_reasons", []),
-            "has_image": bool(item.get("has_image")),
-        }
-        for item in items
-    ]
     instruction = (
         "Return JSON only. Evaluate semiconductor community posts using only the supplied title and snippet. "
         "A post is not a comment corpus: summarize the viewpoint or tone expressed by the post, and never claim "
@@ -1460,7 +1450,21 @@ def enrich_community_reactions(items: list[dict], logs: list[str]) -> tuple[list
     )
     is_native_gemini = "generativelanguage.googleapis.com" in LLM_BASE_URL and "gemma" in LLM_MODEL.lower()
 
-    try:
+    def summarize_batch(batch: list[dict]) -> dict:
+        """One model call for a small group of posts."""
+        prompt_items = [
+            {
+                "id": item.get("id", ""),
+                "title": item.get("headline", ""),
+                "source": item.get("source_name", ""),
+                "snippet": item.get("body", ""),
+                "url": item.get("source_url", ""),
+                "initial_score": item.get("community_score", 0),
+                "priority_reasons": item.get("priority_reasons", []),
+                "has_image": bool(item.get("has_image")),
+            }
+            for item in batch
+        ]
         current_key = get_current_llm_key()
         headers: dict[str, str] = {}
         user_text = instruction + "\n\n" + json.dumps(prompt_items, ensure_ascii=False)
@@ -1488,8 +1492,7 @@ def enrich_community_reactions(items: list[dict], logs: list[str]) -> tuple[list
         try:
             data = post_json(endpoint, payload, headers=headers, timeout=LLM_TIMEOUT)
         except Exception:
-            # This is a single call for the whole briefing, so give the model
-            # host a second chance before falling back to a headline list.
+            # Give the model host a second chance before giving up on this batch.
             time.sleep(5.0)
             data = post_json(endpoint, payload, headers=headers, timeout=LLM_TIMEOUT)
         if is_native_gemini:
@@ -1497,45 +1500,61 @@ def enrich_community_reactions(items: list[dict], logs: list[str]) -> tuple[list
             content = "".join([p["text"] for p in parts if not p.get("thought")])
         else:
             content = data["choices"][0]["message"]["content"]
-        parsed = parse_llm_json(content)
-        by_id = {
-            str(row.get("id")): row
-            for row in parsed.get("items", [])
-            if isinstance(row, dict) and row.get("id")
-        }
-        for item in items:
-            row = by_id.get(str(item.get("id", "")), {})
-            topic = clean_text(str(row.get("topic", "")))
-            summary = clean_text(str(row.get("reaction_summary", "")))
-            lines = row.get("summary_lines")
-            if isinstance(lines, list):
-                body = "\n".join(clean_text(str(line)) for line in lines if clean_text(str(line)))
-                if body:
-                    item["body"] = body[:900]
-                    item["summary_method"] = "llm"
-                    item["summary_version"] = SUMMARY_PROMPT_VERSION
-            if topic:
-                item["topic"] = topic[:90]
-            if summary:
-                item["reaction_summary"] = summary
-            elif item.get("summary_method") == "llm":
-                # Keep the archive's one-line reaction in step with the summary.
-                item["reaction_summary"] = (item.get("body") or "").split("\n")[0]
-            if row.get("community_score") is not None:
-                item["community_score"] = clamp_importance_score(
-                    row.get("community_score"),
-                    int(item.get("community_score", 2) or 2),
-                )
-            item["llm_image_post"] = row.get("is_image_post") is True
-        summary_lines = parsed.get("community_summary_lines", [])
-        if isinstance(summary_lines, list):
-            sentiment = "\n".join(clean_text(str(line)) for line in summary_lines if clean_text(str(line)))
-        else:
-            sentiment = clean_text(str(summary_lines))
-        return finalize(items, sentiment)
-    except Exception as exc:
-        logs.append(f"community reaction summary skip: {type(exc).__name__}")
-        return finalize(items)
+        return parse_llm_json(content)
+
+    # 작은 배치로 나눠 호출한다. 한 배치가 실패해도 나머지는 요약을 유지한다.
+    batch_size = max(1, COMMUNITY_PROMPT_BATCH_SIZE)
+    batches = [items[index:index + batch_size] for index in range(0, len(items), batch_size)]
+    rows_by_id: dict[str, dict] = {}
+    summary_lines: list[str] = []
+    failed_batches = 0
+    for index, batch in enumerate(batches, 1):
+        try:
+            parsed = summarize_batch(batch)
+        except Exception as exc:
+            failed_batches += 1
+            logs.append(
+                f"community reaction summary skip: batch {index}/{len(batches)} "
+                f"({type(exc).__name__}: {exc})"
+            )
+            continue
+        for row in parsed.get("items", []):
+            if isinstance(row, dict) and row.get("id"):
+                rows_by_id[str(row["id"])] = row
+        parsed_lines = parsed.get("community_summary_lines", [])
+        if isinstance(parsed_lines, list):
+            summary_lines.extend(
+                clean_text(str(line)) for line in parsed_lines if clean_text(str(line))
+            )
+    if failed_batches:
+        logs.append(f"community reaction summary: {failed_batches} of {len(batches)} batches failed")
+
+    for item in items:
+        row = rows_by_id.get(str(item.get("id", "")), {})
+        topic = clean_text(str(row.get("topic", "")))
+        summary = clean_text(str(row.get("reaction_summary", "")))
+        lines = row.get("summary_lines")
+        if isinstance(lines, list):
+            body = "\n".join(clean_text(str(line)) for line in lines if clean_text(str(line)))
+            if body:
+                item["body"] = body[:900]
+                item["summary_method"] = "llm"
+                item["summary_version"] = SUMMARY_PROMPT_VERSION
+        if topic:
+            item["topic"] = topic[:90]
+        if summary:
+            item["reaction_summary"] = summary
+        elif item.get("summary_method") == "llm":
+            # Keep the archive's one-line reaction in step with the summary.
+            item["reaction_summary"] = (item.get("body") or "").split("\n")[0]
+        if row.get("community_score") is not None:
+            item["community_score"] = clamp_importance_score(
+                row.get("community_score"),
+                int(item.get("community_score", 2) or 2),
+            )
+        item["llm_image_post"] = row.get("is_image_post") is True
+
+    return finalize(items, "\n".join(summary_lines))
 
 
 def briefing_window(now: dt.datetime | None = None) -> tuple[dt.datetime, dt.datetime]:
@@ -2075,6 +2094,24 @@ def generate_collection_summary(items: list[dict], logs: list[str], kind: str) -
         return fallback
 
 
+def build_health(logs: list[str], article_count: int = 0) -> dict:
+    """Report whether today's briefing came out clean.
+
+    The site shows a notice while a degraded run is being retried, so this
+    keeps the judgement in one place.
+    """
+    reasons: list[str] = []
+    failed_articles = sum(1 for line in logs if line.startswith("llm skip article"))
+    failed_batches = sum(1 for line in logs if line.startswith("community reaction summary skip"))
+    if any(line.startswith("daily summary skip") for line in logs):
+        reasons.append("daily summary failed")
+    if failed_batches:
+        reasons.append("community summary failed")
+    if article_count and failed_articles > article_count * 0.4:
+        reasons.append(f"{failed_articles} of {article_count} article summaries failed")
+    return {"status": "degraded" if reasons else "ok", "reasons": reasons}
+
+
 def write_articles(
     articles: list[dict],
     logs: list[str],
@@ -2102,6 +2139,7 @@ def write_articles(
             "notes": "Metadata/link collection only; article full text is not stored. LLM summaries are generated transiently when configured.",
             "summary_methods": summary_methods,
             "summary_model": LLM_MODEL if llm_is_configured() else "",
+            "health": build_health(logs, len(articles)),
             "logs": logs[-80:],
         },
         "articles": articles,

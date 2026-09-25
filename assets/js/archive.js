@@ -59,7 +59,7 @@ function articleMeta(article) {
 function communityMeta(item) {
   const score = Number(item.community_score || 0);
   const reasons = Array.isArray(item.priority_reasons) ? item.priority_reasons : [];
-  const date = `${item.date_is_estimated ? "수집 " : ""}${fmt(item.created_at, true)}`;
+  const date = item.date_is_estimated ? `수집 ${fmt(item.created_at)}` : fmt(item.created_at);
   return `<span class="weight">W${score || "-"}</span>${reasons.map((reason) => `<span>${esc(reason)}</span>`).join("")}<span>${esc(item.source_name || "커뮤니티")}</span><span>${esc(date)}</span>`;
 }
 
