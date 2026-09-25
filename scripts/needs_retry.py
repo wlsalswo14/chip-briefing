@@ -17,6 +17,8 @@ KST = dt.timezone(dt.timedelta(hours=9))
 
 
 def decide() -> tuple[str, str]:
+    if os.environ.get("CHIP_BRIEFING_FORCE", "").strip().lower() in {"1", "true", "yes"}:
+        return "yes", "수동 실행 (force)"
     try:
         data = json.loads(ARTICLES.read_text(encoding="utf-8"))
     except Exception as exc:

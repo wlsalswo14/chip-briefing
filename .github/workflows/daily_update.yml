@@ -8,6 +8,11 @@ on:
     # missing or degraded, so a bad hour on the model host is retried.
     - cron: '0 * * * *'
   workflow_dispatch: # Allows manual trigger from GitHub Actions tab
+    inputs:
+      force:
+        description: Run the collector even when today's briefing already looks fine
+        type: boolean
+        default: false
 
 permissions:
   contents: write # Required to push commits back to the repo
@@ -33,6 +38,8 @@ jobs:
 
       - name: Check if the briefing needs another attempt
         id: check
+        env:
+          CHIP_BRIEFING_FORCE: ${{ github.event.inputs.force }}
         run: python scripts/needs_retry.py
 
       - name: Run collector
