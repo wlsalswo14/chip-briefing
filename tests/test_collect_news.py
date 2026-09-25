@@ -601,6 +601,46 @@ class CommunityPostReadTests(unittest.TestCase):
         self.assertTrue(any("community post skip: clien (TimeoutError)" in line for line in logs), logs)
 
 
+class SectorRoutingTests(unittest.TestCase):
+    """Korean headlines decide the process and packaging tabs.
+
+    The keyword list in sources.json is English, so those two tabs used to fall
+    back to the default sector and stayed at three or four items a day.
+    """
+
+    def test_a_korean_process_headline_routes_to_process(self):
+        sector, hits = collector.headline_sector(
+            "TSMC, 내년 파운드리 가격 최대 6% 인상 전망…2·3나노는 더 오른다"
+        )
+        self.assertEqual(sector, "공정", hits)
+
+    def test_a_bonding_headline_routes_to_packaging(self):
+        sector, hits = collector.headline_sector(
+            '"하이브리드는 아직"…엇갈린 본딩 베팅, 한미반도체가 웃었다'
+        )
+        self.assertEqual(sector, "패키징", hits)
+
+    def test_packaging_wins_over_a_passing_foundry_mention(self):
+        sector, _ = collector.headline_sector("TSMC, CoWoS 패키징 증설…파운드리 2나노 확대")
+        self.assertEqual(sector, "패키징")
+
+    def test_an_ordinary_headline_has_no_signal(self):
+        sector, hits = collector.headline_sector("삼성전자 주가 목표가, 증권사별 40~65만원")
+        self.assertEqual(sector, "")
+        self.assertEqual(hits, [])
+
+    def test_make_article_uses_the_headline_signal(self):
+        article = collector.make_article(
+            "CXMT, EUV 없이 5세대 D램 양산…수율 한계 명확",
+            "https://example.com/news/1",
+            "snippet",
+            {"name": "test", "category_default": "news", "trust_default": "medium"},
+            "news",
+            collector.now_iso(),
+        )
+        self.assertEqual(article["sector"], "공정")
+
+
 class RetryGuardTests(unittest.TestCase):
     """The hourly cron must not build today's briefing before its cutoff hour."""
 

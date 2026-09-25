@@ -156,9 +156,9 @@
     ]
   },
   "sector_keywords": {
-    "설계": ["ASIC", "GPU", "NPU", "TPU", "RISC-V", "Arm", "EDA", "IP", "chiplet architecture", "interconnect", "NoC"],
-    "공정": ["EUV", "High NA", "GAA", "nanosheet", "2nm", "3nm", "yield", "lithography", "etch", "deposition", "metrology"],
-    "소자": ["DRAM", "NAND", "HBM", "MRAM", "ReRAM", "CXL memory", "transistor", "cell", "leakage", "retention"],
-    "패키징": ["CoWoS", "2.5D", "3D packaging", "interposer", "hybrid bonding", "bump", "substrate", "chiplet", "advanced packaging"]
+    "설계": ["ASIC", "GPU", "NPU", "TPU", "RISC-V", "Arm", "EDA", "IP", "chiplet architecture", "interconnect", "NoC", "설계", "팹리스", "아키텍처", "칩렛", "가속기", "AI칩"],
+    "공정": ["EUV", "High NA", "GAA", "nanosheet", "2nm", "3nm", "yield", "lithography", "etch", "deposition", "metrology", "파운드리", "수율", "노광", "식각", "증착", "박막", "웨이퍼", "미세화", "포토레지스트", "나노시트", "2나노", "3나노", "5나노", "1.4나노"],
+    "소자": ["DRAM", "NAND", "HBM", "MRAM", "ReRAM", "CXL memory", "transistor", "cell", "leakage", "retention", "D램", "디램", "낸드", "메모리", "트랜지스터", "메모리 셀"],
+    "패키징": ["CoWoS", "2.5D", "3D packaging", "interposer", "hybrid bonding", "bump", "substrate", "chiplet", "advanced packaging", "패키징", "코워스", "본딩", "TSV", "인터포저", "유리기판", "범프", "어드밴스드 패키징", "OSAT"]
   }
 }

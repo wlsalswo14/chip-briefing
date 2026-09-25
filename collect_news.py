@@ -661,7 +661,9 @@ def make_article(title: str, link: str, snippet: str, source: dict, raw_type: st
         body += "..."
     url = canonical_url(link)
     text_for_sector = f"{title} {snippet}"
-    sector, matched = classify_sector(text_for_sector)
+    sector, matched = headline_sector(title)
+    if not sector:
+        sector, matched = classify_sector(text_for_sector)
     category = source.get("category_default") or ("community" if raw_type in {"social", "community"} else "news")
     trust = source.get("trust_default") or ("low" if category in {"rumor", "community"} else "medium")
     return {
@@ -697,6 +699,36 @@ def classify_sector(text: str) -> tuple[str, list[str]]:
         return "설계", []
     sector = sorted(scores, key=lambda s: (-scores[s], s))[0]
     return sector, matches.get(sector, [])
+
+
+# The keywords in sources.json are English, but most collected articles are
+# Korean, so process and packaging stories kept landing on the default sector
+# and their tabs stayed at three or four items. A strong headline signal now
+# decides the tab on its own. Packaging is checked first: it is the scarcer
+# tab, and "CoWoS" outranks a passing "파운드리" mention.
+SECTOR_HEADLINE_TERMS: dict[str, tuple[str, ...]] = {
+    "패키징": (
+        "cowos", "코워스", "패키징", "본딩", "tsv", "인터포저", "유리기판",
+        "범프", "osat", "2.5d", "3d 패키징", "어드밴스드 패키징",
+    ),
+    "공정": (
+        "파운드리", "수율", "노광", "euv", "high-na", "high na", "식각", "증착",
+        "웨이퍼", "미세화", "나노시트", "포토레지스트", "gaa",
+        "2나노", "3나노", "5나노", "1.4나노",
+    ),
+}
+
+
+def headline_sector(title: str) -> tuple[str, list[str]]:
+    """Return the sector a headline clearly signals, or ("", []) when unclear."""
+    text = clean_text(title).lower()
+    best_sector = ""
+    best_hits: list[str] = []
+    for sector, terms in SECTOR_HEADLINE_TERMS.items():
+        hits = [term for term in terms if term in text]
+        if len(hits) > len(best_hits):
+            best_sector, best_hits = sector, hits
+    return best_sector, best_hits
 
 
 def keyword_matches(text_l: str, keyword: str) -> bool:
