@@ -1484,8 +1484,30 @@ def read_community_posts(items: list[dict], logs: list[str]) -> None:
         logs.append(f"community post text: {fetched} of {attempted} posts read")
 
 
+def readable_community_candidates(items: list[dict], limit: int) -> list[dict]:
+    """Shortlist the posts worth fetching before the ranking happens.
+
+    A post with real text scores one point higher than a headline-only snippet,
+    so reading has to happen before the ranking or the readable sites can never
+    move up.
+    """
+    readable = [
+        item for item in items if community_post_reader(str(item.get("source_url") or ""))
+    ]
+    readable.sort(
+        key=lambda item: (
+            fallback_community_score(item)[0],
+            int(item.get("comment_count", 0) or 0),
+            item.get("created_at", ""),
+        ),
+        reverse=True,
+    )
+    return readable[:limit]
+
+
 def enrich_community_reactions(items: list[dict], logs: list[str]) -> tuple[list[dict], str]:
     items = exclude_photo_community_items(items, logs)
+    read_community_posts(readable_community_candidates(items, COMMUNITY_POST_FETCH_LIMIT), logs)
     items = rank_community_items(
         items,
         max(MAX_COMMUNITY_ITEMS, COMMUNITY_PROMPT_MAX_ITEMS),
@@ -1493,7 +1515,6 @@ def enrich_community_reactions(items: list[dict], logs: list[str]) -> tuple[list
     )
     if not items:
         return items, ""
-    read_community_posts(items, logs)
 
     def finalize(rows: list[dict], summary: str = "") -> tuple[list[dict], str]:
         rows = [item for item in rows if not item.get("llm_image_post")]

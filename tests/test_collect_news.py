@@ -545,6 +545,18 @@ class CommunityPostReadTests(unittest.TestCase):
             "clien",
         )
 
+    def test_the_shortlist_skips_sites_that_cannot_be_read(self):
+        items = [
+            self._item("https://cafe.naver.com/yttnews/25469"),
+            self._item("https://www.fmkorea.com/10319572957"),
+            self._item("https://gall.dcinside.com/mgallery/board/view?id=nasdaq&no=1"),
+            self._item("https://www.clien.net/service/board/cm_stock/15818583"),
+        ]
+        picked = collector.readable_community_candidates(items, 20)
+        self.assertEqual(len(picked), 2, picked)
+        self.assertTrue(all(collector.community_post_reader(i["source_url"]) for i in picked))
+        self.assertEqual(len(collector.readable_community_candidates(items, 1)), 1)
+
     def test_dcinside_body_and_real_posting_time_are_parsed(self):
         parsed = collector.parse_community_post("dcinside", self._dcinside_page())
         self.assertIn("HBM4 패키징 경쟁", parsed["body"])
