@@ -105,6 +105,11 @@ COMMUNITY_PROMPT_BATCH_SIZE = int(os.environ.get("CHIP_BRIEFING_COMMUNITY_BATCH_
 # is down must not stall the whole job, so it gets its own timeout and budget.
 COMMUNITY_LLM_TIMEOUT = int(os.environ.get("CHIP_BRIEFING_COMMUNITY_TIMEOUT", "150"))
 COMMUNITY_BUDGET_SECONDS = int(os.environ.get("CHIP_BRIEFING_COMMUNITY_BUDGET_SECONDS", "1800"))
+# Only sites whose robots.txt allows it get their post text read. Naver Cafe
+# answers every crawler with "Disallow: /" and fmkorea only opens its front
+# pages, so those posts keep the official search snippet.
+COMMUNITY_POST_FETCH_LIMIT = int(os.environ.get("CHIP_BRIEFING_COMMUNITY_POST_FETCH_LIMIT", "20"))
+COMMUNITY_POST_BODY_CHARS = int(os.environ.get("CHIP_BRIEFING_COMMUNITY_POST_BODY_CHARS", "1200"))
 
 EDITORIAL_PRIORITY_PROMPT = """
 You are the semiconductor briefing editor. Read the article context and assign importance_score by editorial impact, not by simple keyword matching.
@@ -1408,6 +1413,77 @@ def prepare_community_items(items: list[dict], limit: int | None = None) -> list
     return rank_community_items(items, limit or len(items) or MAX_COMMUNITY_ITEMS)
 
 
+def community_post_reader(url: str) -> str:
+    """Name the reader for a community link, or "" when the site forbids us.
+
+    Reading the post itself beats summarizing a headline, but only where the
+    site allows a crawler in: DCInside allows every path except a blocklist of
+    boards, and Clien allows /service/board/. Naver Cafe and fmkorea disallow
+    their post pages for all crawlers, so those keep the search snippet.
+    """
+    host = (urllib.parse.urlsplit(url or "").hostname or "").lower()
+    if host.endswith("dcinside.com"):
+        return "dcinside"
+    if host.endswith("clien.net"):
+        return "clien"
+    return ""
+
+
+def parse_community_post(reader: str, page: str) -> dict:
+    """Pull the post text and the real posting time out of a fetched page."""
+    body = ""
+    created_at = ""
+    if reader == "dcinside":
+        match = re.search(r'class="write_div"[^>]*>(.*?)</div>', page, re.S)
+        if match:
+            body = clean_text(match.group(1))
+        stamp = re.search(r'class="gall_date"[^>]*title="([^"]+)"', page)
+        if stamp:
+            created_at = parse_kst_datetime(stamp.group(1), "%Y-%m-%d %H:%M:%S")
+    elif reader == "clien":
+        match = re.search(r'<div class="post_article"[^>]*>(.*?)</div>', page, re.S)
+        if match:
+            body = clean_text(match.group(1))
+        stamp = re.search(r"([0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2})", page)
+        if stamp:
+            created_at = parse_kst_datetime(stamp.group(1), "%Y-%m-%d %H:%M:%S")
+    return {"body": body, "created_at": created_at}
+
+
+def read_community_posts(items: list[dict], logs: list[str]) -> None:
+    """Replace the search snippet with the real post text where it is allowed."""
+    attempted = 0
+    fetched = 0
+    for item in items:
+        if attempted >= COMMUNITY_POST_FETCH_LIMIT:
+            break
+        url = str(item.get("source_url") or "")
+        reader = community_post_reader(url)
+        if not reader:
+            continue
+        attempted += 1
+        try:
+            parsed = parse_community_post(reader, request_text(url, headers=COMMUNITY_HEADERS))
+        except Exception as exc:
+            logs.append(f"community post skip: {reader} ({type(exc).__name__})")
+            continue
+        body = parsed["body"]
+        if len(body) < 80:
+            # Link-only and image posts have nothing more to read than the
+            # snippet we already have.
+            logs.append(f"community post skip: {reader} (no body text)")
+            continue
+        item["body"] = body[:COMMUNITY_POST_BODY_CHARS]
+        item["body_source"] = "post"
+        if parsed["created_at"] and item.get("date_is_estimated"):
+            item["created_at"] = parsed["created_at"]
+            item["date_is_estimated"] = False
+        fetched += 1
+        time.sleep(0.3)
+    if attempted:
+        logs.append(f"community post text: {fetched} of {attempted} posts read")
+
+
 def enrich_community_reactions(items: list[dict], logs: list[str]) -> tuple[list[dict], str]:
     items = exclude_photo_community_items(items, logs)
     items = rank_community_items(
@@ -1417,6 +1493,7 @@ def enrich_community_reactions(items: list[dict], logs: list[str]) -> tuple[list
     )
     if not items:
         return items, ""
+    read_community_posts(items, logs)
 
     def finalize(rows: list[dict], summary: str = "") -> tuple[list[dict], str]:
         rows = [item for item in rows if not item.get("llm_image_post")]
@@ -1432,7 +1509,9 @@ def enrich_community_reactions(items: list[dict], logs: list[str]) -> tuple[list
         return finalize(items)
 
     instruction = (
-        "Return JSON only. Evaluate semiconductor community posts using only the supplied title and snippet. "
+        "Return JSON only. Evaluate semiconductor community posts using only the supplied title and text. "
+        "Some items carry the full post text and others only a title with a one-line search snippet; never go "
+        "beyond what the item shows. "
         "A post is not a comment corpus: summarize the viewpoint or tone expressed by the post, and never claim "
         "community consensus. If it only shares a link or information without a stance, explicitly say in Korean "
         "that it is information-sharing and no clear positive/negative reaction is visible. Do not state rumors as facts. "

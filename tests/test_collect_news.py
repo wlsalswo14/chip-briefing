@@ -510,6 +510,81 @@ class HealthReportingTests(unittest.TestCase):
         self.assertEqual(health, {"status": "ok", "reasons": []})
 
 
+class CommunityPostReadTests(unittest.TestCase):
+    """Only the sites that allow a crawler get their post text read."""
+
+    def _item(self, url):
+        return {
+            "id": "art-post",
+            "headline": "제목만 있던 글",
+            "body": "검색 스니펫 한 줄",
+            "source_url": url,
+            "community_score": 3,
+            "created_at": "2026-09-25T07:00:00+09:00",
+            "date_is_estimated": True,
+        }
+
+    def _dcinside_page(self):
+        """A post page whose body is long enough to count as real post text."""
+        return (
+            '<span class="gall_date" title="2026-09-24 18:55:25">09.24</span>'
+            '<div class="write_div"><p>HBM4 패키징 경쟁이 본격화되고 있다는 내용을 공유합니다. '
+            "삼성전자와 SK하이닉스의 공정 전환 속도, 그리고 중국 CXMT의 추격 속도가 주요 관전 포인트라는 의견입니다.</p>"
+            "<p>수율 안정화 시점과 고객 인증 일정이 실제 실적을 가를 것 같다는 반응도 함께 언급했습니다.</p></div>"
+        )
+
+    def test_robots_disallowed_sites_are_never_read(self):
+        self.assertEqual(collector.community_post_reader("https://cafe.naver.com/yttnews/25469"), "")
+        self.assertEqual(collector.community_post_reader("https://www.fmkorea.com/10319572957"), "")
+        self.assertEqual(
+            collector.community_post_reader("https://gall.dcinside.com/mgallery/board/view?id=nasdaq&no=1"),
+            "dcinside",
+        )
+        self.assertEqual(
+            collector.community_post_reader("https://www.clien.net/service/board/cm_stock/15818583"),
+            "clien",
+        )
+
+    def test_dcinside_body_and_real_posting_time_are_parsed(self):
+        parsed = collector.parse_community_post("dcinside", self._dcinside_page())
+        self.assertIn("HBM4 패키징 경쟁", parsed["body"])
+        self.assertEqual(parsed["created_at"], "2026-09-24T18:55:25+09:00")
+
+    def test_reading_a_post_replaces_the_snippet_and_the_guessed_date(self):
+        item = self._item("https://gall.dcinside.com/mgallery/board/view?id=nasdaq&no=2138177")
+        page = self._dcinside_page()
+        logs = []
+        with (
+            mock.patch.object(collector, "request_text", return_value=page),
+            mock.patch.object(collector.time, "sleep"),
+        ):
+            collector.read_community_posts([item], logs)
+        self.assertEqual(item["body_source"], "post")
+        self.assertIn("HBM4 패키징 경쟁", item["body"])
+        self.assertEqual(item["created_at"], "2026-09-24T18:55:25+09:00")
+        self.assertFalse(item["date_is_estimated"])
+        self.assertTrue(any("1 of 1 posts read" in line for line in logs), logs)
+
+    def test_a_link_only_post_keeps_the_snippet(self):
+        item = self._item("https://www.clien.net/service/board/cm_stock/15818583")
+        page = '<div class="post_article">짧음</div>'
+        logs = []
+        with mock.patch.object(collector, "request_text", return_value=page):
+            collector.read_community_posts([item], logs)
+        self.assertEqual(item["body"], "검색 스니펫 한 줄")
+        self.assertNotIn("body_source", item)
+        self.assertTrue(item["date_is_estimated"])
+        self.assertTrue(any("no body text" in line for line in logs), logs)
+
+    def test_a_failing_fetch_leaves_the_item_untouched(self):
+        item = self._item("https://www.clien.net/service/board/cm_stock/15818583")
+        logs = []
+        with mock.patch.object(collector, "request_text", side_effect=TimeoutError("slow")):
+            collector.read_community_posts([item], logs)
+        self.assertEqual(item["body"], "검색 스니펫 한 줄")
+        self.assertTrue(any("community post skip: clien (TimeoutError)" in line for line in logs), logs)
+
+
 class ModelRetryTests(unittest.TestCase):
     def test_post_json_retries_once_on_transient_503(self):
         error = urllib.error.HTTPError("https://example.test", 503, "busy", {}, None)
