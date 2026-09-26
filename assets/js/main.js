@@ -56,20 +56,12 @@ import {
   const byId = Object.fromEntries(articles.concat(communityItems).map((a) => [a.id, a]));
   $("updated").textContent = fmtUpdated(data.generated_at);
 
-  // 브리핑이 불완전하거나 오늘 것이 아니면 안내를 띄운다.
+  // 오늘 것이 아니면 안내를 띄운다. 요약이 목표보다 적게 끝난 실행은
+  // 매시간 자동 재시도가 채우므로 사이트에는 따로 알리지 않는다.
   function renderNotice() {
     const notice = $("site-notice");
     if (!notice) return;
-    const health = (data.collector && data.collector.health) || {};
     const messages = [];
-    // health 필드가 없는 예전 데이터는 로그에서 실패 흔적을 찾는다.
-    const logs = (data.collector && data.collector.logs) || [];
-    const loggedFailure = logs.some((line) =>
-      String(line).startsWith("daily summary skip") || String(line).startsWith("community reaction summary skip")
-    );
-    if ((health.status && health.status !== "ok") || (!health.status && loggedFailure)) {
-      messages.push("서버에 문제가 있어요. 최신 브리핑을 다시 만드는 중입니다 — 잠시 후 새로고침해 주세요.");
-    }
     const generated = new Date(data.generated_at);
     if (!Number.isNaN(generated.getTime())) {
       const today = new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Seoul" });
