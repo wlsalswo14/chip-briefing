@@ -154,8 +154,11 @@
       "칩렛 인터커넥트 RTL 아키텍처",
       "첨단 패키징 인터포저 TSV",
       "HBM 패키징 TC본더",
+      "반도체 패키징 기판 본딩",
+      "칩렛 패키징 인터포저",
       "반도체 신제품 공개 출시",
-      "AI 서버 플랫폼 SDK 출시"
+      "AI 서버 플랫폼 SDK 출시",
+      "반도체 설계 IP RTL"
     ],
     "en": [
       "HBM OR HBM4 OR HBM4E",
@@ -173,8 +176,10 @@
       "chiplet OR interconnect OR chip architecture",
       "advanced packaging OR interposer OR TSV OR hybrid bonding",
       "HBM packaging OR TC bonder",
+      "chiplet packaging OR interposer substrate",
       "chip launch OR unveil OR new processor",
-      "AI server platform OR SDK release"
+      "AI server platform OR SDK release",
+      "semiconductor design IP OR RTL verification"
     ]
   },
   "sector_keywords": {
@@ -194,9 +199,9 @@
       "1": ["메모리", "소자", "리텐션", "누설전류", "셀 구조"]
     },
     "패키징": {
-      "3": ["CoWoS", "SoIC", "TSV", "인터포저", "하이브리드 본딩", "OSAT", "어드밴스드 패키징", "TC본더", "팬아웃", "FOWLP", "웨이퍼 레벨 패키징"],
-      "2": ["유리기판", "범프", "2.5D", "3D 패키징", "칩렛 패키징", "본딩", "서브스트레이트", "후공정", "RDL", "플립칩", "본더"],
-      "1": ["패키징", "기판", "어셈블리", "WLP", "언더필"]
+      "3": ["CoWoS", "SoIC", "TSV", "인터포저", "하이브리드 본딩", "OSAT", "어드밴스드 패키징", "TC본더", "팬아웃", "FOWLP", "웨이퍼 레벨 패키징", "패키징"],
+      "2": ["유리기판", "범프", "2.5D", "3D 패키징", "칩렛 패키징", "본딩", "서브스트레이트", "후공정", "RDL", "플립칩", "본더", "HBM 패키징", "기판"],
+      "1": ["어셈블리", "WLP", "언더필", "패키징 장비", "패키징 공정"]
     },
     "신제품/발표": {
       "3": ["정식 출시", "출시", "공개", "런칭", "launch", "unveil", "제품 로드맵", "선보", "내놓", "공개했", "출시했", "베일", "첫선"],

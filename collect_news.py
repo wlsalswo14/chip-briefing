@@ -70,6 +70,11 @@ HEADLINE_ONLY_PER_SECTOR_LIMIT = int(os.environ.get("CHIP_BRIEFING_HEADLINE_LIMI
 MAX_ITEMS = max(int(os.environ.get("CHIP_BRIEFING_MAX_ITEMS", "100")), DETAILED_SUMMARY_TARGET)
 MAX_COMMUNITY_ITEMS = int(os.environ.get("CHIP_BRIEFING_MAX_COMMUNITY_ITEMS", "10"))
 COMMUNITY_CANDIDATE_LIMIT = int(os.environ.get("CHIP_BRIEFING_COMMUNITY_CANDIDATE_LIMIT", "20"))
+# Search and feed APIs return one limited page per call. The candidate pool
+# decides how many tabs can reach their ten summaries, so these stay tunable.
+NAVER_SEARCH_DISPLAY = max(1, min(100, int(os.environ.get("CHIP_BRIEFING_NAVER_DISPLAY", "50"))))
+GOOGLE_NEWS_PER_QUERY = max(1, min(100, int(os.environ.get("CHIP_BRIEFING_GOOGLE_PER_QUERY", "50"))))
+RSS_ITEMS_PER_SOURCE = max(20, min(200, int(os.environ.get("CHIP_BRIEFING_RSS_ITEMS", "50"))))
 HF_TOKEN = (
     os.environ.get("HF_TOKEN")
     or os.environ.get("HUGGINGFACE_TOKEN")
@@ -643,7 +648,7 @@ def parse_feed(xml_text: str, source: dict, feed_url: str) -> list[dict]:
     if not items:
         items = root.findall(f".//{atom_ns}entry")
     out: list[dict] = []
-    for item in items[:20]:
+    for item in items[:RSS_ITEMS_PER_SOURCE]:
         title = clean_text((item.findtext("title") or item.findtext(f"{atom_ns}title") or ""))
         if not title:
             continue
@@ -673,15 +678,16 @@ def make_article(title: str, link: str, snippet: str, source: dict, raw_type: st
     if len(snippet) > 320:
         body += "..."
     url = canonical_url(link)
-    sector, sector_score, matched = score_article_sectors(title, snippet)
     category = source.get("category_default") or ("community" if raw_type in {"social", "community"} else "news")
     trust = source.get("trust_default") or ("low" if category in {"rumor", "community"} else "medium")
     return {
         "id": stable_id(url, title),
         "headline": title,
         "body": body,
-        "sector": sector,
-        "sector_score": sector_score,
+        # The tab is decided later: collect first, drop everything outside the
+        # 24 hour window, then score what is left.
+        "sector": "",
+        "sector_score": 0,
         "sector_method": "keyword",
         "category": category,
         "trust": trust,
@@ -691,7 +697,7 @@ def make_article(title: str, link: str, snippet: str, source: dict, raw_type: st
         "source_url": url,
         "source_note": source.get("notes") or source.get("type") or raw_type,
         "raw_source_type": raw_type,
-        "matched_keywords": matched,
+        "matched_keywords": [],
     }
 
 
@@ -701,6 +707,14 @@ _SECTOR_KEYWORDS: dict[str, list[tuple[str, int]]] = {}
 # unless the snippet carries several stronger signals. When two tabs tie, the
 # earlier entry in SECTOR_NAMES wins, which keeps the assignment stable.
 TITLE_WEIGHT_MULTIPLIER = 2
+
+# Terms that show up in almost every Korean chip article. They are fine as a
+# headline signal, but inside a search snippet they only drag market, policy
+# and personnel stories into the memory tab, so the snippet match ignores them.
+SNIPPET_IGNORED_TERMS = {
+    "반도체", "메모리", "메모리 반도체", "hbm", "ai 반도체", "칩", "dram", "d램",
+    "nand", "낸드", "실적", "투자", "매출", "주가",
+}
 
 
 def load_sector_keywords(config: dict) -> dict[str, list[tuple[str, int]]]:
@@ -742,31 +756,70 @@ def score_article_sectors(title: str, snippet: str) -> tuple[str, int, list[str]
     """
     title_l = clean_text(title).lower()
     snippet_l = clean_text(snippet).lower()
-    best_sector = ""
-    best_score = 0
-    best_hits: list[str] = []
+    title_compact = re.sub(r"\s+", "", title_l)
+    snippet_compact = re.sub(r"\s+", "", snippet_l)
+    # Score every tab twice: once on the title alone and once including the
+    # snippet. The tab is chosen by title evidence first, because a passing
+    # mention of HBM in a long snippet used to outvote the headline's own words.
+    rows: list[tuple[str, int, int, list[str]]] = []
     for sector in SECTOR_NAMES:
-        score = 0
+        title_score = 0
+        snippet_score = 0
         hits: list[str] = []
         for term, weight in _SECTOR_KEYWORDS.get(sector, []):
-            if keyword_matches(title_l, term):
-                score += TITLE_WEIGHT_MULTIPLIER * weight
+            if keyword_matches(title_l, term, title_compact):
+                title_score += TITLE_WEIGHT_MULTIPLIER * weight
                 hits.append(f"{term}*{weight}")
-            elif keyword_matches(snippet_l, term):
-                score += weight
+            elif (
+                term.lower() not in SNIPPET_IGNORED_TERMS
+                and keyword_matches(snippet_l, term, snippet_compact)
+            ):
+                snippet_score += weight
                 hits.append(f"{term}*{weight}(body)")
-        if score > best_score:
-            best_sector, best_score, best_hits = sector, score, hits
-    return best_sector, best_score, best_hits
+        rows.append((sector, title_score, title_score + snippet_score, hits))
+
+    title_winner = max(rows, key=lambda row: row[1])
+    if title_winner[1] > 0:
+        winner = title_winner
+    else:
+        winner = max(rows, key=lambda row: row[2])
+    if winner[2] <= 0:
+        return "", 0, []
+    return winner[0], winner[2], winner[3]
 
 
-def keyword_matches(text_l: str, keyword: str) -> bool:
+def score_articles(articles: list[dict]) -> None:
+    """Assign the tab, keyword score and matched terms to each article.
+
+    Runs after the 24 hour window filter so the keyword weights only ever see
+    articles that are actually candidates for today's briefing.
+    """
+    for article in articles:
+        sector, score, matched = score_article_sectors(
+            article.get("headline", ""),
+            article.get("body", ""),
+        )
+        article["sector"] = sector
+        article["sector_score"] = score
+        article["matched_keywords"] = matched
+
+
+def keyword_matches(text_l: str, keyword: str, compact_text_l: str | None = None) -> bool:
     key = keyword.lower()
     if re.fullmatch(r"[a-z0-9][a-z0-9.+-]*", key):
         return re.search(rf"(?<![a-z0-9]){re.escape(key)}(?![a-z0-9])", text_l) is not None
     if re.fullmatch(r"[a-z0-9][a-z0-9.+-]*( [a-z0-9][a-z0-9.+-]*)+", key):
         return re.search(rf"(?<![a-z0-9]){re.escape(key)}(?![a-z0-9])", text_l) is not None
-    return key in text_l
+    if key in text_l:
+        return True
+    # Korean headlines freely add or drop spaces ("유리 기판" vs "유리기판"),
+    # so the whitespace-stripped forms are compared as well.
+    compact_key = re.sub(r"\s+", "", key)
+    if not compact_key:
+        return False
+    if compact_text_l is None:
+        compact_text_l = re.sub(r"\s+", "", text_l)
+    return compact_key in compact_text_l
 
 
 def collect_rss(sources: list[dict]) -> tuple[list[dict], list[str]]:
@@ -790,7 +843,7 @@ def collect_rss(sources: list[dict]) -> tuple[list[dict], list[str]]:
 
 def collect_google_news(
     queries: list[str] | None = None,
-    per_query: int = 10,
+    per_query: int = GOOGLE_NEWS_PER_QUERY,
     log_prefix: str = "google news",
 ) -> tuple[list[dict], list[str]]:
     articles: list[dict] = []
@@ -821,7 +874,7 @@ def collect_google_news(
 def collect_naver(
     sources: list[dict],
     queries: list[str],
-    display: int = 10,
+    display: int = NAVER_SEARCH_DISPLAY,
     start: int = 1,
     log_prefix: str = "naver",
 ) -> tuple[list[dict], list[str]]:
@@ -2053,29 +2106,44 @@ def expected_detailed_summary_target(
     )
 
 
+def dump_enabled() -> bool:
+    """True when the caller wants the full candidate dump for keyword tuning."""
+    return os.environ.get("CHIP_BRIEFING_DUMP_CANDIDATES", "").strip().lower() in {"1", "true", "yes"}
+
+
 def rank_news_candidates(news_candidates: list[dict], logs: list[str]) -> list[dict]:
-    """Deduplicate news, keep only keyword-scored candidates, and log counts."""
-    ranked = dedupe_rank(
+    """Filter collected news by date, then score what survived.
+
+    Order matters: the 24 hour window and the dedupe run first, and only the
+    remaining articles are scored by keyword weight. Anything that scores zero
+    in every tab is dropped instead of falling back to a default tab.
+    """
+    in_window = dedupe_rank(
         news_candidates,
         limit=None,
         require_relevance=False,
         dedupe_titles=True,
     )
-    kept = [
-        article
-        for article in ranked
-        if article.get("sector") in SECTOR_NAMES
-        and int(article.get("sector_score") or 0) > 0
-    ]
-    dropped = len(ranked) - len(kept)
+    logs.append(f"window filter: {len(in_window)} of {len(news_candidates)} collected news rows inside 24h")
+    score_articles(in_window)
+    kept: list[dict] = []
+    dropped: list[dict] = []
+    for article in in_window:
+        if article.get("sector") in SECTOR_NAMES and int(article.get("sector_score") or 0) > 0:
+            kept.append(article)
+        else:
+            dropped.append(article)
     counts = keyword_sector_counts(kept)
     logs.append(
         "sector candidates: "
         + ", ".join(f"{sector}={counts[sector]}" for sector in SECTOR_NAMES)
     )
     logs.append(
-        f"keyword filter: kept {len(kept)}/{len(ranked)}, dropped {dropped} zero-score"
+        f"keyword filter: kept {len(kept)}/{len(in_window)}, dropped {len(dropped)} zero-score"
     )
+    if dump_enabled():
+        for article in dropped[:20]:
+            logs.append(f"dropped zero-score: {clean_text(article.get('headline', ''))[:100]}")
     return kept
 
 
@@ -2085,13 +2153,21 @@ def report_sector_candidates(articles: list[dict], logs: list[str]) -> None:
     logs.append("collect-only sector counts: " + ", ".join(
         f"{sector}={counts[sector]}" for sector in SECTOR_NAMES
     ))
+    dump = dump_enabled()
     for sector in SECTOR_NAMES:
-        samples = sector_candidates_for(articles, sector)[:3]
+        samples = sector_candidates_for(articles, sector)
+        if not dump:
+            samples = samples[:3]
         for sample in samples:
-            logs.append(
+            hits = " ".join(sample.get("matched_keywords") or [])
+            line = (
                 f"collect-only {sector}[{sample.get('sector_score')}]: "
-                f"{clean_text(sample.get('headline', ''))[:70]}"
+                f"{clean_text(sample.get('headline', ''))[:80]}"
             )
+            if dump:
+                body = clean_text(sample.get("body", ""))[:180]
+                line += f" || {body} || {hits[:90]}"
+            logs.append(line)
 
 
 def enrich_with_llm_summaries(articles: list[dict], logs: list[str]) -> list[dict]:
@@ -2601,7 +2677,7 @@ def main() -> int:
     all_articles.extend(found)
     logs.extend(new_logs)
 
-    found, new_logs = collect_google_news()
+    found, new_logs = collect_google_news(ko_queries + en_queries)
     all_articles.extend(found)
     logs.extend(new_logs)
 
@@ -2640,6 +2716,9 @@ def main() -> int:
     news_candidates = [article for article in all_articles if not is_community_article(article)]
     community_candidates = [article for article in all_articles if is_community_article(article)]
     community_candidates = suppress_seen_estimated_community(community_candidates, logs)
+    # Community posts keep the existing ranking; scoring them keeps the keyword
+    # fallback in is_relevant working after the move out of make_article.
+    score_articles(community_candidates)
 
     ranked = rank_news_candidates(news_candidates, logs)
     community_items = dedupe_rank(community_candidates, limit=None)
