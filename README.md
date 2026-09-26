@@ -18,7 +18,7 @@ archive/YYYY-MM-DD.json    날짜별 브리핑 스냅샷
 collect_news.py            수집·중복 제거·요약·점수화 파이프라인
 ```
 
-HTML에는 뉴스 데이터가 중복 삽입되지 않습니다. 메인과 아카이브는 각각 JSON을 불러옵니다. 수집된 기사는 모델 호출 없이 `sources.json`의 키워드 가중치로 설계·공정·소자·패키징·신제품/발표·실적/투자/정책/인사 여섯 탭 중 하나에 배정합니다. 제목 매칭은 가중치의 2배, 스니펫만 매칭된 경우는 1배로 계산하고, 어느 탭에서도 0점인 기사는 버립니다. 같은 점수면 최신 기사가 앞섭니다. 이후 탭별 상위 10개(최대 60개)를 본문 요약해 `summary_article_ids`에 저장하고, 같은 탭의 후보가 10개를 넘으면 남은 후보 일부를 `headline_article_ids`에 제목·원문 링크로 게시합니다(`CHIP_BRIEFING_HEADLINE_LIMIT`, 기본 20개, 0이면 무제한). 후보가 10개 이하인 탭은 제목 전용 뉴스로 채우지 않습니다. 요약은 탭마다 예산을 새로 잡지 않고 하나의 전역 예산을 공유하며, 실패하면 같은 탭의 다음 순위로 넘어갑니다. Daily Summary TOP 10은 상세 기사 중 본문 기반 중요도와 최신순으로 선정하고, 커뮤니티 TOP 10은 `community_top10_ids`를 사용합니다.
+HTML에는 뉴스 데이터가 중복 삽입되지 않습니다. 메인과 아카이브는 각각 JSON을 불러옵니다. 파이프라인은 **수집 → 24시간 날짜 필터 → 키워드 채점** 순서입니다. 네이버 뉴스·블로그·카페, Google News, RSS에서 각각 최대 50건씩 받아온 뒤 실행 시각 기준 24시간 창으로 한 번 거르고, 창 안에 남은 기사만 `sources.json`의 키워드 가중치로 설계·공정·소자·패키징·신제품/발표·실적/투자/정책·인사 여섯 탭 중 하나에 배정합니다. 섹터는 제목 근거를 우선하고(제목에서 아무 탭도 걸리지 않을 때만 스니펫이 결정), 제목 매칭은 가중치의 2배, 스니펫만 매칭된 경우는 1배입니다. HBM·메모리·반도체처럼 거의 모든 기사에 나오는 단어는 스니펫 신호에서 제외합니다. 어느 탭에서도 0점인 기사는 기본 탭으로 밀어 넣지 않고 버리며, 같은 점수면 최신 기사가 앞섭니다. 이후 탭별 상위 10개(최대 60개)를 본문 요약해 `summary_article_ids`에 저장하고, 같은 탭의 후보가 10개를 넘으면 남은 후보 일부를 `headline_article_ids`에 제목·원문 링크로 게시합니다(`CHIP_BRIEFING_HEADLINE_LIMIT`, 기본 20개, 0이면 무제한). 후보가 10개 이하인 탭은 제목 전용 뉴스로 채우지 않습니다. 요약은 탭마다 예산을 새로 잡지 않고 하나의 전역 예산을 공유하며, 실패하면 같은 탭의 다음 순위로 넘어갑니다. Daily Summary TOP 10은 상세 기사 중 본문 기반 중요도와 최신순으로 선정하고, 커뮤니티 TOP 10은 `community_top10_ids`를 사용합니다.
 
 ## 로컬 실행
 
@@ -37,7 +37,7 @@ python -m http.server 4173 --bind 127.0.0.1
 python collect_news.py
 ```
 
-환경 변수 예시는 `.env.example`을 참고합니다. 실제 키와 Secret은 저장소에 커밋하지 않습니다. 키워드 사전은 `sources.json`의 `sector_keywords`에 탭별 가중치 3·2·1 버킷으로 들어 있고, 수집 쿼리는 `queries.ko`/`queries.en`에 있습니다. 여섯 탭의 상세 목표는 각각 10개이므로 정상적인 최대 상세 기사 수는 60개입니다. 실제 후보가 더 적은 탭은 그 수만큼만 요약합니다. 후보가 충분한데 본문 요약 실패로 목표를 못 채운 실행만 `degraded` 상태로 기록되어 다음 자동 실행에서 재시도됩니다. 수집 파이프라인 점검은 `CHIP_BRIEFING_COLLECT_ONLY=1`(탭별 후보 수와 0점 탈락 수만 출력), 요약 스모크는 `CHIP_BRIEFING_SMOKE_SUMMARIES=2`(상위 2건만 요약)를 사용합니다. Reddit 수집에는 `REDDIT_CLIENT_ID`, `REDDIT_CLIENT_SECRET`, `REDDIT_USER_AGENT`가 필요합니다.
+환경 변수 예시는 `.env.example`을 참고합니다. 실제 키와 Secret은 저장소에 커밋하지 않습니다. 키워드 사전은 `sources.json`의 `sector_keywords`에 탭별 가중치 3·2·1 버킷으로 들어 있고, 수집 쿼리는 `queries.ko`/`queries.en`에 있습니다. 검색 건수는 `CHIP_BRIEFING_NAVER_DISPLAY`, `CHIP_BRIEFING_GOOGLE_PER_QUERY`, `CHIP_BRIEFING_RSS_ITEMS`로 조절하며 기본값은 각각 50입니다. 여섯 탭의 상세 목표는 각각 10개이므로 정상적인 최대 상세 기사 수는 60개입니다. 실제 후보가 더 적은 탭은 그 수만큼만 요약합니다. 후보가 충분한데 본문 요약 실패로 목표를 못 채운 실행만 `degraded` 상태로 기록되어 다음 자동 실행에서 재시도됩니다. 수집 파이프라인 점검은 `CHIP_BRIEFING_COLLECT_ONLY=1`(탭별 후보 수와 0점 탈락 수만 출력), 후보 전체 덤프는 `CHIP_BRIEFING_DUMP_CANDIDATES=1`(제목·스니펫·매칭어), 요약 스모크는 `CHIP_BRIEFING_SMOKE_SUMMARIES=2`(상위 2건만 요약)를 사용합니다. Reddit 수집에는 `REDDIT_CLIENT_ID`, `REDDIT_CLIENT_SECRET`, `REDDIT_USER_AGENT`가 필요합니다.
 
 커뮤니티 수집 경로는 다음과 같습니다.
 

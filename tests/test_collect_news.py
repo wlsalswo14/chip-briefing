@@ -455,6 +455,61 @@ class SixTabKeywordScoringTests(unittest.TestCase):
             sector, _, _ = collector.score_article_sectors("아키텍처와 박막 계측", "")
         self.assertEqual(sector, "설계")
 
+    def test_headline_evidence_beats_a_snippet_mention(self):
+        keywords = {
+            "설계": [],
+            "공정": [],
+            "소자": [],
+            "패키징": [("인터포저", 3)],
+            "신제품/발표": [],
+            "실적/투자/정책/인사": [("실적", 3)],
+        }
+        with mock.patch.object(collector, "_SECTOR_KEYWORDS", keywords):
+            sector, _, _ = collector.score_article_sectors(
+                "삼전닉스 3분기 실적 전망",
+                "본문에는 인터포저 수요 이야기가 길게 이어진다",
+            )
+        self.assertEqual(sector, "실적/투자/정책/인사")
+
+    def test_broad_terms_are_ignored_inside_the_snippet(self):
+        keywords = {
+            "설계": [],
+            "공정": [],
+            "소자": [("HBM", 3)],
+            "패키징": [],
+            "신제품/발표": [],
+            "실적/투자/정책/인사": [],
+        }
+        with mock.patch.object(collector, "_SECTOR_KEYWORDS", keywords):
+            snippet_only, score, hits = collector.score_article_sectors(
+                "오늘의 증시 브리핑", "HBM 가격이 올랐다는 본문"
+            )
+            title_hit, title_score, _ = collector.score_article_sectors("HBM 가격 급등", "")
+        self.assertEqual(snippet_only, "")
+        self.assertEqual(score, 0)
+        self.assertEqual(hits, [])
+        self.assertEqual(title_hit, "소자")
+        self.assertGreater(title_score, 0)
+
+    def test_articles_are_scored_after_the_window_filter(self):
+        with mock.patch.object(collector, "_SECTOR_KEYWORDS", self._loaded_keywords()):
+            article = collector.make_article(
+                "TSMC 파운드리 수율 개선",
+                "https://example.com/score-order",
+                "snippet",
+                {"name": "test", "category_default": "news", "trust_default": "medium"},
+                "news",
+                collector.now_iso(),
+            )
+            self.assertEqual(article["sector"], "")
+            self.assertEqual(article["sector_score"], 0)
+            logs: list[str] = []
+            ranked = collector.rank_news_candidates([article], logs)
+        self.assertEqual(len(ranked), 1)
+        self.assertEqual(ranked[0]["sector"], "공정")
+        self.assertGreater(ranked[0]["sector_score"], 0)
+        self.assertTrue(any(line.startswith("window filter:") for line in logs), logs)
+
     def test_earnings_headline_routes_to_the_new_tab(self):
         with mock.patch.object(collector, "_SECTOR_KEYWORDS", self._loaded_keywords()):
             sector, score, hits = collector.score_article_sectors(
