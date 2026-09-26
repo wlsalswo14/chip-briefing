@@ -61,18 +61,12 @@ USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTM
 TIMEOUT = int(os.environ.get("CHIP_BRIEFING_TIMEOUT", "15"))
 socket.setdefaulttimeout(TIMEOUT)
 
-SECTOR_NAMES = ("설계", "공정", "소자", "패키징", "신제품/발표")
-SECTOR_CHOICES = "|".join(SECTOR_NAMES)
+SECTOR_NAMES = ("설계", "공정", "소자", "패키징", "신제품/발표", "실적/투자/정책/인사")
 SECTOR_SUMMARY_TARGET = max(1, int(os.environ.get("CHIP_BRIEFING_SECTOR_SUMMARY_TARGET", "10")))
-SUPPLEMENTAL_COLLECTION_ROUNDS = max(
-    0,
-    min(3, int(os.environ.get("CHIP_BRIEFING_SUPPLEMENTAL_ROUNDS", "3"))),
-)
-SUPPLEMENTAL_QUERY_RESULT_LIMIT = max(
-    1,
-    min(100, int(os.environ.get("CHIP_BRIEFING_SUPPLEMENTAL_RESULT_LIMIT", "20"))),
-)
 DETAILED_SUMMARY_TARGET = SECTOR_SUMMARY_TARGET * len(SECTOR_NAMES)
+# Extra per-tab headline links published below the summarized stories.
+# Set to 0 to publish every candidate that did not make the top ten.
+HEADLINE_ONLY_PER_SECTOR_LIMIT = int(os.environ.get("CHIP_BRIEFING_HEADLINE_LIMIT", "20"))
 MAX_ITEMS = max(int(os.environ.get("CHIP_BRIEFING_MAX_ITEMS", "100")), DETAILED_SUMMARY_TARGET)
 MAX_COMMUNITY_ITEMS = int(os.environ.get("CHIP_BRIEFING_MAX_COMMUNITY_ITEMS", "10"))
 COMMUNITY_CANDIDATE_LIMIT = int(os.environ.get("CHIP_BRIEFING_COMMUNITY_CANDIDATE_LIMIT", "20"))
@@ -99,9 +93,8 @@ def rotate_llm_key():
         _CURRENT_KEY_INDEX += 1
 
 LLM_MODEL = os.environ.get("CHIP_BRIEFING_LLM_MODEL", "")
-SUMMARY_PROMPT_VERSION = 4  # v4: five-line summary plus five-category verification and importance
-TITLE_CLASSIFICATION_VERSION = 3
-TITLE_CLASSIFICATION_BATCH_SIZE = int(os.environ.get("CHIP_BRIEFING_TITLE_BATCH_SIZE", "20"))
+SUMMARY_PROMPT_VERSION = 5  # v5: five-line summary with the tab decided by keyword scoring
+SUMMARY_CACHE_VERSIONS = (4, SUMMARY_PROMPT_VERSION)
 LLM_MAX_ITEMS = max(
     int(os.environ.get("CHIP_BRIEFING_LLM_MAX_ITEMS", str(MAX_ITEMS))),
     MAX_ITEMS,
@@ -110,9 +103,8 @@ LLM_MAX_ITEMS = max(
 LLM_TIMEOUT = int(os.environ.get("CHIP_BRIEFING_LLM_TIMEOUT", "90"))
 LLM_BUDGET_SECONDS = int(os.environ.get("CHIP_BRIEFING_LLM_BUDGET_SECONDS", "7200"))
 DAILY_SUMMARY_MAX_ITEMS = int(os.environ.get("CHIP_BRIEFING_DAILY_SUMMARY_MAX_ITEMS", "10"))
-# The daily briefing covers the 24 hours ending at this Seoul hour, which is
-# also when the scheduled run starts.
-WINDOW_END_HOUR = int(os.environ.get("CHIP_BRIEFING_WINDOW_END_HOUR", "2"))
+# The daily briefing covers the 24 hours ending when the run starts, so a late
+# GitHub schedule only shifts the window instead of emptying it.
 # Community posts are summarized in one model call, so the pool is kept small
 # enough that five lines per post fit in a single response.
 COMMUNITY_PROMPT_MAX_ITEMS = int(os.environ.get("CHIP_BRIEFING_COMMUNITY_PROMPT_MAX_ITEMS", "12"))
@@ -143,15 +135,6 @@ Prioritize actual industry consequences: who is affected, which bottleneck moves
 Return JSON only and include importance_score as an integer from 1 to 5.
 """.strip()
 
-SECTOR_CLASSIFICATION_GUIDE = """
-분류 기준은 서로 배타적으로 적용한다.
-- 신제품/발표: 구체적인 새 칩·프로세서·GPU·NPU·ASIC·반도체 장비·보드·서버·랙·데이터센터 인프라·소프트웨어·SDK·컴파일러·플랫폼·솔루션·서비스의 출시, 공개, 발표, 정식 제공 또는 제품 로드맵 공개가 기사의 중심일 때 선택한다. 단순 실적, 투자, 협력, 공급계약, 생산능력, 수율 개선, 연구 성과는 여기에 넣지 않는다.
-- 설계: 칩 아키텍처, 회로·RTL·IP·EDA, 인터커넥트, 설계 방법론이나 팹리스 전략이 중심일 때 선택한다. 구체적인 신제품 공개가 중심이면 신제품/발표를 우선한다.
-- 공정: 파운드리 노드, 노광·식각·증착·계측, 수율, 웨이퍼 생산, 미세화와 제조 공정이 중심일 때 선택한다.
-- 소자: DRAM·NAND·HBM·비휘발성 메모리, 트랜지스터, 메모리 셀과 소자 물성이 중심일 때 선택한다. 구체적인 브랜드 제품 출시가 중심이면 신제품/발표를 우선한다.
-- 패키징: CoWoS·SoIC·2.5D·3D·TSV·인터포저·기판·범프·하이브리드 본딩·OSAT가 중심일 때 선택한다.
-""".strip()
-
 if HF_TOKEN and not LLM_BASE_URL:
     LLM_BASE_URL = "https://router.huggingface.co/v1"
 if HF_TOKEN and not LLM_MODEL:
@@ -180,38 +163,6 @@ GOOGLE_NEWS_QUERIES = [
     "semiconductor chip product launch software platform AI infrastructure",
     "반도체 HBM OR 패키징 OR EUV OR 파운드리",
 ]
-
-# Each supplemental round uses a different query for only the sectors that are
-# still below ten Gemma-classified candidates. These are deliberately distinct
-# from the broad first-pass queries, so a retry adds new search result pools
-# instead of downloading the same page again.
-SUPPLEMENTAL_SECTOR_QUERIES: dict[str, tuple[str, ...]] = {
-    "설계": (
-        "반도체 설계 팹리스 AI 가속기",
-        "반도체 EDA IP 칩렛 인터커넥트",
-        "GPU NPU ASIC 커스텀 실리콘",
-    ),
-    "공정": (
-        "반도체 공정 수율 식각 증착",
-        "파운드리 미세공정 GAA 나노시트",
-        "EUV High-NA 포토레지스트 계측",
-    ),
-    "소자": (
-        "반도체 소자 D램 낸드 HBM",
-        "트랜지스터 메모리 셀 MRAM ReRAM",
-        "CXL 메모리 DRAM NAND 소자",
-    ),
-    "패키징": (
-        "첨단 패키징 TSV 인터포저 OSAT",
-        "하이브리드 본딩 유리기판 범프",
-        "CoWoS SoIC 2.5D 3D 패키징",
-    ),
-    "신제품/발표": (
-        "반도체 신제품 칩 GPU NPU ASIC 공개 출시",
-        "AI 서버 랙 데이터센터 인프라 플랫폼 발표",
-        "반도체 소프트웨어 SDK 컴파일러 장비 솔루션 출시",
-    ),
-}
 
 REDDIT_SUBREDDITS = [
     "hardware",
@@ -720,10 +671,7 @@ def make_article(title: str, link: str, snippet: str, source: dict, raw_type: st
     if len(snippet) > 320:
         body += "..."
     url = canonical_url(link)
-    text_for_sector = f"{title} {snippet}"
-    sector, matched = headline_sector(title)
-    if not sector:
-        sector, matched = classify_sector(text_for_sector)
+    sector, sector_score, matched = score_article_sectors(title, snippet)
     category = source.get("category_default") or ("community" if raw_type in {"social", "community"} else "news")
     trust = source.get("trust_default") or ("low" if category in {"rumor", "community"} else "medium")
     return {
@@ -731,7 +679,8 @@ def make_article(title: str, link: str, snippet: str, source: dict, raw_type: st
         "headline": title,
         "body": body,
         "sector": sector,
-        "sector_method": "heuristic",
+        "sector_score": sector_score,
+        "sector_method": "keyword",
         "category": category,
         "trust": trust,
         "created_at": created_at,
@@ -744,52 +693,69 @@ def make_article(title: str, link: str, snippet: str, source: dict, raw_type: st
     }
 
 
-_SECTOR_KEYWORDS: dict[str, list[str]] = {}
+_SECTOR_KEYWORDS: dict[str, list[tuple[str, int]]] = {}
+
+# A title match is worth double so one strong headline word decides the tab
+# unless the snippet carries several stronger signals. When two tabs tie, the
+# earlier entry in SECTOR_NAMES wins, which keeps the assignment stable.
+TITLE_WEIGHT_MULTIPLIER = 2
 
 
-def classify_sector(text: str) -> tuple[str, list[str]]:
-    text_l = text.lower()
-    scores: dict[str, int] = {}
-    matches: dict[str, list[str]] = {}
-    for sector, keywords in _SECTOR_KEYWORDS.items():
-        for keyword in keywords:
-            if keyword_matches(text_l, keyword):
-                scores[sector] = scores.get(sector, 0) + 1
-                matches.setdefault(sector, []).append(keyword)
-    if not scores:
-        return "설계", []
-    sector = sorted(scores, key=lambda s: (-scores[s], s))[0]
-    return sector, matches.get(sector, [])
+def load_sector_keywords(config: dict) -> dict[str, list[tuple[str, int]]]:
+    """Read sources.json sector_keywords into (term, weight) pairs per tab."""
+    raw = config.get("sector_keywords") or {}
+    loaded: dict[str, list[tuple[str, int]]] = {}
+    for sector in SECTOR_NAMES:
+        entries: list[tuple[str, int]] = []
+        value = raw.get(sector)
+        if isinstance(value, dict):
+            for weight_key, terms in value.items():
+                try:
+                    weight = max(1, min(3, int(weight_key)))
+                except (TypeError, ValueError):
+                    continue
+                if isinstance(terms, str):
+                    terms = [terms]
+                if not isinstance(terms, list):
+                    continue
+                for term in terms:
+                    if isinstance(term, str) and term.strip():
+                        entries.append((term.strip(), weight))
+        elif isinstance(value, list):
+            # Legacy flat list: every term counted as weight 1.
+            entries = [
+                (term.strip(), 1)
+                for term in value
+                if isinstance(term, str) and term.strip()
+            ]
+        loaded[sector] = entries
+    return loaded
 
 
-# The keywords in sources.json are English, but most collected articles are
-# Korean, so process and packaging stories kept landing on the default sector
-# and their tabs stayed at three or four items. A strong headline signal now
-# decides the tab on its own. Packaging is checked first: it is the scarcer
-# tab, and "CoWoS" outranks a passing "파운드리" mention.
-SECTOR_HEADLINE_TERMS: dict[str, tuple[str, ...]] = {
-    "패키징": (
-        "cowos", "코워스", "패키징", "본딩", "tsv", "인터포저", "유리기판",
-        "범프", "osat", "2.5d", "3d 패키징", "어드밴스드 패키징",
-    ),
-    "공정": (
-        "파운드리", "수율", "노광", "euv", "high-na", "high na", "식각", "증착",
-        "웨이퍼", "미세화", "나노시트", "포토레지스트", "gaa",
-        "2나노", "3나노", "5나노", "1.4나노",
-    ),
-}
+def score_article_sectors(title: str, snippet: str) -> tuple[str, int, list[str]]:
+    """Return the best tab for an article, its score, and the terms that matched.
 
-
-def headline_sector(title: str) -> tuple[str, list[str]]:
-    """Return the sector a headline clearly signals, or ("", []) when unclear."""
-    text = clean_text(title).lower()
+    Title matches count double and snippet-only matches count once. A score of
+    zero means no tab claimed the article, and the caller drops it.
+    """
+    title_l = clean_text(title).lower()
+    snippet_l = clean_text(snippet).lower()
     best_sector = ""
+    best_score = 0
     best_hits: list[str] = []
-    for sector, terms in SECTOR_HEADLINE_TERMS.items():
-        hits = [term for term in terms if term in text]
-        if len(hits) > len(best_hits):
-            best_sector, best_hits = sector, hits
-    return best_sector, best_hits
+    for sector in SECTOR_NAMES:
+        score = 0
+        hits: list[str] = []
+        for term, weight in _SECTOR_KEYWORDS.get(sector, []):
+            if keyword_matches(title_l, term):
+                score += TITLE_WEIGHT_MULTIPLIER * weight
+                hits.append(f"{term}*{weight}")
+            elif keyword_matches(snippet_l, term):
+                score += weight
+                hits.append(f"{term}*{weight}(body)")
+        if score > best_score:
+            best_sector, best_score, best_hits = sector, score, hits
+    return best_sector, best_score, best_hits
 
 
 def keyword_matches(text_l: str, keyword: str) -> bool:
@@ -902,64 +868,6 @@ def collect_naver(
                 time.sleep(0.15)
             except Exception as exc:
                 logs.append(f"{log_prefix} skip: {query} ({type(exc).__name__})")
-    return articles, logs
-
-
-def collect_sector_supplements(
-    missing_sectors: list[str],
-    round_number: int,
-    naver_sources: list[dict],
-) -> tuple[list[dict], list[str]]:
-    """Fetch new result pools for only the underfilled sectors.
-
-    The first pass already queried broad feeds. Supplemental rounds use a
-    different sector-specific query each time and the official Naver News API
-    plus Google News search RSS. Generic RSS feeds are intentionally not read
-    again because that would mostly reproduce the same entries.
-    """
-    if round_number < 1 or round_number > SUPPLEMENTAL_COLLECTION_ROUNDS:
-        return [], [f"supplemental round {round_number} skip: outside configured range"]
-
-    query_index = round_number - 1
-    queries = [
-        SUPPLEMENTAL_SECTOR_QUERIES[sector][query_index]
-        for sector in missing_sectors
-        if sector in SUPPLEMENTAL_SECTOR_QUERIES
-        and query_index < len(SUPPLEMENTAL_SECTOR_QUERIES[sector])
-    ]
-    if not queries:
-        return [], [f"supplemental round {round_number}: no missing-sector queries"]
-
-    articles: list[dict] = []
-    logs: list[str] = []
-    google_rows, google_logs = collect_google_news(
-        queries,
-        per_query=SUPPLEMENTAL_QUERY_RESULT_LIMIT,
-        log_prefix=f"supplemental {round_number} google news",
-    )
-    articles.extend(google_rows)
-    logs.extend(google_logs)
-
-    # Only the official news endpoint is used here. Blog and community search
-    # results are not used to fill the four newsroom sectors.
-    naver_news_sources = [
-        source
-        for source in naver_sources
-        if str(source.get("endpoint", "")).endswith("/news.json")
-    ]
-    naver_rows, naver_logs = collect_naver(
-        naver_news_sources,
-        queries,
-        display=SUPPLEMENTAL_QUERY_RESULT_LIMIT,
-        start=1,
-        log_prefix=f"supplemental {round_number} naver",
-    )
-    articles.extend(naver_rows)
-    logs.extend(naver_logs)
-    logs.append(
-        f"supplemental round {round_number}: requested {','.join(missing_sectors)} "
-        f"and received {len(articles)} raw rows"
-    )
     return articles, logs
 
 
@@ -1879,12 +1787,10 @@ def enrich_community_reactions(items: list[dict], logs: list[str]) -> tuple[list
 
 
 def briefing_window(now: dt.datetime | None = None) -> tuple[dt.datetime, dt.datetime]:
+    """Return the rolling 24 hours ending at the run time, in KST."""
     kst = dt.timezone(dt.timedelta(hours=9))
     now = (now or dt.datetime.now(kst)).astimezone(kst)
-    window_end = now.replace(hour=WINDOW_END_HOUR, minute=0, second=0, microsecond=0)
-    if now < window_end:
-        window_end -= dt.timedelta(days=1)
-    return window_end - dt.timedelta(days=1), window_end
+    return now - dt.timedelta(hours=24), now
 
 
 def recent_archived_community_urls(days: int = 7) -> set[str]:
@@ -1987,26 +1893,23 @@ def llm_is_configured() -> bool:
     return bool(LLM_BASE_URL and LLM_MODEL)
 
 
-def summarize_with_llm(article: dict, source_text: str) -> tuple[str, str | None, list[str] | None, int | None]:
+def summarize_with_llm(article: dict, source_text: str) -> tuple[str, list[str] | None, int | None]:
     system_prompt = (
         "너는 반도체 뉴스 팩트 에디터다. 독자는 평가나 배경 설명이 아니라 새로 나온 사실을 원한다. "
         "요약은 기사에서 확인되는 핵심 사실, 새 발표/변경점, 기술 세부사항, 수치, 기업명, 제품명, 공정명, 일정, 적용 대상을 중심으로 쓴다. "
         "'반도체의 중요성이 커지고 있습니다', '경쟁이 치열해지고 있습니다', '주목됩니다', '의미가 있습니다' 같은 범용 평가 문장은 금지한다. "
         "원문에 없는 전망, 투자 조언, 과장 표현은 쓰지 않는다. 원문을 베껴 쓰지 말고 한국어로 압축한다. "
-        "반드시 JSON만 출력한다. summary_lines는 정확히 5개의 문자열 배열이며 각 줄은 서로 다른 핵심 사실을 담는다. "
-        f"sector는 {', '.join(SECTOR_NAMES)} 중 하나이며 반드시 기사 내용을 직접 판단해 분류한다. "
-        + SECTOR_CLASSIFICATION_GUIDE
+        "반드시 JSON만 출력한다. summary_lines는 정확히 5개의 문자열 배열이며 각 줄은 서로 다른 핵심 사실을 담는다."
     )
     system_prompt = EDITORIAL_PRIORITY_PROMPT + "\n\n" + system_prompt
     prompt = {
         "title": article.get("headline", ""),
         "source": article.get("source_name", ""),
         "url": article.get("source_url", ""),
-        "current_sector": article.get("sector", ""),
         "text": source_text[:6500],
     }
     user_prompt = (
-        "다음 뉴스 후보를 칩 브리핑 상세 기사로 요약하고 섹터를 분류해줘.\n"
+        "다음 뉴스 후보를 칩 브리핑 상세 기사로 요약해줘.\n"
         "작성 규칙:\n"
         "- 정확히 5줄, 각 줄은 가능한 한 구체적인 팩트로 시작\n"
         "- 무엇이 새로 발표/공개/변경/출하/투자/지원됐는지 먼저 말하기\n"
@@ -2015,7 +1918,6 @@ def summarize_with_llm(article: dict, source_text: str) -> tuple[str, str | None
         "- 기사에 근거가 약하면 '확인된 내용은 ...'처럼 제한적으로 쓰기\n"
         "JSON 형식: {\"summary_lines\":[\"팩트 중심 요약 1줄\",\"팩트 중심 요약 2줄\",\"팩트 중심 요약 3줄\","
         "\"팩트 중심 요약 4줄\",\"팩트 중심 요약 5줄\"], "
-        f"\"sector\":\"{SECTOR_CHOICES}\", "
         "\"keywords\":[\"핵심어1\",\"핵심어2\"], "
         "\"importance_score\":5}\n\n"
         + json.dumps(prompt, ensure_ascii=False)
@@ -2080,17 +1982,14 @@ def summarize_with_llm(article: dict, source_text: str) -> tuple[str, str | None
                 if not summary_lines and raw_summary:
                     summary_lines = [clean_text(raw_summary)]
             summary = "\n".join(summary_lines[:5])
-            sector = parsed.get("sector")
             keywords = parsed.get("keywords")
-            if sector not in SECTOR_NAMES:
-                sector = None
             if not isinstance(keywords, list):
                 keywords = None
             keywords = [clean_text(str(k)) for k in keywords or [] if clean_text(str(k))][:6]
             importance_score = parsed.get("importance_score")
             if importance_score is None:
                 importance_score = parsed.get("importance")
-            return summary, sector, keywords, clamp_importance_score(importance_score) if importance_score is not None else None
+            return summary, keywords, clamp_importance_score(importance_score) if importance_score is not None else None
         except Exception as exc:
             is_429 = False
             if hasattr(exc, "code") and exc.code == 429:
@@ -2120,258 +2019,26 @@ def parse_llm_json(content: str) -> dict:
     return {}
 
 
-def classify_title_batch_with_llm(articles: list[dict]) -> list[dict]:
-    """Classify and rank headline-only articles using headlines and ids only."""
-    title_rows = [
-        {
-            "id": str(article.get("id") or ""),
-            "title": clean_text(article.get("headline", "")),
-        }
-        for article in articles
-        if article.get("id") and article.get("headline")
-    ]
-    if not title_rows:
-        return []
-
-    system_prompt = (
-        "너는 반도체 뉴스 편집자다. 입력으로 주어진 제목만 보고 각 기사를 정리한다. "
-        "본문, 출처, 기존 분류, 외부 지식은 사용하지 않는다. "
-        f"각 항목의 sector는 {', '.join(SECTOR_NAMES)} 중 하나로 분류한다. "
-        + SECTOR_CLASSIFICATION_GUIDE + " "
-        "반도체 산업 기사로 보기 어려우면 relevant를 false로 둔다. "
-        "importance_score는 제목만으로 판단 가능한 산업 영향도를 1~5 정수로 매긴다. "
-        "제목이 모호하거나 영향도를 판단하기 어려우면 낮게 평가한다. "
-        "요약문이나 새 제목은 만들지 않는다. 반드시 JSON만 출력한다."
-    )
-    user_prompt = (
-        "다음 제목들을 분류해줘. 입력에 없는 사실을 추정하지 마.\n"
-        "JSON 형식: {\"items\":[{\"id\":\"...\",\"relevant\":true,"
-        "\"sector\":\"" + SECTOR_CHOICES + "\",\"importance_score\":1}]}\n\n"
-        + json.dumps(title_rows, ensure_ascii=False)
-    )
-
-    is_native_gemini = "generativelanguage.googleapis.com" in LLM_BASE_URL and "gemma" in LLM_MODEL.lower()
-    max_attempts = max(1, len(LLM_API_KEYS))
-    for attempt in range(max_attempts):
-        headers: dict[str, str] = {}
-        current_key = get_current_llm_key()
-        if is_native_gemini:
-            base_path = LLM_BASE_URL.split("/openai")[0]
-            endpoint = f"{base_path}/models/{LLM_MODEL}:generateContent?key={current_key}"
-            payload = {
-                "contents": [{"role": "user", "parts": [{"text": user_prompt}]}],
-                "systemInstruction": {"parts": [{"text": system_prompt}]},
-                "generationConfig": {
-                    "temperature": 0.1,
-                    "maxOutputTokens": 4096,
-                    "responseMimeType": "application/json",
-                },
-            }
-        else:
-            endpoint = LLM_BASE_URL + "/chat/completions"
-            if current_key:
-                headers["Authorization"] = f"Bearer {current_key}"
-            payload = {
-                "model": LLM_MODEL,
-                "temperature": 0.1,
-                "max_tokens": 4096,
-                "messages": [
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": user_prompt},
-                ],
-            }
-
-        try:
-            data = post_json(endpoint, payload, headers=headers, timeout=LLM_TIMEOUT)
-            if is_native_gemini:
-                parts = data["candidates"][0]["content"]["parts"]
-                content = "".join(part.get("text", "") for part in parts if not part.get("thought"))
-            else:
-                content = data["choices"][0]["message"]["content"]
-            parsed = parse_llm_json(content)
-            rows = parsed.get("items")
-            return rows if isinstance(rows, list) else []
-        except Exception as exc:
-            is_429 = getattr(exc, "code", None) == 429 or "429" in str(exc)
-            if is_429 and len(LLM_API_KEYS) > 1 and attempt < max_attempts - 1:
-                rotate_llm_key()
-                time.sleep(1.0)
-                continue
-            raise
-
-
-def organize_title_only_with_llm(articles: list[dict], logs: list[str]) -> list[dict]:
-    """Use Gemma to organize every non-summary article from its title only."""
-    title_only = [article for article in articles if not has_llm_summary(article)]
-    if not title_only:
-        logs.append("title organization: 0/0")
-        return articles
-    if not llm_is_configured():
-        logs.append(f"title organization skip: model not configured (0/{len(title_only)})")
-        return articles
-
-    cache_by_title: dict[str, dict] = {}
-    if ARTICLES_PATH.exists():
-        try:
-            prev_data = json.loads(ARTICLES_PATH.read_text(encoding="utf-8"))
-            for previous in prev_data.get("articles", []):
-                cached_sector = previous.get("title_sector") or (
-                    previous.get("sector")
-                    if previous.get("sector_method") == "llm_title"
-                    else ""
-                )
-                if (
-                    previous.get("title_classification_version") == TITLE_CLASSIFICATION_VERSION
-                    and cached_sector in SECTOR_NAMES
-                ):
-                    key = summary_cache_key(previous.get("headline"))
-                    if key:
-                        cache_by_title[key] = {
-                            "sector": cached_sector,
-                            "importance_score": previous.get("title_importance_score")
-                            or previous.get("importance_score"),
-                            "relevant": previous.get("title_relevant", True),
-                        }
-        except Exception as exc:
-            logs.append(f"title organization cache failed: {type(exc).__name__}: {exc}")
-
-    organized = 0
-    cache_hits = 0
-    pending: list[dict] = []
-    for article in title_only:
-        if (
-            article.get("sector_method") == "llm_title"
-            and article.get("title_classification_version") == TITLE_CLASSIFICATION_VERSION
-            and article.get("sector") in SECTOR_NAMES
-            and article.get("title_importance_score") is not None
-            and article.get("title_relevant") is not None
-        ):
-            article["title_sector"] = article.get("sector")
-            organized += 1
-            continue
-
-        cached = cache_by_title.get(summary_cache_key(article.get("headline")))
-        if cached:
-            title_score = clamp_importance_score(cached.get("importance_score"), 1)
-            article["sector"] = cached["sector"]
-            article["title_sector"] = cached["sector"]
-            article["sector_method"] = "llm_title"
-            article["importance_score"] = title_score
-            article["title_importance_score"] = title_score
-            article["title_relevant"] = model_bool(cached.get("relevant"), True)
-            article["importance_method"] = "llm_title"
-            article["title_classification_version"] = TITLE_CLASSIFICATION_VERSION
-            organized += 1
-            cache_hits += 1
-        else:
-            pending.append(article)
-
-    def apply_batch(batch: list[dict]) -> list[dict]:
-        nonlocal organized
-        rows = classify_title_batch_with_llm(batch)
-        batch_by_id = {str(article.get("id")): article for article in batch}
-        resolved: set[str] = set()
-        for row in rows:
-            if not isinstance(row, dict):
-                continue
-            article_id = str(row.get("id") or "")
-            sector = row.get("sector")
-            article = batch_by_id.get(article_id)
-            if article is None or sector not in SECTOR_NAMES:
-                continue
-            title_score = clamp_importance_score(row.get("importance_score"), 1)
-            article["sector"] = sector
-            article["title_sector"] = sector
-            article["sector_method"] = "llm_title"
-            article["importance_score"] = title_score
-            article["title_importance_score"] = title_score
-            article["title_relevant"] = model_bool(row.get("relevant"), True)
-            article["importance_method"] = "llm_title"
-            article["title_classification_version"] = TITLE_CLASSIFICATION_VERSION
-            resolved.add(article_id)
-            organized += 1
-        return [article for article in batch if str(article.get("id")) not in resolved]
-
-    def process_batch(batch: list[dict]) -> None:
-        if not batch:
-            return
-        try:
-            unresolved = apply_batch(batch)
-            if not unresolved:
-                return
-            if len(unresolved) == len(batch) and len(batch) > 1:
-                midpoint = max(1, len(batch) // 2)
-                process_batch(batch[:midpoint])
-                process_batch(batch[midpoint:])
-                return
-            for article in unresolved:
-                process_batch([article])
-        except Exception as exc:
-            if len(batch) > 1:
-                midpoint = max(1, len(batch) // 2)
-                logs.append(
-                    f"title organization retry: splitting {len(batch)} titles ({type(exc).__name__})"
-                )
-                process_batch(batch[:midpoint])
-                process_batch(batch[midpoint:])
-            else:
-                logs.append(
-                    f"title organization skip: {str(batch[0].get('headline', ''))[:60]} "
-                    f"({type(exc).__name__})"
-                )
-
-    batch_size = max(1, TITLE_CLASSIFICATION_BATCH_SIZE)
-    for start in range(0, len(pending), batch_size):
-        process_batch(pending[start:start + batch_size])
-
-    logs.append(
-        f"title organization: {organized}/{len(title_only)} "
-        f"(cache {cache_hits}, model {organized - cache_hits})"
-    )
-    return articles
-
-
-def is_title_classified(article: dict) -> bool:
+def sector_candidate_key(article: dict) -> tuple:
+    """Keyword score first; recency breaks ties inside a tab."""
     return (
-        article.get("sector_method") == "llm_title"
-        and article.get("title_classification_version") == TITLE_CLASSIFICATION_VERSION
-        and article.get("sector") in SECTOR_NAMES
-        and article.get("title_importance_score") is not None
-        and article.get("title_relevant", True) is True
+        int(article.get("sector_score") or 0),
+        str(article.get("created_at") or ""),
     )
 
 
-def title_sector_counts(articles: list[dict]) -> dict[str, int]:
+def sector_candidates_for(articles: list[dict], sector: str) -> list[dict]:
+    rows = [article for article in articles if article.get("sector") == sector]
+    return sorted(rows, key=sector_candidate_key, reverse=True)
+
+
+def keyword_sector_counts(articles: list[dict]) -> dict[str, int]:
     counts = {sector: 0 for sector in SECTOR_NAMES}
     for article in articles:
-        if is_title_classified(article):
-            counts[article["sector"]] += 1
+        sector = article.get("sector")
+        if sector in counts:
+            counts[sector] += 1
     return counts
-
-
-def missing_title_sectors(
-    articles: list[dict],
-    target: int = SECTOR_SUMMARY_TARGET,
-) -> list[str]:
-    counts = title_sector_counts(articles)
-    return [sector for sector in SECTOR_NAMES if counts.get(sector, 0) < target]
-
-
-def title_candidate_key(article: dict) -> tuple:
-    """Gemma headline score first; recency breaks ties without keywords."""
-    return (
-        clamp_importance_score(article.get("title_importance_score"), 1),
-        article.get("created_at", ""),
-    )
-
-
-def title_candidates_for_sector(articles: list[dict], sector: str) -> list[dict]:
-    rows = [
-        article
-        for article in articles
-        if is_title_classified(article) and article.get("sector") == sector
-    ]
-    return sorted(rows, key=title_candidate_key, reverse=True)
 
 
 def expected_detailed_summary_target(
@@ -2379,81 +2046,82 @@ def expected_detailed_summary_target(
     per_sector: int = SECTOR_SUMMARY_TARGET,
 ) -> int:
     return sum(
-        min(per_sector, len(title_candidates_for_sector(articles, sector)))
+        min(per_sector, len(sector_candidates_for(articles, sector)))
         for sector in SECTOR_NAMES
     )
 
 
-def collect_until_sector_targets(
-    news_candidates: list[dict],
-    naver_sources: list[dict],
-    logs: list[str],
-    max_rounds: int = SUPPLEMENTAL_COLLECTION_ROUNDS,
-) -> tuple[list[dict], int]:
-    """Classify headlines, then add targeted API results for missing sectors."""
+def rank_news_candidates(news_candidates: list[dict], logs: list[str]) -> list[dict]:
+    """Deduplicate news, keep only keyword-scored candidates, and log counts."""
     ranked = dedupe_rank(
         news_candidates,
         limit=None,
         require_relevance=False,
         dedupe_titles=True,
     )
-    organize_title_only_with_llm(ranked, logs)
-    rounds_used = 0
-
-    for round_number in range(1, max(0, max_rounds) + 1):
-        missing = missing_title_sectors(ranked)
-        counts_before = title_sector_counts(ranked)
-        logs.append(
-            f"sector candidates before supplemental {round_number}: "
-            + ", ".join(f"{sector}={counts_before[sector]}" for sector in SECTOR_NAMES)
-        )
-        if not missing:
-            break
-
-        found, new_logs = collect_sector_supplements(missing, round_number, naver_sources)
-        logs.extend(new_logs)
-        before_ids = {article.get("id") for article in ranked}
-        ranked = dedupe_rank(
-            ranked + found,
-            limit=None,
-            require_relevance=False,
-            dedupe_titles=True,
-        )
-        new_unique = sum(1 for article in ranked if article.get("id") not in before_ids)
-        logs.append(
-            f"supplemental round {round_number}: {new_unique} new unique in-window articles"
-        )
-        organize_title_only_with_llm(ranked, logs)
-        rounds_used = round_number
-
-    final_counts = title_sector_counts(ranked)
+    kept = [
+        article
+        for article in ranked
+        if article.get("sector") in SECTOR_NAMES
+        and int(article.get("sector_score") or 0) > 0
+    ]
+    dropped = len(ranked) - len(kept)
+    counts = keyword_sector_counts(kept)
     logs.append(
-        "sector candidate final: "
-        + ", ".join(f"{sector}={final_counts[sector]}" for sector in SECTOR_NAMES)
-        + f"; supplemental rounds={rounds_used}"
+        "sector candidates: "
+        + ", ".join(f"{sector}={counts[sector]}" for sector in SECTOR_NAMES)
     )
-    return ranked, rounds_used
+    logs.append(
+        f"keyword filter: kept {len(kept)}/{len(ranked)}, dropped {dropped} zero-score"
+    )
+    return kept
 
 
-def enrich_with_llm_summaries(
-    articles: list[dict],
-    logs: list[str],
-    target: int | None = None,
-) -> list[dict]:
-    candidate_pool = list(articles[:LLM_MAX_ITEMS])
-    requested_target = len(candidate_pool) if target is None else max(0, target)
-    target_count = min(len(candidate_pool), requested_target)
+def report_sector_candidates(articles: list[dict], logs: list[str]) -> None:
+    """Print the per-tab candidate counts and examples for a collect-only run."""
+    counts = keyword_sector_counts(articles)
+    logs.append("collect-only sector counts: " + ", ".join(
+        f"{sector}={counts[sector]}" for sector in SECTOR_NAMES
+    ))
+    for sector in SECTOR_NAMES:
+        samples = sector_candidates_for(articles, sector)[:3]
+        for sample in samples:
+            logs.append(
+                f"collect-only {sector}[{sample.get('sector_score')}]: "
+                f"{clean_text(sample.get('headline', ''))[:70]}"
+            )
+
+
+def enrich_with_llm_summaries(articles: list[dict], logs: list[str]) -> list[dict]:
+    """Summarize up to SECTOR_SUMMARY_TARGET candidates per tab in one pass.
+
+    All tabs share a single model budget, so one slow tab can no longer spend
+    two hours of its own and leave the rest of the run waiting. When a summary
+    fails, the next candidate in the same tab takes its place; the attempt cap
+    keeps a broken tab from starving the tabs that follow it.
+    """
+    per_tab_attempt_cap = max(SECTOR_SUMMARY_TARGET * 2, SECTOR_SUMMARY_TARGET)
+    queues = {
+        sector: sector_candidates_for(articles, sector)[:per_tab_attempt_cap]
+        for sector in SECTOR_NAMES
+    }
+    targets = {
+        sector: min(SECTOR_SUMMARY_TARGET, len(queues[sector]))
+        for sector in SECTOR_NAMES
+    }
+    requested_target = sum(targets.values())
+    eligible = sum(len(queue) for queue in queues.values())
 
     if not llm_is_configured():
         logs.append("llm skip: CHIP_BRIEFING_LLM_BASE_URL/CHIP_BRIEFING_LLM_MODEL not set")
         for article in articles:
             article["importance_score"] = fallback_importance_score(article)
-        logs.append(f"detailed summary target: 0/{requested_target} (eligible {len(candidate_pool)})")
+        logs.append(f"detailed summary target: 0/{requested_target} (eligible {eligible})")
         return articles
 
     # Load cache of previous summaries from articles.json. Lookups fall back to
-    # the headline because aggregator URLs are re-issued every day. Version 3
-    # cache entries are reusable only when Gemma also supplied the sector.
+    # the headline because aggregator URLs are re-issued every day. Entries keep
+    # the model text only; the tab always comes from the keyword score.
     cache: dict[str, dict] = {}
     cache_by_title: dict[str, dict] = {}
     if ARTICLES_PATH.exists():
@@ -2464,17 +2132,11 @@ def enrich_with_llm_summaries(
                     art.get("id")
                     and art.get("body")
                     and art.get("summary_method") == "llm"
-                    and art.get("summary_version") == SUMMARY_PROMPT_VERSION
-                    and art.get("sector") in SECTOR_NAMES
+                    and art.get("summary_version") in SUMMARY_CACHE_VERSIONS
                 ):
                     entry = {
                         "body": art.get("body"),
                         "sector": art.get("sector"),
-                        "sector_method": art.get("sector_method") or "llm",
-                        "summary_sector": art.get("summary_sector") or art.get("sector"),
-                        "title_sector": art.get("title_sector"),
-                        "title_importance_score": art.get("title_importance_score"),
-                        "title_classification_version": art.get("title_classification_version"),
                         "llm_keywords": art.get("llm_keywords"),
                         "summary_model": art.get("summary_model"),
                         "importance_score": art.get("importance_score"),
@@ -2491,162 +2153,125 @@ def enrich_with_llm_summaries(
         except Exception as exc:
             logs.append(f"cache load failed: {type(exc).__name__}: {exc}")
 
-    def item_key(article: dict) -> str:
-        return str(article.get("id") or f"object:{id(article)}")
-
-    summarized_keys = {
-        item_key(article)
-        for article in candidate_pool
-        if has_llm_summary(article) and article.get("sector") in SECTOR_NAMES
-    }
+    deadline = time.monotonic() + LLM_BUDGET_SECONDS
     enriched = 0
     cache_hits = 0
-    deadline = time.monotonic() + LLM_BUDGET_SECONDS
-    queue = candidate_pool
-    total_candidates = len(candidate_pool)
     attempted = 0
     exhausted = False
+    done = {sector: 0 for sector in SECTOR_NAMES}
 
-    # The first pass keeps moving down the overall ranking until the requested
-    # number of successful summaries is reached. Failed candidates are retried
-    # once only when the full pool still did not produce enough successes.
-    for attempt_pass in range(2):
-        failed: list[dict] = []
-        for article in queue:
-            if len(summarized_keys) >= target_count:
+    for sector in SECTOR_NAMES:
+        attempts_here = 0
+        for article in queues[sector]:
+            if done[sector] >= targets[sector]:
+                break
+            if time.monotonic() > deadline:
+                exhausted = True
+                break
+            if has_llm_summary(article):
+                done[sector] += 1
+                continue
+            if attempts_here >= per_tab_attempt_cap:
+                logs.append(
+                    f"sector summary {sector}: attempt cap reached after {attempts_here} calls"
+                )
                 break
 
-            key = item_key(article)
-            if key in summarized_keys:
-                continue
-
-            art_id = article.get("id")
-            cached = cache.get(art_id) or cache_by_title.get(summary_cache_key(article.get("headline")))
+            cached = cache.get(article.get("id")) or cache_by_title.get(
+                summary_cache_key(article.get("headline"))
+            )
             if cached:
                 article["body"] = cached["body"]
                 article["summary_method"] = "llm"
                 article["summary_model"] = cached.get("summary_model") or LLM_MODEL
-                article["summary_version"] = cached.get("summary_version")
-                if article.get("title_sector") in SECTOR_NAMES:
-                    article["sector"] = article["title_sector"]
-                    article["sector_method"] = "llm_title"
-                    article["summary_sector"] = cached.get("summary_sector") or cached["sector"]
-                else:
-                    article["sector"] = cached["sector"]
-                    article["sector_method"] = cached.get("sector_method") or "llm"
-                    article["summary_sector"] = cached.get("summary_sector") or cached["sector"]
-                if cached.get("title_sector") and not article.get("title_sector"):
-                    article["title_sector"] = cached.get("title_sector")
-                    article["title_importance_score"] = cached.get("title_importance_score")
-                    article["title_classification_version"] = cached.get("title_classification_version")
+                article["summary_version"] = cached.get("summary_version") or SUMMARY_PROMPT_VERSION
+                article["summary_sector"] = article.get("sector")
                 if cached.get("llm_keywords"):
                     article["llm_keywords"] = cached["llm_keywords"]
                 article["importance_score"] = clamp_importance_score(
                     cached.get("importance_score"),
-                    clamp_importance_score(article.get("title_importance_score"), 1),
+                    fallback_importance_score(article),
                 )
-                summarized_keys.add(key)
                 cache_hits += 1
+                done[sector] += 1
                 continue
 
-            if time.monotonic() > deadline:
-                exhausted = True
-                break
-
+            attempts_here += 1
             attempted += 1
             try:
-                print(f"[{attempted}/{total_candidates}] 요약 중: {article.get('headline', '')[:55]}...", flush=True)
+                print(
+                    f"[{attempted}] {sector} 요약 중: {article.get('headline', '')[:55]}...",
+                    flush=True,
+                )
             except UnicodeEncodeError:
-                try:
-                    safe_headline = article.get('headline', '')[:55].encode('ascii', errors='replace').decode('ascii')
-                    print(f"[{attempted}/{total_candidates}] 요약 중: {safe_headline}...", flush=True)
-                except Exception:
-                    print(f"[{attempted}/{total_candidates}] 요약 중: (인코딩 에러 발생 기사)...", flush=True)
+                print(f"[{attempted}] {sector} summarizing...", flush=True)
 
             source_text = extract_article_text(article.get("source_url", ""))
             if len(source_text) < 300:
                 source_text = f"{article.get('headline', '')}\n\n{article.get('body', '')}"
 
             try:
-                summary, sector, keywords, importance_score = summarize_with_llm(article, source_text)
-                if summary and sector in SECTOR_NAMES:
-                    article["body"] = summary
-                    article["summary_method"] = "llm"
-                    article["summary_model"] = LLM_MODEL
-                    article["summary_version"] = SUMMARY_PROMPT_VERSION
-                    article["summary_sector"] = sector
-                    if article.get("title_sector") in SECTOR_NAMES:
-                        article["sector"] = article["title_sector"]
-                        article["sector_method"] = "llm_title"
-                    else:
-                        article["sector"] = sector
-                        article["sector_method"] = "llm"
-                    article["importance_score"] = clamp_importance_score(
-                        importance_score,
-                        clamp_importance_score(article.get("title_importance_score"), 1),
-                    )
-                    if keywords:
-                        article["llm_keywords"] = keywords
-                    if len([line for line in summary.split("\n") if line.strip()]) < 5:
-                        logs.append(
-                            f"llm short summary: {article.get('headline', '')[:60]} "
-                            "(fewer than 5 lines, kept as a valid summary)"
-                        )
-                    summarized_keys.add(key)
-                    enriched += 1
-                    time.sleep(4.0)
-                elif summary:
-                    article["summary_method"] = "snippet"
-                    article["importance_score"] = fallback_importance_score(article, source_text)
-                    failed.append(article)
-                    logs.append(
-                        f"llm invalid sector: {article.get('headline', '')[:60]} "
-                        "(Gemma did not return one of the configured categories)"
-                    )
-                else:
-                    article["summary_method"] = "snippet"
-                    article["importance_score"] = fallback_importance_score(article, source_text)
-                    failed.append(article)
-                    logs.append(
-                        f"llm empty summary: {article.get('headline', '')[:60]} "
-                        "(model returned no visible text)"
-                    )
+                summary, keywords, importance_score = summarize_with_llm(article, source_text)
             except Exception as exc:
-                article["summary_method"] = "snippet"
                 article["importance_score"] = fallback_importance_score(article)
-                failed.append(article)
                 err_msg = f"{type(exc).__name__}: {exc}"
                 if hasattr(exc, "read"):
                     try:
                         err_msg += f" - {exc.read().decode('utf-8', errors='replace')}"
                     except Exception:
                         pass
-                logs.append(f"llm skip article: {article.get('headline', '')[:60]} ({type(exc).__name__})")
+                logs.append(
+                    f"llm skip article: {article.get('headline', '')[:60]} ({type(exc).__name__})"
+                )
                 print(f"Error summarizing: {err_msg}", flush=True)
+                continue
 
-        if len(summarized_keys) >= target_count or exhausted or attempt_pass == 1 or not failed:
-            break
-        queue = failed
-        logs.append(f"llm retry pass: retrying {len(failed)} articles that failed on the first pass")
+            if not summary:
+                article["importance_score"] = fallback_importance_score(article, source_text)
+                logs.append(
+                    f"llm empty summary: {article.get('headline', '')[:60]} "
+                    "(model returned no visible text)"
+                )
+                continue
 
-    summary_count = len(summarized_keys)
-    unprocessed = sum(1 for article in candidate_pool if not article.get("summary_method"))
-    if exhausted:
-        logs.append(
-            f"llm budget of {LLM_BUDGET_SECONDS}s exhausted; "
-            f"{unprocessed} articles keep their raw snippets"
-        )
+            article["body"] = summary
+            article["summary_method"] = "llm"
+            article["summary_model"] = LLM_MODEL
+            article["summary_version"] = SUMMARY_PROMPT_VERSION
+            # The tab was decided by the keyword score, not by the model.
+            article["summary_sector"] = article.get("sector")
+            article["importance_score"] = clamp_importance_score(
+                importance_score,
+                fallback_importance_score(article, source_text),
+            )
+            if keywords:
+                article["llm_keywords"] = keywords
+            if len([line for line in summary.split("\n") if line.strip()]) < 5:
+                logs.append(
+                    f"llm short summary: {article.get('headline', '')[:60]} "
+                    "(fewer than 5 lines, kept as a valid summary)"
+                )
+            enriched += 1
+            done[sector] += 1
+            time.sleep(4.0)
+
     for article in articles:
         if not article.get("importance_score"):
             article["importance_score"] = fallback_importance_score(article)
-    logs.append(
-        f"detailed summary target: {summary_count}/{requested_target} "
-        f"(eligible {len(candidate_pool)})"
-    )
+
+    summary_count = sum(done.values())
+    logs.append(f"detailed summary target: {summary_count}/{requested_target} (eligible {eligible})")
+    for sector in SECTOR_NAMES:
+        logs.append(f"sector summary {sector}: {min(done[sector], targets[sector])}/{targets[sector]}")
     logs.append(
         f"llm ok: summarized {enriched} articles, reused {cache_hits} cached summaries, "
         f"attempted {attempted} candidates"
     )
+    if exhausted:
+        logs.append(
+            f"llm budget of {LLM_BUDGET_SECONDS}s exhausted; "
+            "remaining candidates keep their raw snippets"
+        )
     return articles
 
 
@@ -2654,7 +2279,7 @@ def select_detailed_summary_items(
     items: list[dict],
     per_sector: int = SECTOR_SUMMARY_TARGET,
 ) -> list[dict]:
-    """Return at most ten successful summaries from each Gemma title sector."""
+    """Return at most ten successful summaries from each keyword tab."""
     selected: list[dict] = []
     for sector in SECTOR_NAMES:
         rows = [
@@ -2663,13 +2288,7 @@ def select_detailed_summary_items(
             if has_llm_summary(item)
             and item.get("sector") == sector
         ]
-        rows.sort(
-            key=lambda item: (
-                clamp_importance_score(item.get("importance_score"), 1),
-                item.get("created_at", ""),
-            ),
-            reverse=True,
-        )
+        rows.sort(key=sector_candidate_key, reverse=True)
         selected.extend(rows[: max(0, per_sector)])
 
     return sorted(
@@ -2687,33 +2306,33 @@ def select_headline_only_items(
     detailed_items: list[dict] | None = None,
     per_sector: int = SECTOR_SUMMARY_TARGET,
 ) -> list[dict]:
-    """Publish non-detailed candidates only when their category exceeds ten.
+    """Publish the candidates a tab could not fit into its detailed ten.
 
-    Categories with ten or fewer Gemma-classified candidates do not get a
-    headline-only filler list. Once a category has more than ten candidates,
-    every relevant candidate not selected as a successful detailed summary is
-    kept as a direct original-link row.
+    A tab with ten or fewer scored candidates gets no filler list. Once a tab
+    has more than ten, the highest scoring leftovers become direct original
+    links, capped by HEADLINE_ONLY_PER_SECTOR_LIMIT so one busy tab cannot
+    dominate the page.
     """
     detailed = detailed_items or select_detailed_summary_items(items, per_sector)
     detailed_ids = {str(item.get("id") or "") for item in detailed}
     selected: list[dict] = []
 
     for sector in SECTOR_NAMES:
-        candidates = title_candidates_for_sector(items, sector)
+        candidates = sector_candidates_for(items, sector)
         if len(candidates) <= per_sector:
             continue
-        for item in candidates:
+        overflow = candidates
+        if HEADLINE_ONLY_PER_SECTOR_LIMIT > 0:
+            overflow = overflow[:HEADLINE_ONLY_PER_SECTOR_LIMIT]
+        for item in overflow:
             if str(item.get("id") or "") in detailed_ids:
                 continue
             item["publication_mode"] = "headline"
-            item["importance_score"] = clamp_importance_score(
-                item.get("title_importance_score"),
-                1,
-            )
-            item["importance_method"] = "llm_title"
+            item["importance_score"] = clamp_importance_score(item.get("sector_score"), 1)
+            item["importance_method"] = "keyword"
             selected.append(item)
 
-    return sorted(selected, key=title_candidate_key, reverse=True)
+    return sorted(selected, key=sector_candidate_key, reverse=True)
 
 
 def select_daily_summary_items(items: list[dict], limit: int = DAILY_SUMMARY_MAX_ITEMS) -> list[dict]:
@@ -2863,7 +2482,6 @@ def write_articles(
     summary_target: int | None = None,
     candidate_count: int | None = None,
     sector_candidate_counts: dict[str, int] | None = None,
-    supplemental_rounds: int = 0,
 ) -> None:
     summary_methods = sorted({a.get("summary_method", "snippet") for a in articles})
     community_items = community_items or []
@@ -2885,7 +2503,7 @@ def write_articles(
         for sector in SECTOR_NAMES
     }
     payload = {
-        "schema_version": 12,
+        "schema_version": 13,
         "generated_at": now_iso(),
         "daily_summary": daily_summary,
         "summary_article_ids": [item.get("id", "") for item in detailed_summary_items],
@@ -2908,11 +2526,10 @@ def write_articles(
             "sector_candidate_counts": candidate_counts,
             "sector_summary_counts": summary_counts,
             "sector_headline_counts": headline_counts,
-            "supplemental_rounds": supplemental_rounds,
             "notes": (
-                "Gemma classifies all candidate headlines, targeted APIs add missing categories for up to "
-                f"{SUPPLEMENTAL_COLLECTION_ROUNDS} rounds, the top {SECTOR_SUMMARY_TARGET} successful summaries "
-                "per category are published in detail, and additional candidates are title-only original links."
+                "Keyword weights assign every candidate to one of six tabs, zero-score articles are dropped, "
+                f"the top {SECTOR_SUMMARY_TARGET} summaries per tab share one model budget, and the remaining "
+                "candidates are published as title-only original links."
             ),
             "summary_methods": summary_methods,
             "summary_model": LLM_MODEL if llm_is_configured() else "",
@@ -2969,7 +2586,7 @@ def write_archive_snapshot(payload: dict) -> None:
 def main() -> int:
     config = json.loads(SOURCES_PATH.read_text(encoding="utf-8"))
     global _SECTOR_KEYWORDS
-    _SECTOR_KEYWORDS = config.get("sector_keywords", {})
+    _SECTOR_KEYWORDS = load_sector_keywords(config)
     sources = flatten_sources(config)
     ko_queries = config.get("queries", {}).get("ko", [])
     en_queries = config.get("queries", {}).get("en", [])
@@ -3022,11 +2639,7 @@ def main() -> int:
     community_candidates = [article for article in all_articles if is_community_article(article)]
     community_candidates = suppress_seen_estimated_community(community_candidates, logs)
 
-    ranked, supplemental_rounds = collect_until_sector_targets(
-        news_candidates,
-        naver_sources,
-        logs,
-    )
+    ranked = rank_news_candidates(news_candidates, logs)
     community_items = dedupe_rank(community_candidates, limit=None)
     if not ranked:
         print("No relevant articles collected; articles.json not changed.", file=sys.stderr)
@@ -3034,21 +2647,29 @@ def main() -> int:
             print(line, file=sys.stderr)
         return 2
 
-    sector_candidate_counts = title_sector_counts(ranked)
+    if os.environ.get("CHIP_BRIEFING_COLLECT_ONLY", "").strip().lower() in {"1", "true", "yes"}:
+        report_sector_candidates(ranked, logs)
+        for line in logs:
+            print(line)
+        return 0
+
+    smoke_limit = int(os.environ.get("CHIP_BRIEFING_SMOKE_SUMMARIES", "0") or "0")
+    if smoke_limit > 0:
+        sample = ranked[:max(1, smoke_limit)]
+        enrich_with_llm_summaries(sample, logs)
+        for article in sample:
+            print(f"smoke {article.get('sector')}: {article.get('headline', '')[:70]}")
+            print(article.get("body", ""))
+        for line in logs:
+            print(line)
+        return 0
+
+    sector_candidate_counts = keyword_sector_counts(ranked)
     summary_target = expected_detailed_summary_target(ranked)
-    # The detailed pool is chosen exclusively from Gemma's headline sector and
-    # headline importance. Each sector is summarized independently, so failed
-    # model calls can fall through to the next headline-ranked candidate in the
-    # same sector without borrowing a slot from another sector.
-    for sector in SECTOR_NAMES:
-        sector_candidates = title_candidates_for_sector(ranked, sector)
-        sector_target = min(SECTOR_SUMMARY_TARGET, len(sector_candidates))
-        if not sector_target:
-            logs.append(f"sector summary {sector}: 0/0 (no Gemma-classified candidates)")
-            continue
-        enrich_with_llm_summaries(sector_candidates, logs, target=sector_target)
-        ready = sum(1 for article in sector_candidates if has_llm_summary(article))
-        logs.append(f"sector summary {sector}: {min(ready, sector_target)}/{sector_target}")
+    # One pass, one global budget: the top ten keyword-ranked candidates of
+    # every tab are summarized, and a failed call falls through to the next
+    # candidate in that same tab.
+    enrich_with_llm_summaries(ranked, logs)
 
     detailed_articles = select_detailed_summary_items(ranked)
     if not detailed_articles:
@@ -3083,7 +2704,6 @@ def main() -> int:
         summary_target=summary_target,
         candidate_count=len(ranked),
         sector_candidate_counts=sector_candidate_counts,
-        supplemental_rounds=supplemental_rounds,
     )
     print(
         f"Wrote {len(detailed_articles)} detailed and {len(headline_articles)} headline-only "

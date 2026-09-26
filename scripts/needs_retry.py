@@ -19,13 +19,14 @@ KST = dt.timezone(dt.timedelta(hours=9))
 def decide(now: dt.datetime | None = None) -> tuple[str, str]:
     if os.environ.get("CHIP_BRIEFING_FORCE", "").strip().lower() in {"1", "true", "yes"}:
         return "yes", "수동 실행 (force)"
-    # The briefing window ends at WINDOW_END_HOUR KST. Before that hour there is
-    # no "today" to build yet: a run now would publish yesterday's window under
-    # today's date, and the guard would then leave it alone all day.
-    window_end_hour = int(os.environ.get("CHIP_BRIEFING_WINDOW_END_HOUR", "2") or "2")
+    # The daily run starts at 05:00 KST and covers the rolling 24 hours before
+    # it. Before that hour there is no "today" briefing to build yet: a run now
+    # would publish yesterday's window under today's date, and the guard would
+    # then leave it alone all day.
+    start_hour = int(os.environ.get("CHIP_BRIEFING_START_HOUR", "5") or "5")
     now = now or dt.datetime.now(KST)
-    if now.hour < window_end_hour:
-        return "no", f"브리핑 기준 시각({window_end_hour}시) 전이라 대기"
+    if now.hour < start_hour:
+        return "no", f"브리핑 시작 시각({start_hour}시) 전이라 대기"
     try:
         data = json.loads(ARTICLES.read_text(encoding="utf-8"))
     except Exception as exc:
