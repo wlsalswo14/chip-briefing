@@ -101,7 +101,9 @@ LLM_MAX_ITEMS = max(
     DETAILED_SUMMARY_TARGET,
 )
 LLM_TIMEOUT = int(os.environ.get("CHIP_BRIEFING_LLM_TIMEOUT", "90"))
-LLM_BUDGET_SECONDS = int(os.environ.get("CHIP_BRIEFING_LLM_BUDGET_SECONDS", "7200"))
+# The detailed pass plus the community pass must finish inside the workflow's
+# 150 minute timeout, so the detailed budget is capped at 90 minutes.
+LLM_BUDGET_SECONDS = int(os.environ.get("CHIP_BRIEFING_LLM_BUDGET_SECONDS", "5400"))
 DAILY_SUMMARY_MAX_ITEMS = int(os.environ.get("CHIP_BRIEFING_DAILY_SUMMARY_MAX_ITEMS", "10"))
 # The daily briefing covers the 24 hours ending when the run starts, so a late
 # GitHub schedule only shifts the window instead of emptying it.
