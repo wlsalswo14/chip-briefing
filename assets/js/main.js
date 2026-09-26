@@ -31,7 +31,9 @@ import {
     return;
   }
 
-  const sectors = ["전체"].concat(data.sectors || ["설계", "공정", "소자", "패키징", "신제품/발표"]);
+  const sectors = ["전체"].concat(
+    data.sectors || ["설계", "공정", "소자", "패키징", "신제품/발표", "실적/투자/정책/인사"]
+  );
   const communityFilters = [
     { key: "all", label: "전체" },
     { key: "domestic", label: "국내 커뮤니티" },

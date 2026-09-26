@@ -129,8 +129,8 @@ export function selectHeadlineArticles(data) {
   const fallback = articles
     .filter((article) => article.publication_mode === "headline")
     .sort((a, b) => {
-      const scoreDifference = Number(b.title_importance_score || b.importance_score || 0)
-        - Number(a.title_importance_score || a.importance_score || 0);
+      const scoreDifference = Number(b.sector_score || b.importance_score || 0)
+        - Number(a.sector_score || a.importance_score || 0);
       if (scoreDifference) return scoreDifference;
       return String(b.created_at || "").localeCompare(String(a.created_at || ""));
     });
