@@ -14,6 +14,7 @@ import {
   selectHeadlineArticles,
   sortByImportance,
 } from "./shared.js?v=7";
+import { initAnalytics, setAnalyticsCategory } from "./analytics.js?v=1";
 
 (async function () {
 
@@ -42,6 +43,16 @@ import {
   let activeSector = "전체";
   let activeCommunity = "all";
   let activeView = location.hash === "#community" ? "community" : "news";
+
+  function analyticsCategory() {
+    if (activeView === "community") {
+      if (activeCommunity === "domestic") return "커뮤니티/국내";
+      if (activeCommunity === "reddit") return "커뮤니티/Reddit";
+      return "커뮤니티/전체";
+    }
+    return activeSector === "전체" ? "뉴스/전체" : activeSector;
+  }
+
   let previousFocus = null;
   let previousSummaryFocus = null;
   let returnToDailySummary = false;
@@ -106,6 +117,7 @@ import {
     $("news-filters").querySelectorAll(".filter").forEach((btn) => {
       btn.addEventListener("click", () => {
         activeSector = btn.dataset.sector;
+        setAnalyticsCategory(analyticsCategory());
         renderNews();
       });
     });
@@ -115,6 +127,7 @@ import {
     $("community-filters").querySelectorAll(".filter").forEach((btn) => {
       btn.addEventListener("click", () => {
         activeCommunity = btn.dataset.communityFilter;
+        setAnalyticsCategory(analyticsCategory());
         renderCommunity();
       });
     });
@@ -295,6 +308,7 @@ import {
   }
   function setView(view, updateUrl = true) {
     activeView = view === "community" ? "community" : "news";
+    setAnalyticsCategory(analyticsCategory());
     document.querySelectorAll(".view-tab[data-view]").forEach((tab) => {
       const selected = tab.dataset.view === activeView;
       tab.setAttribute("aria-pressed", String(selected));
@@ -366,4 +380,5 @@ import {
   renderNews();
   renderCommunity();
   setView(activeView, false);
+  initAnalytics(analyticsCategory());
 })();

@@ -1,0 +1,41 @@
+name: Daily Visitor Analytics
+
+on:
+  schedule:
+    # 00:05 KST: send the completed previous-day report.
+    - cron: '5 15 * * *'
+  workflow_dispatch:
+    inputs:
+      day:
+        description: Optional KST date to report (YYYY-MM-DD)
+        required: false
+        type: string
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: chip-briefing-daily-analytics
+  cancel-in-progress: false
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Send private visitor analytics
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          ANALYTICS_API_URL: https://chip-briefing-analytics.wlsalswo14.workers.dev
+          ANALYTICS_REPORT_DAY: ${{ github.event.inputs.day }}
+        run: python send_telegram_analytics.py

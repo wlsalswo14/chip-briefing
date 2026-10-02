@@ -12,6 +12,7 @@ import {
   selectDetailedArticles,
   selectHeadlineArticles,
 } from "./shared.js?v=7";
+import { initAnalytics } from "./analytics.js?v=1";
 
 const state = {
   items: [],
@@ -283,6 +284,8 @@ async function init() {
 
   await selectDate(initialDate, Boolean(requestedDate));
 }
+
+initAnalytics("아카이브");
 
 init().catch((error) => {
   console.error("아카이브 초기화에 실패했습니다.", error);

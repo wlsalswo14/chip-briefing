@@ -1,0 +1,22 @@
+{
+  "$schema": "https://raw.githubusercontent.com/cloudflare/workers-sdk/main/packages/wrangler/config-schema.json",
+  "name": "chip-briefing-analytics",
+  "main": "src/index.js",
+  "compatibility_date": "2026-10-02",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  },
+  "vars": {
+    "ALLOWED_ORIGINS": "https://wlsalswo14.github.io,http://127.0.0.1:4173,http://localhost:4173",
+    "VIEW_BONUS_MAX": "9"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "chip-briefing-analytics",
+      "database_id": "9bcaad37-3b50-4b20-8dda-2edba968262f"
+    }
+  ]
+}

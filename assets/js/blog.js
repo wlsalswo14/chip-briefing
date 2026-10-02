@@ -1,4 +1,9 @@
+import { initAnalytics } from "./analytics.js?v=1";
+
 const COPY_EMAIL_SELECTOR = "[data-copy-email]";
+
+const articleTitle = document.querySelector(".manifesto-head h1")?.textContent?.trim();
+initAnalytics(articleTitle ? `블로그/${articleTitle}` : "블로그");
 
 async function copyText(value) {
   if (navigator.clipboard && window.isSecureContext) {

@@ -73,6 +73,14 @@
     text-decoration: none;
   }
   .topbar a:hover { color: var(--accent); }
+  .today-view-count {
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+  .today-view-count strong {
+    color: var(--ink);
+    font-weight: 700;
+  }
   .masthead {
     margin-top: -44px;
     padding: 18px 0 16px;
