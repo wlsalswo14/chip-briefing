@@ -21,12 +21,6 @@ function getSessionId() {
 
 const sessionId = getSessionId();
 
-function updateViewCounter(views) {
-  const target = document.getElementById("today-views");
-  if (!target || !Number.isFinite(Number(views))) return;
-  target.textContent = Number(views).toLocaleString("ko-KR");
-}
-
 async function sendEvent(event, category = currentCategory, useBeacon = false) {
   const payload = JSON.stringify({
     event,
@@ -47,25 +41,8 @@ async function sendEvent(event, category = currentCategory, useBeacon = false) {
       cache: "no-store",
       keepalive: event === "pause" || event === "pagehide",
     });
-    if (!response.ok) return;
-    const data = await response.json();
-    updateViewCounter(data.views);
   } catch (error) {
     console.debug("방문 통계 전송을 건너뜁니다.", error);
-  }
-}
-
-async function loadPublicStats() {
-  try {
-    const response = await fetch(`${ANALYTICS_API}/api/stats`, {
-      mode: "cors",
-      cache: "no-store",
-    });
-    if (!response.ok) return;
-    const data = await response.json();
-    updateViewCounter(data.views);
-  } catch (error) {
-    console.debug("오늘 조회수를 불러오지 못했습니다.", error);
   }
 }
 
@@ -98,7 +75,7 @@ export function initAnalytics(initialCategory = "기타") {
   currentCategory = String(initialCategory || "기타").trim() || "기타";
   started = true;
 
-  sendEvent("visit").finally(loadPublicStats);
+  sendEvent("visit");
   startHeartbeat();
 
   document.addEventListener("visibilitychange", () => {
