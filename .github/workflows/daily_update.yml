@@ -30,6 +30,13 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Sync latest main tip
+        run: |
+          git fetch origin main
+          git reset --hard origin/main
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -95,13 +102,13 @@ jobs:
             # instead of losing the whole briefing to one rejected push.
             pushed=no
             for attempt in 1 2 3; do
-              if git push; then
+              if git push origin HEAD:main; then
                 pushed=yes
                 break
               fi
               echo "push rejected (attempt $attempt); rebasing on the newer tip"
               git fetch origin main
-              git rebase origin/main || { git rebase --abort; exit 1; }
+              git rebase -X theirs origin/main || { git rebase --abort; exit 1; }
               sleep 5
             done
             if [ "$pushed" != "yes" ]; then
