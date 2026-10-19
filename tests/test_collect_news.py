@@ -607,6 +607,65 @@ class SixTabKeywordScoringTests(unittest.TestCase):
         self.assertEqual([item["source_url"] for item in ranked], ["https://example.com/scored"])
         self.assertTrue(any("dropped 1 zero-score" in line for line in logs), logs)
 
+    def test_same_story_across_categories_keeps_only_highest_scoring_category(self):
+        items = [
+            {
+                "id": "art-1",
+                "headline": "한미 반도체 , 美 실리콘밸리에 현지 법인 설립…AI 반도체 시장 공략",
+                "body": "한미반도체가 미국 실리콘밸리에 한미USA 법인을 설립했다.",
+                "sector": "설계",
+                "sector_score": 4,
+                "importance_score": 5,
+                "trust": "medium",
+                "created_at": "2026-10-19T08:00:00+09:00",
+            },
+            {
+                "id": "art-2",
+                "headline": "한미 반도체 , 美 법인 '한미USA' 설립…첨단 패키징 공략",
+                "body": "한미반도체가 북미 첨단 패키징 고객 대응을 위해 미국 법인을 설립했다.",
+                "sector": "패키징",
+                "sector_score": 13,
+                "importance_score": 5,
+                "trust": "medium",
+                "created_at": "2026-10-19T07:50:00+09:00",
+            },
+            {
+                "id": "art-3",
+                "headline": "한미 반도체 , 미국 공략 본격화…산호세에 '한미USA' 출범 - 서울경제",
+                "body": "한미반도체가 산호세에 한미USA를 출범했다.",
+                "sector": "패키징",
+                "sector_score": 11,
+                "importance_score": 5,
+                "trust": "medium",
+                "created_at": "2026-10-19T07:55:00+09:00",
+            },
+        ]
+        logs: list[str] = []
+        deduped = collector.dedupe_topic_candidates(items, logs)
+        self.assertEqual([item["id"] for item in deduped], ["art-2"])
+        self.assertEqual(deduped[0]["sector"], "패키징")
+        self.assertTrue(any("dropped 2 duplicate stories" in line for line in logs), logs)
+
+    def test_distinct_stories_sharing_only_broad_company_names_are_kept(self):
+        items = [
+            {
+                "id": "art-oled-1",
+                "headline": "아이폰 넘어 맥북까지 OLED…삼성D·LGD, '애플효과' 기대",
+                "body": "애플 맥북 OLED 탑재 기대감",
+                "sector": "신제품/발표",
+                "sector_score": 6,
+            },
+            {
+                "id": "art-oled-2",
+                "headline": "OLED 성수기에 엇갈린 LGD·삼성D…3분기 수익성 가를 변수는",
+                "body": "3분기 실적 전망 분석",
+                "sector": "신제품/발표",
+                "sector_score": 5,
+            },
+        ]
+        deduped = collector.dedupe_topic_candidates(items)
+        self.assertEqual([item["id"] for item in deduped], ["art-oled-1", "art-oled-2"])
+
     def test_summary_prompt_no_longer_asks_for_a_sector(self):
         response = {
             "summary_lines": ["첫째", "둘째", "셋째", "넷째", "다섯째"],

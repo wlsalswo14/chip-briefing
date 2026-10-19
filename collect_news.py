@@ -610,6 +610,13 @@ def canonical_url(url: str) -> str:
         return url
 
 
+def strip_media_suffix(title: str) -> str:
+    """Remove trailing media outlet suffixes (e.g. ' - 서울경제') added by Google News."""
+    value = clean_text(title or "")
+    value = re.sub(r"\s+[-|]\s+[가-힣A-Za-z0-9·\s]{2,20}$", "", value)
+    return value.strip()
+
+
 def summary_cache_key(title: str) -> str:
     """Headline-based cache key.
 
@@ -617,7 +624,7 @@ def summary_cache_key(title: str) -> str:
     Naver) are re-issued with a new URL every day, so URL-keyed caches never
     hit. The headline stays comparable, so summaries are reused by headline.
     """
-    value = clean_text(title or "").lower()
+    value = strip_media_suffix(title).lower()
     value = re.sub(r"[\s\W_]+", "", value)
     return value[:120]
 
@@ -2111,6 +2118,157 @@ def dump_enabled() -> bool:
     return os.environ.get("CHIP_BRIEFING_DUMP_CANDIDATES", "").strip().lower() in {"1", "true", "yes"}
 
 
+_TOPIC_STOPWORDS = {
+    "반도체", "메모리", "칩", "기업", "시장", "산업", "기술", "공략", "본격화", "본격",
+    "확대", "추진", "전망", "기대", "발표", "공개", "현지", "글로벌", "차세대", "첨단",
+    "국내", "올해", "내년", "오늘", "위해", "통해", "관련", "대한", "최대", "규모",
+    "사업", "강화", "대비", "기록", "달성", "유지", "가능", "수준", "영향", "분석",
+    "보도", "기사", "뉴스", "이번", "최근", "현재", "향후", "예정", "계획", "목표",
+    "활용", "기반", "개발", "참여", "적용", "넘어", "경쟁",
+}
+
+_TOPIC_BROAD_TERMS = {
+    "미국", "중국", "한국", "ai", "ai반도체", "npu", "gpu", "hbm", "d램", "dram",
+    "낸드", "nand", "oled", "euv", "파운드리", "패키징", "공정", "장비", "투자",
+    "실적", "매출", "공급망", "삼성", "삼성전자", "삼성d", "lgd", "sk", "sk하이닉스",
+    "tsmc", "엔비디아",
+}
+
+_TOPIC_SYNONYMS = {
+    "美": "미국",
+    "북미": "미국",
+    "中": "중국",
+    "韓": "한국",
+    "국산": "한국",
+    "삼성": "삼성전자",
+    "앰코테크놀로지": "앰코",
+    "삼성디스플레이": "삼성d",
+    "lg디스플레이": "lgd",
+    "하닉": "sk하이닉스",
+    "하이닉스": "sk하이닉스",
+    "창신": "cxmt",
+    "창신메모리": "cxmt",
+    "증축": "증설",
+    "착공식": "착공",
+    "출범": "설립",
+    "3조원대": "3조",
+    "3조원": "3조",
+    "광주공장": "광주",
+    "3nm": "3나노",
+    "2nm": "2나노",
+}
+
+_TOPIC_JOSA_RE = re.compile(
+    r"(에서|으로|까지|부터|에게|에는|에도|은|는|이|가|을|를|의|에|로|와|과|도|만|용)$"
+)
+
+
+def _normalize_topic_text(text: str) -> str:
+    t = strip_media_suffix(text)
+    t = re.sub(r"\[[^\]]{1,20}\]", " ", t)
+    t = t.replace("美", " 미국 ").replace("中", " 중국 ").replace("韓", " 한국 ")
+    t = re.sub(r"한미\s+반도체", "한미반도체", t)
+    t = re.sub(r"삼성\s+전자", "삼성전자", t)
+    t = re.sub(r"베이스\s+다이", "베이스다이", t)
+    t = re.sub(r"(?i)sk\s+하이닉스", "sk하이닉스", t)
+    t = re.sub(r"(\d+)\s*나노", r"\1나노", t)
+    t = re.sub(r"(?i)(\d+)\s*nm\b", r"\1나노", t)
+    t = re.sub(r"(?i)ai\s+반도체", "ai반도체", t)
+    return t.lower()
+
+
+def _extract_topic_tokens(text: str) -> set[str]:
+    t = _normalize_topic_text(text)
+    raw = re.findall(r"[가-힣a-z0-9]+", t)
+    out: set[str] = set()
+    for word in raw:
+        word = _TOPIC_SYNONYMS.get(word, word)
+        if len(word) >= 3:
+            stripped = _TOPIC_JOSA_RE.sub("", word)
+            if len(stripped) >= 2:
+                word = stripped
+        word = _TOPIC_SYNONYMS.get(word, word)
+        if len(word) < 2 or word in _TOPIC_STOPWORDS or word.isdigit():
+            continue
+        out.add(word)
+    return out
+
+
+def _headline_prefix_key(title: str) -> str:
+    t = strip_media_suffix(title)
+    t = re.sub(r"\[[^\]]{1,20}\]", " ", t)
+    t = re.sub(r"(\.\.\.|…)+.*$", "", t)
+    return re.sub(r"[\s\W_]+", "", t.lower())
+
+
+def _is_truncated_headline(title: str) -> bool:
+    cleaned = strip_media_suffix(title)
+    return cleaned.endswith("...") or cleaned.endswith("…")
+
+
+def is_same_news_story(a: dict, b: dict) -> bool:
+    """Return True when two articles cover the same underlying news story."""
+    ka = _headline_prefix_key(a.get("headline", ""))
+    kb = _headline_prefix_key(b.get("headline", ""))
+    if ka and kb:
+        if ka == kb:
+            return True
+        shortest = min(len(ka), len(kb))
+        if shortest >= 14 and (ka.startswith(kb[:shortest]) or kb.startswith(ka[:shortest])):
+            return True
+
+    ta = _extract_topic_tokens(a.get("headline", ""))
+    tb = _extract_topic_tokens(b.get("headline", ""))
+    if not ta or not tb:
+        return False
+
+    common = ta & tb
+    specific_common = common - _TOPIC_BROAD_TERMS
+    if len(specific_common) >= 2:
+        if len(common) >= 3:
+            return True
+        overlap = len(common) / min(len(ta), len(tb))
+        if overlap >= 0.5:
+            return True
+
+    if len(common) >= 2:
+        ba = ta | _extract_topic_tokens(a.get("body", ""))
+        bb = tb | _extract_topic_tokens(b.get("body", ""))
+        spec_a_in_b = (ta - _TOPIC_BROAD_TERMS) & bb
+        spec_b_in_a = (tb - _TOPIC_BROAD_TERMS) & ba
+        if len(spec_a_in_b) >= 2 or len(spec_b_in_a) >= 2:
+            if len((ba & bb) - _TOPIC_BROAD_TERMS) >= 3:
+                return True
+    return False
+
+
+def dedupe_topic_candidates(articles: list[dict], logs: list[str] | None = None) -> list[dict]:
+    """Keep only one article per news story, placed in its highest-scoring category."""
+    trust_score = {"high": 3, "medium": 2, "low": 1}
+    ranked = sorted(
+        articles,
+        key=lambda a: (
+            int(a.get("sector_score") or 0),
+            int(a.get("importance_score") or 0),
+            0 if _is_truncated_headline(a.get("headline", "")) else 1,
+            trust_score.get(a.get("trust"), 0),
+            str(a.get("created_at") or ""),
+        ),
+        reverse=True,
+    )
+    kept: list[dict] = []
+    dropped_count = 0
+    for article in ranked:
+        if any(is_same_news_story(article, leader) for leader in kept):
+            dropped_count += 1
+            continue
+        article["headline"] = strip_media_suffix(article.get("headline", ""))
+        kept.append(article)
+    if logs is not None and dropped_count:
+        logs.append(f"topic dedupe: kept {len(kept)}/{len(ranked)}, dropped {dropped_count} duplicate stories")
+    return kept
+
+
 def rank_news_candidates(news_candidates: list[dict], logs: list[str]) -> list[dict]:
     """Filter collected news by date, then score what survived.
 
@@ -2133,6 +2291,7 @@ def rank_news_candidates(news_candidates: list[dict], logs: list[str]) -> list[d
             kept.append(article)
         else:
             dropped.append(article)
+    kept = dedupe_topic_candidates(kept, logs)
     counts = keyword_sector_counts(kept)
     logs.append(
         "sector candidates: "
