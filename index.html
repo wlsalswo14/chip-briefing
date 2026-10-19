@@ -6,17 +6,30 @@
 <meta name="description" content="설계, 공정, 소자, 패키징, 신제품·발표, 실적·투자·정책·인사로 나눠 보는 반도체 데일리 브리핑">
 <title>칩 브리핑</title>
 <link rel="icon" href="data:,">
+<script>
+  (function () {
+    try {
+      var saved = localStorage.getItem("chip-theme");
+      var dark = saved ? saved === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.dataset.theme = dark ? "dark" : "light";
+    } catch (e) {}
+  })();
+</script>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700;900&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/site.css?v=11">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..600&family=Noto+Serif+KR:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css?v=28">
 </head>
 <body>
   <div class="topbar">
     <span id="updated">업데이트 확인 중</span>
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="다크 모드로 전환">🌙 다크 모드</button>
   </div>
 
   <header class="masthead">
+    <p class="masthead-eyebrow">DAILY SEMICONDUCTOR BRIEFING</p>
     <h1>칩 브리핑</h1>
   </header>
 
@@ -33,17 +46,23 @@
     <section class="view" id="news-view" aria-labelledby="news-tab">
       <section class="summary-band" aria-labelledby="daily-summary-title">
         <button class="summary-trigger" id="daily-summary-trigger" type="button" aria-haspopup="dialog" aria-controls="daily-summary-dialog">
-          <span class="summary-trigger-title" id="daily-summary-title">Daily Summary</span>
+          <span class="summary-trigger-title" id="daily-summary-title">지난 24시간, 반도체 상황은?</span>
           <span class="summary-trigger-cta">TOP 10 뉴스 보기 <span aria-hidden="true">→</span></span>
         </button>
         <div class="summary-copy" id="daily-summary-container"></div>
       </section>
       <nav class="filters" id="news-filters" aria-label="뉴스 카테고리 필터"></nav>
       <section class="news-grid" aria-label="오늘의 주요 뉴스">
-        <div class="editorial-column" id="top"></div>
-        <div class="editorial-column" id="main"></div>
+        <div class="editorial-column">
+          <h2 class="column-title">헤드라인</h2>
+          <div id="top"></div>
+        </div>
+        <div class="editorial-column">
+          <h2 class="column-title">주요 브리핑</h2>
+          <div id="main"></div>
+        </div>
         <aside class="editorial-column" aria-labelledby="latest-title">
-          <h2 class="column-title" id="latest-title">최신 뉴스</h2>
+          <h2 class="column-title" id="latest-title">빠른 스캔</h2>
           <div id="side"></div>
         </aside>
       </section>
@@ -62,13 +81,13 @@
     </section>
   </main>
 
-  <footer class="site-footer">칩 브리핑은 매일 오전 7시, 전날의 반도체 흐름을 정리합니다.</footer>
+  <footer class="site-footer">칩 브리핑 · 매일 오전 7시, 전날의 반도체 흐름을 간결하게 정리합니다.</footer>
 
   <div class="reader summary-dialog" id="daily-summary-dialog" role="dialog" aria-modal="true" aria-labelledby="daily-summary-dialog-title" aria-hidden="true">
     <article class="reader-panel summary-panel" tabindex="-1">
       <button class="close" id="daily-summary-close" aria-label="Daily Summary 닫기">×</button>
       <header class="summary-dialog-header">
-        <div class="kicker">Daily Summary</div>
+        <div class="kicker">DAILY SUMMARY</div>
         <h2 id="daily-summary-dialog-title">오늘의 TOP 10 뉴스</h2>
         <div class="meta" id="daily-summary-date"></div>
       </header>
@@ -82,11 +101,14 @@
       <button class="close" id="close" aria-label="닫기">×</button>
       <div class="kicker" id="reader-sector"></div>
       <h2 id="reader-title"></h2>
-      <div class="meta" id="reader-date"></div>
-      <div id="reader-source"></div>
+      <div class="reader-meta-row">
+        <div class="meta" id="reader-date"></div>
+        <div id="reader-source"></div>
+      </div>
+      <div class="reader-media" id="reader-media" hidden></div>
       <div class="reader-body" id="reader-body"></div>
     </article>
   </div>
-<script type="module" src="assets/js/main.js?v=12"></script>
+<script type="module" src="assets/js/main.js?v=28"></script>
 </body>
 </html>

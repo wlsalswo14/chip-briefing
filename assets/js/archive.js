@@ -1,9 +1,12 @@
 import {
   $,
+  bulletList,
   esc,
   excerpt,
+  firstSentence,
   fmt,
   formatBriefingDate,
+  initTheme,
   loadJson,
   para,
   safeUrl,
@@ -11,8 +14,10 @@ import {
   selectDailyTopTen,
   selectDetailedArticles,
   selectHeadlineArticles,
-} from "./shared.js?v=7";
+} from "./shared.js?v=28";
 import { initAnalytics } from "./analytics.js?v=1";
+
+initTheme();
 
 const state = {
   items: [],
@@ -68,10 +73,10 @@ function communityMeta(item) {
 
 function rankedArticle(article, index) {
   return `<button class="archive-ranked-item" type="button" data-article-id="${esc(article.id)}" aria-label="${index + 1}위 ${esc(article.headline)} 자세히 보기">
-    <span class="archive-rank">${index + 1}</span>
+    <span class="archive-rank">${String(index + 1).padStart(2, "0")}</span>
     <span class="archive-ranked-copy">
       <h3>${esc(article.headline || "제목 없음")}</h3>
-      <p>${esc(excerpt(article.body, 420, 5) || "기사 요약을 준비 중입니다.")}</p>
+      <p>${esc(firstSentence(article.body, 110) || "기사 요약을 준비 중입니다.")}</p>
     </span>
     <span class="archive-ranked-meta">${articleMeta(article)}</span>
   </button>`;
@@ -83,18 +88,18 @@ function moreArticle(article) {
   return `<a class="archive-more-row"${attrs}>
     <span class="archive-more-meta">${articleMeta(article)}</span>
     <h3>${esc(article.headline || "제목 없음")}</h3>
-    <span class="archive-more-link">원문 보기 →</span>
+    <span class="archive-more-link">원문 보기 ↗</span>
   </a>`;
 }
 
 function rankedCommunityItem(item, index) {
   const topic = item.topic || item.headline || "반도체 커뮤니티 이슈";
   return `<button class="archive-ranked-item" type="button" data-article-id="${esc(item.id)}" aria-label="${index + 1}위 ${esc(topic)} 자세히 보기">
-    <span class="archive-rank">${index + 1}</span>
+    <span class="archive-rank">${String(index + 1).padStart(2, "0")}</span>
     <span class="archive-ranked-copy">
       <h3>${esc(topic)}</h3>
-      <span class="archive-community-headline">게시글 · ${esc(item.headline || "제목 없음")}</span>
-      <p>${esc(excerpt(item.body, 420, 5) || item.reaction_summary || "뚜렷한 반응을 확인하지 못했습니다.")}</p>
+      <span class="archive-community-headline">${esc(item.headline || "제목 없음")}</span>
+      <p>${esc(firstSentence(item.body, 110) || item.reaction_summary || "뚜렷한 반응을 확인하지 못했습니다.")}</p>
     </span>
     <span class="archive-ranked-meta">${communityMeta(item)}</span>
   </button>`;
@@ -236,7 +241,7 @@ function openReader(articleId, returnFocus = document.activeElement) {
   const communityDetails = isCommunity
     ? `${article.topic ? `<p><strong>주제</strong><br>${esc(article.topic)}</p>` : ""}${article.reaction_summary ? `<p><strong>반응 요약</strong><br>${esc(article.reaction_summary)}</p>` : ""}`
     : "";
-  $("archive-reader-body").innerHTML = communityDetails + para(article.body);
+  $("archive-reader-body").innerHTML = communityDetails + bulletList(article.body);
   $("archive-reader").classList.add("open");
   $("archive-reader").setAttribute("aria-hidden", "false");
   document.body.style.overflow = "hidden";

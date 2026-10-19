@@ -1,4 +1,7 @@
 import { initAnalytics } from "./analytics.js?v=1";
+import { initTheme } from "./shared.js?v=28";
+
+initTheme();
 
 const COPY_EMAIL_SELECTOR = "[data-copy-email]";
 

@@ -1,10 +1,13 @@
 import {
   $,
+  bulletList,
   esc,
   excerpt,
+  firstSentence,
   fmt,
   fmtUpdated,
   formatBriefingDate,
+  initTheme,
   loadJson,
   para,
   safeUrl,
@@ -13,14 +16,15 @@ import {
   selectDetailedArticles,
   selectHeadlineArticles,
   sortByImportance,
-} from "./shared.js?v=7";
+} from "./shared.js?v=28";
 import { initAnalytics, setAnalyticsCategory } from "./analytics.js?v=1";
 
 (async function () {
+  initTheme();
 
   let data;
   try {
-    data = await loadJson("articles.json");
+    data = window.__CHIP_ARTICLES__ || await loadJson("articles.json");
   } catch (error) {
     console.error("브리핑 데이터를 불러오지 못했습니다.", error);
     $("updated").textContent = "업데이트 데이터를 불러오지 못했습니다.";
@@ -67,8 +71,6 @@ import { initAnalytics, setAnalyticsCategory } from "./analytics.js?v=1";
   const byId = Object.fromEntries(articles.concat(communityItems).map((a) => [a.id, a]));
   $("updated").textContent = fmtUpdated(data.generated_at);
 
-  // 오늘 것이 아니면 안내를 띄운다. 요약이 목표보다 적게 끝난 실행은
-  // 매시간 자동 재시도가 채우므로 사이트에는 따로 알리지 않는다.
   function renderNotice() {
     const notice = $("site-notice");
     if (!notice) return;
@@ -85,10 +87,13 @@ import { initAnalytics, setAnalyticsCategory } from "./analytics.js?v=1";
     notice.hidden = messages.length === 0;
   }
 
+  function shortSourceName(value) {
+    const raw = String(value || "뉴스").replace(/\s*(Search|RSS)$/i, "").trim();
+    return raw === "Naver News" ? "국내 언론" : raw;
+  }
+
   function badge(a) {
-    const score = Number(a.importance_score || a.importance || 0);
-    const scoreLabel = score ? `<span class="weight">W${score}</span>` : "";
-    return `<span class="sector">${esc(a.sector || "반도체")}</span>${scoreLabel}<span>${esc(a.source_name || "출처 미상")}</span><span>${esc(fmt(a.created_at, true))}</span>`;
+    return `<span class="sector">${esc(a.sector || "반도체")}</span><span class="meta-dot">·</span><span>${esc(shortSourceName(a.source_name))}</span><span class="meta-dot">·</span><span>${esc(fmt(a.created_at, true))}</span>`;
   }
   function communityOrigin(a) {
     if (a.community_origin) return a.community_origin;
@@ -100,15 +105,14 @@ import { initAnalytics, setAnalyticsCategory } from "./analytics.js?v=1";
   function communityMeta(a) {
     const origin = communityOrigin(a);
     const label = origin === "reddit" ? "Reddit" : origin === "domestic" ? "국내 커뮤니티" : "글로벌 커뮤니티";
-    const place = a.community_name || a.source_name || "커뮤니티";
-    // 수집 시각으로 대체된 글은 그렇다고 밝히고, 날짜까지 함께 보여준다.
+    const place = a.community_name || shortSourceName(a.source_name) || "커뮤니티";
     const date = a.date_is_estimated ? `수집 ${fmt(a.created_at)}` : fmt(a.created_at);
-    return `<span class="origin-label">${esc(label)}</span><span>${esc(place)}</span><span>${esc(date)}</span>`;
+    return `<span class="origin-label">${esc(label)}</span><span class="meta-dot">·</span><span>${esc(place)}</span><span class="meta-dot">·</span><span>${esc(date)}</span>`;
   }
   function sourceLink(a) {
     const href = safeUrl(a.source_url);
     if (!href) return "";
-    return `<a class="source" href="${esc(href)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문 보기 →</a>`;
+    return `<a class="source" href="${esc(href)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문 보기 <span aria-hidden="true">↗</span></a>`;
   }
   function renderFilters() {
     $("news-filters").innerHTML = sectors.map((sector) =>
@@ -144,23 +148,33 @@ import { initAnalytics, setAnalyticsCategory } from "./analytics.js?v=1";
   function briefingDate(iso) {
     return formatBriefingDate(iso, "short");
   }
-  function shortSourceName(value) {
-    return String(value || "출처 미상").replace(/\s*(Search|RSS)$/i, "").trim();
-  }
   function thumbnailCell(a) {
-    const fallback = `<span class="summary-thumb-fallback"><span class="ph-sector">${esc(a.sector || "반도체")}</span><span class="ph-source">${esc(shortSourceName(a.source_name))}</span></span>`;
     const src = safeUrl(a.image_url);
-    if (!src) return `<span class="summary-thumb-cell is-broken">${fallback}</span>`;
-    return `<span class="summary-thumb-cell"><img class="summary-thumb" src="${esc(src)}" alt="" loading="lazy" onerror="this.parentElement.classList.add('is-broken');this.remove()">${fallback}</span>`;
+    if (!src) return "";
+    return `<span class="summary-thumb-cell"><img class="summary-thumb" src="${esc(src)}" alt="" loading="lazy" onerror="this.closest('button').classList.remove('has-thumb');this.parentElement.remove()"></span>`;
+  }
+  function storyMedia(a, variant) {
+    const src = safeUrl(a.image_url);
+    if (!src) return "";
+    return `<div class="story-media story-media-${variant}" aria-hidden="true"><img src="${esc(src)}" alt="" loading="lazy" onerror="this.closest('article').classList.remove('has-image');this.parentElement.remove()"></div>`;
+  }
+  function dailySummaryText() {
+    const first = String(data.daily_summary || "")
+      .split(/\n+/)
+      .map((line) => line.replace(/^\s*[-*•·]+\s*/, "").trim())
+      .find(Boolean) || "";
+    const match = first.match(/^.*?[.!?。！？](?=\s|$)/);
+    return match ? match[0].trim() : first;
   }
   function summaryTopTenItem(a, index) {
-    const score = Number(a.importance_score || a.importance || 0);
-    return `<button class="summary-top10-item" type="button" data-summary-article="${esc(a.id)}" aria-label="${index + 1}위 ${esc(a.headline)} 자세히 보기">
-      <span class="summary-rank">${index + 1}</span>
-      <span>
-        <span class="summary-item-meta"><span class="score">중요도 ${score || "-"}</span><span>${esc(a.sector || "반도체")}</span><span>${esc(a.source_name || "출처 미상")}</span><span>${esc(fmt(a.created_at, true))}</span></span>
+    const hasThumb = Boolean(safeUrl(a.image_url));
+    const snippet = firstSentence(a.body, 95);
+    return `<button class="summary-top10-item${hasThumb ? " has-thumb" : ""}" type="button" data-summary-article="${esc(a.id)}" aria-label="${index + 1}위 ${esc(a.headline)} 자세히 보기">
+      <span class="summary-rank">${String(index + 1).padStart(2, "0")}</span>
+      <span class="summary-item-body">
+        <span class="summary-item-meta"><span class="sector">${esc(a.sector || "반도체")}</span><span>${esc(shortSourceName(a.source_name))}</span><span>${esc(fmt(a.created_at, true))}</span></span>
         <h3>${esc(a.headline || "제목 없음")}</h3>
-        <p>${esc(excerpt(a.body, 420, 5) || "기사 요약을 준비 중입니다.")}</p>
+        ${snippet ? `<p>${esc(snippet)}</p>` : ""}
       </span>
       ${thumbnailCell(a)}
     </button>`;
@@ -169,10 +183,11 @@ import { initAnalytics, setAnalyticsCategory } from "./analytics.js?v=1";
     const topTen = dailyTopTen();
     previousSummaryFocus = document.activeElement;
     $("daily-summary-dialog-title").textContent = `${briefingDate(data.generated_at)} TOP 10 뉴스`;
-    $("daily-summary-date").textContent = `중요도 점수 우선 · 동점은 최신 기사 순 · ${topTen.length}개 선정`;
-    $("daily-summary-overview").innerHTML = data.daily_summary
-      ? para(data.daily_summary)
-      : `<p>오늘의 핵심 흐름을 정리 중입니다.</p>`;
+    $("daily-summary-date").textContent = `중요도 상위 ${topTen.length}개 핵심 기사`;
+    const overview = dailySummaryText();
+    $("daily-summary-overview").innerHTML = overview
+      ? `<p>${esc(overview)}</p>`
+      : `<p>지난 24시간 반도체 상황을 정리 중입니다.</p>`;
     $("daily-summary-top10").innerHTML = topTen.length
       ? topTen.map(summaryTopTenItem).join("")
       : `<div class="empty">표시할 뉴스가 없습니다.</div>`;
@@ -199,15 +214,36 @@ import { initAnalytics, setAnalyticsCategory } from "./analytics.js?v=1";
   }
   function storyCard(a, variant) {
     if (!a) return `<div class="empty">표시할 뉴스가 없습니다.</div>`;
-    const className = variant === "lead" ? "story story-lead" : variant === "latest" ? "story latest-item" : "story story-secondary";
-    const heading = variant === "lead" ? "h2" : "h3";
-    const summaryLimit = variant === "lead" ? 520 : variant === "latest" ? 180 : 380;
-    const summaryLines = variant === "latest" ? 2 : 5;
-    const summary = `<p class="${variant === "lead" ? "lede" : ""}">${esc(excerpt(a.body, summaryLimit, summaryLines))}</p>`;
+    const hasImage = Boolean(safeUrl(a.image_url));
+    const className = (variant === "lead" ? "story story-lead" : variant === "latest" ? "story latest-item" : "story story-secondary")
+      + (hasImage ? " has-image" : "");
+    if (variant === "lead") {
+      const lede = firstSentence(a.body, 130);
+      return `<article class="${className}" data-id="${esc(a.id)}" role="button" tabindex="0">
+        ${storyMedia(a, "lead")}
+        <div class="meta">${badge(a)}</div>
+        <h2>${esc(a.headline)}</h2>
+        ${lede ? `<p class="lede">${esc(lede)}</p>` : ""}
+        ${sourceLink(a)}
+      </article>`;
+    }
+    if (variant === "secondary") {
+      const snippet = firstSentence(a.body, 88);
+      return `<article class="${className}" data-id="${esc(a.id)}" role="button" tabindex="0">
+        <div class="story-content">
+          <div class="meta">${badge(a)}</div>
+          <h3>${esc(a.headline)}</h3>
+          ${snippet ? `<p class="story-snippet">${esc(snippet)}</p>` : ""}
+        </div>
+        ${storyMedia(a, "secondary")}
+      </article>`;
+    }
     return `<article class="${className}" data-id="${esc(a.id)}" role="button" tabindex="0">
-      <div class="meta">${badge(a)}</div>
-      <${heading}>${esc(a.headline)}</${heading}>
-      ${summary}${sourceLink(a)}
+      <div class="story-content">
+        <div class="meta">${badge(a)}</div>
+        <h3>${esc(a.headline)}</h3>
+      </div>
+      ${storyMedia(a, "latest")}
     </article>`;
   }
   function titleRow(a) {
@@ -216,34 +252,26 @@ import { initAnalytics, setAnalyticsCategory } from "./analytics.js?v=1";
     const attrs = href ? ` href="${esc(href)}" target="_blank" rel="noopener"` : "";
     return `<${tag} class="feed-row"${attrs}>
       <div class="meta"><span class="sector">${esc(a.sector || "반도체")}</span></div>
-      <div class="feed-source">${esc(a.source_name || "출처 미상")}<br>${esc(fmt(a.created_at, true))}</div>
       <div class="feed-title">${esc(a.headline || "제목 없음")}</div>
-      <div class="feed-link">원문 보기 →</div>
+      <div class="feed-source">${esc(shortSourceName(a.source_name))} · ${esc(fmt(a.created_at, true))}</div>
     </${tag}>`;
   }
   function summaryRow(a) {
-    const score = Number(a.importance_score || a.importance || 0);
-    const scoreLabel = score ? `<span class="weight">W${score}</span>` : "";
     return `<article class="feed-row summary-feed-row" data-id="${esc(a.id)}" role="button" tabindex="0">
-      <div class="meta"><span class="sector">${esc(a.sector || "반도체")}</span>${scoreLabel}</div>
-      <div class="feed-source">${esc(a.source_name || "출처 미상")}<br>${esc(fmt(a.created_at, true))}</div>
-      <div>
-        <div class="feed-title">${esc(a.headline || "제목 없음")}</div>
-        <div class="feed-summary">${esc(excerpt(a.body, 520, 5))}</div>
-      </div>
-      <div class="feed-link">${sourceLink(a)}</div>
+      <div class="meta"><span class="sector">${esc(a.sector || "반도체")}</span></div>
+      <div class="feed-title">${esc(a.headline || "제목 없음")}</div>
+      <div class="feed-source">${esc(shortSourceName(a.source_name))} · ${esc(fmt(a.created_at, true))}</div>
     </article>`;
   }
   function communityTopTenItem(a, index) {
-    const score = Number(a.community_score || 0);
     const topic = a.topic || a.headline || "반도체 커뮤니티 이슈";
     return `<button class="summary-top10-item community-top10-item" type="button" data-id="${esc(a.id)}" aria-label="${index + 1}위 ${esc(topic)} 자세히 보기">
-      <span class="summary-rank">${index + 1}</span>
-      <span>
-        <span class="summary-item-meta"><span class="score">W${score || "-"}</span>${communityMeta(a)}</span>
+      <span class="summary-rank">${String(index + 1).padStart(2, "0")}</span>
+      <span class="summary-item-body">
+        <span class="summary-item-meta">${communityMeta(a)}</span>
         <h3>${esc(topic)}</h3>
-        <span class="community-post-headline">게시글 · ${esc(a.headline || "제목 없음")}</span>
-        <p>${esc(excerpt(a.body, 420, 5) || "요약을 준비 중입니다.")}</p>
+        <span class="community-post-headline">${esc(a.headline || "제목 없음")}</span>
+        <p>${esc(firstSentence(a.body, 120) || "요약을 준비 중입니다.")}</p>
       </span>
     </button>`;
   }
@@ -255,8 +283,19 @@ import { initAnalytics, setAnalyticsCategory } from "./analytics.js?v=1";
     $("reader-title").textContent = a.headline || "";
     $("reader-date").textContent = `${a.date_is_estimated ? "수집 시각 " : ""}${fmt(a.created_at)}`;
     $("reader-source").innerHTML = sourceLink(a);
-    const topic = a.topic ? `<p><strong>주제</strong><br>${esc(a.topic)}</p>` : "";
-    $("reader-body").innerHTML = topic + para(a.body);
+    const mediaBox = $("reader-media");
+    const imgUrl = safeUrl(a.image_url);
+    if (mediaBox) {
+      if (imgUrl) {
+        mediaBox.innerHTML = `<img src="${esc(imgUrl)}" alt="" loading="lazy" onerror="this.parentElement.hidden=true">`;
+        mediaBox.hidden = false;
+      } else {
+        mediaBox.innerHTML = "";
+        mediaBox.hidden = true;
+      }
+    }
+    const topic = a.topic ? `<p class="reader-topic"><strong>핵심 주제</strong> · ${esc(a.topic)}</p>` : "";
+    $("reader-body").innerHTML = topic + bulletList(a.body);
     $("reader").classList.add("open");
     $("reader").setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
@@ -264,9 +303,10 @@ import { initAnalytics, setAnalyticsCategory } from "./analytics.js?v=1";
   }
   function renderNews() {
     renderFilters();
-    $("daily-summary-container").innerHTML = data.daily_summary
-      ? `${para(data.daily_summary)}<span class="summary-note">중요도 점수 상위 10개 기사 기준</span>`
-      : `<p>오늘의 주요 기사를 정리 중입니다.</p><span class="summary-note">중요도 점수 상위 10개 기사 기준</span>`;
+    const dailySummary = dailySummaryText();
+    $("daily-summary-container").innerHTML = dailySummary
+      ? `<p class="summary-single-line">${esc(dailySummary)}</p><span class="summary-note">중요도 TOP 10 뉴스 기준</span>`
+      : `<p class="summary-single-line">지난 24시간 반도체 상황을 정리 중입니다.</p><span class="summary-note">중요도 TOP 10 뉴스 기준</span>`;
     const rows = sortRows(visibleArticles());
     const summarized = rows.filter((article) => detailedIds.has(article.id));
     const headlineOnly = rows.filter((article) => headlineIds.has(article.id));

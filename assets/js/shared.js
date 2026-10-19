@@ -62,9 +62,65 @@ export function excerpt(value, limit = 150, maxLines = 3) {
 export function para(value) {
   return String(value ?? "")
     .split(/\n{2,}|\n/)
+    .map((line) => line.replace(/^\s*[-*•·]+\s*/, "").trim())
     .filter(Boolean)
     .map((paragraph) => `<p>${esc(paragraph)}</p>`)
     .join("");
+}
+
+export function bulletList(value) {
+  const items = String(value ?? "")
+    .split(/\n+/)
+    .map((line) => line.replace(/^\s*[-*•·]+\s*/, "").trim())
+    .filter(Boolean);
+  if (!items.length) return "";
+  if (items.length === 1) return `<p>${esc(items[0])}</p>`;
+  return `<ul class="reader-bullets">${items.map((item) => `<li>${esc(item)}</li>`).join("")}</ul>`;
+}
+
+export function firstSentence(value, maxChars = 115) {
+  const firstLine = String(value ?? "")
+    .split(/\n+/)
+    .map((line) => line.replace(/^\s*[-*•·]+\s*/, "").trim())
+    .find(Boolean) || "";
+  if (!firstLine) return "";
+  if (firstLine.length <= maxChars) return firstLine;
+  return `${firstLine.slice(0, maxChars).replace(/\s+\S*$/, "").trim()}…`;
+}
+
+export function initTheme() {
+  const root = document.documentElement;
+  const storageKey = "chip-theme";
+
+  function currentTheme() {
+    const saved = localStorage.getItem(storageKey);
+    if (saved === "dark" || saved === "light") return saved;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  }
+
+  function applyTheme(theme) {
+    root.dataset.theme = theme;
+    const btn = document.getElementById("theme-toggle");
+    if (!btn) return;
+    const isDark = theme === "dark";
+    btn.setAttribute("aria-pressed", String(isDark));
+    btn.setAttribute("aria-label", isDark ? "라이트 모드로 전환" : "다크 모드로 전환");
+    btn.innerHTML = isDark
+      ? `<span aria-hidden="true">☀️</span><span>라이트 모드</span>`
+      : `<span aria-hidden="true">🌙</span><span>다크 모드</span>`;
+  }
+
+  applyTheme(currentTheme());
+
+  const btn = document.getElementById("theme-toggle");
+  if (btn && !btn.dataset.bound) {
+    btn.dataset.bound = "true";
+    btn.addEventListener("click", () => {
+      const next = root.dataset.theme === "dark" ? "light" : "dark";
+      localStorage.setItem(storageKey, next);
+      applyTheme(next);
+    });
+  }
 }
 
 export async function loadJson(path) {

@@ -2434,13 +2434,15 @@ def generate_collection_summary(items: list[dict], logs: list[str], kind: str) -
     if not selected:
         return ""
 
-    # One headline per line: para() renders each as its own paragraph, so even
-    # this degraded output reads as a list instead of one run-on line.
-    fallback = "\n".join(
-        f"· {clean_text(item.get('headline', ''))}"
+    headlines = [
+        clean_text(item.get("headline", ""))
         for item in selected
         if item.get("headline")
-    )
+    ]
+    if kind == "daily":
+        fallback = "반도체 주요 이슈가 이어지고 있어요."
+    else:
+        fallback = "\n".join(f"· {headline}" for headline in headlines)
     if not llm_is_configured():
         return fallback
 
@@ -2452,9 +2454,13 @@ def generate_collection_summary(items: list[dict], logs: list[str], kind: str) -
         )
     else:
         instruction = (
-            "The input contains exactly the highest-importance semiconductor articles for today's briefing, "
-            "ordered by importance_score and recency. Summarize all selected articles in Korean in 4-5 concise lines. "
-            "Group overlapping stories, but do not omit a distinct topic. Lead with score-5 items and concrete facts."
+            "Answer the question '지난 24시간, 반도체 상황은?' in Korean with one very short plain sentence. "
+            "Pick only the single most dominant semiconductor situation supported by the selected TOP 10 summaries. "
+            "Do not combine several trends, companies, causes, or consequences into one sentence. "
+            "Write it like a quick spoken answer such as 'D램이 부족해요.' or 'HBM 증설 경쟁이 붙었어요.'. "
+            "Aim for about 10-30 Korean characters, preferably one simple clause ending naturally in '-해요', '-예요', or '-이에요'. "
+            "Avoid commas, semicolons, colons, bullets, headings, rankings, article references, meta commentary, jokes that obscure the fact, "
+            "slang, memes, clickbait, and invented details. Return only that sentence."
         )
 
     prompt_items = [
@@ -2510,6 +2516,15 @@ def generate_collection_summary(items: list[dict], logs: list[str], kind: str) -
             text = choice.get("message", {}).get("content") or ""
             finish_reason = choice.get("finish_reason") or ""
         text = clean_multiline(text)
+        if kind == "daily":
+            text = " ".join(
+                re.sub(r"^\s*[-*•·]+\s*", "", line).strip()
+                for line in text.splitlines()
+                if line.strip()
+            )
+            sentence_end = re.search(r"[.!?。！？]", text)
+            if sentence_end:
+                text = text[: sentence_end.end()].strip()
         if not text:
             logs.append(f"{kind} summary empty (finishReason={finish_reason or 'unknown'})")
             return fallback
@@ -2766,7 +2781,7 @@ def main() -> int:
         limit=None,
         assign_placement=True,
     )
-    attach_daily_images(select_daily_summary_items(detailed_articles), logs)
+    attach_daily_images(detailed_articles, logs)
     community_items, community_sentiment = enrich_community_reactions(community_items, logs)
     logs.append(
         "community top 10: "

@@ -223,14 +223,56 @@ class SummaryFormattingTests(unittest.TestCase):
             collector.summary_cache_key("sk하이닉스 HBM4 양산 시작"),
         )
 
-    def test_daily_summary_fallback_lists_headlines_on_their_own_lines(self):
+    def test_daily_summary_fallback_stays_on_one_line(self):
         items = [
             {"headline": "첫 번째 기사", "body": "요약", "summary_method": "llm", "importance_score": 5},
             {"headline": "두 번째 기사", "body": "요약", "summary_method": "llm", "importance_score": 4},
         ]
         with mock.patch.object(collector, "LLM_BASE_URL", ""):
             summary = collector.generate_collection_summary(items, [], "daily")
-        self.assertEqual(summary.split("\n"), ["· 첫 번째 기사", "· 두 번째 기사"])
+        self.assertEqual(summary, "반도체 주요 이슈가 이어지고 있어요.")
+        self.assertNotIn("\n", summary)
+
+    def test_daily_summary_model_output_is_collapsed_to_one_line(self):
+        items = [
+            {"headline": "HBM 기사", "body": "HBM 수요가 강하다.", "summary_method": "llm", "importance_score": 5},
+        ]
+        response = {
+            "choices": [
+                {
+                    "message": {"content": "· HBM은 여전히 뜨겁고\n공급망은 더 바빠졌습니다."},
+                    "finish_reason": "stop",
+                }
+            ]
+        }
+        with (
+            mock.patch.object(collector, "LLM_BASE_URL", "https://example.test"),
+            mock.patch.object(collector, "LLM_MODEL", "google/gemma-test"),
+            mock.patch.object(collector, "post_json", return_value=response),
+        ):
+            summary = collector.generate_collection_summary(items, [], "daily")
+        self.assertEqual(summary, "HBM은 여전히 뜨겁고 공급망은 더 바빠졌습니다.")
+        self.assertNotIn("\n", summary)
+
+    def test_daily_summary_keeps_only_the_first_sentence(self):
+        items = [
+            {"headline": "D램 기사", "body": "D램 공급이 부족하다.", "summary_method": "llm", "importance_score": 5},
+        ]
+        response = {
+            "choices": [
+                {
+                    "message": {"content": "D램이 부족해요. HBM도 빠듯해요."},
+                    "finish_reason": "stop",
+                }
+            ]
+        }
+        with (
+            mock.patch.object(collector, "LLM_BASE_URL", "https://example.test"),
+            mock.patch.object(collector, "LLM_MODEL", "google/gemma-test"),
+            mock.patch.object(collector, "post_json", return_value=response),
+        ):
+            summary = collector.generate_collection_summary(items, [], "daily")
+        self.assertEqual(summary, "D램이 부족해요.")
 
     def test_daily_top10_prefers_summarized_articles_over_raw_snippets(self):
         items = [

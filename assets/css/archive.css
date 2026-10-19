@@ -6,22 +6,22 @@
 .archive-page .masthead-title {
   display: inline-block;
   font-family: var(--serif);
-  font-size: clamp(3rem, 6.4vw, 4rem);
-  font-weight: 900;
-  line-height: 1;
-  letter-spacing: -.055em;
+  font-size: clamp(2.15rem, 4.3vw, 2.9rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.035em;
 }
 
 .archive-tabs .view-tab {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--ink);
+  color: var(--muted);
   text-decoration: none;
 }
 
 .archive-tabs .view-tab[aria-current="page"] {
-  color: var(--accent);
+  color: var(--ink);
 }
 
 .archive-tabs .view-tab[aria-current="page"]::after {
@@ -30,25 +30,25 @@
 
 .archive-intro,
 .archive-layout {
-  width: min(var(--content), calc(100% - 32px));
+  width: min(var(--content), calc(100% - 40px));
   margin-inline: auto;
 }
 
 .archive-intro {
-  margin-top: 18px;
-  padding: 20px 24px 22px;
-  background: var(--wash);
-  border-top: 1px solid #ececea;
-  border-bottom: 1px solid #ececea;
+  margin-top: 20px;
+  padding: 20px 24px;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 14px;
 }
 
 .archive-intro h1 {
   margin: 0;
-  font-family: var(--serif);
-  font-size: clamp(1.8rem, 3vw, 2.25rem);
+  font-family: var(--sans);
+  font-size: clamp(1.4rem, 2.4vw, 1.75rem);
   font-weight: 700;
-  line-height: 1.25;
-  letter-spacing: -.03em;
+  line-height: 1.3;
+  letter-spacing: -0.025em;
 }
 
 .archive-intro p {
@@ -190,27 +190,29 @@
 
 .archive-summary {
   display: grid;
-  grid-template-columns: minmax(180px, .8fr) minmax(0, 3.2fr);
+  grid-template-columns: minmax(160px, .65fr) minmax(0, 3.35fr);
   gap: 22px;
   margin-top: 18px;
-  padding: 18px 22px;
-  background: var(--wash);
-  border-top: 1px solid #ececea;
-  border-bottom: 1px solid #ececea;
+  padding: 20px 24px;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
 }
 
 .archive-summary h2 {
   margin: 0;
-  font-family: var(--serif);
-  font-size: 20px;
+  font-family: var(--sans);
+  font-size: 16px;
+  font-weight: 700;
   line-height: 1.35;
 }
 
 .archive-summary p {
   margin: 0 0 7px;
-  font-family: var(--serif);
-  font-size: 14px;
-  line-height: 1.75;
+  color: var(--body-ink);
+  font-family: var(--sans);
+  font-size: 14.5px;
+  line-height: 1.7;
 }
 
 .archive-summary p:last-child { margin-bottom: 0; }
