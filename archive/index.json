@@ -1,6 +1,13 @@
 {
-  "updated_at": "2026-11-10T22:30:10+09:00",
+  "updated_at": "2026-11-11T06:16:27+09:00",
   "items": [
+    {
+      "date": "2026-11-11",
+      "generated_at": "2026-11-11T06:16:27+09:00",
+      "file": "archive/2026-11-11.json",
+      "article_count": 105,
+      "top_headline": "AMD EPYC 9006 Results Are Here and AMD Delivers a Knockout Part Deux"
+    },
     {
       "date": "2026-11-10",
       "generated_at": "2026-11-10T22:30:10+09:00",
