@@ -1,28 +1,31 @@
 {
   "schema_version": 13,
-  "generated_at": "2026-11-15T09:13:41+09:00",
+  "generated_at": "2026-11-15T09:45:47+09:00",
   "daily_summary": "젠슨 황 엔비디아 CEO가 사임했어요.",
   "summary_article_ids": [
+    "art-366cc25c4c3b04",
     "art-25bbfcd4434185",
+    "art-c72bfd9edb1133",
     "art-1e84151c5d6463",
     "art-33ef2a29908123",
+    "art-6b97626850339d",
+    "art-91bf2ce6ce14b6",
     "art-d3cf035eb7cf35",
     "art-3ca722866313dd",
     "art-85dd59d2a16ae4",
-    "art-cb1bba1506fe55",
-    "art-3b7448f83fb40c",
     "art-9e967c3501f41c",
     "art-9697c5222a919b",
     "art-6e0f38d077723e",
-    "art-0e16eb814da963",
+    "art-2cf3f16a7ecbd6",
     "art-2c6ea796855c7f",
     "art-0a8801b6e2576d",
     "art-acc9c7f0de4afd",
-    "art-fc0dae190f1a33",
     "art-358cc7294070b3",
     "art-7667d721fd6cb8",
     "art-2b4d4642f587dc",
     "art-3b39697fd4f545",
+    "art-b4d0ee42cd6495",
+    "art-18c81422a21875",
     "art-fbf7d1cfd24d70",
     "art-3c34ec1e9063a6",
     "art-4bcf74bbfeedc2",
@@ -30,8 +33,7 @@
     "art-7e960a45143f4d",
     "art-47dc5d8a63013d",
     "art-a4495ab912aee0",
-    "art-c7790a364420f7",
-    "art-b0e763d19142fc",
+    "art-3170e3fde52168",
     "art-b8a5f3b3cb834a",
     "art-d8784ab92262d3",
     "art-49d3a26f4b1a01",
@@ -41,42 +43,42 @@
     "art-0375f56cee15e5"
   ],
   "headline_article_ids": [
-    "art-366cc25c4c3b04",
-    "art-c72bfd9edb1133",
+    "art-c7790a364420f7",
+    "art-fc0dae190f1a33",
     "art-17647fb27b3f73",
-    "art-9a46184af5640d",
+    "art-cb1bba1506fe55",
     "art-0fd78db586cc09",
     "art-20a4152767c7ff",
     "art-d205ffd2078aaf",
     "art-f3748d343eb51a",
-    "art-a8f3af7d1c6da4",
+    "art-8bb93150e0b2b9",
     "art-0d439383a8118f"
   ],
   "daily_summary_article_ids": [
+    "art-366cc25c4c3b04",
     "art-25bbfcd4434185",
+    "art-c72bfd9edb1133",
     "art-1e84151c5d6463",
     "art-33ef2a29908123",
+    "art-6b97626850339d",
+    "art-91bf2ce6ce14b6",
     "art-d3cf035eb7cf35",
     "art-3ca722866313dd",
-    "art-85dd59d2a16ae4",
-    "art-cb1bba1506fe55",
-    "art-3b7448f83fb40c",
-    "art-9e967c3501f41c",
-    "art-9697c5222a919b"
+    "art-85dd59d2a16ae4"
   ],
-  "community_summary": "엔비디아의 GPU 독점 체제와 이를 대체할 NPU, ASIC 등 AI 가속기 설계 및 시장 변화에 대한 분석이 주를 이룹니다.\n미국의 대중국 수출 규제 논란과 더불어 향후 AI 반도체 시장의 이익 재분배 가능성에 주목하는 반응이 나타납니다.\n엔비디아의 젠슨 황 CEO 사임과 차기 리더십 향방, 그리고 삼성전자 및 SK하이닉스에 미칠 영향이 주요 화두입니다.\n전반적으로 정보 공유 성격이 강하나, 미중 수출 규제와 CUDA의 위기로 인한 주가 전망에는 우려 섞인 반응이 나타납니다.\nARM 기반 기기의 중고 가치 하락에 대한 부정적인 의견과 삼성전자의 D램 및 파운드리 투자 계획에 대한 정보 공유가 주를 이룹니다.\n삼성전자의 HBM4 샘플 출하 전망과 엔비디아 젠슨 황 CEO의 리더십 영향력에 대한 소식이 공유되었습니다.\n주로 뉴스 기사와 외부 인사의 발언을 인용하여 정보를 전달하는 양상을 보입니다.",
-  "community_sentiment": "엔비디아의 GPU 독점 체제와 이를 대체할 NPU, ASIC 등 AI 가속기 설계 및 시장 변화에 대한 분석이 주를 이룹니다.\n미국의 대중국 수출 규제 논란과 더불어 향후 AI 반도체 시장의 이익 재분배 가능성에 주목하는 반응이 나타납니다.\n엔비디아의 젠슨 황 CEO 사임과 차기 리더십 향방, 그리고 삼성전자 및 SK하이닉스에 미칠 영향이 주요 화두입니다.\n전반적으로 정보 공유 성격이 강하나, 미중 수출 규제와 CUDA의 위기로 인한 주가 전망에는 우려 섞인 반응이 나타납니다.\nARM 기반 기기의 중고 가치 하락에 대한 부정적인 의견과 삼성전자의 D램 및 파운드리 투자 계획에 대한 정보 공유가 주를 이룹니다.\n삼성전자의 HBM4 샘플 출하 전망과 엔비디아 젠슨 황 CEO의 리더십 영향력에 대한 소식이 공유되었습니다.\n주로 뉴스 기사와 외부 인사의 발언을 인용하여 정보를 전달하는 양상을 보입니다.",
+  "community_summary": "엔비디아의 GPU 공급 및 CUDA 생태계의 경쟁력, 국산 AI 반도체 투자와 CXL 메모리 기술 등 고부가가치 반도체 주제가 주를 이룹니다.\n대부분 최신 기술 동향과 정부 정책을 전달하는 정보 공유 성격이 강하며, 엔비디아의 시장 지배력에 대해서는 분석적인 시각이 나타납니다.\n엔비디아의 차세대 가속기 공급망과 차기 CEO 거취, AI 하드웨어 시장의 독점 균열 가능성이 주요하게 다뤄졌습니다.\n전반적으로 공급 병목에 대한 우려와 시장 구조 변화 및 리더십 교체 가능성에 대한 분석적인 태도가 나타납니다.\nArm 기반 기기의 중고 가치 하락에 대한 부정적인 경험과 삼성전자의 P4 D램 및 파운드리 투자 계획이 주요 주제로 다뤄졌습니다.\n개인적인 사용 경험에 따른 아쉬움과 기업의 전략적 투자에 대한 중립적인 정보 공유 반응이 나타났습니다.\n삼성전자의 HBM4 샘플 출하 전망과 엔비디아 젠슨 황 CEO의 영향력에 대한 논의가 주를 이룸.\n차세대 메모리 기술 진전과 기업 리더십 리스크에 대해 각각 정보 공유 및 우려 섞인 시각이 나타남.",
+  "community_sentiment": "엔비디아의 GPU 공급 및 CUDA 생태계의 경쟁력, 국산 AI 반도체 투자와 CXL 메모리 기술 등 고부가가치 반도체 주제가 주를 이룹니다.\n대부분 최신 기술 동향과 정부 정책을 전달하는 정보 공유 성격이 강하며, 엔비디아의 시장 지배력에 대해서는 분석적인 시각이 나타납니다.\n엔비디아의 차세대 가속기 공급망과 차기 CEO 거취, AI 하드웨어 시장의 독점 균열 가능성이 주요하게 다뤄졌습니다.\n전반적으로 공급 병목에 대한 우려와 시장 구조 변화 및 리더십 교체 가능성에 대한 분석적인 태도가 나타납니다.\nArm 기반 기기의 중고 가치 하락에 대한 부정적인 경험과 삼성전자의 P4 D램 및 파운드리 투자 계획이 주요 주제로 다뤄졌습니다.\n개인적인 사용 경험에 따른 아쉬움과 기업의 전략적 투자에 대한 중립적인 정보 공유 반응이 나타났습니다.\n삼성전자의 HBM4 샘플 출하 전망과 엔비디아 젠슨 황 CEO의 영향력에 대한 논의가 주를 이룸.\n차세대 메모리 기술 진전과 기업 리더십 리스크에 대해 각각 정보 공유 및 우려 섞인 시각이 나타남.",
   "community_top10_ids": [
-    "art-a3fe7ba8924a71",
-    "art-3eb74a45e914c6",
-    "art-f652682e500528",
-    "art-27b67960f51695",
+    "art-dff76f366fe140",
+    "art-6b239554a9593f",
+    "art-cfab9d9786068e",
+    "art-0a367e0a96e57f",
     "art-1f639b65ae0fe2",
+    "art-848c99ace835e2",
     "art-2b9b4db8d81997",
     "art-6065df182103a5",
-    "art-848c99ace835e2",
-    "art-393e5f9446e03b",
-    "art-e92eb9219ed0d6"
+    "art-a3fe7ba8924a71",
+    "art-27b67960f51695"
   ],
   "briefing_title": "칩 브리핑",
   "sectors": [
@@ -89,25 +91,25 @@
   ],
   "collector": {
     "name": "collect_news.py",
-    "source_count": 46,
-    "candidate_count": 62,
+    "source_count": 48,
+    "candidate_count": 61,
     "community_count": 10,
     "sector_target": 10,
-    "summary_target": 43,
-    "summary_count": 36,
+    "summary_target": 44,
+    "summary_count": 38,
     "headline_count": 10,
     "sector_candidate_counts": {
       "설계": 10,
-      "공정": 9,
+      "공정": 10,
       "소자": 4,
       "패키징": 3,
       "신제품/발표": 7,
-      "실적/투자/정책/인사": 29
+      "실적/투자/정책/인사": 27
     },
     "sector_summary_counts": {
       "설계": 8,
-      "공정": 6,
-      "소자": 2,
+      "공정": 7,
+      "소자": 3,
       "패키징": 3,
       "신제품/발표": 7,
       "실적/투자/정책/인사": 10
@@ -129,10 +131,14 @@
     "health": {
       "status": "degraded",
       "reasons": [
-        "36 of 43 detailed summaries ready"
+        "38 of 44 detailed summaries ready"
       ]
     },
     "logs": [
+      "naver ok: Naver Cafe Search EUV High NA (50)",
+      "naver ok: Naver Cafe Search 2나노 공정 GAA (50)",
+      "naver ok: Naver Cafe Search AI 반도체 ASIC NPU (50)",
+      "naver ok: Naver Cafe Search 삼성전자 파운드리 (50)",
       "naver ok: Naver Cafe Search SK하이닉스 HBM (50)",
       "naver ok: Naver Cafe Search TSMC 패키징 (50)",
       "naver ok: Naver Cafe Search ASML EUV (50)",
@@ -174,30 +180,26 @@
       "reddit skip: REDDIT_DATA_API_APPROVED is not true",
       "x skip: disabled by configuration; Reddit-only community mode",
       "community history dedupe: skipped 26 estimated-date items seen in prior 7 days",
-      "window filter: 117 of 2643 collected news rows inside 24h",
-      "topic dedupe: kept 62/97, dropped 35 duplicate stories",
-      "sector candidates: 설계=10, 공정=9, 소자=4, 패키징=3, 신제품/발표=7, 실적/투자/정책/인사=29",
-      "keyword filter: kept 62/117, dropped 20 zero-score",
-      "cache load: 38 summaries by id, 38 by headline",
-      "llm skip article: 2026년 AI반도체 가치사슬 재편: HBM4·2nm·CPO가 바꾸는 이익 지형 (HTTPError)",
+      "window filter: 114 of 2645 collected news rows inside 24h",
+      "topic dedupe: kept 61/91, dropped 30 duplicate stories",
+      "sector candidates: 설계=10, 공정=10, 소자=4, 패키징=3, 신제품/발표=7, 실적/투자/정책/인사=27",
+      "keyword filter: kept 61/114, dropped 23 zero-score",
+      "cache load: 36 summaries by id, 36 by headline",
       "llm skip article: 'AI 황제' 사라진 엔비디아…'깐부' 한국과 사업 변화 생기나 (HTTPError)",
-      "llm skip article: 피엠티, 삼성전자 점유율 상승에 흑자 전환 기대…수율 개선이 열쇠 (HTTPError)",
+      "llm skip article: [이슈] 반도체 호황 속 엔비디아 수장 교체…국내 산업계 파장은 (HTTPError)",
       "llm skip article: 李대통령도 관심 보인 ‘삼성명장’…현장 전문가 키우는 ‘인재경영’ (HTTPError)",
+      "llm skip article: [인터뷰] \"어포더블\" 박중서 TI코리아 대표, 안정된 공급망 기반 고객 수... (HTTPError)",
       "llm skip article: \"하이닉스 160만원 vs 470만원\"…반도체주 반등에 월가 전망 '극과 극' (HTTPError)",
       "llm skip article: ‘D램 대부’의 경고…“중국 CXMT 증설에 2년 뒤 메모리 넘친다” (HTTPError)",
-      "llm skip article: [반도체포커스] 엔비디아 '베라 루빈' 추가 지연설…내년 HBM 매출 비중 확대 제동 걸릴까 (HTTPError)",
-      "llm skip article: 엔비디아, 3분기 실적 발표 앞두고 시장 촉각… AI 반도체 성장세 다시... (HTTPError)",
-      "llm skip article: 엔비디아 투자자들 \"젠슨 황 복귀 검토해야\"…머스크 등 거물 가세 (HTTPError)",
-      "llm skip article: 젠슨 황 빈자리 메운 콜레트 크레스는 누구인가 (HTTPError)",
-      "detailed summary target: 36/43 (eligible 53)",
+      "detailed summary target: 38/44 (eligible 54)",
       "sector summary 설계: 8/10",
-      "sector summary 공정: 6/9",
-      "sector summary 소자: 2/4",
+      "sector summary 공정: 7/10",
+      "sector summary 소자: 3/4",
       "sector summary 패키징: 3/3",
       "sector summary 신제품/발표: 7/7",
       "sector summary 실적/투자/정책/인사: 10/10",
-      "llm ok: summarized 20 articles, reused 16 cached summaries, attempted 30 candidates",
-      "top10 images: stored 34, no image for 2 (of 36)",
+      "llm ok: summarized 8 articles, reused 30 cached summaries, attempted 14 candidates",
+      "top10 images: stored 36, no image for 2 (of 38)",
       "community photo filter: excluded 5 items",
       "community post skip: clien (no body text)",
       "community post skip: clien (no body text)",
@@ -212,10 +214,45 @@
       "community post skip: clien (no body text)",
       "community post text: 3 of 14 posts read",
       "community reaction summary retry: splitting 4 posts into 2+2 (HTTPError)",
-      "community top 10: 1:5:naver_cafe, 2:5:naver_cafe, 3:5:naver_cafe, 4:5:naver_cafe, 5:4:fmkorea, 6:4:clien, 7:4:clien, 8:3:fmkorea, 9:5:naver_cafe, 10:5:naver_cafe"
+      "community top 10: 1:5:naver_cafe, 2:5:naver_cafe, 3:5:naver_cafe, 4:5:naver_cafe, 5:4:fmkorea, 6:4:fmkorea, 7:4:clien, 8:4:clien, 9:5:naver_cafe, 10:5:naver_cafe"
     ]
   },
   "articles": [
+    {
+      "id": "art-366cc25c4c3b04",
+      "headline": "엔비디아, 3분기 실적 발표 앞두고 시장 촉각… AI 반도체 성장세 다시...",
+      "body": "엔비디아가 현지시간 11월 17일 2027회계연도 3분기 실적을 발표할 예정이다.\nLSEG는 3분기 매출액을 전년 동기 대비 약 90% 증가한 1,090억 달러로 예상했으며, 이는 사측 전망치인 1,080억 달러를 상회하는 수치다.\n이사회는 젠슨 황 퇴진 이후 전 CFO인 콜레트 크레스를 임시 CEO로 선임했다.\n엔비디아 시가총액은 10월 초 약 5조 8,000억 달러에서 11월 12일 기준 약 4조 달러로 감소했다.\nAI 데이터센터 성장세, 고성능 GPU 주문의 매출 전환 여부, HBM 가격 상승에 따른 수익성 유지 여부가 핵심 분석 지표로 꼽힌다.",
+      "sector": "실적/투자/정책/인사",
+      "sector_score": 11,
+      "sector_method": "keyword",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-11-15T08:14:00+09:00",
+      "placement": "top",
+      "source_name": "Naver News Search",
+      "source_url": "https://www.jemin.com/news/articleView.html?idxno=847281",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "실적*3",
+        "영업이익*3(body)",
+        "실적발표*1"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "summary_version": 5,
+      "summary_sector": "실적/투자/정책/인사",
+      "importance_score": 5,
+      "llm_keywords": [
+        "엔비디아",
+        "3분기 실적",
+        "AI 데이터센터",
+        "콜레트 크레스",
+        "GPU"
+      ],
+      "publication_mode": "summary",
+      "image_url": "assets/thumbs/2026-11-15/art-366cc25c4c3b04.jpg"
+    },
     {
       "id": "art-25bbfcd4434185",
       "headline": "젠슨 황 떠나자 경쟁사 움직였다…엔비디아 공급망 주도권 시험대",
@@ -226,7 +263,7 @@
       "category": "news",
       "trust": "medium",
       "created_at": "2026-11-15T07:54:00+09:00",
-      "placement": "top",
+      "placement": "main",
       "source_name": "Naver News Search",
       "source_url": "https://www.pinpointnews.co.kr/news/articleView.html?idxno=504117",
       "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
@@ -239,7 +276,6 @@
       "summary_model": "gemma-4-31b-it",
       "summary_version": 5,
       "summary_sector": "패키징",
-      "importance_score": 5,
       "llm_keywords": [
         "엔비디아",
         "젠슨 황",
@@ -247,8 +283,44 @@
         "TPU",
         "HBM"
       ],
+      "importance_score": 5,
       "publication_mode": "summary",
       "image_url": "assets/thumbs/2026-11-15/art-25bbfcd4434185.jpg"
+    },
+    {
+      "id": "art-c72bfd9edb1133",
+      "headline": "엔비디아 투자자들 \"젠슨 황 복귀 검토해야\"…머스크 등 거물 가세",
+      "body": "알티미터 캐피털과 아트레이데스매니지먼트 등 21억 달러 규모의 지분을 보유한 투자사들이 이사회에 젠슨 황의 복귀 검토를 요청하는 서한을 보냈다.\n일론 머스크, 팀 스위니 등 기술 업계 인사들은 젠슨 황의 부재가 엔비디아의 공급망 관리와 미국 AI 산업 경쟁력에 타격을 줄 수 있다고 주장했다.\n젠슨 황은 중국 정보기관 연계 의혹 여성 및 내부 임원과의 부적절한 관계가 알려지며 지난 12일 CEO 및 이사회 이사직에서 물러났다.\n현재 콜레트 크레스 CFO가 임시 CEO를 맡고 있으며, 엔비디아 이사회는 해당 사안에 대해 독립 조사를 진행 중이다.\n온라인 청원 사이트 '스탠드 위드 젠슨(Stand with Jensen)'에는 젠슨 황의 복귀를 촉구하는 서명자가 10만 8,000명을 넘어섰다.",
+      "sector": "실적/투자/정책/인사",
+      "sector_score": 10,
+      "sector_method": "keyword",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-11-15T07:54:00+09:00",
+      "placement": "main",
+      "source_name": "Naver News Search",
+      "source_url": "https://www.aitimes.com/news/articleView.html?idxno=217413",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "선임*3(body)",
+        "인사*3(body)",
+        "투자*2"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "summary_version": 5,
+      "summary_sector": "실적/투자/정책/인사",
+      "importance_score": 5,
+      "llm_keywords": [
+        "젠슨 황",
+        "엔비디아",
+        "공급망",
+        "경영진 교체",
+        "AI 반도체"
+      ],
+      "publication_mode": "summary",
+      "image_url": "assets/thumbs/2026-11-15/art-c72bfd9edb1133.jpg"
     },
     {
       "id": "art-1e84151c5d6463",
@@ -272,7 +344,6 @@
       "summary_model": "gemma-4-31b-it",
       "summary_version": 5,
       "summary_sector": "소자",
-      "importance_score": 5,
       "llm_keywords": [
         "엔비디아",
         "젠슨 황",
@@ -281,6 +352,7 @@
         "앤트로픽",
         "HBM"
       ],
+      "importance_score": 5,
       "publication_mode": "summary",
       "image_url": "assets/thumbs/2026-11-15/art-1e84151c5d6463.jpg"
     },
@@ -307,7 +379,6 @@
       "summary_model": "gemma-4-31b-it",
       "summary_version": 5,
       "summary_sector": "실적/투자/정책/인사",
-      "importance_score": 5,
       "llm_keywords": [
         "엔비디아",
         "젠슨 황",
@@ -315,8 +386,74 @@
         "HBM",
         "GPU"
       ],
+      "importance_score": 5,
       "publication_mode": "summary",
       "image_url": "assets/thumbs/2026-11-15/art-33ef2a29908123.jpg"
+    },
+    {
+      "id": "art-6b97626850339d",
+      "headline": "[반도체포커스] 엔비디아 '베라 루빈' 추가 지연설…내년 HBM 매출 비중 확대 제동 걸릴까",
+      "body": "엔비디아의 차세대 AI 플랫폼 '베라 루빈'의 출시가 추가로 지연될 수 있다는 설이 제기됨\n베라 루빈 출시 지연 시 내년도 HBM(고대역폭 메모리) 매출 비중 확대 계획에 제동이 걸릴 가능성이 언급됨\n해당 내용은 반도체포커스와 이코노미트리뷴을 통해 보도됨\n구체적인 지연 사유나 변경된 출시 일정에 대해 확인된 세부 내용은 제공된 텍스트에 포함되지 않음\n차세대 플랫폼 지연이 HBM 공급망 및 매출 구조에 미칠 영향에 대해 시장의 우려가 제기됨",
+      "sector": "소자",
+      "sector_score": 6,
+      "sector_method": "keyword",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-11-14T18:38:25+09:00",
+      "placement": "main",
+      "source_name": "Google News RSS",
+      "source_url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE95eldQWjVnRjFhcDBYWjc2anFabkFiSnNRTmhQdnNjTURiYWFycU9ZZjY3NmtqQXlxMDdQRFVvTzZHVUtDOXVoR0pEVS0zbTlFZjRFTkh3dGt6aERScFFWM3FaQ1hkNFh0ekcxLUNXVF9ZRk9UZ1VF?oc=5",
+      "source_note": "Google News search RSS result; original publisher link is retained where available.",
+      "raw_source_type": "rss",
+      "matched_keywords": [
+        "HBM*3"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "summary_version": 5,
+      "summary_sector": "소자",
+      "importance_score": 5,
+      "llm_keywords": [
+        "엔비디아",
+        "베라 루빈",
+        "HBM",
+        "출시 지연"
+      ],
+      "publication_mode": "summary",
+      "image_url": "assets/thumbs/2026-11-15/art-6b97626850339d.jpg"
+    },
+    {
+      "id": "art-91bf2ce6ce14b6",
+      "headline": "엔비디아, 차기 CEO로 Arm 하스 접촉설…이사회 \"공식 접촉 아직 없어\"",
+      "body": "엔비디아가 12일 젠슨 황 CEO의 사임을 발표하고 콜레트 크레스 CFO를 임시 CEO로 선임함\n엔비디아 이사회는 하비 존스를 신임 이사회 의장으로 임명하고 정식 CEO 선임을 위한 외부 헤드헌팅 업체 선정 단계에 진입함\n파이낸셜타임스(FT)는 Arm의 르네 하스 CEO가 후임 후보로 접촉되었다고 보도했으나, 엔비디아 이사회는 공식 접촉 사실을 부인함\n르네 하스 CEO는 2006년부터 2013년까지 엔비디아 컴퓨팅 제품 사업 부문 부사장 겸 총괄책임자를 역임한 이력이 있음\n차기 CEO 후보군으로 내부의 이언 벅 부사장(CUDA 개발 주도)과 외부의 리사 수 AMD CEO 등이 함께 거론됨",
+      "sector": "설계",
+      "sector_score": 4,
+      "sector_method": "keyword",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-11-14T17:04:00+09:00",
+      "placement": "main",
+      "source_name": "Naver News Search",
+      "source_url": "https://www.aitimes.com/news/articleView.html?idxno=217407",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "Arm*2"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "summary_version": 5,
+      "summary_sector": "설계",
+      "importance_score": 5,
+      "llm_keywords": [
+        "엔비디아",
+        "CEO 선임",
+        "르네 하스",
+        "콜레트 크레스",
+        "Arm"
+      ],
+      "publication_mode": "summary",
+      "image_url": "assets/thumbs/2026-11-15/art-91bf2ce6ce14b6.jpg"
     },
     {
       "id": "art-d3cf035eb7cf35",
@@ -328,7 +465,7 @@
       "category": "news",
       "trust": "medium",
       "created_at": "2026-11-14T16:50:00+09:00",
-      "placement": "main",
+      "placement": "side",
       "source_name": "Naver News Search",
       "source_url": "https://www.aitimes.com/news/articleView.html?idxno=217406",
       "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
@@ -363,7 +500,7 @@
       "category": "news",
       "trust": "medium",
       "created_at": "2026-11-14T14:00:00+09:00",
-      "placement": "main",
+      "placement": "side",
       "source_name": "Naver News Search",
       "source_url": "https://www.seoulfn.com/news/articleView.html?idxno=642812",
       "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
@@ -376,7 +513,6 @@
       "summary_model": "gemma-4-31b-it",
       "summary_version": 5,
       "summary_sector": "실적/투자/정책/인사",
-      "importance_score": 5,
       "llm_keywords": [
         "엔비디아",
         "젠슨 황",
@@ -384,6 +520,7 @@
         "AI 반도체",
         "공급망 리스크"
       ],
+      "importance_score": 5,
       "publication_mode": "summary",
       "image_url": "assets/thumbs/2026-11-15/art-3ca722866313dd.jpg"
     },
@@ -397,7 +534,7 @@
       "category": "news",
       "trust": "medium",
       "created_at": "2026-11-14T13:01:00+09:00",
-      "placement": "main",
+      "placement": "side",
       "source_name": "Naver News Search",
       "source_url": "https://www.donga.com/news/Culture/article/all/20261114/135023898/1",
       "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
@@ -419,73 +556,6 @@
       "importance_score": 5,
       "publication_mode": "summary",
       "image_url": "assets/thumbs/2026-11-15/art-85dd59d2a16ae4.jpg"
-    },
-    {
-      "id": "art-cb1bba1506fe55",
-      "headline": "[젠슨 황 스캔들④] 'AI 황제'의 퇴장…'포스트' 엔비디아 시험대",
-      "body": "젠슨 황 엔비디아 CEO가 11월 12일(현지시간) CEO 및 이사직에서 전격 사임했다.\n콜렛 크레스 CFO가 임시 CEO로, 하비 존스 이사가 이사회 의장으로 각각 긴급 선임되었다.\n엔비디아 시가총액은 고점 대비 약 1조 8,000억 달러가 증발하며 약 3조 9,000억 달러 수준으로 하락했다.\n11월 17일 3분기 실적 발표가 예정되어 있으며, LSEG는 매출액을 전년 동기 대비 91% 증가한 1,089억 달러로 전망했다.\n차기 CEO 후보군으로 CUDA 개발을 이끈 이언 벅 부사장과 르네 하스 Arm CEO, 리사 수 AMD CEO 등이 거론되고 있다.",
-      "sector": "실적/투자/정책/인사",
-      "sector_score": 6,
-      "sector_method": "keyword",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-11-14T12:00:00+09:00",
-      "placement": "main",
-      "source_name": "Naver News Search",
-      "source_url": "https://www.newsis.com/view/NISX20261113_0003867164",
-      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "선임*3(body)",
-        "인사*3(body)"
-      ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "summary_version": 5,
-      "summary_sector": "실적/투자/정책/인사",
-      "llm_keywords": [
-        "엔비디아",
-        "젠슨 황",
-        "콜렛 크레스",
-        "AI 반도체",
-        "경영진 교체"
-      ],
-      "importance_score": 5,
-      "publication_mode": "summary",
-      "image_url": "assets/thumbs/2026-11-15/art-cb1bba1506fe55.jpg"
-    },
-    {
-      "id": "art-3b7448f83fb40c",
-      "headline": "[젠슨 황의 두 얼굴, 그 후(2부)] 중국에 공장 둔 삼성·SK도 사정권… ...",
-      "body": "엔비디아 이사회가 젠슨 황 CEO의 즉시 사임을 발표했으며, 이는 중국 정부 요원으로 의심받는 앨리스 황 및 킴벌리 파월 부사장과의 관계 논란에 따른 조치임\n미 의회는 칩 내 위치 확인·추적 기능을 의무화하는 '칩 보안법', 수출 통제를 강화하는 'AI 오버워치법', 동맹국의 대중 장비 수출을 제한하는 'MATCH법'을 추진 중임\nMATCH법은 SMIC, 화웨이, CXMT, YMTC를 명시해 장비 반입 및 유지보수를 금지하며, 일본·네덜란드 등 동맹국에 미국 수준의 통제 적용을 요구함\n미 상무부는 2024년 12월 2일 HBM을 수출통제 품목에 추가하고 해외직접제품규칙(FDPR)을 적용하여 삼성전자와 SK하이닉스 제품을 규제 대상에 포함함\n삼성전자 시안 낸드 및 SK하이닉스 우시·다롄 공장은 검증된 최종사용자(VEU) 지위가 2025년 말 종료됨에 따라 매년 장비 반입 승인을 받아야 하는 상황임",
-      "sector": "설계",
-      "sector_score": 2,
-      "sector_method": "keyword",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-11-14T10:58:00+09:00",
-      "placement": "side",
-      "source_name": "Naver News Search",
-      "source_url": "https://www.the-today.com/news/articleView.html?idxno=93552",
-      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "GPU*2(body)"
-      ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "summary_version": 5,
-      "summary_sector": "설계",
-      "importance_score": 5,
-      "llm_keywords": [
-        "젠슨 황 사임",
-        "MATCH법",
-        "HBM 수출통제",
-        "VEU",
-        "칩 보안법"
-      ],
-      "publication_mode": "summary",
-      "image_url": "assets/thumbs/2026-11-15/art-3b7448f83fb40c.jpg"
     },
     {
       "id": "art-9e967c3501f41c",
@@ -574,7 +644,6 @@
       "summary_model": "gemma-4-31b-it",
       "summary_version": 5,
       "summary_sector": "설계",
-      "importance_score": 5,
       "llm_keywords": [
         "엔비디아",
         "GPU",
@@ -582,42 +651,44 @@
         "AI 인프라",
         "공급망"
       ],
+      "importance_score": 5,
       "publication_mode": "summary",
       "image_url": "assets/thumbs/2026-11-15/art-6e0f38d077723e.jpg"
     },
     {
-      "id": "art-0e16eb814da963",
-      "headline": "세계 최고 AI 기업 엔비디아에 '2인자'가 없었다... 왜?",
-      "body": "젠슨 황 CEO의 퇴진으로 콜렛 크레스 최고재무책임자(CFO)가 임시 CEO로 임명됨\n엔비디아 이사회는 내·외부 인사를 대상으로 차기 정식 CEO를 선임하는 작업에 착수함\n젠슨 황 체제에서 약 60명의 임원이 CEO에게 직접 보고하며 GPU/CPU 아키텍처 및 보상 패키지까지 직접 결정하는 중앙 집중식 구조를 운영함\n매디슨 황, 스펜서 황, 사위 니코 카프레츠 등 가족 구성원이 주요 직책을 맡아 경영에 참여한 가족 중심 권력 구조가 확인됨\n임시 CEO 콜렛 크레스는 전기공학이 아닌 금융 분야 출신으로, 과거 젠슨 황의 공격적 투자와 고객사 금융 지원 전략에 제동을 건 실용주의적 인물로 평가됨",
+      "id": "art-2cf3f16a7ecbd6",
+      "headline": "1조달러의 역설…보호무역주의 강화 속 통상 압박 거세져",
+      "body": "올해 10월 누계 기준 한국의 대미 무역흑자가 사상 처음으로 1,000억 달러를 돌파한 1,022억 달러를 기록함.\n미국의 AI 인프라 투자 확대에 따라 반도체, 데이터센터용 전력기기, 자동차 수출이 폭발적으로 증가함.\n무역수지 불균형 심화로 인해 미국의 무역확장법 232조 발동 및 보편 관세 인상의 타깃이 될 가능성이 제기됨.\n유럽연합(EU)은 하이브리드카 글로벌 세이프가드 도입 검토와 탄소국경조정제도(CBAM), 산업가속화법(IAA) 등 비관세 장벽을 강화함.\n통상 압박 대응 방안으로 미국산 원유 및 셰일가스 수입 확대와 현지 생산 거점 구축을 위한 직접투자(FDI) 전략이 제시됨.",
       "sector": "실적/투자/정책/인사",
-      "sector_score": 6,
+      "sector_score": 8,
       "sector_method": "keyword",
       "category": "news",
       "trust": "medium",
-      "created_at": "2026-11-14T09:01:00+09:00",
+      "created_at": "2026-11-15T08:30:00+09:00",
       "placement": "side",
       "source_name": "Naver News Search",
-      "source_url": "https://zdnet.co.kr/view?no=20261114020337",
+      "source_url": "https://www.mt.co.kr/economy/2026/11/15/2026111308052447495",
       "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
       "raw_source_type": "api",
       "matched_keywords": [
-        "선임*3(body)",
-        "인사*3(body)"
+        "보조금*3(body)",
+        "수출통제*3(body)",
+        "관세*2(body)"
       ],
       "summary_method": "llm",
       "summary_model": "gemma-4-31b-it",
       "summary_version": 5,
       "summary_sector": "실적/투자/정책/인사",
+      "importance_score": 4,
       "llm_keywords": [
-        "엔비디아",
-        "젠슨 황",
-        "콜렛 크레스",
-        "CEO 후계",
-        "경영 구조"
+        "대미 무역흑자",
+        "반도체 수출",
+        "무역확장법 232조",
+        "보호무역주의",
+        "AI 인프라"
       ],
-      "importance_score": 5,
       "publication_mode": "summary",
-      "image_url": "assets/thumbs/2026-11-15/art-0e16eb814da963.jpg"
+      "image_url": "assets/thumbs/2026-11-15/art-2cf3f16a7ecbd6.jpg"
     },
     {
       "id": "art-2c6ea796855c7f",
@@ -641,13 +712,13 @@
       "summary_model": "gemma-4-31b-it",
       "summary_version": 5,
       "summary_sector": "공정",
-      "importance_score": 4,
       "llm_keywords": [
         "삼성전자 파운드리",
         "턴키 전략",
         "미국 빅테크",
         "엔비디아"
       ],
+      "importance_score": 4,
       "publication_mode": "summary",
       "image_url": "assets/thumbs/2026-11-15/art-2c6ea796855c7f.jpg"
     },
@@ -673,12 +744,12 @@
       "summary_model": "gemma-4-31b-it",
       "summary_version": 5,
       "summary_sector": "설계",
-      "importance_score": 4,
       "llm_keywords": [
         "중국 AI",
         "엔비디아",
         "수출 제재"
       ],
+      "importance_score": 4,
       "publication_mode": "summary",
       "image_url": "assets/thumbs/2026-11-15/art-0a8801b6e2576d.jpg"
     },
@@ -704,49 +775,15 @@
       "summary_model": "gemma-4-31b-it",
       "summary_version": 5,
       "summary_sector": "설계",
-      "importance_score": 4,
       "llm_keywords": [
         "엔비디아",
         "GPU 공급 부족",
         "AI 스타트업 투자",
         "시장 조작 의혹"
       ],
-      "publication_mode": "summary",
-      "image_url": "assets/thumbs/2026-11-15/art-acc9c7f0de4afd.jpg"
-    },
-    {
-      "id": "art-fc0dae190f1a33",
-      "headline": "엔비디아 떠난 젠슨 황…美 기술업계가 재창업을 거론하는 이유",
-      "body": "젠슨 황이 약 33년 만에 엔비디아 최고경영자(CEO) 직에서 물러났다.\n엔비디아는 차기 CEO 물색 중이며, 르네 하스 Arm CEO 등이 후임 후보로 거론되고 있다.\n젠슨 황의 순자산 약 1,450억 달러를 기반으로 한 신규 회사 설립 가능성이 기술업계에서 제기되었다.\n젠슨 황은 지인의 중국 정보기관 연계 의혹 및 대중국 수출 규제 완화 주장과 관련해 미 하원에서 증언할 예정이다.\n도널드 트럼프 미국 대통령이 대중국 수출 규제 완화 직전 최대 500만 달러 규모의 엔비디아 주식을 매입한 것으로 나타났다.",
-      "sector": "실적/투자/정책/인사",
-      "sector_score": 6,
-      "sector_method": "keyword",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-11-14T15:17:00+09:00",
-      "placement": "side",
-      "source_name": "Naver News Search",
-      "source_url": "https://www.newsis.com/view/NISX20261114_0003868129",
-      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
-      "raw_source_type": "api",
-      "matched_keywords": [
-        "규제*3(body)",
-        "선임*3(body)"
-      ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "summary_version": 5,
-      "summary_sector": "실적/투자/정책/인사",
-      "llm_keywords": [
-        "젠슨 황",
-        "엔비디아",
-        "CEO 교체",
-        "대중국 수출 규제",
-        "미 하원 증언"
-      ],
       "importance_score": 4,
       "publication_mode": "summary",
-      "image_url": "assets/thumbs/2026-11-15/art-fc0dae190f1a33.jpg"
+      "image_url": "assets/thumbs/2026-11-15/art-acc9c7f0de4afd.jpg"
     },
     {
       "id": "art-358cc7294070b3",
@@ -770,7 +807,6 @@
       "summary_model": "gemma-4-31b-it",
       "summary_version": 5,
       "summary_sector": "신제품/발표",
-      "importance_score": 3,
       "llm_keywords": [
         "HBM",
         "SK하이닉스",
@@ -778,6 +814,7 @@
         "AI 추론",
         "메모리 반도체"
       ],
+      "importance_score": 3,
       "publication_mode": "summary",
       "image_url": "assets/thumbs/2026-11-15/art-358cc7294070b3.jpg"
     },
@@ -838,7 +875,6 @@
       "summary_model": "gemma-4-31b-it",
       "summary_version": 5,
       "summary_sector": "신제품/발표",
-      "importance_score": 3,
       "llm_keywords": [
         "AI 스마트안경",
         "구글 제미나이",
@@ -846,6 +882,7 @@
         "그렙 모니토",
         "VLM"
       ],
+      "importance_score": 3,
       "publication_mode": "summary",
       "image_url": "assets/thumbs/2026-11-15/art-2b4d4642f587dc.jpg"
     },
@@ -875,7 +912,6 @@
       "summary_model": "gemma-4-31b-it",
       "summary_version": 5,
       "summary_sector": "패키징",
-      "importance_score": 3,
       "llm_keywords": [
         "하이쎄미코",
         "프라운호퍼 IPA",
@@ -883,8 +919,73 @@
         "TGV",
         "첨단 패키징 도금장비"
       ],
+      "importance_score": 3,
       "publication_mode": "summary",
       "image_url": "assets/thumbs/2026-11-15/art-3b39697fd4f545.jpg"
+    },
+    {
+      "id": "art-b4d0ee42cd6495",
+      "headline": "AI 반도체 '열과의 전쟁'…칩 속에 미세 물길 뚫는다",
+      "body": "AI 반도체 발열 문제를 해결하기 위해 칩 내부에 미세 물길을 뚫는 냉각 기술이 언급됨\n칩 내부에서 직접 열을 식히는 방식의 기술적 접근법을 다룸\n구체적인 개발 기업이나 적용 제품명은 제공된 텍스트에서 확인되지 않음\n공정 노드, 냉각 효율 수치, 상용화 일정 등 세부 기술 사양은 명시되지 않음\n기사 본문 내용이 부족하여 구체적인 구현 방식 및 파트너십 확인이 제한적임",
+      "sector": "설계",
+      "sector_score": 4,
+      "sector_method": "keyword",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-11-15T09:01:30+09:00",
+      "placement": "side",
+      "source_name": "Google News RSS",
+      "source_url": "https://news.google.com/rss/articles/CBMia0FVX3lxTFBoWmpvOFZkUjZkN1FNNkpqNXBfNU1aZ0V6TmpDQmVZWmF6ZkxXT2Q5UURYc3AzUVJJdG9lS0JJRnZBbWtpTHUzVVNZWkh0SlB4ZzdITmVEVW43OWxXM0t1WW5NN2N0YkZxMkFF0gFvQVVfeXFMUFZoWklSaENPWWJDalAxbmt3VkExNnd2UDdZLUpfQ3d2U0x3bFRYc1NzTEZ4cjc3bHdGUjhNakF2amxMS2swU2FhdjZ1UnBHOHA0WjFWaHBZRUdORGJLLV85NHBuVFRVOEpCYXhNckZR?oc=5",
+      "source_note": "Google News search RSS result; original publisher link is retained where available.",
+      "raw_source_type": "rss",
+      "matched_keywords": [
+        "AI 반도체*2"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "summary_version": 5,
+      "summary_sector": "설계",
+      "importance_score": 2,
+      "llm_keywords": [
+        "AI 반도체",
+        "액체 냉각",
+        "발열 제어"
+      ],
+      "publication_mode": "summary",
+      "image_url": "assets/thumbs/2026-11-15/art-b4d0ee42cd6495.jpg"
+    },
+    {
+      "id": "art-18c81422a21875",
+      "headline": "에이직랜드, 3Q 매출 199% 급증…2분기 연속 영업흑자",
+      "body": "에이직랜드 3분기 연결 매출액 483억원, 영업이익 14억원을 기록하며 전년 동기 대비 매출 199% 증가 및 영업흑자 전환 달성\n사업별 매출은 반도체 개발 356억원(전년 동기 대비 2배 이상 증가), 제품 양산 128억원(약 25배 증가)으로 집계\n올해 1~3분기 누적 매출액 1621억원(전년 동기 대비 248% 증가), 누적 영업이익 64억원, 당기순이익 33억원을 기록하며 흑자 전환\nTSMC 첨단 공정 기반 설계 경험을 활용해 설계, 웨이퍼 생산, 패키징, 테스트 전 과정을 지원하는 ASIC 턴키 서비스 제공\n메모리 컨트롤러 양산 전환을 확대 중이며, 차세대 기업용 SSD(eSSD) 컨트롤러는 2027년부터 양산 시작될 전망",
+      "sector": "실적/투자/정책/인사",
+      "sector_score": 6,
+      "sector_method": "keyword",
+      "category": "news",
+      "trust": "medium",
+      "created_at": "2026-11-15T08:30:00+09:00",
+      "placement": "side",
+      "source_name": "Naver News Search",
+      "source_url": "http://www.hansbiz.co.kr/news/articleView.html?idxno=883319",
+      "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
+      "raw_source_type": "api",
+      "matched_keywords": [
+        "매출*3"
+      ],
+      "summary_method": "llm",
+      "summary_model": "gemma-4-31b-it",
+      "summary_version": 5,
+      "summary_sector": "실적/투자/정책/인사",
+      "importance_score": 2,
+      "llm_keywords": [
+        "에이직랜드",
+        "ASIC",
+        "TSMC",
+        "eSSD 컨트롤러",
+        "턴키 서비스"
+      ],
+      "publication_mode": "summary",
+      "image_url": "assets/thumbs/2026-11-15/art-18c81422a21875.jpg"
     },
     {
       "id": "art-fbf7d1cfd24d70",
@@ -910,7 +1011,6 @@
       "summary_model": "gemma-4-31b-it",
       "summary_version": 5,
       "summary_sector": "신제품/발표",
-      "importance_score": 2,
       "llm_keywords": [
         "CES 2027",
         "LPDDR5X SOCAMM2",
@@ -918,6 +1018,7 @@
         "UFS 5.0",
         "삼성전자"
       ],
+      "importance_score": 2,
       "publication_mode": "summary",
       "image_url": "assets/thumbs/2026-11-15/art-fbf7d1cfd24d70.jpg"
     },
@@ -943,7 +1044,6 @@
       "summary_model": "gemma-4-31b-it",
       "summary_version": 5,
       "summary_sector": "공정",
-      "importance_score": 2,
       "llm_keywords": [
         "삼성전자",
         "평택캠퍼스",
@@ -951,6 +1051,7 @@
         "전력인프라",
         "원자력발전"
       ],
+      "importance_score": 2,
       "publication_mode": "summary"
     },
     {
@@ -975,7 +1076,6 @@
       "summary_model": "gemma-4-31b-it",
       "summary_version": 5,
       "summary_sector": "실적/투자/정책/인사",
-      "importance_score": 2,
       "llm_keywords": [
         "엔비디아",
         "코어위브",
@@ -983,6 +1083,7 @@
         "HBM",
         "코스피"
       ],
+      "importance_score": 2,
       "publication_mode": "summary",
       "image_url": "assets/thumbs/2026-11-15/art-4bcf74bbfeedc2.jpg"
     },
@@ -1009,7 +1110,6 @@
       "summary_model": "gemma-4-31b-it",
       "summary_version": 5,
       "summary_sector": "신제품/발표",
-      "importance_score": 2,
       "llm_keywords": [
         "삼성전자",
         "애플",
@@ -1017,6 +1117,7 @@
         "오스틴",
         "이미지센서"
       ],
+      "importance_score": 2,
       "publication_mode": "summary",
       "image_url": "assets/thumbs/2026-11-15/art-30aef970b0e8d2.jpg"
     },
@@ -1045,7 +1146,6 @@
       "summary_model": "gemma-4-31b-it",
       "summary_version": 5,
       "summary_sector": "실적/투자/정책/인사",
-      "importance_score": 2,
       "llm_keywords": [
         "엔비디아",
         "앤트로픽",
@@ -1053,6 +1153,7 @@
         "AI 공급망",
         "미중 정상회담"
       ],
+      "importance_score": 2,
       "publication_mode": "summary",
       "image_url": "assets/thumbs/2026-11-15/art-7e960a45143f4d.jpg"
     },
@@ -1127,68 +1228,37 @@
       "image_url": "assets/thumbs/2026-11-15/art-a4495ab912aee0.jpg"
     },
     {
-      "id": "art-c7790a364420f7",
-      "headline": "국힘의 한동훈 징계 조작됐다? 언론 \"장동혁 체제 민심 얻겠나\"",
-      "body": "젠슨 황 엔비디아 CEO의 사생활 및 중국 스파이 연루 의혹 제기\n미국의 반도체 수출 통제 및 국내 기업과의 협력 사업에 대한 영향 가능성 우려\n정부는 엔비디아가 약속한 GPU 26만 장 공급에는 문제가 없다는 입장 표명\n엔비디아 지배구조 변경 시 사업 지연 및 계획 변경 가능성 제기\n대중 수출 비중이 높고 중국 내 메모리 생산 시설을 보유한 국내 기업의 변수 영향권 포함",
-      "sector": "실적/투자/정책/인사",
+      "id": "art-3170e3fde52168",
+      "headline": "피엠티, 삼성전자 점유율 상승에 흑자 전환 기대…수율 개선이 열쇠",
+      "body": "2025년 8월 삼성전자 낸드 프로브카드 공급을 재개하고 고객사 내 점유율을 확대하고 있다.\n2027년 삼성전자의 낸드 V8 및 V9 세대 전환에 따른 검사 수요 증가가 예상된다.\n2D MEMS 프로브 핀의 제조 수율 개선을 통해 생산 원가 절감을 추진 중이다.\n2027년 신공장 착공을 통해 고객사 수요 대응을 위한 생산능력 확충을 계획하고 있다.\n낸드 중심에서 DRAM, HBM, CIS용 프로브카드로 제품군을 확대해 신규 시장 진출을 추진하고 있다.",
+      "sector": "공정",
       "sector_score": 6,
       "sector_method": "keyword",
       "category": "news",
       "trust": "medium",
-      "created_at": "2026-11-14T16:27:00+09:00",
+      "created_at": "2026-11-14T17:24:00+09:00",
       "placement": "side",
       "source_name": "Naver News Search",
-      "source_url": "https://www.mediatoday.co.kr/news/articleView.html?idxno=338423",
+      "source_url": "https://www.pinpointnews.co.kr/news/articleView.html?idxno=504075",
       "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
       "raw_source_type": "api",
       "matched_keywords": [
-        "보조금*3(body)",
-        "수출통제*3(body)"
+        "수율*3"
       ],
       "summary_method": "llm",
       "summary_model": "gemma-4-31b-it",
       "summary_version": 5,
-      "summary_sector": "실적/투자/정책/인사",
-      "llm_keywords": [
-        "엔비디아",
-        "젠슨 황",
-        "GPU 공급",
-        "반도체 수출 통제"
-      ],
+      "summary_sector": "공정",
       "importance_score": 2,
-      "publication_mode": "summary",
-      "image_url": "assets/thumbs/2026-11-15/art-c7790a364420f7.jpg"
-    },
-    {
-      "id": "art-b0e763d19142fc",
-      "headline": "마이크로소프트는 인공지능 학습용 게임용 GPU 구매 비용을 지불할 의향이 있다. - Vietnam.vn",
-      "body": "마이크로소프트가 AI 학습 목적으로 게임용 GPU를 구매할 의사가 있음을 밝힘\n구매 대상 제품군은 인공지능 학습에 활용될 게임용 GPU로 명시됨\n해당 내용은 Vietnam.vn을 통해 보도됨\n구체적인 GPU 모델명이나 구매 수량에 대한 세부 사항은 공개되지 않음\n구매 일정 및 투입 예산 등 상세 실행 계획은 확인된 바 없음",
-      "sector": "설계",
-      "sector_score": 4,
-      "sector_method": "keyword",
-      "category": "news",
-      "trust": "medium",
-      "created_at": "2026-11-14T13:51:11+09:00",
-      "placement": "side",
-      "source_name": "Google News RSS",
-      "source_url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNWURwQ0JCT19FdWw5Slc2czFvUnFqalh1Q0IwVHUzYjdPU1JwNjRRQWxYV3dFaG9nY0YzYjRQRVZhajZ0d0pUcEZTSXJOOXI5ajQ3UEcyVFhfNk1lY3BBOVhURzRqb2w2VUZHZUVoVlU2WGlvSHFaZW9SbmY4N2d3aW91VQ?oc=5",
-      "source_note": "Google News search RSS result; original publisher link is retained where available.",
-      "raw_source_type": "rss",
-      "matched_keywords": [
-        "GPU*2"
-      ],
-      "summary_method": "llm",
-      "summary_model": "gemma-4-31b-it",
-      "summary_version": 5,
-      "summary_sector": "설계",
       "llm_keywords": [
-        "마이크로소프트",
-        "게임용 GPU",
-        "AI 학습"
+        "피엠티",
+        "프로브카드",
+        "삼성전자",
+        "낸드",
+        "2D MEMS"
       ],
-      "importance_score": 2,
       "publication_mode": "summary",
-      "image_url": "assets/thumbs/2026-11-15/art-b0e763d19142fc.jpg"
+      "image_url": "assets/thumbs/2026-11-15/art-3170e3fde52168.jpg"
     },
     {
       "id": "art-b8a5f3b3cb834a",
@@ -1245,11 +1315,11 @@
       "summary_model": "gemma-4-31b-it",
       "summary_version": 5,
       "summary_sector": "공정",
-      "importance_score": 1,
       "llm_keywords": [
         "엔비디아",
         "콜레드 크레스"
       ],
+      "importance_score": 1,
       "publication_mode": "summary",
       "image_url": "assets/thumbs/2026-11-15/art-d8784ab92262d3.jpg"
     },
@@ -1275,12 +1345,12 @@
       "summary_model": "gemma-4-31b-it",
       "summary_version": 5,
       "summary_sector": "신제품/발표",
-      "importance_score": 1,
       "llm_keywords": [
         "서울시",
         "AI 행정혁신",
         "일자리박람회"
       ],
+      "importance_score": 1,
       "publication_mode": "summary",
       "image_url": "assets/thumbs/2026-11-15/art-49d3a26f4b1a01.jpg"
     },
@@ -1306,12 +1376,12 @@
       "summary_model": "gemma-4-31b-it",
       "summary_version": 5,
       "summary_sector": "공정",
-      "importance_score": 1,
       "llm_keywords": [
         "젠슨 황",
         "공급망 외교",
         "중국 AI 생태계"
       ],
+      "importance_score": 1,
       "publication_mode": "summary",
       "image_url": "assets/thumbs/2026-11-15/art-eab0652d54a760.jpg"
     },
@@ -1412,48 +1482,46 @@
       "image_url": "assets/thumbs/2026-11-15/art-0375f56cee15e5.jpg"
     },
     {
-      "id": "art-366cc25c4c3b04",
-      "headline": "엔비디아, 3분기 실적 발표 앞두고 시장 촉각… AI 반도체 성장세 다시...",
-      "body": "고성능 AI 서버에는 GPU뿐 아니라 고대역폭메모리( HBM )와 다양한 반도체 부품이 필요하다. 원가 부담이 높아지면 매출이 증가하더라도 영업이익률과 매출총이익률을 유지하기 어려워질 수 있다. 따라서 이번 발표에서는...",
+      "id": "art-c7790a364420f7",
+      "headline": "국힘의 한동훈 징계 조작됐다? 언론 \"장동혁 체제 민심 얻겠나\"",
+      "body": "지역사랑상품권 발행 지원 예산은 지난해 지방정부에 교부한 국고 보조금 일부가 집행되지 않았는데도... 미국의 반도체 수출 통제 와 국내 기업의 협력 사업에 대한 우려가 나왔다. 한국경제는 <결국 물러난 젠슨 황...",
       "sector": "실적/투자/정책/인사",
-      "sector_score": 11,
+      "sector_score": 6,
       "sector_method": "keyword",
       "category": "news",
       "trust": "medium",
-      "created_at": "2026-11-15T08:14:00+09:00",
+      "created_at": "2026-11-14T16:27:00+09:00",
       "placement": "side",
       "source_name": "Naver News Search",
-      "source_url": "https://www.jemin.com/news/articleView.html?idxno=847281",
+      "source_url": "https://www.mediatoday.co.kr/news/articleView.html?idxno=338423",
       "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
       "raw_source_type": "api",
       "matched_keywords": [
-        "실적*3",
-        "영업이익*3(body)",
-        "실적발표*1"
+        "보조금*3(body)",
+        "수출통제*3(body)"
       ],
       "importance_score": 5,
       "publication_mode": "headline",
       "importance_method": "keyword"
     },
     {
-      "id": "art-c72bfd9edb1133",
-      "headline": "엔비디아 투자자들 \"젠슨 황 복귀 검토해야\"…머스크 등 거물 가세",
-      "body": "업계 인사 들을 중심으로 이어지던 움직임이 주주들의 경영진 선임 문제로까지 이어진 셈이다. 기술... 황은 AI 반도체 수요가 급증하는 과정에서 주요 부품 공급사와 고객사 관계를 직접 관리하며 생산 능력...",
+      "id": "art-fc0dae190f1a33",
+      "headline": "엔비디아 떠난 젠슨 황…美 기술업계가 재창업을 거론하는 이유",
+      "body": "(AI) 반도체 수출 규제를 완화해야 한다고 주장해 왔다. 의회에서는 이번 의혹을 계기로 그의 주장을 다시 들여다보고 있다. 백악관 국가안보회의(NSC) 선임 국장을 지낸 필립 라이너 안보기술연구소(IST) CEO는 황 전 CEO가...",
       "sector": "실적/투자/정책/인사",
-      "sector_score": 10,
+      "sector_score": 6,
       "sector_method": "keyword",
       "category": "news",
       "trust": "medium",
-      "created_at": "2026-11-15T07:54:00+09:00",
+      "created_at": "2026-11-14T15:17:00+09:00",
       "placement": "side",
       "source_name": "Naver News Search",
-      "source_url": "https://www.aitimes.com/news/articleView.html?idxno=217413",
+      "source_url": "https://www.newsis.com/view/NISX20261114_0003868129",
       "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
       "raw_source_type": "api",
       "matched_keywords": [
-        "선임*3(body)",
-        "인사*3(body)",
-        "투자*2"
+        "규제*3(body)",
+        "선임*3(body)"
       ],
       "importance_score": 5,
       "publication_mode": "headline",
@@ -1483,18 +1551,18 @@
       "importance_method": "keyword"
     },
     {
-      "id": "art-9a46184af5640d",
-      "headline": "엔비디아, 차기 CEO로 암 러네이 하스 접촉설 부인...“공식 접촉 없어”",
-      "body": "젠슨 황 전 최고경영자(CEO)의 사임으로 후임 수장 물색에 나선 엔비디아가 영국 반도체 설계기업 암(Arm)의... 이사회는 \"사내 인사 든 외부 인사 든 특정 후보에 대한 추측은 시기상조\"라며 \"현재 CEO 선임 을 위한 외부...",
+      "id": "art-cb1bba1506fe55",
+      "headline": "[젠슨 황 스캔들④] 'AI 황제'의 퇴장…'포스트' 엔비디아 시험대",
+      "body": "긴급 선임 한 것도 급작스러운 공백을 메우기 위한 고육지책으로 풀이된다. 이사회는 향후 독립이사들을... 외부 인사 의 경우 기술 변화 속도가 극도로 빠른 AI 반도체 시장에서 엔비디아의 복잡한 하드웨어...",
       "sector": "실적/투자/정책/인사",
       "sector_score": 6,
       "sector_method": "keyword",
       "category": "news",
       "trust": "medium",
-      "created_at": "2026-11-14T08:36:00+09:00",
+      "created_at": "2026-11-14T12:00:00+09:00",
       "placement": "side",
       "source_name": "Naver News Search",
-      "source_url": "https://www.m-economynews.com/news/article.html?no=73036",
+      "source_url": "https://www.newsis.com/view/NISX20261113_0003867164",
       "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
       "raw_source_type": "api",
       "matched_keywords": [
@@ -1595,24 +1663,24 @@
       "importance_method": "keyword"
     },
     {
-      "id": "art-a8f3af7d1c6da4",
-      "headline": "[이 주의 전자수첩] 수장 바뀐 엔비디아, 투자 기조 바뀔까… 삼성·SK 촉...",
-      "body": "삼성전자는 올해 HBM4 양산과 공급 확대에 속도를 낸 데 이어 후속 제품인 HBM4E 개발에도 주력하는 중이다. 엔비디아의 경영진 교체가 실제 공급업체 선정 정책의 변화로 이어질지는 불확실하지만 이후 구매 전략에...",
+      "id": "art-8bb93150e0b2b9",
+      "headline": "[이슈포커스] 젠슨 황 33년 경영 마침표…엔비디아 경영 전환에 삼성·S...",
+      "body": "미국의 대중국 AI 반도체 수출통제 논쟁과 회사 내부의 경영 재편이 맞물리면서 글로벌 AI 반도체 시장에도 불확실성이 커지고 있다. 엔비디아에 고대역폭메모리( HBM )를 공급하는 삼성전자와 SK하이닉스 역시 경영...",
       "sector": "실적/투자/정책/인사",
-      "sector_score": 4,
+      "sector_score": 3,
       "sector_method": "keyword",
       "category": "news",
       "trust": "medium",
-      "created_at": "2026-11-14T09:00:00+09:00",
+      "created_at": "2026-11-15T09:02:00+09:00",
       "placement": "side",
       "source_name": "Naver News Search",
-      "source_url": "http://www.the-biz.co.kr/news/articleView.html?idxno=731342",
+      "source_url": "https://www.thepublic.kr/news/articleView.html?idxno=326636",
       "source_note": "Use official Naver Developers Search API. Store title/link/date/snippet, then summarize with source_url.",
       "raw_source_type": "api",
       "matched_keywords": [
-        "투자*2"
+        "수출통제*3(body)"
       ],
-      "importance_score": 4,
+      "importance_score": 3,
       "publication_mode": "headline",
       "importance_method": "keyword"
     },
@@ -1641,9 +1709,109 @@
   ],
   "community_items": [
     {
-      "id": "art-a3fe7ba8924a71",
-      "headline": "엔비디아 독점 균열과 27–28년 AI 이익 재분배: GPU에서 추론 가속기·....",
-      "body": "2027~2028년경 AI 반도체 시장의 이익 재분배가 본격화될 것이라 주장함.\n엔비디아의 GPU 단일 집중 체제에 균열이 생길 가능성을 분석함.\n추론 가속기로의 전환과 전력 및 인허가 병목 현상을 구체적 요인으로 꼽음.\nAI 하드웨어 시장의 구조적 변화와 이에 따른 수익성 변화를 예측함.\n엔비디아의 독점 지속성에 대해 회의적이며 변화를 전망하는 톤임.",
+      "id": "art-dff76f366fe140",
+      "headline": "(IT뉴스) [261114]모닝 브리핑-엔비디아 GPU·AI 대리결제·국산 AI칩·레드햇 보....",
+      "body": "AI 에이전트 결제 경쟁과 구글의 신규 모델 공개 소식을 전함.\n정부가 국산 온디바이스 AI 반도체 분야에 8,002억 원을 투입함.\n엔비디아 GPU와 구글 제미나이 4 카본 등이 언급됨.\n최신 IT 기술 트렌드와 정부의 반도체 투자 계획을 공유함.\n정보 공유이며 뚜렷한 긍정/부정 반응은 보이지 않음.",
+      "sector": "설계",
+      "sector_score": 6,
+      "sector_method": "keyword",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-11-15T09:16:02+09:00",
+      "source_name": "Naver Cafe · IT Pro 홀인원",
+      "source_url": "https://cafe.naver.com/itpewithciobiz/62201",
+      "source_note": "Official Naver Cafe Search API for practitioner discussion and sentiment tracking.",
+      "raw_source_type": "community",
+      "matched_keywords": [
+        "GPU*2",
+        "AI칩*1"
+      ],
+      "community_origin": "domestic",
+      "community_name": "IT Pro 홀인원",
+      "date_is_estimated": true,
+      "collected_at": "2026-11-15T09:16:02+09:00",
+      "community_score": 5,
+      "priority_reasons": [
+        "설계 주제",
+        "프론티어 기업"
+      ],
+      "topic": "AI 반도체 및 IT 동향",
+      "reaction_summary": "최신 AI 기술 동향과 정부의 반도체 투자 소식을 전달함.",
+      "community_rank": 1,
+      "summary_method": "llm",
+      "summary_version": 5,
+      "llm_image_post": false
+    },
+    {
+      "id": "art-6b239554a9593f",
+      "headline": "[통합 정책·테크 브리핑] 정부 \"엔비디아 GPU 26만 장 한국 공급 이상 무\"… ....",
+      "body": "정부가 엔비디아 GPU 26만 장의 한국 공급에 문제가 없음을 밝힘.\n엔비디아의 NV링크 기술과 국산 NPU의 연계 기술 협력을 추진함.\n국내 팹리스 기업의 NPU 상용화 및 피지컬 AI 생태계 투자를 강화함.\n국가 AI 전략위원회의 정책적 방향과 기술 협력 방안을 다룸.\n정보 공유이며 뚜렷한 긍정/부정 반응은 보이지 않음.",
+      "sector": "설계",
+      "sector_score": 8,
+      "sector_method": "keyword",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-11-15T09:15:45+09:00",
+      "source_name": "Naver Cafe · 발달장애인과 비장애인이 함께 함께하는 아라도담",
+      "source_url": "https://cafe.naver.com/aradodam/1149",
+      "source_note": "Official Naver Cafe Search API for practitioner discussion and sentiment tracking.",
+      "raw_source_type": "community",
+      "matched_keywords": [
+        "NPU*2(body)",
+        "GPU*2",
+        "팹리스*2(body)"
+      ],
+      "community_origin": "domestic",
+      "community_name": "발달장애인과 비장애인이 함께 함께하는 아라도담",
+      "date_is_estimated": true,
+      "collected_at": "2026-11-15T09:15:45+09:00",
+      "community_score": 5,
+      "priority_reasons": [
+        "설계 주제",
+        "프론티어 기업"
+      ],
+      "topic": "엔비디아 GPU 공급 및 NPU 협력",
+      "reaction_summary": "엔비디아 GPU 공급 안정화와 국산 NPU 생태계 강화 방침을 공유함.",
+      "community_rank": 2,
+      "summary_method": "llm",
+      "summary_version": 5,
+      "llm_image_post": false
+    },
+    {
+      "id": "art-cfab9d9786068e",
+      "headline": "젠슨 황이 떠난 엔비디아, CUDA 생태계도 흔들릴까｜위기와 기회 사....",
+      "body": "엔비디아의 핵심 경쟁력이 단순 GPU 성능이 아닌 CUDA 생태계에 있음을 주장함.\nAMD가 더 우수한 GPU를 개발하더라도 생태계 장벽이 존재함을 설명함.\n엔비디아와 AMD의 AI 반도체 시장 경쟁 구도를 분석함.\n젠슨 황의 영향력과 소프트웨어 플랫폼의 중요성을 강조하는 톤임.\n엔비디아의 시장 지배력이 견고할 것이라는 분석적 시각을 보여줌.",
+      "sector": "설계",
+      "sector_score": 2,
+      "sector_method": "keyword",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-11-15T00:00:00+09:00",
+      "source_name": "Naver Cafe · Naver Cafe",
+      "source_url": "https://blog.naver.com/karillon/224477377772",
+      "source_note": "Korean commentary and practitioner notes. Moved to the community pool so it is ranked and summarized with the other community posts, never as newsroom copy.",
+      "raw_source_type": "community",
+      "matched_keywords": [
+        "GPU*2(body)"
+      ],
+      "community_origin": "domestic",
+      "community_name": "Naver Cafe",
+      "community_score": 5,
+      "priority_reasons": [
+        "설계 주제",
+        "프론티어 기업"
+      ],
+      "topic": "엔비디아 CUDA 생태계 경쟁력",
+      "reaction_summary": "CUDA 생태계를 통한 엔비디아의 독보적인 경쟁력을 분석함.",
+      "community_rank": 3,
+      "summary_method": "llm",
+      "summary_version": 5,
+      "llm_image_post": false
+    },
+    {
+      "id": "art-0a367e0a96e57f",
+      "headline": "엔비디아 GPU 공급 차질 여부 확인: 블랙웰·루빈 등 차세대 AI 가속기....",
+      "body": "엔비디아의 블랙웰 및 루빈 등 차세대 AI 가속기의 공급 가능성을 분석함.\nCoWoS 어드밴스드 패키징과 HBM 메모리 수급 상황이 핵심 변수로 작용함.\n엔비디아의 제품군과 패키징 기술, 메모리 공급망을 구체적으로 언급함.\n반도체 공급망의 변동성이 크다는 점을 강조하며 신중한 접근을 권고함.\n정보 공유이며 뚜렷한 긍정/부정 반응은 보이지 않음.",
       "sector": "설계",
       "sector_score": 8,
       "sector_method": "keyword",
@@ -1651,7 +1819,7 @@
       "trust": "low",
       "created_at": "2026-11-15T00:00:00+09:00",
       "source_name": "Naver Cafe · Naver Cafe",
-      "source_url": "https://blog.naver.com/nafrog/224474318923",
+      "source_url": "https://blog.naver.com/issuedecoding/224476793608",
       "source_note": "Korean commentary and practitioner notes. Moved to the community pool so it is ranked and summarized with the other community posts, never as newsroom copy.",
       "raw_source_type": "community",
       "matched_keywords": [
@@ -1665,103 +1833,8 @@
         "설계 주제",
         "프론티어 기업"
       ],
-      "topic": "AI 반도체 시장의 이익 재분배 전망",
-      "reaction_summary": "엔비디아의 GPU 독점이 약화되고 추론 가속기 중심으로 시장이 재편될 것으로 전망함.",
-      "community_rank": 1,
-      "summary_method": "llm",
-      "summary_version": 5,
-      "llm_image_post": false
-    },
-    {
-      "id": "art-3eb74a45e914c6",
-      "headline": "엔비디아 GPU 없이 AI 개발 가능할까? TPU· NPU · ASIC 차이점 총정리",
-      "body": "엔비디아 GPU를 대체할 수 있는 AI 반도체들의 특성을 분석함.\nTPU, NPU, ASIC의 개념과 기술적 차이점을 상세히 설명함.\n엔비디아 GPU의 비효율성을 지적하며 AI 전용 연산 칩의 필요성을 강조함.\n각 반도체 설계 방식의 장단점과 구체적인 적용 사례를 다룸.\n대안 반도체 기술의 가능성에 대해 긍정적이고 탐구적인 톤을 유지함.",
-      "sector": "설계",
-      "sector_score": 12,
-      "sector_method": "keyword",
-      "category": "community",
-      "trust": "low",
-      "created_at": "2026-11-15T00:00:00+09:00",
-      "source_name": "Naver Cafe · Naver Cafe",
-      "source_url": "https://blog.naver.com/ayn365/224477210714",
-      "source_note": "Korean commentary and practitioner notes. Moved to the community pool so it is ranked and summarized with the other community posts, never as newsroom copy.",
-      "raw_source_type": "community",
-      "matched_keywords": [
-        "ASIC*2",
-        "NPU*2",
-        "GPU*2"
-      ],
-      "community_origin": "domestic",
-      "community_name": "Naver Cafe",
-      "community_score": 5,
-      "priority_reasons": [
-        "설계 주제",
-        "프론티어 기업"
-      ],
-      "topic": "AI 가속기(TPU, NPU, ASIC) 비교 분석",
-      "reaction_summary": "엔비디아 GPU의 대안으로 TPU, NPU, ASIC의 기술적 차이와 효율성을 설명함.",
-      "community_rank": 2,
-      "summary_method": "llm",
-      "summary_version": 5,
-      "llm_image_post": false
-    },
-    {
-      "id": "art-f652682e500528",
-      "headline": "엔비디아 GPU 26만 장 한국 공급, 젠슨 황 사퇴에도 약속 유지…정부 ....",
-      "body": "엔비디아가 한국에 GPU 26만 장을 공급하기로 한 약속을 유지한다고 주장함.\n젠슨 황 CEO의 사퇴 소식과 함께 콜레트 크레스 CFO가 임시 CEO로 선임됨.\n엔비디아의 AI 반도체 사업 확대와 글로벌 AI 산업 내 영향력을 언급함.\n구체적으로 GPU 26만 장이라는 공급 규모가 명시됨.\n정보 공유이며 뚜렷한 긍정/부정 반응은 보이지 않음.",
-      "sector": "설계",
-      "sector_score": 4,
-      "sector_method": "keyword",
-      "category": "community",
-      "trust": "low",
-      "created_at": "2026-11-15T00:00:00+09:00",
-      "source_name": "Naver Cafe · Naver Cafe",
-      "source_url": "https://blog.naver.com/easystorybokji/224477270508",
-      "source_note": "Korean commentary and practitioner notes. Moved to the community pool so it is ranked and summarized with the other community posts, never as newsroom copy.",
-      "raw_source_type": "community",
-      "matched_keywords": [
-        "GPU*2"
-      ],
-      "community_origin": "domestic",
-      "community_name": "Naver Cafe",
-      "community_score": 5,
-      "priority_reasons": [
-        "설계 주제",
-        "프론티어 기업"
-      ],
-      "topic": "엔비디아 CEO 교체 및 GPU 공급",
-      "reaction_summary": "엔비디아의 경영진 교체 상황과 한국 내 GPU 공급 유지 소식을 전달함.",
-      "community_rank": 3,
-      "summary_method": "llm",
-      "summary_version": 5,
-      "llm_image_post": false
-    },
-    {
-      "id": "art-27b67960f51695",
-      "headline": "젠슨 황 사임 후 삼성전자 ·SK하이닉스 영향은?｜엔비디아 GPU 26만장 ....",
-      "body": "젠슨 황의 사임이 삼성전자와 SK하이닉스에 미칠 영향을 분석함.\n삼성전자가 엔비디아와 메모리 공급, 파운드리, 첨단 제조기술 분야에서 협력 중임을 밝힘.\n특히 차세대 AI 반도체인 HBM4 분야의 협력 가능성에 주목함.\n엔비디아 GPU 26만 장 공급 이슈와 연계하여 논의함.\n정보 공유이며 뚜렷한 긍정/부정 반응은 보이지 않음.",
-      "sector": "설계",
-      "sector_score": 4,
-      "sector_method": "keyword",
-      "category": "community",
-      "trust": "low",
-      "created_at": "2026-11-15T00:00:00+09:00",
-      "source_name": "Naver Cafe · Naver Cafe",
-      "source_url": "https://blog.naver.com/barabbb/224476716493",
-      "source_note": "Korean commentary and practitioner notes. Moved to the community pool so it is ranked and summarized with the other community posts, never as newsroom copy.",
-      "raw_source_type": "community",
-      "matched_keywords": [
-        "GPU*2"
-      ],
-      "community_origin": "domestic",
-      "community_name": "Naver Cafe",
-      "community_score": 5,
-      "priority_reasons": [
-        "설계 주제",
-        "프론티어 기업"
-      ],
-      "topic": "엔비디아 CEO 사임과 국내 메모리 기업 영향",
-      "reaction_summary": "엔비디아의 리더십 변화가 삼성전자와 SK하이닉스의 HBM 및 파운드리 협력에 미칠 영향을 다룸.",
+      "topic": "엔비디아 차세대 AI 가속기 공급망 분석",
+      "reaction_summary": "엔비디아 차세대 가속기의 수급 변동성과 패키징 및 메모리 병목 현상을 분석함.",
       "community_rank": 4,
       "summary_method": "llm",
       "summary_version": 5,
@@ -1770,13 +1843,13 @@
     {
       "id": "art-1f639b65ae0fe2",
       "headline": "삼성전자 , P4 D램 투자 이달 중 본격화…내년 파운드리 라인 구축 - 주식",
-      "body": "삼성전자의 P4 D램 투자 본격화 및 파운드리 라인 구축 소식을 공유함.\n이달 중 투자가 시작되며 내년 중 파운드리 라인을 구축할 계획임.\n삼성전자, 2나노 공정, 테일러 팹, 삼성물산 등이 언급됨.\n파운드리 사업부의 2나노 공정 자체 모바일 칩 생산 가능성을 시사함.\n정보 공유이며 뚜렷한 긍정/부정 반응은 보이지 않음.",
+      "body": "삼성전자가 P4 D램 투자를 이달 중 본격화한다는 소식을 공유함.\n내년 파운드리 라인 구축 및 2나노 공정 진행 상황을 언급함.\n삼성전자, 삼성물산, 테일러 팹 등의 구체적인 대상이 등장함.\n뉴스 기사 링크를 통해 투자 및 공정 계획 정보를 전달함.\n정보 공유이며 뚜렷한 긍정/부정 반응은 보이지 않음.",
       "sector": "공정",
       "sector_score": 11,
       "sector_method": "keyword",
       "category": "community",
       "trust": "low",
-      "created_at": "2026-11-15T08:31:16+09:00",
+      "created_at": "2026-11-15T09:16:36+09:00",
       "source_name": "FMKorea",
       "source_url": "https://www.fmkorea.com/9131185941",
       "source_note": "Discover public FMKorea links through the official Naver Web Search API because FMKorea disallows generic bots on native search paths.",
@@ -1790,15 +1863,50 @@
       "community_origin": "domestic",
       "community_name": "에펨코리아",
       "date_is_estimated": true,
-      "collected_at": "2026-11-15T08:31:16+09:00",
+      "collected_at": "2026-11-15T09:16:36+09:00",
       "has_image": false,
       "community_score": 4,
       "priority_reasons": [
         "프론티어 기업"
       ],
       "topic": "삼성전자 D램 및 파운드리 투자",
-      "reaction_summary": "삼성전자의 D램 및 파운드리 투자 계획에 대한 정보를 공유함.",
+      "reaction_summary": "삼성전자의 D램 투자 및 파운드리 라인 구축 계획에 대한 정보를 공유함.",
       "community_rank": 5,
+      "summary_method": "llm",
+      "summary_version": 5,
+      "llm_image_post": false
+    },
+    {
+      "id": "art-848c99ace835e2",
+      "headline": "한경 황정수 기자도 삼성 HBM4 이달 CS 출하 전망 - 주식",
+      "body": "삼성전자가 이달 중 HBM4 최종 샘플(CS)을 출하할 것이라는 전망을 공유함.\nHBM4의 로직 다이에 자사 파운드리 4nm 공정을 활용할 계획임.\n공급 물량 확보를 위해 샘플 송부를 추진한다는 구체적 내용이 포함됨.\n삼성전자와 HBM4 제품 및 4nm 공정이 핵심적으로 언급됨.\n정보 공유이며 긍정/부정 반응이 뚜렷하지 않음.",
+      "sector": "공정",
+      "sector_score": 4,
+      "sector_method": "keyword",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-11-15T09:16:31+09:00",
+      "source_name": "FMKorea",
+      "source_url": "https://www.fmkorea.com/8901909427",
+      "source_note": "Discover public FMKorea links through the official Naver Web Search API because FMKorea disallows generic bots on native search paths.",
+      "raw_source_type": "community",
+      "matched_keywords": [
+        "파운드리*3(body)",
+        "공정*1(body)"
+      ],
+      "community_origin": "domestic",
+      "community_name": "에펨코리아",
+      "date_is_estimated": true,
+      "collected_at": "2026-11-15T09:16:31+09:00",
+      "has_image": false,
+      "community_score": 4,
+      "priority_reasons": [
+        "첨단 기술",
+        "구체적 논점"
+      ],
+      "topic": "삼성전자 HBM4 샘플 출하 전망",
+      "reaction_summary": "삼성전자의 HBM4 샘플 출하 및 공정 활용 계획에 대한 정보 공유임.",
+      "community_rank": 6,
       "summary_method": "llm",
       "summary_version": 5,
       "llm_image_post": false
@@ -1806,7 +1914,7 @@
     {
       "id": "art-2b9b4db8d81997",
       "headline": "머스크 '젠슨 황 없는 엔비디아, 공급망 핵심 계약 잃을 것'",
-      "body": "일론 머스크가 젠슨 황의 부재 시 엔비디아가 겪을 위험을 주장함.\n젠슨 황이 없을 경우 공급망의 핵심 계약들을 잃게 될 것이라고 언급함.\n프론티어 기업인 엔비디아와 젠슨 황, 일론 머스크가 언급됨.\n특정 인물의 발언을 인용하여 기업의 리더십 의존도를 시사함.\n외부 인사의 주장을 전달하는 형태의 게시물임.",
+      "body": "일론 머스크가 젠슨 황의 부재 시 엔비디아가 겪을 위험을 주장함.\n젠슨 황이 없을 경우 공급망의 핵심 계약을 잃을 수 있다는 내용임.\n엔비디아와 젠슨 황, 일론 머스크가 언급됨.\n특정 인물의 리더십이 기업 경쟁력에 결정적이라는 시각을 보여줌.\n젠슨 황의 중요성을 강조하는 다소 우려 섞인 톤임.",
       "sector": "실적/투자/정책/인사",
       "sector_score": 2,
       "sector_method": "keyword",
@@ -1827,9 +1935,9 @@
       "priority_reasons": [
         "프론티어 기업"
       ],
-      "topic": "엔비디아 젠슨 황의 리더십 중요성",
-      "reaction_summary": "젠슨 황의 리더십이 엔비디아 공급망 유지에 필수적이라는 주장을 공유함.",
-      "community_rank": 6,
+      "topic": "젠슨 황의 엔비디아 내 영향력",
+      "reaction_summary": "젠슨 황의 리더십이 엔비디아의 공급망 유지에 필수적이라는 주장임.",
+      "community_rank": 7,
       "summary_method": "llm",
       "summary_version": 5,
       "llm_image_post": false
@@ -1837,7 +1945,7 @@
     {
       "id": "art-6065df182103a5",
       "headline": "서피스 프로 arm 버전은 중고가 방어가 잘 안 되네요",
-      "body": "서피스 프로 ARM 버전의 중고 가격 하락에 대해 언급함.\n중고 시장에서 가격 방어가 제대로 이루어지지 않고 있음을 주장함.\n마이크로소프트의 서피스 프로 제품과 Arm 아키텍처 기반 칩을 다룸.\n구체적인 수치는 제시되지 않았으나 가격 하락에 대한 아쉬움을 표함.\n제품의 시장 가치에 대해 부정적인 톤을 보임.",
+      "body": "서피스 프로 Arm 버전의 중고 가격 방어가 어렵다는 주장을 함.\n중고 시장에서의 가치 하락 현상을 직접적으로 언급함.\n마이크로소프트 서피스 프로와 Arm 아키텍처 기반 제품을 다룸.\n구체적인 가격 수치는 제시되지 않았으나 가치 유지 실패에 집중함.\n제품의 경제적 가치 하락에 대해 부정적인 톤을 보임.",
       "sector": "설계",
       "sector_score": 4,
       "sector_method": "keyword",
@@ -1859,98 +1967,30 @@
         "설계 주제",
         "프론티어 기업"
       ],
-      "topic": "서피스 프로 ARM 버전 중고가",
-      "reaction_summary": "ARM 버전 서피스 프로의 낮은 중고가 방어력에 대해 부정적으로 평가함.",
-      "community_rank": 7,
-      "summary_method": "llm",
-      "summary_version": 5,
-      "llm_image_post": false
-    },
-    {
-      "id": "art-848c99ace835e2",
-      "headline": "한경 황정수 기자도 삼성 HBM4 이달 CS 출하 전망 - 주식",
-      "body": "삼성전자가 HBM4의 최종 샘플(CS)을 이달 중 출하할 것이라는 전망을 공유함.\nHBM4의 로직 다이에 자사 파운드리 4nm 공정을 활용할 계획임.\n삼성전자와 HBM4 제품 및 4nm 공정 기술이 구체적으로 언급됨.\n기사 링크를 통해 정보를 전달하는 정보 공유 성격의 게시물임.\n정보 공유이며 뚜렷한 긍정적 또는 부정적 반응은 보이지 않음.",
-      "sector": "공정",
-      "sector_score": 4,
-      "sector_method": "keyword",
-      "category": "community",
-      "trust": "low",
-      "created_at": "2026-11-15T08:31:12+09:00",
-      "source_name": "FMKorea",
-      "source_url": "https://www.fmkorea.com/8901909427",
-      "source_note": "Discover public FMKorea links through the official Naver Web Search API because FMKorea disallows generic bots on native search paths.",
-      "raw_source_type": "community",
-      "matched_keywords": [
-        "파운드리*3(body)",
-        "공정*1(body)"
-      ],
-      "community_origin": "domestic",
-      "community_name": "에펨코리아",
-      "date_is_estimated": true,
-      "collected_at": "2026-11-15T08:31:12+09:00",
-      "has_image": false,
-      "community_score": 3,
-      "priority_reasons": [
-        "첨단 기술",
-        "구체적 논점"
-      ],
-      "topic": "삼성전자 HBM4 샘플 출하 전망",
-      "reaction_summary": "삼성전자의 HBM4 샘플 출하 및 공정 계획에 대한 정보 공유임.",
+      "topic": "Arm 기반 서피스 프로 중고가",
+      "reaction_summary": "ARM 버전 서피스 프로의 낮은 중고가 방어력에 대해 아쉬움을 표함.",
       "community_rank": 8,
       "summary_method": "llm",
       "summary_version": 5,
       "llm_image_post": false
     },
     {
-      "id": "art-393e5f9446e03b",
-      "headline": "젠슨 황 떠난 엔비디아, 차기 CEO로 Arm 르네 하스 거론…공식 접촉은 ....",
-      "body": "젠슨 황의 후임 CEO 후보로 Arm의 르네 하스가 거론되고 있다고 전함.\n현재는 콜레트 크레스 CFO가 임시 CEO 역할을 수행 중임을 명시함.\nArm의 설계 라이선스 모델과 엔비디아의 통합 AI 시스템 모델의 차이점을 설명함.\n엔비디아, Arm이라는 두 프론티어 기업의 사업 구조를 비교함.\n정보 공유이며 뚜렷한 긍정/부정 반응은 보이지 않음.",
+      "id": "art-a3fe7ba8924a71",
+      "headline": "엔비디아 독점 균열과 27–28년 AI 이익 재분배: GPU에서 추론 가속기·....",
+      "body": "2027~2028년경 AI 하드웨어 시장의 이익 재분배가 본격화될 것이라 주장함.\n엔비디아의 독점 구조에 균열이 생기고 추론 가속기 중심으로 시장이 변할 것으로 봄.\n엔비디아와 AI 하드웨어 시장 전반의 전력 및 인허가 병목 문제를 언급함.\n현재의 높은 영업이익 뒤에 숨은 시장의 균열 가능성을 경고하는 톤임.\n엔비디아 단일 집중에서 벗어나 시장 다변화가 일어날 것이라는 비판적 전망을 보임.",
       "sector": "설계",
-      "sector_score": 5,
-      "sector_method": "keyword",
-      "category": "community",
-      "trust": "low",
-      "created_at": "2026-11-15T00:00:00+09:00",
-      "source_name": "Naver Cafe · Naver Cafe",
-      "source_url": "https://blog.naver.com/i-want-it/224477442395",
-      "source_note": "Korean commentary and practitioner notes. Moved to the community pool so it is ranked and summarized with the other community posts, never as newsroom copy.",
-      "raw_source_type": "community",
-      "matched_keywords": [
-        "Arm*2",
-        "설계*1(body)"
-      ],
-      "community_origin": "domestic",
-      "community_name": "Naver Cafe",
-      "community_score": 5,
-      "priority_reasons": [
-        "설계 주제",
-        "프론티어 기업"
-      ],
-      "topic": "엔비디아 차기 CEO 후보 및 Arm과의 비교",
-      "reaction_summary": "엔비디아의 차기 리더십 후보군과 Arm과의 사업 모델 차이를 분석함.",
-      "community_rank": 9,
-      "summary_method": "llm",
-      "summary_version": 5,
-      "llm_image_post": false
-    },
-    {
-      "id": "art-e92eb9219ed0d6",
-      "headline": "엔비디아 주가 전망과 쿠다(CUDA)의 위기, 내 연금저축 나스닥 ETF 이....",
-      "body": "엔비디아의 주가 전망과 소프트웨어 플랫폼인 CUDA의 위기 가능성을 제기함.\n미국 정부의 강력한 칩 수출 통제 조치와 약 10조 원 규모의 영향을 언급함.\n미중 반도체 갈등이 엔비디아의 사업 환경에 미치는 부정적 요인을 분석함.\n나스닥 ETF 리밸런싱과 연금저축 관점에서의 투자 전략을 다룸.\n수출 규제와 CUDA 대체 가능성에 대해 우려 섞인 톤을 보임.",
-      "sector": "실적/투자/정책/인사",
       "sector_score": 8,
       "sector_method": "keyword",
       "category": "community",
       "trust": "low",
       "created_at": "2026-11-15T00:00:00+09:00",
       "source_name": "Naver Cafe · Naver Cafe",
-      "source_url": "https://blog.naver.com/kangdi09/224477555433",
+      "source_url": "https://blog.naver.com/nafrog/224474318923",
       "source_note": "Korean commentary and practitioner notes. Moved to the community pool so it is ranked and summarized with the other community posts, never as newsroom copy.",
       "raw_source_type": "community",
       "matched_keywords": [
-        "수출통제*3(body)",
-        "규제*3(body)",
-        "주가*1"
+        "GPU*2",
+        "가속기*2"
       ],
       "community_origin": "domestic",
       "community_name": "Naver Cafe",
@@ -1959,8 +1999,39 @@
         "설계 주제",
         "프론티어 기업"
       ],
-      "topic": "엔비디아 주가 전망 및 CUDA 위기",
-      "reaction_summary": "미중 수출 규제와 CUDA의 경쟁 상황으로 인한 엔비디아의 주가 하락 가능성을 우려함.",
+      "topic": "AI 하드웨어 시장의 이익 재분배 전망",
+      "reaction_summary": "엔비디아의 독점 체제가 약화되고 AI 이익이 재분배될 것이라는 전망을 제시함.",
+      "community_rank": 9,
+      "summary_method": "llm",
+      "summary_version": 5,
+      "llm_image_post": false
+    },
+    {
+      "id": "art-27b67960f51695",
+      "headline": "젠슨 황 사임 후 삼성전자 ·SK하이닉스 영향은?｜엔비디아 GPU 26만장 ....",
+      "body": "젠슨 황의 사임 가능성이 삼성전자와 SK하이닉스에 미칠 영향을 분석함.\n삼성전자가 엔비디아와 HBM4, 파운드리, 첨단 제조기술 분야에서 협력 중임을 설명함.\n엔비디아, 삼성전자, SK하이닉스 및 HBM4 제품을 구체적으로 언급함.\n차세대 AI 반도체 공급망 내에서의 협력 관계 유지 여부에 주목하는 톤임.\n정보 공유이며 뚜렷한 긍정/부정 반응은 보이지 않음.",
+      "sector": "설계",
+      "sector_score": 4,
+      "sector_method": "keyword",
+      "category": "community",
+      "trust": "low",
+      "created_at": "2026-11-15T00:00:00+09:00",
+      "source_name": "Naver Cafe · Naver Cafe",
+      "source_url": "https://blog.naver.com/barabbb/224476716493",
+      "source_note": "Korean commentary and practitioner notes. Moved to the community pool so it is ranked and summarized with the other community posts, never as newsroom copy.",
+      "raw_source_type": "community",
+      "matched_keywords": [
+        "GPU*2"
+      ],
+      "community_origin": "domestic",
+      "community_name": "Naver Cafe",
+      "community_score": 5,
+      "priority_reasons": [
+        "설계 주제",
+        "프론티어 기업"
+      ],
+      "topic": "젠슨 황 사임 가능성과 국내 메모리 기업 영향",
+      "reaction_summary": "젠슨 황의 거취 변화가 삼성전자와 SK하이닉스의 HBM4 및 파운드리 협력에 미칠 영향을 분석함.",
       "community_rank": 10,
       "summary_method": "llm",
       "summary_version": 5,
