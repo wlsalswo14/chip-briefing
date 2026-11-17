@@ -1,12 +1,12 @@
 {
-  "updated_at": "2026-11-17T10:32:58+09:00",
+  "updated_at": "2026-11-17T12:48:53+09:00",
   "items": [
     {
       "date": "2026-11-17",
-      "generated_at": "2026-11-17T10:32:58+09:00",
+      "generated_at": "2026-11-17T12:48:53+09:00",
       "file": "archive/2026-11-17.json",
-      "article_count": 92,
-      "top_headline": "Reducing High-Bandwidth Flash Latency In GPU Systems (Georgia Tech, Nvidia, Stanford)"
+      "article_count": 85,
+      "top_headline": "미국, 중국의 해외 AI 연산까지 통제…한국 HBM 수요에도 변수"
     },
     {
       "date": "2026-11-16",
