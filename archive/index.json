@@ -1,6 +1,13 @@
 {
-  "updated_at": "2026-11-16T15:18:05+09:00",
+  "updated_at": "2026-11-17T10:32:58+09:00",
   "items": [
+    {
+      "date": "2026-11-17",
+      "generated_at": "2026-11-17T10:32:58+09:00",
+      "file": "archive/2026-11-17.json",
+      "article_count": 92,
+      "top_headline": "Reducing High-Bandwidth Flash Latency In GPU Systems (Georgia Tech, Nvidia, Stanford)"
+    },
     {
       "date": "2026-11-16",
       "generated_at": "2026-11-16T15:18:05+09:00",
